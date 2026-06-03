@@ -1,8 +1,25 @@
 export function HeroSection() {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center px-6 py-20 text-center">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-slate-50">
+    <section className="relative min-h-[85vh] flex flex-col items-center justify-center px-6 py-16 text-center overflow-hidden">
+      {/* Subtle dot grid pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `radial-gradient(circle, var(--primary) 1px, transparent 1px)`,
+          backgroundSize: '24px 24px',
+        }}
+      />
+      
+      {/* Soft radial gradient glow */}
+      <div 
+        className="absolute inset-0 opacity-[0.08]"
+        style={{
+          background: `radial-gradient(ellipse 60% 50% at 50% 40%, var(--primary), transparent)`,
+        }}
+      />
+      
+      <div className="relative z-10 max-w-4xl mx-auto space-y-6">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-50">
           Karthik Orugonda
         </h1>
         
@@ -10,13 +27,13 @@ export function HeroSection() {
           Senior Platform Engineer and SRE
         </h2>
         
-        <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty pt-4">
+        <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-7 md:leading-8 text-pretty pt-4">
           Senior Platform Engineer with 10+ years building cloud-native platforms and internal 
           developer tooling across AWS, Azure and GCP. Specialized in Kubernetes-based IDPs, 
           Terraform-driven self-service infrastructure, and GitOps-driven CI/CD.
         </p>
         
-        <div className="pt-8">
+        <div className="pt-6">
           <a
             href="#expertise"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
