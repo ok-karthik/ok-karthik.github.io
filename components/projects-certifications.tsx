@@ -1,6 +1,14 @@
 const certifications = [
-  { name: "CKA", fullName: "Certified Kubernetes Administrator" },
-  { name: "CKAD", fullName: "Certified Kubernetes Application Developer" },
+  {
+    name: "CKA",
+    fullName: "Certified Kubernetes Administrator",
+    badge: "/logo_cka_whitetext.png",
+  },
+  {
+    name: "CKAD",
+    fullName: "Certified Kubernetes Application Developer",
+    badge: "/kubernetes-ckad-color.png",
+  },
 ]
 
 const projects = [
@@ -57,11 +65,9 @@ export function ProjectsCertifications() {
                 >
                   <div className="flex items-center gap-4">
                     <img
-                      src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg"
-                      alt="Kubernetes logo"
-                      width={32}
-                      height={32}
-                      className="w-8 h-8 shrink-0"
+                      src={cert.badge}
+                      alt={`${cert.name} Badge`}
+                      className="h-10 w-auto shrink-0 object-contain"
                     />
                     <div>
                       <span className="font-mono text-xl font-bold text-primary">{cert.name}</span>
