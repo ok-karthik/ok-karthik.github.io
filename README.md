@@ -1,4 +1,4 @@
-# ok-karthik.github.io-3a
+# ok-karthik.github.io
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
 
