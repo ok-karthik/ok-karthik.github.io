@@ -59,14 +59,16 @@ export function ExperienceSection() {
                          transition-all duration-300 hover:border-primary/50 
                          hover:shadow-[0_0_20px_rgba(34,211,238,0.15)]"
             >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-4">
+              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-4">
                 <div>
-                  <h3 className="text-lg font-semibold text-foreground">{exp.title}</h3>
-                  <p className="text-primary font-medium">{exp.company}</p>
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h3 className="text-lg font-semibold text-foreground">{exp.title}</h3>
+                    <span className="font-mono text-sm text-muted-foreground">
+                      {exp.period}
+                    </span>
+                  </div>
+                  <p className="text-primary font-medium mt-1">{exp.company}</p>
                 </div>
-                <span className="font-mono text-sm text-muted-foreground shrink-0">
-                  {exp.period}
-                </span>
               </div>
 
               <ul className="space-y-2 mb-4">
