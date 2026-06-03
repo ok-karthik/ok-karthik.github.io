@@ -1,14 +1,6 @@
 const certifications = [
-  { 
-    name: "CKA", 
-    fullName: "Certified Kubernetes Administrator",
-    badge: "https://training.linuxfoundation.org/wp-content/uploads/2018/06/logo_cka_whitetext.png"
-  },
-  { 
-    name: "CKAD", 
-    fullName: "Certified Kubernetes Application Developer",
-    badge: "https://training.linuxfoundation.org/wp-content/uploads/2019/03/kubernetes-ckad-color.png"
-  },
+  { name: "CKA", fullName: "Certified Kubernetes Administrator" },
+  { name: "CKAD", fullName: "Certified Kubernetes Application Developer" },
 ]
 
 const projects = [
@@ -65,10 +57,11 @@ export function ProjectsCertifications() {
                 >
                   <div className="flex items-center gap-4">
                     <img
-                      src={cert.badge}
-                      alt={`${cert.name} Badge`}
-                      className="h-10 w-auto"
-                      crossOrigin="anonymous"
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg"
+                      alt="Kubernetes logo"
+                      width={32}
+                      height={32}
+                      className="w-8 h-8 shrink-0"
                     />
                     <div>
                       <span className="font-mono text-xl font-bold text-primary">{cert.name}</span>
