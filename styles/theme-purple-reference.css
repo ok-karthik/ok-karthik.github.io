@@ -1,0 +1,56 @@
+/*
+ * Deep Purple Gradient Theme - Reference Backup
+ * Original theme before switching to Midnight Navy/Charcoal Slate
+ * 
+ * To restore this theme:
+ * 1. Copy the :root variables below into globals.css
+ * 2. Update layout.tsx body background to use the gradient
+ */
+
+:root {
+  /* Background: Deep purple gradient base */
+  --background: #0f0c29;
+  --foreground: #e4e4e7;
+  
+  /* Card: Semi-transparent purple */
+  --card: rgba(30, 27, 75, 0.6);
+  --card-foreground: #e4e4e7;
+  
+  /* Popover: Solid deep purple */
+  --popover: #1e1b4b;
+  --popover-foreground: #e4e4e7;
+  
+  /* Primary: Neon cyan accent */
+  --primary: #22d3ee;
+  --primary-foreground: #0f0c29;
+  
+  /* Secondary: Mid-tone purple */
+  --secondary: #302b63;
+  --secondary-foreground: #e4e4e7;
+  
+  /* Muted: Mid-tone purple for subtle elements */
+  --muted: #302b63;
+  --muted-foreground: #a1a1aa;
+  
+  /* Accent: Neon cyan */
+  --accent: #22d3ee;
+  --accent-foreground: #0f0c29;
+  
+  /* Border: Subtle cyan glow */
+  --border: rgba(34, 211, 238, 0.2);
+  --input: rgba(34, 211, 238, 0.2);
+  --ring: #22d3ee;
+  
+  /* Custom property for neon glow effect */
+  --neon-glow: 0 0 20px rgba(34, 211, 238, 0.5), 0 0 40px rgba(34, 211, 238, 0.3);
+}
+
+/* 
+ * Body gradient background for layout.tsx:
+ * className="bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e]"
+ * 
+ * Gradient stops:
+ * - from: #0f0c29 (deep indigo/purple)
+ * - via: #302b63 (mid purple)
+ * - to: #24243e (dark purple-gray)
+ */
