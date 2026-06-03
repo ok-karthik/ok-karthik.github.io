@@ -140,12 +140,9 @@ export function TechnicalExpertise() {
   return (
     <section id="expertise" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
           Technical Expertise
         </h2>
-        <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-          A comprehensive toolkit for building and operating cloud-native platforms at scale
-        </p>
         
         <div className="space-y-10">
           {categories.map((category) => (
