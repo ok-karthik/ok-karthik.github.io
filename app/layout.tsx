@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description: 'Senior Platform Engineer with 10+ years building cloud-native platforms and internal developer tooling across AWS, Azure and GCP. Specialized in Kubernetes-based IDPs, Terraform-driven self-service infrastructure, and GitOps-driven CI/CD.',
   icons: {
     icon: '/favicon.svg',
-    apple: '/favicon.svg',
+    apple: '/apple-touch-icon.png',
   },
 }
 
