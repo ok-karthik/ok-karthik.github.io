@@ -51,7 +51,7 @@ const categories: Category[] = [
     title: "IaC & GitOps",
     skills: [
       { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" },
-      { name: "Terragrunt", lucideIcon: Blocks },
+      { name: "Terragrunt", icon: "/terragrunt.svg" },
       { name: "Crossplane", lucideIcon: Plane },
       { name: "ArgoCD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg" },
       { name: "Argo Rollouts", lucideIcon: RefreshCw },
@@ -72,6 +72,8 @@ const categories: Category[] = [
     skills: [
       { name: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg" },
       { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg" },
+      { name: "Loki", icon: "/loki.svg" },
+      { name: "Tempo", icon: "/tempo.svg" },
       { name: "Dynatrace (AIOps / Davis AI)", icon: "https://cdn.simpleicons.org/dynatrace" },
       { name: "New Relic", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/newrelic.svg" },
       { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg" },
@@ -150,7 +152,7 @@ export function TechnicalExpertise() {
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground"
         >
-          Technical Expertise
+          Technical Arsenal
         </motion.h2>
         
         <div className="space-y-10">

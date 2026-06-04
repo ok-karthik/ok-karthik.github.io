@@ -36,7 +36,13 @@ export function DevOpsTerminal() {
 
   // Handle auto-scrolling
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+    const container = bottomRef.current?.closest('.overflow-y-auto')
+    if (container) {
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: "smooth"
+      })
+    }
   }, [history, input, typedBootCmd])
 
   // Handle auto-focus on click
@@ -169,7 +175,7 @@ export function DevOpsTerminal() {
       </div>
 
       {/* Terminal Content Body */}
-      <div className="p-5 min-h-[300px] max-h-[350px] overflow-y-auto space-y-1.5 scrollbar-thin scrollbar-thumb-white/10">
+      <div className="p-5 h-[350px] overflow-y-auto space-y-1.5 scrollbar-thin scrollbar-thumb-white/10">
         {history.map((line) => (
           <div
             key={line.id}

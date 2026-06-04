@@ -101,7 +101,7 @@ export function ConnectSection() {
         </div>
 
         <p className="mt-16 text-sm text-muted-foreground font-mono">
-          © {new Date().getFullYear()} Karthik Orugonda. Built with Next.js.
+          © {new Date().getFullYear()} Karthik Orugonda. Built with React & Next.js.
         </p>
       </div>
     </section>

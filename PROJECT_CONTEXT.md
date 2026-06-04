@@ -21,7 +21,7 @@ The primary objective is to showcase deep technical expertise through a highly p
 - **`app/layout.tsx`**: Implements the `ThemeProvider` and injects the global interactive background (`<NeuralMesh />`).
 - **`<NeuralMesh />`**: An interactive, custom HTML5 Canvas particle system running in the background. Nodes connect to each other and the user's mouse pointer via calculated distance thresholds.
 - **`<DevOpsTerminal />`**: A functional, simulated Linux terminal block in the hero section that allows recruiters/managers to input shell commands to fetch details.
-- **`<ExperienceSection />` & `<TechnicalExpertise />`**: Showcase career history and tech stack using `<motion.div>` for scroll-driven entry animations.
+- **`<ExperienceSection />` & `<TechnicalExpertise />` (Section: "Technical Arsenal")**: Showcase career history and tech stack using `<motion.div>` for scroll-driven entry animations. Custom SVG icons (e.g., Terragrunt, Loki, Tempo) are stored in `public/` for reliable rendering across color modes.
 
 ## Development Rules
 1. Maintain support for both Light and Dark modes. Ensure contrast ratios remain readable.
