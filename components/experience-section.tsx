@@ -1,99 +1,127 @@
+"use client"
+
+import { motion } from "framer-motion"
+
 const experiences = [
   {
     title: "Staff SRE and Platform Engineer",
     company: "Aldi Süd",
     period: "Dec 2022 – Present",
-    tags: ["Azure", "AWS", "AKS", "Terraform"],
-    description:
-      "Contributed to internal developer platform, developed Helm library charts, and established observability using OpenTelemetry and Dynatrace.",
+    tags: ["Azure", "AKS", "Terraform", "Dynatrace", "ArgoCD"],
+    bullets: [
+      "Architected and scaled a Kubernetes-based Internal Developer Platform, standardizing deployments across multiple engineering teams.",
+      "Established AIOps-driven observability and SLO frameworks, significantly reducing MTTR and false positives.",
+    ],
   },
   {
     title: "Technical Lead - DevOps, Cloud & Platform",
     company: "Rakuten",
     period: "May 2018 – Nov 2022",
-    tags: ["Azure", "GCP", "Kubernetes"],
-    description:
-      "Led multi-cloud migration initiatives and operated multi-tenant Kubernetes platforms serving 400+ engineers.",
+    tags: ["Kubernetes", "GCP", "Helm", "Istio", "Prometheus"],
+    bullets: [
+      "Spearheaded multi-cloud Kubernetes migrations, modernizing legacy architectures to serve 400+ engineers.",
+      "Engineered resilient GitOps CI/CD pipelines, enabling automated canary and blue-green deployments.",
+    ],
   },
   {
     title: "IT Operations Lead & DevOps Engineer",
     company: "Hewlett Packard Enterprise",
     period: "Sep 2015 – Apr 2018",
-    tags: [],
-    description: "",
+    tags: ["Linux", "Automation", "Incident Management"],
+    bullets: [
+      "Led a 25-member production operations team for high-traffic, enterprise e-commerce platforms.",
+      "Automated legacy release pipelines and infrastructure provisioning workflows.",
+    ],
   },
   {
     title: "Senior Software Engineer",
     company: "Tech Mahindra",
     period: "Dec 2010 – Aug 2015",
-    tags: [],
-    description: "",
+    tags: ["Linux", "Java", "WebLogic"],
+    bullets: [
+      "Engineered and supported critical backend payment gateway systems.",
+    ],
   },
 ]
 
 export function ExperienceSection() {
   return (
-    <section className="py-20 px-6 bg-secondary/20">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
+    <section id="experience" className="py-20 px-6 bg-secondary/20 overflow-hidden">
+      <div className="max-w-5xl mx-auto">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground"
+        >
           Experience
-        </h2>
-        <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
+        >
           A decade of building resilient infrastructure and empowering engineering teams
-        </p>
+        </motion.p>
 
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-px" />
-
-          <div className="space-y-8 md:space-y-12">
-            {experiences.map((exp, index) => (
-              <div
-                key={exp.company}
-                className={`relative flex flex-col md:flex-row gap-4 md:gap-8 ${
-                  index % 2 === 0 ? "md:flex-row-reverse" : ""
-                }`}
-              >
-                {/* Timeline dot */}
-                <div className="absolute left-0 md:left-1/2 w-3 h-3 bg-primary rounded-full -translate-x-1 md:-translate-x-1.5 mt-2 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
-
-                {/* Content card */}
-                <div
-                  className={`ml-6 md:ml-0 md:w-1/2 ${
-                    index % 2 === 0 ? "md:pr-12" : "md:pl-12"
-                  }`}
-                >
-                  <div className="bg-card backdrop-blur-sm border border-border rounded-lg p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.15)]">
-                    <span className="font-mono text-xs text-primary">{exp.period}</span>
-                    <h3 className="text-lg font-semibold text-foreground mt-1">{exp.title}</h3>
-                    <p className="text-muted-foreground font-medium">{exp.company}</p>
-                    
-                    {exp.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-3">
-                        {exp.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="font-mono text-xs px-2 py-1 rounded bg-secondary/50 text-muted-foreground border border-border"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    
-                    {exp.description && (
-                      <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-                        {exp.description}
-                      </p>
-                    )}
+        <div className="grid gap-6 relative">
+          {/* Subtle timeline line for desktop */}
+          <div className="hidden md:block absolute left-0 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-primary/20 to-transparent z-0" />
+          
+          {experiences.map((exp, index) => (
+            <motion.div
+              key={exp.company}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-card backdrop-blur-sm border border-border rounded-lg p-6 
+                         transition-all duration-300 hover:border-primary/50 
+                         hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] relative z-10 md:ml-6"
+            >
+              {/* Timeline dot */}
+              <div className="hidden md:block absolute -left-[29px] top-6 w-3 h-3 rounded-full bg-primary/30 border border-primary z-20" />
+              
+              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-4">
+                <div>
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h3 className="text-lg font-semibold text-foreground">{exp.title}</h3>
+                    <span className="font-mono text-sm text-muted-foreground">
+                      {exp.period}
+                    </span>
                   </div>
+                  <p className="text-primary font-medium mt-1">{exp.company}</p>
                 </div>
-
-                {/* Spacer for alternating layout */}
-                <div className="hidden md:block md:w-1/2" />
               </div>
-            ))}
-          </div>
+
+              <ul className="space-y-2 mb-4">
+                {exp.bullets.map((bullet, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed">
+                    <span className="text-primary mt-1.5 shrink-0">
+                      <svg width="6" height="6" viewBox="0 0 6 6" fill="currentColor">
+                        <circle cx="3" cy="3" r="3" />
+                      </svg>
+                    </span>
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex flex-wrap gap-2">
+                {exp.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="font-mono text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

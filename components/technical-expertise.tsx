@@ -1,3 +1,5 @@
+"use client"
+
 import { 
   Zap, 
   Layers, 
@@ -12,6 +14,7 @@ import {
   Blocks,
   ShieldBan
 } from "lucide-react"
+import { motion } from "framer-motion"
 
 type Skill = {
   name: string
@@ -109,13 +112,13 @@ function SkillCard({ skill }: { skill: Skill }) {
 
   return (
     <div
-      className="group relative bg-card backdrop-blur-sm border border-border rounded-lg p-4 
-                 flex flex-col items-center gap-3 
+      className="group relative bg-card backdrop-blur-sm border border-border rounded-lg p-3 
+                 flex flex-col items-center gap-2 
                  transition-all duration-300 ease-out
                  hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.3),0_0_40px_rgba(34,211,238,0.15)]
                  hover:-translate-y-1"
     >
-      <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-white p-2">
+      <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-white p-1.5">
         {LucideIcon ? (
           <LucideIcon className="w-7 h-7 text-slate-700 transition-transform duration-300 group-hover:scale-110" />
         ) : (
@@ -138,18 +141,27 @@ function SkillCard({ skill }: { skill: Skill }) {
 
 export function TechnicalExpertise() {
   return (
-    <section id="expertise" className="py-20 px-6">
+    <section id="expertise" className="py-20 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground"
+        >
           Technical Expertise
-        </h2>
-        <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-          A comprehensive toolkit for building and operating cloud-native platforms at scale
-        </p>
+        </motion.h2>
         
         <div className="space-y-10">
-          {categories.map((category) => (
-            <div key={category.title}>
+          {categories.map((category, index) => (
+            <motion.div 
+              key={category.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
               <h3 className="text-lg font-semibold text-primary mb-4 font-mono">
                 {category.title}
               </h3>
@@ -158,7 +170,7 @@ export function TechnicalExpertise() {
                   <SkillCard key={skill.name} skill={skill} />
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

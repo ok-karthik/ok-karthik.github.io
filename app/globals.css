@@ -3,28 +3,27 @@
 @import '@fontsource/fira-code/400.css';
 @import '@fontsource/fira-code/500.css';
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --background: #0b0f17;
-  --foreground: #f1f5f9;
-  --card: rgba(15, 23, 42, 0.8);
-  --card-foreground: #f1f5f9;
-  --popover: #0f172a;
-  --popover-foreground: #f1f5f9;
-  --primary: #22d3ee;
-  --primary-foreground: #0b0f17;
-  --secondary: #1e293b;
-  --secondary-foreground: #f1f5f9;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #22d3ee;
-  --accent-foreground: #0b0f17;
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: rgba(34, 211, 238, 0.15);
-  --input: rgba(34, 211, 238, 0.15);
-  --ring: #22d3ee;
+html:not(.dark) {
+  /* Light Mode Theme */
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: rgba(255, 255, 255, 0.75);
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #0284c7;
+  --primary-foreground: #ffffff;
+  --secondary: #e2e8f0;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #475569;
+  --accent: #0284c7;
+  --accent-foreground: #ffffff;
+  --border: rgba(2, 132, 199, 0.15);
+  --input: rgba(2, 132, 199, 0.15);
+  --ring: #0284c7;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -39,7 +38,30 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --neon-glow: 0 0 20px rgba(34, 211, 238, 0.5), 0 0 40px rgba(34, 211, 238, 0.3);
+  --neon-glow: 0 0 20px rgba(2, 132, 199, 0.25);
+}
+
+html.dark {
+  /* Premium Dark Purple Theme */
+  --background: #090714;
+  --foreground: #f8fafc;
+  --card: rgba(22, 16, 45, 0.65);
+  --card-foreground: #f8fafc;
+  --popover: #0f0a24;
+  --popover-foreground: #f8fafc;
+  --primary: #00ffe7;
+  --primary-foreground: #090714;
+  --secondary: #24184c;
+  --secondary-foreground: #f8fafc;
+  --muted: #181135;
+  --muted-foreground: #94a3b8;
+  --accent: #00ffe7;
+  --accent-foreground: #090714;
+  --border: rgba(0, 255, 231, 0.12);
+  --input: rgba(0, 255, 231, 0.12);
+  --ring: #00ffe7;
+  --radius: 0.625rem;
+  --neon-glow: 0 0 20px rgba(0, 255, 231, 0.5), 0 0 40px rgba(0, 255, 231, 0.3);
 }
 
 @theme inline {
@@ -81,6 +103,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --shadow-neon: var(--neon-glow);
 }
 
 @layer base {
@@ -89,5 +112,13 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@utility glow-card-hover {
+  transition: all 0.3s ease-out;
+  &:hover {
+    border-color: var(--primary) !important;
+    box-shadow: var(--neon-glow) !important;
   }
 }

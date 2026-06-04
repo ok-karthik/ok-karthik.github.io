@@ -1,6 +1,14 @@
 const certifications = [
-  { name: "CKA", fullName: "Certified Kubernetes Administrator" },
-  { name: "CKAD", fullName: "Certified Kubernetes Application Developer" },
+  {
+    name: "CKA",
+    fullName: "Certified Kubernetes Administrator",
+    badge: "/logo_cka_whitetext.png",
+  },
+  {
+    name: "CKAD",
+    fullName: "Certified Kubernetes Application Developer",
+    badge: "/kubernetes-ckad-color.png",
+  },
 ]
 
 const projects = [
@@ -12,13 +20,13 @@ const projects = [
   {
     title: "FinOps Kubernetes Operator",
     description: "Custom Kubernetes operator for cost optimization and resource management across clusters.",
-    tags: ["Kubernetes", "Go", "FinOps"],
+    tags: ["Kubernetes", "Python", "Kopf Framework", "FinOps"],
   },
 ]
 
 export function ProjectsCertifications() {
   return (
-    <section className="py-20 px-6">
+    <section id="projects" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
           Projects & Certifications
@@ -52,12 +60,19 @@ export function ProjectsCertifications() {
               {certifications.map((cert) => (
                 <div
                   key={cert.name}
-                  className="bg-card backdrop-blur-sm border border-border rounded-lg p-4 
+                  className="bg-card backdrop-blur-sm border border-border rounded-lg p-3 
                              transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
                 >
                   <div className="flex items-center gap-4">
-                    <span className="font-mono text-2xl font-bold text-primary">{cert.name}</span>
-                    <span className="text-muted-foreground text-sm">{cert.fullName}</span>
+                    <img
+                      src={cert.badge}
+                      alt={`${cert.name} Badge`}
+                      className="h-10 w-auto shrink-0 object-contain"
+                    />
+                    <div>
+                      <span className="font-mono text-xl font-bold text-primary">{cert.name}</span>
+                      <p className="text-muted-foreground text-sm">{cert.fullName}</p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -87,7 +102,7 @@ export function ProjectsCertifications() {
               {projects.map((project) => (
                 <div
                   key={project.title}
-                  className="bg-card backdrop-blur-sm border border-border rounded-lg p-4 
+                  className="bg-card backdrop-blur-sm border border-border rounded-lg p-3 
                              transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
                 >
                   <h4 className="font-semibold text-foreground">{project.title}</h4>
@@ -96,7 +111,7 @@ export function ProjectsCertifications() {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="font-mono text-xs px-2 py-1 rounded bg-secondary/50 text-muted-foreground border border-border"
+                        className="font-mono text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
                       >
                         {tag}
                       </span>
