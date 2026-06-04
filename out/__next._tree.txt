@@ -1,5 +1,6 @@
 :HL["/_next/static/chunks/01zq6pnkzk9ad.css","style"]
-:HL["/_next/static/chunks/0n7kew3o4i20c.css","style"]
+:HL["/_next/static/chunks/0-~pe6cf6t76x.css","style"]
 :HL["/_next/static/media/797e433ab948586e-s.p.09zddjkbdep5a.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"ZnT6ebyROKpV9rIZT-JUc"}
+:HL["https://github.com/ok-karthik.png","image"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"h-wwKiYkfCtzL9ZJeifAZ"}
