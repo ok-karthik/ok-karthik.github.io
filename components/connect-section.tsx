@@ -69,6 +69,17 @@ export function ConnectSection() {
   return (
     <section className="py-20 px-6 bg-secondary/20">
       <div className="max-w-4xl mx-auto text-center">
+        <div className="flex justify-center mb-6">
+          <div className="relative group">
+            <div className="absolute inset-0 rounded-full bg-primary/30 blur-xl group-hover:bg-primary/50 transition-colors duration-500"></div>
+            <img 
+              src="https://github.com/ok-karthik.png" 
+              alt="Karthik Orugonda" 
+              className="relative w-28 h-28 rounded-full border-2 border-primary/50 object-cover shadow-2xl transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+        </div>
+        
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
           {"Let's Connect"}
         </h2>
