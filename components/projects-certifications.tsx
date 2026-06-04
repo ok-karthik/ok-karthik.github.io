@@ -60,7 +60,7 @@ export function ProjectsCertifications() {
               {certifications.map((cert) => (
                 <div
                   key={cert.name}
-                  className="bg-card backdrop-blur-sm border border-border rounded-lg p-4 
+                  className="bg-card backdrop-blur-sm border border-border rounded-lg p-3 
                              transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
                 >
                   <div className="flex items-center gap-4">
@@ -102,7 +102,7 @@ export function ProjectsCertifications() {
               {projects.map((project) => (
                 <div
                   key={project.title}
-                  className="bg-card backdrop-blur-sm border border-border rounded-lg p-4 
+                  className="bg-card backdrop-blur-sm border border-border rounded-lg p-3 
                              transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
                 >
                   <h4 className="font-semibold text-foreground">{project.title}</h4>

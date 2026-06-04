@@ -1,3 +1,7 @@
+"use client"
+
+import { motion } from "framer-motion"
+
 const experiences = [
   {
     title: "Staff SRE and Platform Engineer",
@@ -42,23 +46,45 @@ const experiences = [
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="py-20 px-6 bg-secondary/20">
+    <section id="experience" className="py-20 px-6 bg-secondary/20 overflow-hidden">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground"
+        >
           Experience
-        </h2>
-        <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
+        >
           A decade of building resilient infrastructure and empowering engineering teams
-        </p>
+        </motion.p>
 
-        <div className="grid gap-6">
-          {experiences.map((exp) => (
-            <div
+        <div className="grid gap-6 relative">
+          {/* Subtle timeline line for desktop */}
+          <div className="hidden md:block absolute left-0 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-primary/20 to-transparent z-0" />
+          
+          {experiences.map((exp, index) => (
+            <motion.div
               key={exp.company}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-card backdrop-blur-sm border border-border rounded-lg p-6 
                          transition-all duration-300 hover:border-primary/50 
-                         hover:shadow-[0_0_20px_rgba(34,211,238,0.15)]"
+                         hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] relative z-10 md:ml-6"
             >
+              {/* Timeline dot */}
+              <div className="hidden md:block absolute -left-[29px] top-6 w-3 h-3 rounded-full bg-primary/30 border border-primary z-20" />
+              
               <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-4">
                 <div>
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -94,7 +120,7 @@ export function ExperienceSection() {
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
