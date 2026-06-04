@@ -19,12 +19,12 @@ export function HeroSection() {
       />
       
       <div className="relative z-10 max-w-4xl mx-auto space-y-6">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-50">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-sky-800 to-primary dark:from-white dark:via-cyan-100 dark:to-primary leading-tight py-2">
           Karthik Orugonda
         </h1>
         
-        <h2 className="text-xl md:text-2xl font-medium text-primary">
-          Senior Platform Engineer and SRE
+        <h2 className="text-xl md:text-2xl font-semibold text-primary font-mono tracking-wider">
+          Senior Platform Engineer & SRE
         </h2>
         
         <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-7 md:leading-8 text-pretty pt-4">
