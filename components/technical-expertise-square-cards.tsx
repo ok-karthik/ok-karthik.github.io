@@ -40,6 +40,7 @@ const categories: Category[] = [
     title: "Containers & Orchestration",
     skills: [
       { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" },
+      { name: "K8s Operators", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" },
       { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
       { name: "Helm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg" },
       { name: "Istio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg" },
@@ -86,7 +87,6 @@ const categories: Category[] = [
       { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" },
       { name: "Groovy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/groovy/groovy-original.svg" },
       { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
-      { name: "Go", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg" },
       { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" },
     ],
   },
@@ -94,8 +94,10 @@ const categories: Category[] = [
     title: "AI-assisted Engineering",
     skills: [
       { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg" },
-      { name: "Antigravity", lucideIcon: Sparkles },
+      { name: "Cursor", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg" },
       { name: "Claude Code", lucideIcon: Bot },
+      { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg" },
+      { name: "Antigravity", lucideIcon: Sparkles },
     ],
   },
   {
@@ -141,7 +143,7 @@ function SkillCard({ skill }: { skill: Skill }) {
   )
 }
 
-export function TechnicalExpertise() {
+export function TechnicalExpertiseSquareCards() {
   return (
     <section id="expertise" className="py-20 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">

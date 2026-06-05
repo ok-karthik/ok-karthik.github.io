@@ -7,7 +7,7 @@ const experiences = [
     title: "Staff SRE and Platform Engineer",
     company: "Aldi Süd",
     period: "Dec 2022 – Present",
-    tags: ["Azure", "AKS", "Terraform", "Dynatrace", "ArgoCD"],
+    tags: ["Platform Engineering", "SRE", "Kubernetes", "GitOps", "Observability", "Golden Paths"],
     bullets: [
       "Architected and scaled a Kubernetes-based Internal Developer Platform, standardizing deployments across multiple engineering teams.",
       "Established AIOps-driven observability and SLO frameworks, significantly reducing MTTR and false positives.",
@@ -17,7 +17,7 @@ const experiences = [
     title: "Technical Lead - DevOps, Cloud & Platform",
     company: "Rakuten",
     period: "May 2018 – Nov 2022",
-    tags: ["Kubernetes", "GCP", "Helm", "Istio", "Prometheus"],
+    tags: ["Platform Engineering", "Kubernetes", "Helm", "Azure", "GCP", "Private Cloud", "Security Automation"],
     bullets: [
       "Spearheaded multi-cloud Kubernetes migrations, modernizing legacy architectures to serve 400+ engineers.",
       "Engineered resilient GitOps CI/CD pipelines, enabling automated canary and blue-green deployments.",
@@ -27,7 +27,7 @@ const experiences = [
     title: "IT Operations Lead & DevOps Engineer",
     company: "Hewlett Packard Enterprise",
     period: "Sep 2015 – Apr 2018",
-    tags: ["Linux", "Automation", "Incident Management"],
+    tags: ["Production Operations", "Infrastructure Automation", "Incident Management", "Release Engineering"],
     bullets: [
       "Led a 25-member production operations team for high-traffic, enterprise e-commerce platforms.",
       "Automated legacy release pipelines and infrastructure provisioning workflows.",
@@ -37,7 +37,7 @@ const experiences = [
     title: "Senior Software Engineer",
     company: "Tech Mahindra",
     period: "Dec 2010 – Aug 2015",
-    tags: ["Linux", "Java", "WebLogic"],
+    tags: ["Backend Systems", "High Availability", "Linux"],
     bullets: [
       "Engineered and supported critical backend payment gateway systems.",
     ],

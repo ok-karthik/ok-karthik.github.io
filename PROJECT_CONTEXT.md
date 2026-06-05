@@ -21,10 +21,11 @@ The primary objective is to showcase deep technical expertise through a highly p
 - **`app/layout.tsx`**: Implements the `ThemeProvider` and injects the global interactive background (`<NeuralMesh />`).
 - **`<NeuralMesh />`**: An interactive, custom HTML5 Canvas particle system running in the background. Nodes connect to each other and the user's mouse pointer via calculated distance thresholds.
 - **`<DevOpsTerminal />`**: A functional, simulated Linux terminal block in the hero section that allows recruiters/managers to input shell commands to fetch details.
-- **`<ExperienceSection />` & `<TechnicalExpertise />` (Section: "Technical Arsenal")**: Showcase career history and tech stack using `<motion.div>` for scroll-driven entry animations. Custom SVG icons (e.g., Terragrunt, Loki, Tempo) are stored in `public/` for reliable rendering across color modes.
+- **`<ExperienceSection />` & `<TechnicalExpertise />` (Section: "Technical Arsenal")**: Showcase career history and tech stack using `<motion.div>` for scroll-driven entry animations. The Technical Expertise section implements a "Hybrid Marquee" design pattern: core foundational skills are showcased in a top grid with large glowing cards, while the broader tech ecosystem is presented in infinite-scrolling marquee rows at the bottom. Custom SVG icons (e.g., Terragrunt, Loki, Tempo) are stored in `public/` for reliable rendering across color modes.
 
 ## Development Rules
 1. Maintain support for both Light and Dark modes. Ensure contrast ratios remain readable.
 2. Avoid generic rectangles in Dark mode; always ensure `--radius` applies correctly.
 3. Keep animations fluid and 60fps; rely heavily on GPU-accelerated CSS properties (`transform`, `opacity`) or lightweight canvas.
 4. When iterating, prioritize aesthetics that say "Enterprise Scale" and "AI Native".
+5. **Component Philosophy**: Avoid importing heavy, generic UI component libraries (like unused shadcn components) if they aren't actively utilized. We prioritize tailored, bespoke components over maintaining an unused component library folder to keep the codebase lean.
