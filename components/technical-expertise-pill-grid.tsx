@@ -20,6 +20,8 @@ type Skill = {
   name: string
   icon?: string
   lucideIcon?: React.ComponentType<{ className?: string }>
+  subSkills?: string[]
+  scale?: number
 }
 
 type Category = {
@@ -31,9 +33,21 @@ const categories: Category[] = [
   {
     title: "Cloud & Platform Infrastructure",
     skills: [
-      { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
-      { name: "Azure", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" },
-      { name: "GCP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" },
+      { 
+        name: "AWS", 
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+        subSkills: ["Networking", "IAM", "EKS", "ECS", "Fargate", "EC2", "S3", "ALB", "CloudWatch", "WAF", "Secrets Manager", "Parameter Store", "ElastiCache", "CodeBuild", "CodeDeploy"]
+      },
+      { 
+        name: "Azure", 
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
+        subSkills: ["Networking", "Microsoft Entra ID", "AKS", "Azure App Service", "Azure Key Vault", "Azure AI Search", "Azure Policy", "Azure ExpressRoute", "Azure Traffic Manager"]
+      },
+      { 
+        name: "GCP", 
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
+        subSkills: ["Networking", "Cloud IAM", "GKE", "Cloud SQL", "Pub/Sub", "Cloud Load Balancing"]
+      },
     ],
   },
   {
@@ -43,7 +57,7 @@ const categories: Category[] = [
       { name: "K8s Operators", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" },
       { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
       { name: "Helm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg" },
-      { name: "Istio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg" },
+      { name: "Istio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg", scale: 1.2 },
       { name: "KEDA", lucideIcon: Zap },
       { name: "Kustomize", lucideIcon: Layers },
     ],
@@ -73,12 +87,12 @@ const categories: Category[] = [
     skills: [
       { name: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg" },
       { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg" },
-      { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg" },
       { name: "Loki", icon: "/loki.svg" },
       { name: "Tempo", icon: "/tempo.svg" },
-      { name: "Dynatrace", icon: "https://cdn.simpleicons.org/dynatrace" },
-      { name: "New Relic", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/newrelic.svg" },
-      { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg" },
+      { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg", scale: 1.25 },
+      { name: "Dynatrace", icon: "https://cdn.simpleicons.org/dynatrace", scale: 1.15 },
+      { name: "New Relic", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/newrelic.svg", scale: 1.15 },
+      { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg", scale: 1.4 },
     ],
   },
   {
@@ -86,18 +100,18 @@ const categories: Category[] = [
     skills: [
       { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
       { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" },
-      { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" },
-      { name: "Groovy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/groovy/groovy-original.svg" },
+      { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", scale: 1.2 },
+      { name: "Groovy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/groovy/groovy-original.svg", scale: 1.25 },
     ],
   },
   {
     title: "AI-assisted Engineering",
     skills: [
-      { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg" },
-      { name: "Cursor", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg" },
-      { name: "Claude Code", lucideIcon: Bot },
-      { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg" },
-      { name: "Antigravity", lucideIcon: Sparkles },
+      { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15 },
+      { name: "Antigravity", icon: "/antigravity.png", scale: 1.25 },
+      { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25 },
+      { name: "Cursor", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg", scale: 1.15 },
+      { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg", scale: 1.25 },
     ],
   },
   {
@@ -117,24 +131,44 @@ function SkillPill({ skill }: { skill: Skill }) {
   const LucideIcon = skill.lucideIcon
 
   return (
-    <div
-      className="flex items-center gap-3 bg-card/40 hover:bg-card border border-border/50 rounded-full pr-5 pl-2 py-1.5 
-                 transition-all duration-200 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.2)] 
-                 text-[15px] font-mono text-muted-foreground hover:text-foreground hover:-translate-y-0.5 cursor-default"
-    >
-      <div className="flex items-center justify-center w-8 h-8 bg-white/95 rounded-full p-1.5 shadow-sm shrink-0">
-        {LucideIcon ? (
-          <LucideIcon className="w-full h-full text-slate-800" />
-        ) : (
-          <img
-            src={skill.icon}
-            alt={`${skill.name} logo`}
-            className="w-full h-full object-contain"
-            crossOrigin="anonymous"
-          />
-        )}
+    <div className="flex flex-col gap-2.5 items-start">
+      <div
+        className="flex items-center gap-3 bg-card/40 hover:bg-card border border-border/50 rounded-full pr-5 pl-2 py-1.5 
+                   transition-all duration-200 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.2)] 
+                   text-[15px] font-mono text-muted-foreground hover:text-foreground hover:-translate-y-0.5 cursor-default"
+      >
+        <div className="flex items-center justify-center w-8 h-8 bg-white/95 rounded-full p-1.5 shadow-sm shrink-0 overflow-hidden">
+          {LucideIcon ? (
+            <LucideIcon 
+              className="w-full h-full text-slate-800 scale-[1.15]" 
+              style={skill.scale ? { transform: `scale(${skill.scale})` } : undefined}
+            />
+          ) : (
+            <img
+              src={skill.icon}
+              alt={`${skill.name} logo`}
+              className="w-full h-full object-contain"
+              style={skill.scale ? { transform: `scale(${skill.scale})` } : undefined}
+              crossOrigin="anonymous"
+            />
+          )}
+        </div>
+        <span>{skill.name}</span>
       </div>
-      <span>{skill.name}</span>
+      
+      {skill.subSkills && skill.subSkills.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 pl-2 max-w-[340px]">
+          {skill.subSkills.map((sub) => (
+            <span 
+              key={sub} 
+              className="text-[11px] font-mono text-muted-foreground bg-secondary/60 border border-border/50 rounded-full px-2.5 py-0.5
+                         transition-colors hover:text-primary hover:border-primary/30"
+            >
+              {sub}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -169,7 +203,7 @@ export function TechnicalExpertisePillGrid() {
                   {category.title}
                 </h3>
                 
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-4 items-start">
                   {category.skills.map((skill) => (
                     <SkillPill key={skill.name} skill={skill} />
                   ))}

@@ -116,27 +116,27 @@ function SkillCard({ skill }: { skill: Skill }) {
 
   return (
     <div
-      className="group relative bg-card backdrop-blur-sm border border-border rounded-lg p-3 
-                 flex flex-col items-center gap-2 
+      className="group relative bg-card backdrop-blur-sm border border-border rounded-lg p-2 
+                 flex flex-col items-center gap-1.5 
                  transition-all duration-300 ease-out
                  hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.3),0_0_40px_rgba(34,211,238,0.15)]
                  hover:-translate-y-1"
     >
-      <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-white p-1.5">
+      <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white p-1">
         {LucideIcon ? (
-          <LucideIcon className="w-7 h-7 text-slate-700 transition-transform duration-300 group-hover:scale-110" />
+          <LucideIcon className="w-5 h-5 text-slate-700 transition-transform duration-300 group-hover:scale-110" />
         ) : (
           <img
             src={skill.icon}
             alt={`${skill.name} logo`}
-            width={28}
-            height={28}
-            className="w-7 h-7 object-contain transition-transform duration-300 group-hover:scale-110"
+            width={20}
+            height={20}
+            className="w-5 h-5 object-contain transition-transform duration-300 group-hover:scale-110"
             crossOrigin="anonymous"
           />
         )}
       </div>
-      <span className="font-mono text-xs text-center text-muted-foreground group-hover:text-foreground transition-colors">
+      <span className="font-mono text-[11px] leading-tight text-center text-muted-foreground group-hover:text-foreground transition-colors line-clamp-2">
         {skill.name}
       </span>
     </div>
