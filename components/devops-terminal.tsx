@@ -11,16 +11,16 @@ type OutputLine = {
 }
 
 const bootSequence = [
-  { text: "$ curl -s https://api.karthik.dev/status", isCommand: true, delay: 500 },
-  { text: "Connecting to api.karthik.dev...", delay: 300 },
-  { text: "✓ Connection established (SSL Verified).", isSuccess: true, delay: 200 },
-  { text: "Initializing GitOps reconciliation loop...", delay: 300 },
-  { text: "Reconciling state for: ok-karthik/platform-engineering", delay: 200 },
-  { text: "  [+] Kubernetes (AKS/EKS) Clusters .. ONLINE", isSystem: true, delay: 200 },
-  { text: "  [+] ArgoCD GitOps Engine .......... SYNCED", isSystem: true, delay: 200 },
-  { text: "  [+] Dynatrace / Prometheus AIOps .. ACTIVE", isSystem: true, delay: 200 },
-  { text: "  [+] Terraform / Terragrunt IaC .... DRIFT-FREE", isSystem: true, delay: 200 },
-  { text: "Reconciliation successful. System Status: OPTIMAL 🚀", isSuccess: true, delay: 400 },
+  { text: "$ platform-cli provision --env=production", isCommand: true, delay: 500 },
+  { text: "Authenticating via Microsoft Entra ID...", delay: 300 },
+  { text: "✓ Authentication successful. Context: Platform Engineer", isSuccess: true, delay: 200 },
+  { text: "Initializing Internal Developer Platform (IDP)...", delay: 300 },
+  { text: "  [+] Terraform state lock acquired ......... SUCCESS", isSystem: true, delay: 200 },
+  { text: "  [+] Core Infrastructure (AWS/Azure) ....... DRIFT-FREE", isSystem: true, delay: 200 },
+  { text: "  [+] Kubernetes Fleet (EKS/AKS) ............ ONLINE", isSystem: true, delay: 200 },
+  { text: "  [+] GitOps Reconciliation (ArgoCD) ........ SYNCED", isSystem: true, delay: 200 },
+  { text: "  [+] Developer Golden Paths ................ READY", isSystem: true, delay: 200 },
+  { text: "Platform provisioning complete. Scale is infinite. 🚀", isSuccess: true, delay: 400 },
   { text: "Type 'help' for available commands.", isSystem: true, delay: 300 },
 ]
 
@@ -51,6 +51,13 @@ export function DevOpsTerminal() {
       inputRef.current?.focus()
     }
   }
+
+  // Focus input without scrolling the page when boot finishes
+  useEffect(() => {
+    if (!isBooting) {
+      inputRef.current?.focus({ preventScroll: true })
+    }
+  }, [isBooting])
 
   // Boot sequence logic
   useEffect(() => {
@@ -119,17 +126,17 @@ export function DevOpsTerminal() {
         case "whoami":
           outputLines = [
             { id: Math.random().toString(), text: "Karthik Orugonda", isSuccess: true },
-            { id: Math.random().toString(), text: "Senior Platform Engineer & SRE" },
-            { id: Math.random().toString(), text: "Transitioning to AI Infrastructure / AI Platform Architect." },
+            { id: Math.random().toString(), text: "Senior Platform & Cloud Infrastructure Engineer" },
+            { id: Math.random().toString(), text: "Building Internal Developer Platforms, scaling K8s, and automating Golden Paths." },
           ]
           break
         case "skills":
           outputLines = [
-            { id: Math.random().toString(), text: "Core Infrastructure & AI Stack:", isSystem: true },
-            { id: Math.random().toString(), text: "• Cloud: AWS, Azure, GCP" },
-            { id: Math.random().toString(), text: "• Compute: Kubernetes (EKS/AKS), Docker, KEDA" },
-            { id: Math.random().toString(), text: "• IaC & Automation: Terraform, Terragrunt, Ansible" },
-            { id: Math.random().toString(), text: "• GitOps: ArgoCD, GitHub Actions" },
+            { id: Math.random().toString(), text: "Platform Engineering Stack:", isSystem: true },
+            { id: Math.random().toString(), text: "• Cloud Infrastructure: AWS, Azure, GCP" },
+            { id: Math.random().toString(), text: "• Containers & Orchestration: Kubernetes, Docker, Helm, Istio" },
+            { id: Math.random().toString(), text: "• IaC & GitOps: Terraform, Terragrunt, ArgoCD, GitHub Actions" },
+            { id: Math.random().toString(), text: "• Observability & Security: Prometheus, Grafana, Kyverno" },
           ]
           break
         case "contact":
@@ -214,7 +221,6 @@ export function DevOpsTerminal() {
               className="flex-1 bg-transparent border-none outline-none text-[#00ffe7] font-semibold min-w-0"
               spellCheck={false}
               autoComplete="off"
-              autoFocus
             />
           </div>
         )}
