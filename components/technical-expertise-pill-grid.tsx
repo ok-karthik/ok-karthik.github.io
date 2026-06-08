@@ -36,12 +36,12 @@ const categories: Category[] = [
       { 
         name: "AWS", 
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
-        subSkills: ["Networking", "IAM", "EKS", "ECS", "Fargate", "EC2", "S3", "ALB", "CloudWatch", "WAF", "Secrets Manager", "Parameter Store", "ElastiCache", "CodeBuild", "CodeDeploy"]
+        subSkills: ["EKS", "ECS", "Fargate", "EC2", "Lambda", "VPC", "ALB", "WAF", "RDS", "DynamoDB", "S3", "ElastiCache", "SQS & SNS", "IAM", "Secrets Manager", "Parameter Store", "CloudWatch", "CodeBuild", "CodeDeploy"]
       },
       { 
         name: "Azure", 
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
-        subSkills: ["Networking", "Microsoft Entra ID", "AKS", "Azure App Service", "Azure Key Vault", "Azure AI Search", "Azure Policy", "Azure ExpressRoute", "Azure Traffic Manager"]
+        subSkills: ["AKS", "App Service", "ExpressRoute", "Traffic Manager", "Networking", "AI Search", "Entra ID", "Key Vault", "Policy"]
       },
       { 
         name: "GCP", 
@@ -63,7 +63,7 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "IaC & GitOps",
+    title: "CI/CD, IaC & GitOps",
     skills: [
       { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" },
       { name: "ArgoCD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg" },
@@ -72,36 +72,39 @@ const categories: Category[] = [
       { name: "Crossplane", lucideIcon: Plane },
       { name: "Argo Rollouts", lucideIcon: RefreshCw },
       { name: "GitLab CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg" },
+      { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", scale: 1.2 },
+      { name: "Groovy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/groovy/groovy-original.svg", scale: 1.25 },
       { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg" },
     ],
   },
   {
-    title: "Policy & Governance",
+    title: "Security, Policy & Governance",
     skills: [
       { name: "OPA Gatekeeper", lucideIcon: ShieldBan },
       { name: "Kyverno", lucideIcon: ShieldAlert },
+      { name: "Trivy", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/trivy.svg", scale: 1.15 },
+      { name: "Snyk", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/snyk.svg", scale: 1.15 },
+      { name: "Checkov", icon: "https://raw.githubusercontent.com/bridgecrewio/checkov/main/docs/web/images/checkov_blue_logo.png", scale: 1.15 },
     ],
   },
   {
     title: "Observability & Reliability",
     skills: [
+      { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg", scale: 1.25 },
       { name: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg" },
       { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg" },
-      { name: "Loki", icon: "/loki.svg" },
-      { name: "Tempo", icon: "/tempo.svg" },
-      { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg", scale: 1.25 },
+      { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg", scale: 1.4 },
       { name: "Dynatrace", icon: "https://cdn.simpleicons.org/dynatrace", scale: 1.15 },
       { name: "New Relic", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/newrelic.svg", scale: 1.15 },
-      { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg", scale: 1.4 },
+      { name: "Loki", icon: "/loki.svg" },
+      { name: "Tempo", icon: "/tempo.svg" },
     ],
   },
   {
-    title: "Software Engineering & Automation",
+    title: "Programming & Platform Architecture",
     skills: [
       { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
       { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" },
-      { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", scale: 1.2 },
-      { name: "Groovy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/groovy/groovy-original.svg", scale: 1.25 },
     ],
   },
   {
@@ -112,15 +115,6 @@ const categories: Category[] = [
       { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25 },
       { name: "Cursor", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg", scale: 1.15 },
       { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg", scale: 1.25 },
-    ],
-  },
-  {
-    title: "Architecture & System Design",
-    skills: [
-      { name: "Architecture RFCs", lucideIcon: FileText },
-      { name: "Confluence", icon: "https://cdn.simpleicons.org/confluence" },
-      { name: "Draw.io", lucideIcon: Network },
-      { name: "Lucidchart", lucideIcon: LayoutTemplate },
     ],
   },
 ]

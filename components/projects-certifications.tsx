@@ -303,7 +303,7 @@ export function ProjectsCertifications() {
                     <img
                       src={cert.badge}
                       alt={`${cert.name} Badge`}
-                      className="h-10 w-auto shrink-0 object-contain"
+                      className="h-16 w-auto shrink-0 object-contain"
                     />
                     <div>
                       <span className="font-mono text-xl font-bold text-primary">{cert.name}</span>
