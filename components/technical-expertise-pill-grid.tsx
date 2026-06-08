@@ -36,12 +36,12 @@ const categories: Category[] = [
       { 
         name: "AWS", 
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
-        subSkills: ["Networking", "IAM", "EKS", "ECS", "Fargate", "EC2", "S3", "ALB", "CloudWatch", "WAF", "Secrets Manager", "Parameter Store", "ElastiCache", "CodeBuild", "CodeDeploy"]
+        subSkills: ["EKS", "ECS", "Fargate", "EC2", "Lambda", "VPC", "ALB", "WAF", "RDS", "DynamoDB", "S3", "ElastiCache", "SQS & SNS", "IAM", "Secrets Manager", "Parameter Store", "CloudWatch", "CodeBuild", "CodeDeploy"]
       },
       { 
         name: "Azure", 
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
-        subSkills: ["Networking", "Microsoft Entra ID", "AKS", "Azure App Service", "Azure Key Vault", "Azure AI Search", "Azure Policy", "Azure ExpressRoute", "Azure Traffic Manager"]
+        subSkills: ["AKS", "App Service", "ExpressRoute", "Traffic Manager", "Networking", "AI Search", "Entra ID", "Key Vault", "Policy"]
       },
       { 
         name: "GCP", 
