@@ -1,10 +1,7 @@
 "use client"
 
 import { 
-  Zap, 
   Layers, 
-  Plane, 
-  RefreshCw, 
   ShieldAlert, 
   Sparkles,
   Bot,
@@ -22,6 +19,7 @@ type Skill = {
   lucideIcon?: React.ComponentType<{ className?: string }>
   subSkills?: string[]
   scale?: number
+  url?: string
 }
 
 type Category = {
@@ -36,127 +34,190 @@ const categories: Category[] = [
       { 
         name: "AWS", 
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
-        subSkills: ["EKS", "ECS", "Fargate", "EC2", "Lambda", "VPC", "ALB", "WAF", "RDS", "DynamoDB", "S3", "ElastiCache", "SQS & SNS", "IAM", "Secrets Manager", "Parameter Store", "CloudWatch", "CodeBuild", "CodeDeploy"]
+        subSkills: ["EKS", "ECS", "Fargate", "EC2", "Lambda", "VPC", "ALB", "WAF", "RDS", "DynamoDB", "S3", "ElastiCache", "SQS & SNS", "IAM", "Secrets Manager", "Parameter Store", "CloudWatch", "CodeBuild", "CodeDeploy"],
+        url: "https://aws.amazon.com/"
       },
       { 
         name: "Azure", 
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
-        subSkills: ["AKS", "App Service", "ExpressRoute", "Traffic Manager", "Networking", "AI Search", "Entra ID", "Key Vault", "Policy"]
+        subSkills: ["AKS", "App Service", "ExpressRoute", "Traffic Manager", "Networking", "AI Search", "Entra ID", "Key Vault", "Policy"],
+        url: "https://azure.microsoft.com/"
       },
       { 
         name: "GCP", 
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
-        subSkills: ["Networking", "Cloud IAM", "GKE", "Cloud SQL", "Pub/Sub", "Cloud Load Balancing"]
+        subSkills: ["Networking", "Cloud IAM", "GKE", "Cloud SQL", "Pub/Sub", "Cloud Load Balancing"],
+        url: "https://cloud.google.com/"
       },
     ],
   },
   {
     title: "Containers & Orchestration",
     skills: [
-      { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" },
-      { name: "K8s Operators", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" },
-      { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
-      { name: "Helm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg" },
-      { name: "Istio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg", scale: 1.2 },
-      { name: "KEDA", lucideIcon: Zap },
-      { name: "Kustomize", lucideIcon: Layers },
+      { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg", url: "https://kubernetes.io/" },
+      { name: "K8s Operators", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg", url: "https://kubernetes.io/docs/concepts/extend-kubernetes/operator/" },
+      { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", url: "https://www.docker.com/" },
+      { name: "Helm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg", url: "https://helm.sh/" },
+      { name: "Istio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg", scale: 1.2, url: "https://istio.io/" },
+      { name: "KEDA", icon: "/keda-icon.svg", scale: 1.15, url: "https://keda.sh/" },
+      { name: "Kustomize", icon: "/kustomize-icon.png", scale: 1.1, url: "https://kustomize.io/" },
     ],
   },
   {
     title: "CI/CD, IaC & GitOps",
     skills: [
-      { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" },
-      { name: "ArgoCD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg" },
-      { name: "GitHub Actions", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" },
-      { name: "Terragrunt", icon: "/terragrunt.svg" },
-      { name: "Crossplane", lucideIcon: Plane },
-      { name: "Argo Rollouts", lucideIcon: RefreshCw },
-      { name: "GitLab CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg" },
-      { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", scale: 1.2 },
-      { name: "Groovy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/groovy/groovy-original.svg", scale: 1.25 },
-      { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg" },
+      { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg", url: "https://www.terraform.io/" },
+      { name: "ArgoCD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg", url: "https://argoproj.github.io/cd/" },
+      { name: "GitHub Actions", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", url: "https://github.com/features/actions" },
+      { name: "Terragrunt", icon: "/terragrunt.svg", url: "https://terragrunt.gruntwork.io/" },
+      { name: "Crossplane", icon: "/crossplane-icon.svg", scale: 1.2, url: "https://www.crossplane.io/" },
+      { name: "Argo Rollouts", icon: "https://argoproj.github.io/static/3748e3a7881fe3b037f2401b65943dc0/93d75/rollouts.png", url: "https://argoproj.github.io/rollouts/" },
+      { name: "GitLab CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg", url: "https://docs.gitlab.com/ee/ci/" },
+      { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", scale: 1.2, url: "https://www.jenkins.io/" },
+      { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg", url: "https://www.ansible.com/" },
     ],
   },
   {
     title: "Security, Policy & Governance",
     skills: [
-      { name: "OPA Gatekeeper", lucideIcon: ShieldBan },
-      { name: "Kyverno", lucideIcon: ShieldAlert },
-      { name: "Trivy", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/trivy.svg", scale: 1.15 },
-      { name: "Snyk", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/snyk.svg", scale: 1.15 },
-      { name: "Checkov", icon: "https://raw.githubusercontent.com/bridgecrewio/checkov/main/docs/web/images/checkov_blue_logo.png", scale: 1.15 },
+      { name: "OPA Gatekeeper", icon: "/gatekeeper-icon.svg", scale: 1.15, url: "https://openpolicyagent.github.io/gatekeeper/website/" },
+      { name: "Kyverno", lucideIcon: ShieldAlert, url: "https://kyverno.io/" },
+      { name: "Trivy", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/trivy.svg", scale: 1.15, url: "https://trivy.dev/" },
+      { name: "Snyk", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/snyk.svg", scale: 1.15, url: "https://snyk.io/" },
+      { name: "Checkov", icon: "https://raw.githubusercontent.com/bridgecrewio/checkov/main/docs/web/images/checkov_blue_logo.png", scale: 1.15, url: "https://www.checkov.io/" },
     ],
   },
   {
     title: "Observability & Reliability",
     skills: [
-      { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg", scale: 1.25 },
-      { name: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg" },
-      { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg" },
-      { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg", scale: 1.4 },
-      { name: "Dynatrace", icon: "https://cdn.simpleicons.org/dynatrace", scale: 1.15 },
-      { name: "New Relic", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/newrelic.svg", scale: 1.15 },
-      { name: "Loki", icon: "/loki.svg" },
-      { name: "Tempo", icon: "/tempo.svg" },
+      { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg", scale: 1.25, url: "https://opentelemetry.io/" },
+      { name: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg", url: "https://prometheus.io/" },
+      { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg", url: "https://grafana.com/" },
+      { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg", scale: 1.4, url: "https://www.datadoghq.com/" },
+      { name: "Dynatrace", icon: "https://cdn.simpleicons.org/dynatrace", scale: 1.15, url: "https://www.dynatrace.com/" },
+      { name: "New Relic", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/newrelic.svg", scale: 1.15, url: "https://newrelic.com/" },
+      { name: "Loki", icon: "/loki.svg", url: "https://grafana.com/oss/loki/" },
+      { name: "Tempo", icon: "/tempo.svg", url: "https://grafana.com/oss/tempo/" },
     ],
   },
   {
     title: "Programming & Platform Architecture",
     skills: [
-      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
-      { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" },
+      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", url: "https://www.python.org/" },
+      { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg", url: "https://www.gnu.org/software/bash/" },
     ],
   },
   {
     title: "AI-assisted Engineering",
     skills: [
-      { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15 },
+      { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://claude.ai/" },
       { name: "Antigravity", icon: "/antigravity.png", scale: 1.25 },
-      { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25 },
-      { name: "Cursor", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg", scale: 1.15 },
-      { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg", scale: 1.25 },
+      { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25, url: "https://ollama.com/" },
+      { name: "Cursor", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg", scale: 1.15, url: "https://cursor.sh/" },
+      { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg", scale: 1.25, url: "https://github.com/features/copilot" },
     ],
   },
 ]
 
 // Removed BigSkillCard
 
-function SkillPill({ skill }: { skill: Skill }) {
+function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) {
   const LucideIcon = skill.lucideIcon
 
-  return (
-    <div className="flex flex-col gap-2.5 items-start">
-      <div
-        className="flex items-center gap-3 bg-card/40 hover:bg-card border border-border/50 rounded-full pr-5 pl-2 py-1.5 
-                   transition-all duration-200 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.2)] 
-                   text-[15px] font-mono text-muted-foreground hover:text-foreground hover:-translate-y-0.5 cursor-default"
-      >
-        <div className="flex items-center justify-center w-8 h-8 bg-white/95 rounded-full p-1.5 shadow-sm shrink-0 overflow-hidden">
-          {LucideIcon ? (
-            <LucideIcon 
-              className="w-full h-full text-slate-800 scale-[1.15]" 
-              style={skill.scale ? { transform: `scale(${skill.scale})` } : undefined}
-            />
-          ) : (
-            <img
-              src={skill.icon}
-              alt={`${skill.name} logo`}
-              className="w-full h-full object-contain"
-              style={skill.scale ? { transform: `scale(${skill.scale})` } : undefined}
-              crossOrigin="anonymous"
-            />
-          )}
+  if (isPremium) {
+    const content = (
+      <div className={`flex flex-col gap-3 items-start bg-card/20 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-xl hover:bg-card/40 hover:border-primary/40 transition-all duration-300 group h-full ${skill.url ? 'cursor-pointer' : 'cursor-default'}`}>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center justify-center w-12 h-12 bg-white/95 rounded-xl p-2.5 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.4)] shrink-0 overflow-hidden transition-all duration-300 relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {LucideIcon ? (
+              <LucideIcon 
+                className="w-full h-full text-slate-800 transition-transform duration-300 group-hover:scale-110 relative z-10" 
+                style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
+              />
+            ) : (
+              <img
+                src={skill.icon}
+                alt={`${skill.name} logo`}
+                className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110 relative z-10"
+                style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
+                crossOrigin="anonymous"
+              />
+            )}
+          </div>
+          <span className="tracking-tight text-lg font-bold font-mono text-foreground/90 group-hover:text-primary transition-colors">{skill.name}</span>
         </div>
-        <span>{skill.name}</span>
+        
+        {skill.subSkills && skill.subSkills.length > 0 && (
+          <div className="flex flex-wrap gap-2 pt-2 max-w-[360px]">
+            {skill.subSkills.map((sub) => (
+              <span 
+                key={sub} 
+                className="text-xs font-mono text-foreground/80 bg-secondary/80 rounded-full px-3 py-1 border border-border/50
+                           transition-all duration-200 hover:text-primary hover:bg-secondary hover:border-primary/40 shadow-sm"
+              >
+                {sub}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
+    )
+
+    return skill.url ? (
+      <a href={skill.url} target="_blank" rel="noopener noreferrer" className="block h-full outline-none">
+        {content}
+      </a>
+    ) : (
+      <div className="h-full">
+        {content}
+      </div>
+    )
+  }
+
+  const PillContent = (
+    <>
+      <div className="flex items-center justify-center w-10 h-10 bg-white/95 rounded-full p-2 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] shrink-0 overflow-hidden transition-all duration-300">
+        {LucideIcon ? (
+          <LucideIcon 
+            className="w-full h-full text-slate-800 transition-transform duration-300 group-hover:scale-110" 
+            style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
+          />
+        ) : (
+          <img
+            src={skill.icon}
+            alt={`${skill.name} logo`}
+            className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
+            style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
+            crossOrigin="anonymous"
+          />
+        )}
+      </div>
+      <span className="tracking-tight">{skill.name}</span>
+    </>
+  )
+
+  const pillWrapperClass = `flex items-center gap-3.5 bg-card/40 border border-border/50 rounded-full pr-6 pl-2.5 py-2 transition-all duration-300 text-base font-medium font-mono text-muted-foreground group ${skill.url ? 'hover:bg-card hover:border-primary/60 hover:shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:text-foreground hover:-translate-y-0.5 cursor-pointer' : 'cursor-default'}`
+
+  return (
+    <div className="flex flex-col gap-3 items-start">
+      {skill.url ? (
+        <a href={skill.url} target="_blank" rel="noopener noreferrer" className={pillWrapperClass}>
+          {PillContent}
+        </a>
+      ) : (
+        <div className={pillWrapperClass}>
+          {PillContent}
+        </div>
+      )}
       
       {skill.subSkills && skill.subSkills.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 pl-2 max-w-[340px]">
+        <div className="flex flex-wrap gap-2 pl-3 max-w-[360px]">
           {skill.subSkills.map((sub) => (
             <span 
               key={sub} 
-              className="text-[11px] font-mono text-muted-foreground bg-secondary/60 border border-border/50 rounded-full px-2.5 py-0.5
-                         transition-colors hover:text-primary hover:border-primary/30"
+              className="text-xs font-mono text-muted-foreground/90 bg-secondary/60 border border-border/50 rounded-full px-3 py-1
+                         transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary/80"
             >
               {sub}
             </span>
@@ -169,7 +230,7 @@ function SkillPill({ skill }: { skill: Skill }) {
 
 export function TechnicalExpertisePillGrid() {
   return (
-    <section id="expertise" className="py-20 px-6 overflow-hidden">
+    <section id="tech-skills" className="py-20 px-6 relative z-20">
       <div className="max-w-6xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
@@ -178,7 +239,7 @@ export function TechnicalExpertisePillGrid() {
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground"
         >
-          Technical Arsenal
+          Tech Skills
         </motion.h2>
         
         <div className="space-y-12">
@@ -197,9 +258,9 @@ export function TechnicalExpertisePillGrid() {
                   {category.title}
                 </h3>
                 
-                <div className="flex flex-wrap gap-4 items-start">
+                <div className={index === 0 ? "grid grid-cols-1 md:grid-cols-3 gap-6 w-full" : "flex flex-wrap gap-4 items-start"}>
                   {category.skills.map((skill) => (
-                    <SkillPill key={skill.name} skill={skill} />
+                    <SkillPill key={skill.name} skill={skill} isPremium={index === 0} />
                   ))}
                 </div>
               </motion.div>

@@ -1,10 +1,7 @@
 "use client"
 
 import { 
-  Zap, 
   Layers, 
-  Plane, 
-  RefreshCw, 
   ShieldAlert, 
   Sparkles,
   Bot,
@@ -44,8 +41,8 @@ const categories: Category[] = [
       { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
       { name: "Helm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg" },
       { name: "Istio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg" },
-      { name: "KEDA", lucideIcon: Zap },
-      { name: "Kustomize", lucideIcon: Layers },
+      { name: "KEDA", icon: "/keda-icon.svg" },
+      { name: "Kustomize", icon: "/kustomize-icon.png" },
     ],
   },
   {
@@ -53,9 +50,9 @@ const categories: Category[] = [
     skills: [
       { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" },
       { name: "Terragrunt", icon: "/terragrunt.svg" },
-      { name: "Crossplane", lucideIcon: Plane },
+      { name: "Crossplane", icon: "/crossplane-icon.svg" },
       { name: "ArgoCD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg" },
-      { name: "Argo Rollouts", lucideIcon: RefreshCw },
+      { name: "Argo Rollouts", icon: "https://argoproj.github.io/static/3748e3a7881fe3b037f2401b65943dc0/93d75/rollouts.png" },
       { name: "GitHub Actions", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" },
       { name: "GitLab CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg" },
       { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg" },
@@ -65,7 +62,7 @@ const categories: Category[] = [
     title: "Policy & Governance",
     skills: [
       { name: "Kyverno", lucideIcon: ShieldAlert },
-      { name: "OPA Gatekeeper", lucideIcon: ShieldBan },
+      { name: "OPA Gatekeeper", icon: "/gatekeeper-icon.svg", scale: 1.15 },
     ],
   },
   {
@@ -154,7 +151,7 @@ export function TechnicalExpertiseSquareCards() {
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground"
         >
-          Technical Arsenal
+          Expertise
         </motion.h2>
         
         <div className="space-y-10">

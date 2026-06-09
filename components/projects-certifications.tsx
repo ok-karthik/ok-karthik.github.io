@@ -266,131 +266,170 @@ export function ProjectsCertifications() {
           Highlighted work and industry-recognized credentials
         </motion.p>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Certifications */}
-          <motion.div
+        {/* Projects Section */}
+        <div className="mb-20">
+          <motion.h3 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-2xl font-bold text-foreground mb-8 flex items-center gap-2"
           >
-            <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-primary"
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" /></svg>
+            Featured Projects
+          </motion.h3>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: 0.2 + (index * 0.1) }}
+                className="bg-card backdrop-blur-sm border border-border rounded-lg p-5 
+                           transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] flex flex-col h-full group"
               >
-                <circle cx="12" cy="8" r="6" />
-                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
-              </svg>
+                <div className="flex-grow">
+                  <h4 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">{project.title}</h4>
+                  <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mt-5">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="font-mono text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="mt-6 pt-5 border-t border-border/50 flex flex-wrap items-center justify-between gap-3">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="text-xs font-mono font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1.5 bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-md border border-primary/20">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-6-6H4a2 2 0 0 0-2 2v16z"/><path d="M14 2v6h6"/><path d="M10 12h4"/><path d="M10 16h4"/><path d="M8 12h.01"/><path d="M8 16h.01"/></svg>
+                        View Architecture
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[700px] border-primary/20 shadow-[0_0_40px_rgba(34,211,238,0.1)]">
+                      <DialogHeader>
+                        <DialogTitle className="text-xl font-bold text-foreground font-mono flex items-center gap-3">
+                          {project.title}
+                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                          </a>
+                        </DialogTitle>
+                      </DialogHeader>
+                      {project.architecture}
+                    </DialogContent>
+                  </Dialog>
+
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    Source Code
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Credentials & Background */}
+        <div className="grid md:grid-cols-2 gap-10">
+          {/* Certifications */}
+          <div>
+            <motion.h3 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><circle cx="12" cy="8" r="6" /><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" /></svg>
               Certifications
-            </h3>
+            </motion.h3>
+            
             <div className="space-y-4">
-              {certifications.map((cert) => (
-                <div
+              {certifications.map((cert, index) => (
+                <motion.div
                   key={cert.name}
-                  className="bg-card backdrop-blur-sm border border-border rounded-lg p-3 
-                             transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
-                >
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={cert.badge}
-                      alt={`${cert.name} Badge`}
-                      className="h-16 w-auto shrink-0 object-contain"
-                    />
-                    <div>
-                      <span className="font-mono text-xl font-bold text-primary">{cert.name}</span>
-                      <p className="text-muted-foreground text-sm">{cert.fullName}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Projects */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-primary"
-              >
-                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-              </svg>
-              Featured Projects
-            </h3>
-            <div className="space-y-4">
-              {projects.map((project) => (
-                <div
-                  key={project.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: 0.2 + (index * 0.1) }}
                   className="bg-card backdrop-blur-sm border border-border rounded-lg p-4 
-                             transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] flex flex-col h-full"
+                             transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] flex items-center gap-5"
                 >
-                  <div className="flex-grow">
-                    <h4 className="font-semibold text-foreground">{project.title}</h4>
-                    <p className="text-sm text-muted-foreground mt-2">{project.description}</p>
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="font-mono text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                  <img
+                    src={cert.badge}
+                    alt={`${cert.name} Badge`}
+                    className="h-16 w-auto shrink-0 object-contain drop-shadow-md"
+                  />
+                  <div>
+                    <span className="font-mono text-xl font-bold text-primary">{cert.name}</span>
+                    <p className="text-muted-foreground text-sm font-medium mt-1">{cert.fullName}</p>
                   </div>
-                  
-                  <div className="mt-5 pt-4 border-t border-border/50 flex flex-wrap items-center justify-between gap-3">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <button className="text-xs font-mono font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1.5 bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-md border border-primary/20">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-6-6H4a2 2 0 0 0-2 2v16z"/><path d="M14 2v6h6"/><path d="M10 12h4"/><path d="M10 16h4"/><path d="M8 12h.01"/><path d="M8 16h.01"/></svg>
-                          View Architecture
-                        </button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[700px] border-primary/20 shadow-[0_0_40px_rgba(34,211,238,0.1)]">
-                        <DialogHeader>
-                          <DialogTitle className="text-xl font-bold text-foreground font-mono flex items-center gap-3">
-                            {project.title}
-                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                            </a>
-                          </DialogTitle>
-                        </DialogHeader>
-                        {project.architecture}
-                      </DialogContent>
-                    </Dialog>
-
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                      Source Code
-                    </a>
-                  </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </motion.div>
+          </div>
+
+          {/* Education & Languages */}
+          <div>
+            <motion.h3 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M2 12h2"/></svg>
+              Education & Languages
+            </motion.h3>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="space-y-6"
+            >
+              {/* Education */}
+              <div className="bg-card backdrop-blur-sm border border-border rounded-lg p-5">
+                <h4 className="font-mono text-lg font-bold text-primary mb-2">Bachelor of Engineering in Information Technology</h4>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
+                  <span className="text-foreground font-medium">SVEC, affiliated to JNT University, India</span>
+                  <span className="text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded text-xs font-mono">Graduated: 2010</span>
+                </div>
+                <p className="text-muted-foreground text-sm mt-3 flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+                  CGPA: <span className="font-mono font-bold text-foreground">7.2 / 10</span>
+                </p>
+              </div>
+
+              {/* Languages */}
+              <div className="bg-card backdrop-blur-sm border border-border rounded-lg p-5">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <div className="font-mono text-base font-bold text-foreground mb-1">English</div>
+                    <div className="flex items-center gap-2">
+                      <div className="h-1.5 w-16 bg-primary rounded-full"></div>
+                      <span className="text-sm text-primary font-medium">Fluent (C2)</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-mono text-base font-bold text-foreground mb-1">German</div>
+                    <div className="flex items-center gap-2">
+                      <div className="h-1.5 w-8 bg-amber-500 rounded-full"></div>
+                      <span className="text-sm text-amber-500 font-medium">Beginner (A1)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
