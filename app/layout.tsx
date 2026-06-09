@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
-import { NeuralMesh } from '@/components/neural-mesh'
+import { ParticleSphere } from '@/components/particle-sphere'
 import './globals.css'
 
 const inter = Inter({ 
@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body className="font-sans antialiased min-h-screen bg-gradient-to-br from-[#f8fafc] via-[#eff6ff] to-[#f1f5f9] dark:bg-gradient-to-br dark:from-[#090714] dark:via-[#1a0f3d] dark:to-[#0c071a]">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <NeuralMesh />
+          <ParticleSphere />
           {children}
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </ThemeProvider>
