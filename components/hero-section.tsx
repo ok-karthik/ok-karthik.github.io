@@ -1,3 +1,4 @@
+import { Download, Github, Linkedin, Mail } from "lucide-react"
 
 export function HeroSection() {
   return (
@@ -15,63 +16,126 @@ export function HeroSection() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-sky-800 to-primary dark:from-white dark:via-cyan-100 dark:to-primary leading-tight py-2">
               Karthik Orugonda
             </h1>
-            <h2 className="text-xl md:text-2xl font-semibold text-primary font-mono tracking-wider mt-2">
-              Senior Platform Engineer & SRE
-            </h2>
+            {/* Expert Polish: Gradient Title */}
+            <div className="mb-6">
+              <h2 className="text-2xl md:text-3xl font-mono font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-400 to-purple-400 tracking-tight">
+                Senior Platform Engineer & SRE
+              </h2>
+            </div>
           </div>
 
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed text-pretty">
-            15+ years overall IT experience, with 10+ years specialising in cloud-native platforms across AWS, Azure and GCP. Expert in Kubernetes-based IDPs, Terraform-driven self-service infrastructure, and GitOps-driven CI/CD. Currently exploring AI Platform Engineering and MLOps infrastructure.
+          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+            15+ years in tech, 10+ years specialising in cloud-native platforms across AWS, Azure and GCP. Expert in Kubernetes-based IDPs, Terraform-driven self-service infrastructure, and GitOps-driven CI/CD. Currently exploring AI Platform Engineering and MLOps infrastructure.
           </p>
 
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/10 bg-primary/5 text-muted-foreground text-sm font-mono w-full sm:w-auto">
-            <span>⚡</span>
-            <span className="truncate">Daily workflow includes Claude Code, Cursor & GitHub Copilot</span>
-          </div>
-
           <div className="flex flex-wrap items-center gap-4 pt-4">
-            <a href="#projects" className="px-6 py-2.5 bg-card border border-border hover:border-primary/50 text-foreground rounded-lg font-semibold transition-all hover:bg-primary/5 flex items-center justify-center min-w-[140px]">
+            <a href="#projects" className="px-6 py-3 rounded-xl bg-primary/10 text-primary border border-primary/20 font-semibold hover:bg-primary hover:text-primary-foreground transition-all flex items-center justify-center">
               View projects
             </a>
-            <a href="https://docs.google.com/document/d/1ELiwLJcYCaPdQIdW1SQ24PowzJ1ZVwQ_bdLh6aXjO7E/export?format=pdf" target="_blank" className="px-6 py-2.5 bg-card border border-border hover:border-primary/50 text-foreground rounded-lg font-semibold transition-all hover:bg-primary/5 flex items-center justify-center min-w-[140px]">
-              Download CV
+            <a href="https://docs.google.com/document/d/1ELiwLJcYCaPdQIdW1SQ24PowzJ1ZVwQ_bdLh6aXjO7E/export?format=pdf" target="_blank" className="px-6 py-3 rounded-xl bg-card/20 backdrop-blur-sm border border-border/50 font-medium hover:bg-card/40 hover:border-primary/30 transition-all flex items-center justify-center gap-2 group">
+              <Download className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
+              Platform Engineer CV
             </a>
           </div>
         </div>
 
-        {/* Right Column: Image and Socials */}
-        <div className="flex flex-col gap-6 w-full max-w-lg mx-auto lg:ml-auto items-center lg:items-end">
-          {/* Avatar Area */}
-          <div className="flex justify-center mt-4">
-            <div className="relative group">
-              <div className="absolute inset-0 rounded-full bg-primary/30 blur-2xl group-hover:bg-primary/50 transition-colors duration-500"></div>
-              <img 
-                src="https://github.com/ok-karthik.png" 
-                alt="Karthik Orugonda" 
-                className="relative w-48 h-48 lg:w-60 lg:h-60 rounded-full border-2 border-primary/50 object-cover shadow-[0_0_40px_rgba(34,211,238,0.2)] transition-transform duration-500 group-hover:scale-105"
-              />
+        {/* Right Column: Profile Card & Stats */}
+        <div className="flex flex-col gap-4 md:gap-5 w-full max-w-lg mx-auto lg:ml-auto">
+          
+          {/* Unified Profile Card */}
+          <div className="flex flex-col w-full bg-card/20 backdrop-blur-xl border border-border/40 rounded-[2rem] pt-6 px-6 pb-5 md:pt-8 md:px-8 md:pb-6 shadow-2xl relative overflow-hidden group/card">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none transition-opacity duration-700 group-hover/card:opacity-70" />
+
+            <div className="flex flex-col sm:flex-row gap-6 md:gap-8 relative z-10 w-full mb-5 md:mb-6">
+              {/* Left Side: Avatar */}
+              <div className="flex justify-center sm:justify-start shrink-0 pt-1">
+                <div className="relative group cursor-pointer">
+                  <img 
+                    src="https://github.com/ok-karthik.png" 
+                    alt="Karthik Orugonda" 
+                    className="relative w-32 h-32 md:w-36 md:h-36 rounded-full border-2 border-primary/40 object-cover shadow-lg transition-all duration-500 group-hover:scale-125 group-hover:-translate-y-2 group-hover:border-primary/60 group-hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] z-10"
+                  />
+                </div>
+              </div>
+
+              {/* Right Side: Focus Areas */}
+              <div className="flex-1 pt-1">
+                <h3 className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground uppercase mb-5 font-mono">Focus Areas</h3>
+                <div className="space-y-4 md:space-y-5">
+                  <div className="flex gap-3 group/item">
+                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 shadow-[0_0_8px_rgba(34,211,238,0.8)] transition-transform group-hover/item:scale-150" />
+                    <div>
+                      <div className="font-semibold text-foreground text-[15px] leading-none mb-1.5 transition-colors group-hover/item:text-cyan-400">Platform Engineering</div>
+                      <div className="text-[13px] text-muted-foreground/80 font-medium leading-snug">IDP · GitOps · Self-service infra</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-3 group/item">
+                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0 shadow-[0_0_8px_rgba(192,132,252,0.8)] transition-transform group-hover/item:scale-150" />
+                    <div>
+                      <div className="font-semibold text-foreground text-[15px] leading-none mb-1.5 transition-colors group-hover/item:text-purple-400">AI Infrastructure</div>
+                      <div className="text-[13px] text-muted-foreground/80 font-medium leading-snug">AI Platform · MLOps · Upskilling</div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 group/item">
+                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-sky-400 shrink-0 shadow-[0_0_8px_rgba(56,189,248,0.8)] transition-transform group-hover/item:scale-150" />
+                    <div>
+                      <div className="font-semibold text-foreground text-[15px] leading-none mb-1.5 transition-colors group-hover/item:text-sky-400">Cloud Infrastructure</div>
+                      <div className="text-[13px] text-muted-foreground/80 font-medium leading-snug">AWS · Azure · GCP</div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 group/item">
+                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-green-400 shrink-0 shadow-[0_0_8px_rgba(74,222,128,0.8)] transition-transform group-hover/item:scale-150" />
+                    <div>
+                      <div className="font-semibold text-foreground text-[15px] leading-none mb-1.5 transition-colors group-hover/item:text-green-400">SRE & Reliability</div>
+                      <div className="text-[13px] text-muted-foreground/80 font-medium leading-snug">SLOs · Observability · Incident mgmt</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="h-px w-full bg-border/40 relative z-10 mb-4 md:mb-5" />
+
+            {/* Bottom Row: Text Socials */}
+            <div className="flex items-center justify-around gap-4 w-full relative z-10">
+              <a href="https://github.com/ok-karthik" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group">
+                <Github className="w-4 h-4 transition-transform group-hover:scale-110" />
+                <span className="text-[14px] font-medium transition-colors">GitHub</span>
+              </a>
+              <a href="https://linkedin.com/in/karthikorugonda" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-[#0077b5] transition-colors group">
+                <Linkedin className="w-4 h-4 transition-transform group-hover:scale-110" />
+                <span className="text-[14px] font-medium transition-colors">LinkedIn</span>
+              </a>
+              <a href="mailto:ok.karthik99@gmail.com" className="flex items-center gap-2 text-muted-foreground hover:text-red-400 transition-colors group">
+                <Mail className="w-4 h-4 transition-transform group-hover:scale-110" />
+                <span className="text-[14px] font-medium transition-colors">Email</span>
+              </a>
             </div>
           </div>
 
-          {/* Stats & Social Cards Grid */}
-          <div className="grid grid-cols-2 gap-4 w-full">
-            <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-5 text-center hover:border-primary/30 hover:bg-primary/5 transition-all">
-              <div className="text-3xl font-bold text-primary mb-1 font-mono">10+</div>
-              <div className="text-sm text-muted-foreground">Years DevOps/SRE</div>
+          <div className="flex flex-col gap-4">
+            {/* Stats Grid */}
+            <div className="grid grid-cols-3 gap-4 w-full">
+              {/* Expert Polish: Color matched to Focus areas */}
+              <div className="bg-card/20 backdrop-blur-xl border border-border/40 rounded-[1.25rem] p-4 text-center flex flex-col justify-center transition-all hover:bg-card/40 hover:border-cyan-400/30 hover:-translate-y-1">
+                <div className="text-2xl md:text-3xl font-bold text-cyan-400 mb-1 font-mono">10+</div>
+                <div className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide leading-tight">Years<br/>Cloud native</div>
+              </div>
+              <div className="bg-card/20 backdrop-blur-xl border border-border/40 rounded-[1.25rem] p-4 text-center flex flex-col justify-center transition-all hover:bg-card/40 hover:border-purple-400/30 hover:-translate-y-1">
+                <div className="text-2xl md:text-3xl font-bold text-purple-400 mb-1 font-mono">3</div>
+                <div className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide leading-tight">Cloud<br/>providers</div>
+              </div>
+              <div className="bg-card/20 backdrop-blur-xl border border-border/40 rounded-[1.25rem] p-4 text-center flex flex-col justify-center transition-all hover:bg-card/40 hover:border-green-400/30 hover:-translate-y-1">
+                <div className="text-2xl md:text-3xl font-bold text-green-400 mb-1 font-mono">400+</div>
+                <div className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide leading-tight">Engineers<br/>served</div>
+              </div>
             </div>
-            <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-5 text-center hover:border-primary/30 hover:bg-primary/5 transition-all">
-              <div className="text-3xl font-bold text-primary mb-1 font-mono">3</div>
-              <div className="text-sm text-muted-foreground">Cloud Providers</div>
-            </div>
-            <a href="https://github.com/ok-karthik" target="_blank" rel="noopener noreferrer" className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-4 flex flex-col items-center justify-center hover:border-primary/30 hover:bg-primary/5 transition-all group">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground group-hover:text-primary mb-2 transition-colors group-hover:scale-110"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-              <div className="text-sm text-muted-foreground font-mono">GitHub</div>
-            </a>
-            <a href="https://linkedin.com/in/karthikorugonda" target="_blank" rel="noopener noreferrer" className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-4 flex flex-col items-center justify-center hover:border-primary/30 hover:bg-primary/5 transition-all group">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground group-hover:text-primary mb-2 transition-colors group-hover:scale-110"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>
-              <div className="text-sm text-muted-foreground font-mono">LinkedIn</div>
-            </a>
           </div>
+
         </div>
       </div>
     </section>
