@@ -27,10 +27,10 @@ export function Navbar() {
         
         <div className="hidden sm:flex items-center gap-6">
           <a
-            href="#expertise"
+            href="#tech-skills"
             className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
           >
-            Expertise
+            Tech Skills
           </a>
           <a
             href="#experience"
@@ -46,18 +46,25 @@ export function Navbar() {
           </a>
         </div>
 
-
-        <button
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="p-1.5 rounded-full hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-300 flex items-center justify-center cursor-pointer"
-          aria-label="Toggle Theme"
-        >
-          {mounted && theme === "dark" ? (
-            <Sun className="w-4 h-4 text-amber-400 transition-transform duration-500 hover:rotate-90" />
-          ) : (
-            <Moon className="w-4 h-4 text-sky-400 transition-transform duration-500 hover:rotate-12" />
-          )}
-        </button>
+        <div className="flex items-center gap-3 pl-2 sm:pl-4 border-l border-border/50">
+          <a 
+            href="#contact"
+            className="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-xs font-mono font-medium rounded-full bg-primary/10 text-primary hover:bg-primary/20 hover:scale-105 transition-all duration-300 border border-primary/20"
+          >
+            Let's Connect
+          </a>
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="p-1.5 rounded-full hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-300 flex items-center justify-center cursor-pointer"
+            aria-label="Toggle Theme"
+          >
+            {mounted && theme === "dark" ? (
+              <Sun className="w-4 h-4 text-amber-400 transition-transform duration-500 hover:rotate-90" />
+            ) : (
+              <Moon className="w-4 h-4 text-sky-400 transition-transform duration-500 hover:rotate-12" />
+            )}
+          </button>
+        </div>
       </div>
     </nav>
   )

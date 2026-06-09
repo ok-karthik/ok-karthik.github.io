@@ -67,53 +67,54 @@ const contactLinks = [
 
 export function ConnectSection() {
   return (
-    <section className="py-20 px-6 bg-secondary/20">
-      <div className="max-w-4xl mx-auto text-center">
-        <div className="flex justify-center mb-6">
-          <div className="relative group">
-            <div className="absolute inset-0 rounded-full bg-primary/30 blur-xl group-hover:bg-primary/50 transition-colors duration-500"></div>
-            <img 
-              src="https://github.com/ok-karthik.png" 
-              alt="Karthik Orugonda" 
-              className="relative w-28 h-28 rounded-full border-2 border-primary/50 object-cover shadow-2xl transition-transform duration-500 group-hover:scale-105"
-            />
+    <section id="contact" className="py-16 px-6">
+      <div className="max-w-5xl mx-auto">
+        <div className="bg-card/40 backdrop-blur-md border border-border/50 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_0_40px_rgba(0,0,0,0.1)] hover:border-primary/30 transition-colors">
+          <div className="text-center md:text-left">
+            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">{"Let's build something together"}</h2>
+            <p className="text-muted-foreground text-sm font-medium">Open to Senior Platform Eng, Staff SRE, AI Infra roles • Berlin or remote</p>
+          </div>
+          
+          <div className="flex items-center gap-3">
+            <a 
+              href="mailto:ok.karthik99@gmail.com"
+              className="px-5 py-2.5 bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground font-mono font-medium rounded-lg transition-all flex items-center gap-2"
+            >
+              Email Me
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            
+            {contactLinks.slice(1).map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 bg-secondary/30 hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-lg border border-border/50 hover:border-primary/30 transition-all"
+                aria-label={link.label}
+                title={link.label}
+              >
+                <span className="w-5 h-5 flex items-center justify-center">
+                  {link.icon}
+                </span>
+              </a>
+            ))}
           </div>
         </div>
-        
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-          {"Let's Connect"}
-        </h2>
-        <p className="text-muted-foreground mb-12 max-w-2xl mx-auto">
-          {"Interested in discussing cloud infrastructure, platform engineering, or potential collaborations? Reach out through any of these channels."}
-        </p>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6">
-          {contactLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target={link.href.startsWith("mailto") ? undefined : "_blank"}
-              rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-              className="group bg-card backdrop-blur-sm border border-border rounded-lg p-6 
-                         flex flex-col items-center gap-3 min-w-[200px]
-                         transition-all duration-300 ease-out
-                         hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.3),0_0_40px_rgba(34,211,238,0.15)]
-                         hover:-translate-y-1"
-            >
-              <span className="text-muted-foreground group-hover:text-primary transition-colors">
-                {link.icon}
-              </span>
-              <span className="font-semibold text-foreground">{link.label}</span>
-              <span className="font-mono text-xs text-muted-foreground group-hover:text-foreground transition-colors">
-                {link.value}
-              </span>
-            </a>
-          ))}
+        <div className="mt-16 text-sm text-muted-foreground font-mono flex flex-col items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 text-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Berlin, Germany</span>
+            </div>
+            <span className="hidden sm:inline text-border">|</span>
+            <span>Visa: German Permanent Residence</span>
+          </div>
+          <p className="opacity-70">
+            © {new Date().getFullYear()} Karthik Orugonda. Built with React & Next.js.
+          </p>
         </div>
-
-        <p className="mt-16 text-sm text-muted-foreground font-mono">
-          © {new Date().getFullYear()} Karthik Orugonda. Built with React & Next.js.
-        </p>
       </div>
     </section>
   )

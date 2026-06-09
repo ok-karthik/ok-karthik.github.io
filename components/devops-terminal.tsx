@@ -167,7 +167,7 @@ export function DevOpsTerminal() {
 
   return (
     <div 
-      className="w-full max-w-2xl mx-auto mt-10 rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-[#0f0a24]/90 backdrop-blur-md font-mono text-xs md:text-sm text-left cursor-text"
+      className="w-full max-w-4xl mx-auto mt-10 rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-[#0f0a24]/90 backdrop-blur-md font-mono text-xs md:text-sm text-left cursor-text"
       onClick={handleTerminalClick}
     >
       {/* Terminal Title Bar */}
