@@ -111,7 +111,7 @@ const categories: Category[] = [
     title: "AI-assisted Engineering",
     skills: [
       { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://claude.ai/" },
-      { name: "Antigravity", icon: "/antigravity.png", scale: 1.25 },
+      { name: "Antigravity", icon: "/antigravity.png", scale: 1.25, url: "https://antigravity.google" },
       { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25, url: "https://ollama.com/" },
       { name: "Cursor", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg", scale: 1.15, url: "https://cursor.sh/" },
       { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg", scale: 1.25, url: "https://github.com/features/copilot" },

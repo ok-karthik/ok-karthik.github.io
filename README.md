@@ -39,4 +39,4 @@ npm run dev
 ## Collaborators
 
 * **[Karthik Orugonda](https://github.com/ok-karthik)** — Lead Developer & Architect
-* **[Antigravity AI](https://github.com/google-antigravity)** — AI Pair Programmer (powered by Google)
+* **[Antigravity AI](https://antigravity.google)** — AI Pair Programmer (powered by Google)
