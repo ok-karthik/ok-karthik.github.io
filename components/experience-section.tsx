@@ -9,8 +9,8 @@ const experiences = [
     period: "Dec 2022 – Present",
     tags: ["Platform Engineering", "SRE", "Kubernetes", "GitOps", "Observability", "Golden Paths"],
     bullets: [
-      "Architected and scaled a Kubernetes-based Internal Developer Platform, standardizing deployments across multiple engineering teams.",
-      "Established AIOps-driven observability and SLO frameworks, significantly reducing MTTR and false positives.",
+      "Contributed to a Kubernetes-based Internal Developer Platform, developing reusable IaC modules, Helm library charts, GitOps workflows and golden paths that standardised deployment patterns across multiple engineering teams.",
+      "Established AIOps-driven observability using OpenTelemetry and Dynatrace, reducing MTTR and false positives by ~30% via alerting-as-code and SLO frameworks",
     ],
   },
   {
@@ -19,8 +19,9 @@ const experiences = [
     period: "May 2018 – Nov 2022",
     tags: ["Platform Engineering", "Kubernetes", "Helm", "Azure", "GCP", "Private Cloud", "Security Automation"],
     bullets: [
-      "Spearheaded multi-cloud Kubernetes migrations, modernizing legacy architectures to serve 400+ engineers.",
-      "Engineered resilient GitOps CI/CD pipelines, enabling automated canary and blue-green deployments.",
+      "Operated multi-tenant Kubernetes platforms and CI/CD systems supporting 400+ engineers across multiple business domains.",
+      "Engineered resilient GitOps CI/CD pipelines enabling automated canary and blue-green deployments, and refactored Jenkins shared libraries used by 150+ teams.",
+      "Spearheaded migration from legacy PaaS (Mesos/Marathon) to Kubernetes and then to Private Cloud across multiple business units, leading a team of 5 engineers.",
     ],
   },
   {
@@ -39,7 +40,7 @@ const experiences = [
     period: "Dec 2010 – Aug 2015",
     tags: ["Backend Systems", "High Availability", "Linux"],
     bullets: [
-      "Engineered and supported critical backend payment gateway systems.",
+      "Developed automated reporting tools reducing manual operational effort by ~30% for Vodafone UK backend systems.",
     ],
   },
 ]
