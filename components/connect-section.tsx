@@ -75,12 +75,12 @@ export function ConnectSection() {
             <p className="text-muted-foreground text-sm font-medium">Open to Senior Platform Eng, Staff SRE, AI Infra roles • Berlin or remote</p>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 mt-4 md:mt-0">
             <a 
               href="mailto:ok.karthik99@gmail.com"
-              className="px-5 py-2.5 bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground font-mono font-medium rounded-lg transition-all flex items-center gap-2"
+              className="px-4 py-2.5 bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground font-mono text-sm font-medium rounded-lg transition-all flex items-center gap-2"
             >
-              Email Me
+              ok.karthik99@gmail.com
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
             
@@ -90,13 +90,13 @@ export function ConnectSection() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 bg-secondary/30 hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-lg border border-border/50 hover:border-primary/30 transition-all"
+                className="px-4 py-2.5 bg-secondary/30 hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-lg border border-border/50 hover:border-primary/30 transition-all flex items-center gap-2"
                 aria-label={link.label}
-                title={link.label}
               >
-                <span className="w-5 h-5 flex items-center justify-center">
+                <span className="w-4 h-4 flex items-center justify-center">
                   {link.icon}
                 </span>
+                <span className="text-sm font-medium">{link.label}</span>
               </a>
             ))}
           </div>
