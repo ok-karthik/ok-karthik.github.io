@@ -35,3 +35,8 @@ npm run dev
 - `app/` - Next.js App Router core (layout, global styles, theme provider).
 - `components/` - React components including the interactive DevOps Terminal, Neural Mesh background, and animated sections.
 - `PROJECT_CONTEXT.md` - Context document detailing architectural and design choices.
+
+## Collaborators
+
+* **[Karthik Orugonda](https://github.com/ok-karthik)** — Lead Developer & Architect
+* **[Antigravity AI](https://github.com/google-antigravity)** — AI Pair Programmer (powered by Google)
