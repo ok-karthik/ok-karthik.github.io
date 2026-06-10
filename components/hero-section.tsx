@@ -9,7 +9,7 @@ export function HeroSection() {
           {/* Status Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-sm font-medium">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            Open to opportunities · Berlin / Remote
+            Open to opportunities · Germany / Remote
           </div>
 
           <div>
@@ -34,7 +34,7 @@ export function HeroSection() {
             </a>
             <a href="https://docs.google.com/document/d/1ELiwLJcYCaPdQIdW1SQ24PowzJ1ZVwQ_bdLh6aXjO7E/export?format=pdf" target="_blank" className="px-6 py-3 rounded-xl bg-card/20 backdrop-blur-sm border border-border/50 font-medium hover:bg-card/40 hover:border-primary/30 transition-all flex items-center justify-center gap-2 group">
               <Download className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
-              Platform Engineer CV
+              Download CV
             </a>
           </div>
         </div>
