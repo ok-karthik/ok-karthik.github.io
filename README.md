@@ -16,6 +16,8 @@ This portfolio is designed to showcase my technical expertise, career history, a
 
 ## Local Development
 
+**Prerequisites**: Node.js 22+ and pnpm.
+
 To run this project locally:
 
 1. Install dependencies:
