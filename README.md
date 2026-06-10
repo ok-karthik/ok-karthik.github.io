@@ -16,16 +16,18 @@ This portfolio is designed to showcase my technical expertise, career history, a
 
 ## Local Development
 
+**Prerequisites**: Node.js 22+ and pnpm.
+
 To run this project locally:
 
 1. Install dependencies:
 ```bash
-npm install
+pnpm install
 ```
 
 2. Start the development server:
 ```bash
-npm run dev
+pnpm dev
 ```
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser.
