@@ -53,6 +53,10 @@ export function ParticleSphere() {
       globeSpeed: number = 0
       globeType: 'lat' | 'lon' = 'lat'
       
+      aiTheta: number = 0
+      aiPhi: number = 0
+      aiRadius: number = 0
+      
       x: number = 0
       y: number = 0
       z: number = 0
@@ -72,7 +76,7 @@ export function ParticleSphere() {
         this.z = this.radius * Math.cos(this.phi)
         
         // Reverting particle size back to the smaller, highly majestic misty size
-        this.size = Math.random() * 1.0 + 0.2 
+        this.size = Math.random() * 2.0 + 1.0 
         
         const hue = 190 + Math.random() * 30
         const lightness = isDark ? (60 + Math.random() * 40) : (20 + Math.random() * 30)
@@ -108,6 +112,11 @@ export function ParticleSphere() {
             this.globeSpeed = 0.002
             this.globeType = 'lon'
         }
+
+        this.aiTheta = Math.random() * Math.PI * 2
+        this.aiPhi = Math.acos(2.0 * Math.random() - 1.0)
+        // Set aiRadius to cluster tightly around a large ring
+        this.aiRadius = coreRadius * 1.3 + (Math.random() - 0.5) * (coreRadius * 0.15)
       }
 
       update(state: string) {
@@ -164,10 +173,54 @@ export function ParticleSphere() {
             targetX = latticeX; targetY = latticeY; targetZ = latticeZ;
         } else if (state === 'globe') {
             targetX = globeX; targetY = globeY; targetZ = globeZ;
+        } else if (state === 'ai-core') {
+            // Avengers Endgame: Inverted Mobius Strip Time Travel Hologram
+            const t = Date.now() * 0.001;
+            
+            // The particle's position along the figure-8 loop (flowing over time)
+            const u = this.aiTheta + t * 0.5;
+            
+            // The width parameter (across the ribbon)
+            const w = Math.cos(this.aiPhi) * (coreRadius * 0.25);
+            // The thickness parameter (volumetric depth of the ribbon)
+            const thick = (this.aiRadius - coreRadius * 1.3) * 0.4;
+            
+            // Base Figure-8 (Lemniscate-like) path
+            const R = coreRadius * 1.1; // Scale of the hologram
+            const x_base = R * 1.5 * Math.sin(u);
+            const y_base = R * Math.sin(u) * Math.cos(u);
+            const z_base = 0;
+            
+            // Tangent derivatives for the path
+            const dx = 1.5 * Math.cos(u);
+            const dy = Math.cos(2 * u);
+            const mag = Math.sqrt(dx * dx + dy * dy);
+            
+            // Normal vector in 2D (perpendicular to path)
+            const nx = -dy / mag;
+            const ny = dx / mag;
+            
+            // Twisting the ribbon. 3 half-twists looks exactly like Tony Stark's complex simulation
+            const twist = u * 1.5;
+            
+            // Rotate the width and thickness around the tangent to create the twisted ribbon surface
+            const v_w = w * Math.cos(twist) - thick * Math.sin(twist);
+            const v_thick = w * Math.sin(twist) + thick * Math.cos(twist);
+            
+            // Add subtle energy vibrations to the hologram
+            const jitterX = Math.sin(t * 15 + this.aiPhi * 10) * 1.5;
+            const jitterY = Math.cos(t * 15 + this.aiTheta * 10) * 1.5;
+            const jitterZ = Math.sin(t * 15 + this.aiPhi * 5) * 1.5;
+            
+            // Final 3D coordinates combining the path, the twisted surface offsets, and the energy jitter
+            targetX = x_base + v_w * nx + jitterX;
+            targetY = y_base + v_w * ny + jitterY;
+            targetZ = z_base + v_thick + jitterZ;
         }
 
         let snap = 0.05
         if (state === 'swirl') snap = 0.015 
+        else if (state === 'ai-core') snap = 0.08
         
         this.x += (targetX - this.x) * snap;
         this.y += (targetY - this.y) * snap;
@@ -192,7 +245,12 @@ export function ParticleSphere() {
       coreRadius = minDim * 0.30 
       maxRadius = coreRadius * 1.8 
       
-      const numParticles = Math.min(Math.floor((w * h) / 250), 3200)
+      // Performance guard: reduce particle density heavily on mobile/smaller screens
+      const isMobile = w < 768;
+      const densityDivisor = isMobile ? 250 : 100;
+      const maxLimit = isMobile ? 1500 : 5000;
+      
+      const numParticles = Math.min(Math.floor((w * h) / densityDivisor), maxLimit)
       const perSide = Math.ceil(Math.cbrt(numParticles))
       
       // Keeping the tight grid spacing so the massive cube structure itself stays thick and dense
@@ -212,7 +270,7 @@ export function ParticleSphere() {
     }
 
     let globalRotationY = 0
-    const STATES = ['lattice', 'swirl', 'globe', 'swirl']
+    const STATES = ['ai-core', 'globe', 'lattice', 'swirl']
     let stateIndex = 0
     let stateTime = 0
 
@@ -237,7 +295,7 @@ export function ParticleSphere() {
       
       stateTime++
       const currentState = STATES[stateIndex]
-      const duration = currentState === 'swirl' ? 350 : 500
+      const duration = currentState === 'ai-core' ? 600 : (currentState === 'swirl' ? 350 : 500)
 
       if (stateTime > duration) { 
         stateTime = 0
@@ -328,7 +386,9 @@ export function ParticleSphere() {
     }
 
     const handleResize = () => {
-      const dpr = window.devicePixelRatio || 1
+      // Performance guard: cap device pixel ratio at 2. 
+      // Many modern phones have a DPR of 3 or 4, which forces rendering millions of extra pixels and kills battery/framerate.
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
       canvas.width = window.innerWidth * dpr
       canvas.height = window.innerHeight * dpr
       ctx.scale(dpr, dpr)
