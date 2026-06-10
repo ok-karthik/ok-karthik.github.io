@@ -65,7 +65,7 @@ export function ExperienceSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
         >
-          A decade of building resilient infrastructure and empowering engineering teams
+          15+ years building resilient infrastructure and empowering engineering teams
         </motion.p>
 
         <div className="grid gap-6 relative">
