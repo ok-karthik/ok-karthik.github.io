@@ -41,4 +41,3 @@ pnpm dev
 ## Collaborators
 
 * **[Karthik Orugonda](https://github.com/ok-karthik)** — Lead Developer & Architect
-* **[Antigravity AI](https://antigravity.google)** — AI Pair Programmer (powered by Google)

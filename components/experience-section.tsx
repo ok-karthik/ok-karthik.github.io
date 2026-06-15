@@ -11,6 +11,7 @@ const experiences = [
     bullets: [
       "Contributed to a Kubernetes-based Internal Developer Platform, developing reusable IaC modules, Helm library charts, GitOps workflows and golden paths that standardised deployment patterns across multiple engineering teams.",
       "Established AIOps-driven observability using OpenTelemetry and Dynatrace, reducing MTTR and false positives by ~30% via alerting-as-code and SLO frameworks",
+      "Accelerated development of IaC modules and GitOps Platform workflows by integrating agentic coding tools (GitHub Copilot, Claude Code) into daily engineering practices",
     ],
   },
   {

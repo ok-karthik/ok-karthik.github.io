@@ -134,12 +134,12 @@ export function DevOpsTerminal() {
           outputLines = [
             { id: Math.random().toString(), text: "Platform Engineering Stack:", isSystem: true },
             { id: Math.random().toString(), text: "• Cloud & Platform Infrastructure: AWS, Azure, GCP" },
-            { id: Math.random().toString(), text: "• Containers & Orchestration: Kubernetes, K8s Operators, Docker, Helm, Istio, KEDA, Kustomize" },
-            { id: Math.random().toString(), text: "• CI/CD, IaC & GitOps: Terraform, ArgoCD, GitHub Actions, Terragrunt, Crossplane, Argo Rollouts, GitLab CI/CD, Jenkins, Ansible" },
-            { id: Math.random().toString(), text: "• Security, Policy & Governance: OPA Gatekeeper, Kyverno, Trivy, Snyk, Checkov" },
-            { id: Math.random().toString(), text: "• Observability & Reliability: OpenTelemetry, Prometheus, Grafana, Datadog, Dynatrace, New Relic, Loki, Tempo" },
+            { id: Math.random().toString(), text: "• Containers & Orchestration: Kubernetes, K8s Operators, Docker, Helm, Istio" },
+            { id: Math.random().toString(), text: "• CI/CD, IaC & GitOps: Terraform, ArgoCD, GitHub Actions, Terragrunt, Crossplane, GitLab CI/CD, Jenkins, Ansible" },
+            { id: Math.random().toString(), text: "• DevSecOps & Governance: Policy-as-Code (OPA, Kyverno), Security Scanning (Trivy, Snyk, Checkov), Secrets Management, Kubernetes Security (RBAC)" },
+            { id: Math.random().toString(), text: "• Observability & Reliability: OpenTelemetry, Prometheus, Grafana, Datadog, Dynatrace, Loki, Tempo" },
             { id: Math.random().toString(), text: "• Programming & Architecture: Python, Bash" },
-            { id: Math.random().toString(), text: "• AI-assisted Engineering: Claude Code, Antigravity, Ollama, Cursor, GitHub Copilot" },
+            { id: Math.random().toString(), text: "• AI-assisted Engineering: Claude Code, GitHub Copilot, n8n, Ollama" },
           ]
           break
         case "contact":

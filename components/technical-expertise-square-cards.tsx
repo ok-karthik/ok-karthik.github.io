@@ -9,7 +9,8 @@ import {
   LayoutTemplate,
   FileText,
   Blocks,
-  ShieldBan
+  ShieldBan,
+  Key
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -41,8 +42,6 @@ const categories: Category[] = [
       { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
       { name: "Helm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg" },
       { name: "Istio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg" },
-      { name: "KEDA", icon: "/keda-icon.svg" },
-      { name: "Kustomize", icon: "/kustomize-icon.png" },
     ],
   },
   {
@@ -52,17 +51,18 @@ const categories: Category[] = [
       { name: "Terragrunt", icon: "/terragrunt.svg" },
       { name: "Crossplane", icon: "/crossplane-icon.svg" },
       { name: "ArgoCD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg" },
-      { name: "Argo Rollouts", icon: "https://argoproj.github.io/static/3748e3a7881fe3b037f2401b65943dc0/93d75/rollouts.png" },
       { name: "GitHub Actions", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" },
       { name: "GitLab CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg" },
       { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg" },
     ],
   },
   {
-    title: "Policy & Governance",
+    title: "DevSecOps & Governance",
     skills: [
-      { name: "Kyverno", lucideIcon: ShieldAlert },
-      { name: "OPA Gatekeeper", icon: "/gatekeeper-icon.svg", scale: 1.15 },
+      { name: "Policy-as-Code", lucideIcon: ShieldAlert },
+      { name: "Security Scanning", lucideIcon: ShieldBan },
+      { name: "Secrets Management", lucideIcon: Key },
+      { name: "Kubernetes Security", lucideIcon: Layers },
     ],
   },
   {
@@ -73,7 +73,6 @@ const categories: Category[] = [
       { name: "Loki", icon: "/loki.svg" },
       { name: "Tempo", icon: "/tempo.svg" },
       { name: "Dynatrace (AIOps / Davis AI)", icon: "https://cdn.simpleicons.org/dynatrace" },
-      { name: "New Relic", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/newrelic.svg" },
       { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg" },
       { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg" },
     ],
@@ -89,11 +88,10 @@ const categories: Category[] = [
   {
     title: "AI-assisted Engineering",
     skills: [
-      { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg" },
-      { name: "Cursor", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg" },
       { name: "Claude Code", lucideIcon: Bot },
+      { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg" },
+      { name: "n8n", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/n8n.svg" },
       { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg" },
-      { name: "Antigravity", lucideIcon: Sparkles },
     ],
   },
   {

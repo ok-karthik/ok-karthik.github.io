@@ -9,7 +9,8 @@ import {
   LayoutTemplate,
   FileText,
   Blocks,
-  ShieldBan
+  ShieldBan,
+  Key
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -59,8 +60,6 @@ const categories: Category[] = [
       { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", url: "https://www.docker.com/" },
       { name: "Helm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg", url: "https://helm.sh/" },
       { name: "Istio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg", scale: 1.2, url: "https://istio.io/" },
-      { name: "KEDA", icon: "/keda-icon.svg", scale: 1.15, url: "https://keda.sh/" },
-      { name: "Kustomize", icon: "/kustomize-icon.png", scale: 1.1, url: "https://kustomize.io/" },
     ],
   },
   {
@@ -71,20 +70,34 @@ const categories: Category[] = [
       { name: "GitHub Actions", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", url: "https://github.com/features/actions" },
       { name: "Terragrunt", icon: "/terragrunt.svg", url: "https://terragrunt.gruntwork.io/" },
       { name: "Crossplane", icon: "/crossplane-icon.svg", scale: 1.2, url: "https://www.crossplane.io/" },
-      { name: "Argo Rollouts", icon: "https://argoproj.github.io/static/3748e3a7881fe3b037f2401b65943dc0/93d75/rollouts.png", url: "https://argoproj.github.io/rollouts/" },
       { name: "GitLab CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg", url: "https://docs.gitlab.com/ee/ci/" },
       { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", scale: 1.2, url: "https://www.jenkins.io/" },
       { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg", url: "https://www.ansible.com/" },
     ],
   },
   {
-    title: "Security, Policy & Governance",
+    title: "DevSecOps & Governance",
     skills: [
-      { name: "OPA Gatekeeper", icon: "/gatekeeper-icon.svg", scale: 1.15, url: "https://openpolicyagent.github.io/gatekeeper/website/" },
-      { name: "Kyverno", lucideIcon: ShieldAlert, url: "https://kyverno.io/" },
-      { name: "Trivy", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/trivy.svg", scale: 1.15, url: "https://trivy.dev/" },
-      { name: "Snyk", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/snyk.svg", scale: 1.15, url: "https://snyk.io/" },
-      { name: "Checkov", icon: "https://raw.githubusercontent.com/bridgecrewio/checkov/main/docs/web/images/checkov_blue_logo.png", scale: 1.15, url: "https://www.checkov.io/" },
+      { 
+        name: "Policy-as-Code", 
+        lucideIcon: ShieldAlert,
+        subSkills: ["OPA Gatekeeper", "Kyverno"],
+      },
+      { 
+        name: "Security Scanning", 
+        lucideIcon: ShieldBan,
+        subSkills: ["Trivy", "Snyk", "Checkov"],
+      },
+      { 
+        name: "Secrets Management", 
+        lucideIcon: Key,
+        subSkills: ["External Secrets", "AWS Secrets Manager", "Azure Key Vault"],
+      },
+      { 
+        name: "Kubernetes Security", 
+        lucideIcon: Layers,
+        subSkills: ["RBAC", "Network Policies"],
+      },
     ],
   },
   {
@@ -95,7 +108,6 @@ const categories: Category[] = [
       { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg", url: "https://grafana.com/" },
       { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg", scale: 1.4, url: "https://www.datadoghq.com/" },
       { name: "Dynatrace", icon: "https://cdn.simpleicons.org/dynatrace", scale: 1.15, url: "https://www.dynatrace.com/" },
-      { name: "New Relic", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/newrelic.svg", scale: 1.15, url: "https://newrelic.com/" },
       { name: "Loki", icon: "/loki.svg", url: "https://grafana.com/oss/loki/" },
       { name: "Tempo", icon: "/tempo.svg", url: "https://grafana.com/oss/tempo/" },
     ],
@@ -111,10 +123,9 @@ const categories: Category[] = [
     title: "AI-assisted Engineering",
     skills: [
       { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://claude.ai/" },
-      { name: "Antigravity", icon: "/antigravity.png", scale: 1.25, url: "https://antigravity.google" },
-      { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25, url: "https://ollama.com/" },
-      { name: "Cursor", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg", scale: 1.15, url: "https://cursor.sh/" },
       { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg", scale: 1.25, url: "https://github.com/features/copilot" },
+      { name: "n8n", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/n8n.svg", scale: 1.15, url: "https://n8n.io/" },
+      { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25, url: "https://ollama.com/" },
     ],
   },
 ]
