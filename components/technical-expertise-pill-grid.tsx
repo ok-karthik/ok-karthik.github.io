@@ -96,9 +96,9 @@ const categories: Category[] = [
         name: "Security Scanning", 
         lucideIcon: ShieldBan,
         subSkills: [
-          { name: "Trivy", icon: "https://cdn.simpleicons.org/trivy/20A6E8" },
-          { name: "Snyk", icon: "https://cdn.simpleicons.org/snyk/white" },
-          { name: "Checkov", icon: "https://raw.githubusercontent.com/bridgecrewio/checkov/main/docs/web/images/checkov_blue_logo.png" }
+          "IaC Scanning",
+          "Container Scanning",
+          "SAST / DAST"
         ],
       },
       { 
@@ -183,15 +183,17 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
               const name = isString ? sub : sub.name
               const icon = !isString ? sub.icon : undefined
               const LucideIcon = !isString ? sub.lucideIcon : undefined
+              const isDarkInvert = false
+              const isDarkBrighten = ['OPA Gatekeeper', 'Kyverno'].includes(name as string)
               
               return (
                 <span 
-                  key={name} 
+                  key={name as string} 
                   className="flex items-center gap-1.5 text-xs font-mono text-foreground/80 bg-secondary/80 rounded-full px-3 py-1 border border-border/50
                              transition-all duration-200 hover:text-primary hover:bg-secondary hover:border-primary/40 shadow-sm"
                 >
                   {LucideIcon && <LucideIcon className="w-3.5 h-3.5" />}
-                  {icon && <img src={icon} alt={name} className={`w-3.5 h-3.5 object-contain ${name === 'Checkov' ? 'brightness-200' : ''}`} crossOrigin="anonymous" />}
+                  {icon && <img src={icon} alt={name as string} className={`w-3.5 h-3.5 object-contain ${isDarkInvert ? 'dark:invert' : ''} ${isDarkBrighten ? 'dark:brightness-200' : ''}`} crossOrigin="anonymous" />}
                   {name}
                 </span>
               )
@@ -255,15 +257,17 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
             const name = isString ? sub : sub.name
             const icon = !isString ? sub.icon : undefined
             const LucideIcon = !isString ? sub.lucideIcon : undefined
+            const isDarkInvert = false
+            const isDarkBrighten = ['OPA Gatekeeper', 'Kyverno'].includes(name as string)
             
             return (
               <span 
-                key={name} 
+                key={name as string} 
                 className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground/90 bg-secondary/60 border border-border/50 rounded-full px-3 py-1
                            transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary/80"
               >
                 {LucideIcon && <LucideIcon className="w-3.5 h-3.5" />}
-                {icon && <img src={icon} alt={name} className={`w-3.5 h-3.5 object-contain ${name === 'Checkov' ? 'brightness-200' : ''}`} crossOrigin="anonymous" />}
+                {icon && <img src={icon} alt={name as string} className={`w-3.5 h-3.5 object-contain ${isDarkInvert ? 'dark:invert' : ''} ${isDarkBrighten ? 'dark:brightness-200' : ''}`} crossOrigin="anonymous" />}
                 {name}
               </span>
             )

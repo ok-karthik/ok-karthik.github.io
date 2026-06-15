@@ -136,7 +136,7 @@ export function DevOpsTerminal() {
             { id: Math.random().toString(), text: "• Cloud & Platform Infrastructure: AWS, Azure, GCP" },
             { id: Math.random().toString(), text: "• Containers & Orchestration: Kubernetes, K8s Operators, Docker, Helm, Istio" },
             { id: Math.random().toString(), text: "• CI/CD, IaC & GitOps: Terraform, ArgoCD, GitHub Actions, Terragrunt, Crossplane, GitLab CI/CD, Jenkins, Ansible" },
-            { id: Math.random().toString(), text: "• DevSecOps & Governance: Policy-as-Code (OPA, Kyverno), Security Scanning (Trivy, Snyk, Checkov), Secrets Management, Kubernetes Security (RBAC)" },
+            { id: Math.random().toString(), text: "• DevSecOps & Governance: Policy-as-Code (OPA, Kyverno), Security Scanning (IaC, Container, SAST/DAST), Secrets Management, Kubernetes Security (RBAC)" },
             { id: Math.random().toString(), text: "• Observability & Reliability: OpenTelemetry, Prometheus, Grafana, Datadog, Dynatrace, Loki, Tempo" },
             { id: Math.random().toString(), text: "• Programming & Architecture: Python, Bash" },
             { id: Math.random().toString(), text: "• AI-assisted Engineering: Claude Code, GitHub Copilot, n8n, Ollama" },
