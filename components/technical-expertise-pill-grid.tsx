@@ -14,11 +14,17 @@ import {
 } from "lucide-react"
 import { motion } from "framer-motion"
 
+type SubSkill = string | {
+  name: string
+  icon?: string
+  lucideIcon?: React.ComponentType<{ className?: string }>
+}
+
 type Skill = {
   name: string
   icon?: string
   lucideIcon?: React.ComponentType<{ className?: string }>
-  subSkills?: string[]
+  subSkills?: SubSkill[]
   scale?: number
   url?: string
 }
@@ -81,17 +87,28 @@ const categories: Category[] = [
       { 
         name: "Policy-as-Code", 
         lucideIcon: ShieldAlert,
-        subSkills: ["OPA Gatekeeper", "Kyverno"],
+        subSkills: [
+          { name: "OPA Gatekeeper", icon: "https://raw.githubusercontent.com/cncf/artwork/master/projects/open-policy-agent/icon/color/opa-icon-color.svg" },
+          { name: "Kyverno", icon: "https://raw.githubusercontent.com/cncf/artwork/master/projects/kyverno/icon/color/kyverno-icon-color.svg" }
+        ],
       },
       { 
         name: "Security Scanning", 
         lucideIcon: ShieldBan,
-        subSkills: ["Trivy", "Snyk", "Checkov"],
+        subSkills: [
+          { name: "Trivy", icon: "https://cdn.simpleicons.org/trivy/20A6E8" },
+          { name: "Snyk", icon: "https://cdn.simpleicons.org/snyk/A68AFF" },
+          { name: "Checkov", icon: "https://raw.githubusercontent.com/bridgecrewio/checkov/main/docs/web/images/checkov_blue_logo.png" }
+        ],
       },
       { 
         name: "Secrets Management", 
         lucideIcon: Key,
-        subSkills: ["External Secrets", "AWS Secrets Manager", "Azure Key Vault"],
+        subSkills: [
+          "External Secrets",
+          "AWS Secrets Manager",
+          "Azure Key Vault"
+        ],
       },
       { 
         name: "Kubernetes Security", 
@@ -161,15 +178,24 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
         
         {skill.subSkills && skill.subSkills.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-2 max-w-[360px]">
-            {skill.subSkills.map((sub) => (
-              <span 
-                key={sub} 
-                className="text-xs font-mono text-foreground/80 bg-secondary/80 rounded-full px-3 py-1 border border-border/50
-                           transition-all duration-200 hover:text-primary hover:bg-secondary hover:border-primary/40 shadow-sm"
-              >
-                {sub}
-              </span>
-            ))}
+            {skill.subSkills.map((sub) => {
+              const isString = typeof sub === 'string'
+              const name = isString ? sub : sub.name
+              const icon = !isString ? sub.icon : undefined
+              const LucideIcon = !isString ? sub.lucideIcon : undefined
+              
+              return (
+                <span 
+                  key={name} 
+                  className="flex items-center gap-1.5 text-xs font-mono text-foreground/80 bg-secondary/80 rounded-full px-3 py-1 border border-border/50
+                             transition-all duration-200 hover:text-primary hover:bg-secondary hover:border-primary/40 shadow-sm"
+                >
+                  {LucideIcon && <LucideIcon className="w-3.5 h-3.5" />}
+                  {icon && <img src={icon} alt={name} className={`w-3.5 h-3.5 object-contain ${name === 'Checkov' ? 'brightness-200' : ''}`} crossOrigin="anonymous" />}
+                  {name}
+                </span>
+              )
+            })}
           </div>
         )}
       </div>
@@ -224,15 +250,24 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
       
       {skill.subSkills && skill.subSkills.length > 0 && (
         <div className="flex flex-wrap gap-2 pl-3 max-w-[360px]">
-          {skill.subSkills.map((sub) => (
-            <span 
-              key={sub} 
-              className="text-xs font-mono text-muted-foreground/90 bg-secondary/60 border border-border/50 rounded-full px-3 py-1
-                         transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary/80"
-            >
-              {sub}
-            </span>
-          ))}
+          {skill.subSkills.map((sub) => {
+            const isString = typeof sub === 'string'
+            const name = isString ? sub : sub.name
+            const icon = !isString ? sub.icon : undefined
+            const LucideIcon = !isString ? sub.lucideIcon : undefined
+            
+            return (
+              <span 
+                key={name} 
+                className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground/90 bg-secondary/60 border border-border/50 rounded-full px-3 py-1
+                           transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary/80"
+              >
+                {LucideIcon && <LucideIcon className="w-3.5 h-3.5" />}
+                {icon && <img src={icon} alt={name} className={`w-3.5 h-3.5 object-contain ${name === 'Checkov' ? 'brightness-200' : ''}`} crossOrigin="anonymous" />}
+                {name}
+              </span>
+            )
+          })}
         </div>
       )}
     </div>
