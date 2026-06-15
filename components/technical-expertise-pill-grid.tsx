@@ -97,7 +97,7 @@ const categories: Category[] = [
         lucideIcon: ShieldBan,
         subSkills: [
           { name: "Trivy", icon: "https://cdn.simpleicons.org/trivy/20A6E8" },
-          { name: "Snyk", icon: "https://cdn.simpleicons.org/snyk/A68AFF" },
+          { name: "Snyk", icon: "https://cdn.simpleicons.org/snyk/white" },
           { name: "Checkov", icon: "https://raw.githubusercontent.com/bridgecrewio/checkov/main/docs/web/images/checkov_blue_logo.png" }
         ],
       },
