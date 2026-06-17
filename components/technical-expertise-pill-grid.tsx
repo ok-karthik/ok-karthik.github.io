@@ -10,7 +10,8 @@ import {
   FileText,
   Blocks,
   ShieldBan,
-  Key
+  Key,
+  PlugZap
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -73,7 +74,7 @@ const categories: Category[] = [
     skills: [
       { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg", url: "https://www.terraform.io/" },
       { name: "ArgoCD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg", url: "https://argoproj.github.io/cd/" },
-      { name: "GitHub Actions", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", url: "https://github.com/features/actions" },
+      { name: "GitHub Actions", icon: "https://cdn.simpleicons.org/githubactions/2088FF", url: "https://github.com/features/actions" },
       { name: "Terragrunt", icon: "/terragrunt.svg", url: "https://terragrunt.gruntwork.io/" },
       { name: "Crossplane", icon: "/crossplane-icon.svg", scale: 1.2, url: "https://www.crossplane.io/" },
       { name: "GitLab CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg", url: "https://docs.gitlab.com/ee/ci/" },
@@ -137,9 +138,11 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "AI-assisted Engineering",
+    title: "Agentic Engineering",
     skills: [
-      { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://claude.ai/" },
+      { name: "MCP Servers", lucideIcon: PlugZap, url: "https://modelcontextprotocol.io/" },
+      { name: "Google ADK", lucideIcon: Bot, url: "https://github.com/google/agent-development-kit" },
+      { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview" },
       { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg", scale: 1.25, url: "https://github.com/features/copilot" },
       { name: "n8n", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/n8n.svg", scale: 1.15, url: "https://n8n.io/" },
       { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25, url: "https://ollama.com/" },
