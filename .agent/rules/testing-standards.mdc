@@ -1,0 +1,11 @@
+---
+description: Enforces testing standards for components and logic.
+globs: ["**/*.ts", "**/*.tsx"]
+---
+
+# Testing Standards
+
+- NEVER break the build.
+- You must write or update tests alongside any new component in the same directory (e.g., `component-name.test.tsx`).
+- We use `vitest` and `@testing-library/react` for fast headless testing.
+- Always run `pnpm test` locally to ensure you haven't introduced regressions before concluding a task.

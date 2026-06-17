@@ -1,4 +1,4 @@
-# Karthik Orugonda | Portfolio Context
+# Karthik Orugonda | Project Architecture
 
 This document serves as persistent context for AI agents working on this project. It outlines the architectural choices, design system, and key technical decisions made for the `ok-karthik.github.io` portfolio.
 

@@ -51,7 +51,7 @@ export function Navbar() {
             href="#contact"
             className="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-xs font-mono font-medium rounded-full bg-primary/10 text-primary hover:bg-primary/20 hover:scale-105 transition-all duration-300 border border-primary/20"
           >
-            Let's Connect
+            Let&apos;s Connect
           </a>
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

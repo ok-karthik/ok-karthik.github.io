@@ -1,0 +1,14 @@
+---
+description: Enforces Tailwind, Framer Motion, and Dark Mode design tokens.
+globs: ["**/*.tsx", "app/globals.css"]
+---
+
+# UI Architecture & Design System
+
+- **Framework**: Next.js (App Router).
+- **Styling**: Tailwind CSS v4.
+- **Animations**: Framer Motion (use `motion.div` with scroll-driven entry animations).
+- **Theming**: Must support both light and dark mode via `next-themes`. 
+  - Do NOT use generic colors. Dark mode uses deep space purples/blues (`bg-card`, `border-white/10`). 
+  - Primary accent color is neon cyan (`#00ffe7`).
+- **Component Rules**: Do NOT pull in heavy third-party UI component libraries if not absolutely necessary. Stick to bespoke, customized components to maintain the "AI Native / Cyberpunk" aesthetic.

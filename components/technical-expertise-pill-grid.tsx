@@ -17,13 +17,13 @@ import { motion } from "framer-motion"
 type SubSkill = string | {
   name: string
   icon?: string
-  lucideIcon?: React.ComponentType<{ className?: string }>
+  lucideIcon?: React.ComponentType<{ className?: string, style?: React.CSSProperties }>
 }
 
 type Skill = {
   name: string
   icon?: string
-  lucideIcon?: React.ComponentType<{ className?: string }>
+  lucideIcon?: React.ComponentType<{ className?: string, style?: React.CSSProperties }>
   subSkills?: SubSkill[]
   scale?: number
   url?: string

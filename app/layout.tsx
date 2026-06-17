@@ -14,6 +14,13 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'Karthik Orugonda | Senior Platform Engineer & SRE',
   description: 'Senior Platform Engineer with 10+ years building cloud-native platforms and internal developer tooling across AWS, Azure and GCP. Specialized in Kubernetes-based IDPs, Terraform-driven self-service infrastructure, and GitOps-driven CI/CD.',
+  openGraph: {
+    type: 'website',
+    url: 'https://karthik-orugonda.pages.dev',
+    title: 'Karthik Orugonda | Senior Platform Engineer & SRE',
+    description: 'Senior Platform Engineer with 10+ years building cloud-native platforms and internal developer tooling across AWS, Azure and GCP.',
+    images: ['https://github.com/ok-karthik.png'],
+  },
   icons: {
     icon: '/favicon.svg',
     apple: '/apple-touch-icon.png',
