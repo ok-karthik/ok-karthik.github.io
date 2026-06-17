@@ -246,9 +246,13 @@ const projects = [
 export function ProjectsCertifications() {
   return (
     <section id="projects" className="py-20 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
+      <div className="max-w-6xl mx-auto bg-card/10 dark:bg-white/5 backdrop-blur-md border border-border/50 dark:border-white/10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+        {/* Subtle inner glow effect */}
+        <div className="absolute inset-0 bg-gradient-to-bl from-primary/5 via-transparent to-transparent opacity-20 pointer-events-none" />
+        
+        <div className="relative z-10 px-6 py-16 md:p-16">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
@@ -430,6 +434,7 @@ export function ProjectsCertifications() {
               </div>
             </motion.div>
           </div>
+        </div>
         </div>
       </div>
     </section>

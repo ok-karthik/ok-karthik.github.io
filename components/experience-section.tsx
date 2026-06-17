@@ -49,9 +49,9 @@ const experiences = [
 export function ExperienceSection() {
   return (
     <section id="experience" className="py-20 px-6 bg-secondary/20 overflow-hidden">
-      <div className="max-w-5xl mx-auto bg-card/30 dark:bg-[#0c071a]/40 backdrop-blur-xl border border-border/50 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+      <div className="max-w-6xl mx-auto bg-card/10 dark:bg-white/5 backdrop-blur-md border border-border/50 dark:border-white/10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
         {/* Subtle inner glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-transparent opacity-30 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-transparent opacity-20 pointer-events-none" />
         
         <div className="relative z-10 px-6 py-16 md:p-16">
           <motion.h2 
