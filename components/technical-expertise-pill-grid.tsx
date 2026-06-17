@@ -281,41 +281,46 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
 export function TechnicalExpertisePillGrid() {
   return (
     <section id="tech-skills" className="py-20 px-6 relative z-20">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground"
-        >
-          Tech Skills
-        </motion.h2>
+      <div className="max-w-6xl mx-auto bg-card/30 dark:bg-[#0c071a]/40 backdrop-blur-xl border border-border/50 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+        {/* Subtle inner glow effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-30 pointer-events-none" />
         
-        <div className="space-y-12">
-          {categories.map((category, index) => {
-            return (
-              <motion.div 
-                key={category.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative mb-6"
-              >
-                <h3 className="text-xl font-bold text-primary mb-6 font-mono flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  {category.title}
-                </h3>
-                
-                <div className={index === 0 ? "grid grid-cols-1 md:grid-cols-3 gap-6 w-full" : "flex flex-wrap gap-4 items-start"}>
-                  {category.skills.map((skill) => (
-                    <SkillPill key={skill.name} skill={skill} isPremium={index === 0} />
-                  ))}
-                </div>
-              </motion.div>
-            )
-          })}
+        <div className="relative z-10 px-6 py-16 md:p-20">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground"
+          >
+            Tech Skills
+          </motion.h2>
+          
+          <div className="space-y-12">
+            {categories.map((category, index) => {
+              return (
+                <motion.div 
+                  key={category.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="relative mb-6"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-6 font-mono flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                    {category.title}
+                  </h3>
+                  
+                  <div className={index === 0 ? "grid grid-cols-1 md:grid-cols-3 gap-6 w-full" : "flex flex-wrap gap-4 items-start"}>
+                    {category.skills.map((skill) => (
+                      <SkillPill key={skill.name} skill={skill} isPremium={index === 0} />
+                    ))}
+                  </div>
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>
