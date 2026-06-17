@@ -29,3 +29,8 @@ The primary objective is to showcase deep technical expertise through a highly p
 3. Keep animations fluid and 60fps; rely heavily on GPU-accelerated CSS properties (`transform`, `opacity`) or lightweight canvas.
 4. When iterating, prioritize aesthetics that say "Enterprise Scale" and "AI Native".
 5. **Component Philosophy**: Avoid importing heavy, generic UI component libraries (like unused shadcn components) if they aren't actively utilized. We prioritize tailored, bespoke components over maintaining an unused component library folder to keep the codebase lean.
+
+## Performance Engineering
+- **Turbopack Constraints**: This project uses Next.js 16+ Turbopack for extremely fast local dev iteration. Be aware that first-loads of heavy Client Components may experience an initial compile spike (lazy compilation), but hot-reloading will be nearly instantaneous.
+- **Dynamic Imports**: When introducing highly complex UI blocks or heavy external libraries (like specialized charting or 3D models), use `next/dynamic` to load them asynchronously so the initial bundle size remains small.
+- **Image Optimization**: NEVER use standard HTML `<img>` tags for portfolio assets. You must explicitly use Next.js `<Image />` (`next/image`) to prevent LCP (Largest Contentful Paint) regressions, ensure automatic WebP conversion, and avoid bandwidth bloat.
