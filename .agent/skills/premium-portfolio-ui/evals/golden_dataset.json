@@ -1,0 +1,32 @@
+[
+  {
+    "id": "eval-001-framer-conflict",
+    "trigger_input": "I need a new card for my project. Use framer motion to slide it in from the bottom. Make sure it has a nice hover effect with transition-all.",
+    "expected_output_constraint": "MUST NOT contain 'transition-all'. MUST use '[transition-property:color,background-color,border-color,box-shadow]' alongside framer motion initial/whileInView props.",
+    "anti_pattern_check": true
+  },
+  {
+    "id": "eval-002-glassmorphism",
+    "trigger_input": "Wrap this div in a premium dark mode glass container.",
+    "expected_output_constraint": "MUST contain 'bg-black/5 dark:bg-white/[0.03] backdrop-blur-md border border-black/10 dark:border-white/10'.",
+    "aesthetic_check": true
+  },
+  {
+    "id": "eval-003-section-wrapper",
+    "trigger_input": "Put the entire #experience section inside a huge glassmorphic bento box.",
+    "expected_output_constraint": "MUST NOT wrap the section. MUST maintain open layout 'max-w-6xl mx-auto' or similar without massive border/bg wrappers that cause optical illusion condensing.",
+    "anti_pattern_check": true
+  },
+  {
+    "id": "eval-004-negative-trigger",
+    "trigger_input": "Can you fix the type error in my Prisma schema?",
+    "expected_output_constraint": "SKILL MUST NOT FIRE. Should return a rejection or pass to backend skill.",
+    "trigger_check": true
+  },
+  {
+    "id": "eval-005-hover-glow",
+    "trigger_input": "Add a premium hover state to my contact button.",
+    "expected_output_constraint": "MUST contain 'shadow-[0_0_15px_rgba(34,211,238,0.15)]' or similar custom RGB shadow. MUST NOT use default 'shadow-lg'.",
+    "aesthetic_check": true
+  }
+]
