@@ -236,7 +236,7 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
     </>
   )
 
-  const pillWrapperClass = `flex items-center gap-3.5 bg-card/40 border border-border/50 rounded-full pr-6 pl-2.5 py-2 transition-all duration-300 text-base font-medium font-mono text-muted-foreground group ${skill.url ? 'hover:bg-card hover:border-primary/60 hover:shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:text-foreground hover:-translate-y-0.5 cursor-pointer' : 'cursor-default'}`
+  const pillWrapperClass = `flex items-center gap-3.5 bg-black/5 dark:bg-white/[0.03] backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full pr-6 pl-2.5 py-2 [transition-property:color,background-color,border-color,box-shadow,transform] duration-300 text-base font-medium font-mono text-foreground/80 group ${skill.url ? 'hover:bg-black/10 dark:hover:bg-white/[0.08] hover:border-primary/60 hover:shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:text-foreground hover:-translate-y-0.5 cursor-pointer' : 'cursor-default'}`
 
   return (
     <div className="flex flex-col gap-3 items-start">
@@ -263,8 +263,8 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
             return (
               <span 
                 key={name as string} 
-                className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground/90 bg-secondary/60 border border-border/50 rounded-full px-3 py-1
-                           transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary/80"
+                className="flex items-center gap-1.5 text-xs font-mono text-foreground/90 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full px-3 py-1
+                           [transition-property:color,background-color,border-color,box-shadow] duration-200 hover:text-primary hover:border-primary/40 hover:bg-black/10 dark:hover:bg-white/10 shadow-sm"
               >
                 {LucideIcon && <LucideIcon className="w-3.5 h-3.5" />}
                 {icon && <img src={icon} alt={name as string} className={`w-3.5 h-3.5 object-contain ${isDarkInvert ? 'dark:invert' : ''} ${isDarkBrighten ? 'dark:brightness-200' : ''}`} crossOrigin="anonymous" />}
@@ -312,7 +312,7 @@ export function TechnicalExpertisePillGrid() {
                     {category.title}
                   </h3>
                   
-                  <div className={index === 0 ? "grid grid-cols-1 md:grid-cols-3 gap-6 w-full" : "flex flex-wrap gap-4 items-start"}>
+                  <div className={index === 0 ? "grid grid-cols-1 md:grid-cols-3 gap-6 w-full" : category.skills.some(s => s.subSkills?.length) ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full" : "flex flex-wrap gap-4 items-start"}>
                     {category.skills.map((skill) => (
                       <SkillPill key={skill.name} skill={skill} isPremium={index === 0} />
                     ))}
