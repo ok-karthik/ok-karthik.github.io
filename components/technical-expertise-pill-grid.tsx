@@ -143,7 +143,6 @@ const categories: Category[] = [
       { name: "MCP Servers", lucideIcon: PlugZap, url: "https://modelcontextprotocol.io/" },
       { name: "Google ADK", lucideIcon: Bot, url: "https://github.com/google/agent-development-kit" },
       { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview" },
-      { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg", scale: 1.25, url: "https://github.com/features/copilot" },
       { name: "n8n", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/n8n.svg", scale: 1.15, url: "https://n8n.io/" },
       { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25, url: "https://ollama.com/" },
     ],
