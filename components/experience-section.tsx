@@ -49,7 +49,7 @@ const experiences = [
 export function ExperienceSection() {
   return (
     <section id="experience" className="py-20 px-6 bg-secondary/20 overflow-hidden">
-      <div className="max-w-7xl mx-auto bg-card/10 dark:bg-white/5 backdrop-blur-md border border-border/50 dark:border-white/10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+      <div className="max-w-7xl mx-auto bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-sm border border-black/10 dark:border-white/10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
         {/* Subtle inner glow effect */}
         <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-transparent opacity-20 pointer-events-none" />
         
@@ -85,7 +85,7 @@ export function ExperienceSection() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6 
-                           transition-all duration-300 hover:border-primary/50 hover:bg-card/80
+                           [transition-property:color,background-color,border-color,box-shadow] duration-300 hover:border-primary/50 hover:bg-card/80
                            hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] relative z-10 md:ml-6"
               >
                 {/* Timeline dot */}

@@ -246,7 +246,7 @@ const projects = [
 export function ProjectsCertifications() {
   return (
     <section id="projects" className="py-20 px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto bg-card/10 dark:bg-white/5 backdrop-blur-md border border-border/50 dark:border-white/10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+      <div className="max-w-7xl mx-auto bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-sm border border-black/10 dark:border-white/10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
         {/* Subtle inner glow effect */}
         <div className="absolute inset-0 bg-gradient-to-bl from-primary/5 via-transparent to-transparent opacity-20 pointer-events-none" />
         
@@ -292,7 +292,7 @@ export function ProjectsCertifications() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: 0.2 + (index * 0.1) }}
                 className="bg-card backdrop-blur-sm border border-border rounded-lg p-5 
-                           transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] flex flex-col h-full group"
+                           [transition-property:color,background-color,border-color,box-shadow] duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] flex flex-col h-full group"
               >
                 <div className="flex-grow">
                   <h4 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">{project.title}</h4>
@@ -364,7 +364,7 @@ export function ProjectsCertifications() {
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.5, delay: 0.2 + (index * 0.1) }}
                   className="bg-card backdrop-blur-sm border border-border rounded-lg p-4 
-                             transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] flex items-center gap-5"
+                             [transition-property:color,background-color,border-color,box-shadow] duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] flex items-center gap-5"
                 >
                   <img
                     src={cert.badge}

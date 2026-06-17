@@ -69,7 +69,7 @@ export function ConnectSection() {
   return (
     <section id="contact" className="py-16 px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-card/10 dark:bg-white/5 backdrop-blur-md border border-border/50 dark:border-white/10 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_0_40px_rgba(0,0,0,0.1)] hover:border-primary/30 transition-colors">
+        <div className="bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-sm border border-black/10 dark:border-white/10 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_0_40px_rgba(0,0,0,0.1)] hover:border-primary/30 transition-colors">
           <div className="text-center md:text-left">
             <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">{"Let's build something together"}</h2>
             <p className="text-muted-foreground text-sm font-medium">Open to Senior Platform Eng, Staff SRE, AI Infra roles • Berlin or remote</p>

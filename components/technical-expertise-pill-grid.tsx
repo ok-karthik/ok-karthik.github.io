@@ -154,7 +154,7 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
 
   if (isPremium) {
     const content = (
-      <div className={`flex flex-col gap-3 items-start bg-card/20 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-xl hover:bg-card/40 hover:border-primary/40 transition-all duration-300 group h-full ${skill.url ? 'cursor-pointer' : 'cursor-default'}`}>
+      <div className={`flex flex-col gap-3 items-start bg-black/5 dark:bg-white/[0.03] backdrop-blur-md border border-black/10 dark:border-white/10 rounded-2xl p-5 shadow-xl hover:bg-black/10 dark:hover:bg-white/[0.08] hover:border-primary/40 transition-all duration-300 group h-full ${skill.url ? 'cursor-pointer' : 'cursor-default'}`}>
         <div className="flex items-center gap-4">
           <div className="flex items-center justify-center w-12 h-12 bg-white/95 rounded-xl p-2.5 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.4)] shrink-0 overflow-hidden transition-all duration-300 relative">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -189,8 +189,8 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
               return (
                 <span 
                   key={name as string} 
-                  className="flex items-center gap-1.5 text-xs font-mono text-foreground/80 bg-secondary/80 rounded-full px-3 py-1 border border-border/50
-                             transition-all duration-200 hover:text-primary hover:bg-secondary hover:border-primary/40 shadow-sm"
+                  className="flex items-center gap-1.5 text-xs font-mono text-foreground/90 bg-black/5 dark:bg-white/5 rounded-full px-3 py-1 border border-black/10 dark:border-white/10
+                             transition-all duration-200 hover:text-primary hover:bg-black/10 dark:hover:bg-white/10 hover:border-primary/40 shadow-sm"
                 >
                   {LucideIcon && <LucideIcon className="w-3.5 h-3.5" />}
                   {icon && <img src={icon} alt={name as string} className={`w-3.5 h-3.5 object-contain ${isDarkInvert ? 'dark:invert' : ''} ${isDarkBrighten ? 'dark:brightness-200' : ''}`} crossOrigin="anonymous" />}
@@ -281,7 +281,7 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
 export function TechnicalExpertisePillGrid() {
   return (
     <section id="tech-skills" className="py-20 px-6 relative z-20">
-      <div className="max-w-7xl mx-auto bg-card/10 dark:bg-white/5 backdrop-blur-md border border-border/50 dark:border-white/10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+      <div className="max-w-7xl mx-auto bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-sm border border-black/10 dark:border-white/10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
         {/* Subtle inner glow effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-20 pointer-events-none" />
         
