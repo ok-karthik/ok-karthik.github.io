@@ -31,6 +31,7 @@ This skill provides highly deterministic structural and aesthetic constraints fo
 - **Radii**: Use consistent, large border radii for premium feel (`rounded-2xl` or `rounded-3xl` for main cards, `rounded-full` for pills/buttons).
 - **Shadows**: Use custom glowing shadows rather than default tailwind drop shadows (e.g., `shadow-[0_0_15px_rgba(34,211,238,0.15)]`).
 - **Typography as Personality**: Typography carries the personality of the page. Pair display and body faces deliberately. Make the type treatment itself a memorable part of the design, not just a neutral delivery vehicle.
+  - *Platform Engineering Standard*: The mandated typography stack is `Inter` (for absolute neutrality and legibility across complex dashboards) paired with a high-end monospace accent like `Geist Mono` or `JetBrains Mono` for all code-centric text, labels, and pill tags. Do not use overly wide or quirky display fonts (like Syne or Space Grotesk) which break the "precision engineering" aesthetic.
 - **Structural Intent**: Structure is information. Eyebrows, dividers, and labels should encode something true about the content, not merely decorate it.
 
 ## 4. Meta-Skills & Self-Improvement
