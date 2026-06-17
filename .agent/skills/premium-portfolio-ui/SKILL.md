@@ -23,11 +23,15 @@ This skill provides highly deterministic structural and aesthetic constraints fo
   - *Golden Fix*: Use `[transition-property:color,background-color,border-color,box-shadow]` instead to safely isolate hover effects.
 - **Section Wrappers**: DO NOT wrap entire page sections (e.g., `#tech-skills`, `#experience`) in massive glassmorphic border containers. This introduces internal padding that creates an optical illusion of condensed content. Sections should use an open layout (`max-w-6xl mx-auto`).
 - **Responsive Degradation**: Never use absolute pixel values for structural layouts.
+- **Component Architecture**: Prefer composition over configuration. Keep components tightly focused (doing one thing). Separate data fetching/state from presentation components.
+- **The "AI Aesthetic" Cliché**: Avoid generic AI-generated design signatures. Do not default to near-black with a single acid-green accent, do not spam purple/indigo gradients, and do not use meaningless decorative numbering (e.g., 01 / 02 / 03) unless the content is genuinely sequential.
 
 ## 3. Aesthetic Constraints: Editorial Brutalism & Organic Fluidity
 - **Glassmorphism**: Always apply subtle transparency instead of solid colors in dark mode (e.g., `bg-black/5 dark:bg-white/[0.03] backdrop-blur-md border border-black/10 dark:border-white/10`).
 - **Radii**: Use consistent, large border radii for premium feel (`rounded-2xl` or `rounded-3xl` for main cards, `rounded-full` for pills/buttons).
 - **Shadows**: Use custom glowing shadows rather than default tailwind drop shadows (e.g., `shadow-[0_0_15px_rgba(34,211,238,0.15)]`).
+- **Typography as Personality**: Typography carries the personality of the page. Pair display and body faces deliberately. Make the type treatment itself a memorable part of the design, not just a neutral delivery vehicle.
+- **Structural Intent**: Structure is information. Eyebrows, dividers, and labels should encode something true about the content, not merely decorate it.
 
 ## 4. Meta-Skills & Self-Improvement
 *Notice to Agents*: You are authorized and encouraged to improve this skill if you observe a persistent pattern of failure or discover a superior UI pattern that is successfully verified by the user.

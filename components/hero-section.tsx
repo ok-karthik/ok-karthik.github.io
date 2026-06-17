@@ -13,12 +13,12 @@ export function HeroSection() {
           </div>
 
           <div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-sky-800 to-primary dark:from-white dark:via-cyan-100 dark:to-primary leading-tight py-2">
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-display font-bold tracking-normal bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-sky-800 to-primary dark:from-white dark:via-cyan-100 dark:to-primary leading-tight py-2">
               Karthik Orugonda
             </h1>
             {/* Expert Polish: Gradient Title */}
             <div className="mb-6">
-              <h2 className="text-2xl md:text-3xl font-mono font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-400 to-purple-400 tracking-tight">
+              <h2 className="text-lg md:text-xl lg:text-2xl font-mono font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-400 to-purple-400 tracking-normal whitespace-nowrap">
                 Senior Platform Engineer & SRE
               </h2>
             </div>

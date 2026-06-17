@@ -20,7 +20,7 @@ export function Navbar() {
       >
         <a 
           href="#" 
-          className="font-semibold text-foreground hover:text-primary transition-colors"
+          className="font-display font-bold text-foreground hover:text-primary transition-colors text-lg"
         >
           Karthik Orugonda
         </a>

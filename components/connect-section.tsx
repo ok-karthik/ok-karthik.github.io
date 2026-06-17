@@ -71,7 +71,7 @@ export function ConnectSection() {
       <div className="max-w-5xl mx-auto">
         <div className="bg-card/40 backdrop-blur-md border border-border/50 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_0_40px_rgba(0,0,0,0.1)] hover:border-primary/30 transition-colors">
           <div className="text-center md:text-left">
-            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">{"Let's build something together"}</h2>
+            <h2 className="text-xl md:text-2xl font-display font-bold text-foreground mb-2">{"Let's build something together"}</h2>
             <p className="text-muted-foreground text-sm font-medium">Open to Senior Platform Eng, Staff SRE, AI Infra roles • Berlin or remote</p>
           </div>
           

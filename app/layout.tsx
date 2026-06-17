@@ -9,7 +9,11 @@ const inter = Inter({
   subsets: ["latin"],
   variable: '--font-inter'
 });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+
+const geistMono = Geist_Mono({ 
+  subsets: ["latin"],
+  variable: '--font-mono'
+});
 
 export const metadata: Metadata = {
   title: 'Karthik Orugonda | Senior Platform Engineer & SRE',
@@ -33,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased min-h-screen bg-gradient-to-br from-[#f8fafc] via-[#eff6ff] to-[#f1f5f9] dark:bg-gradient-to-br dark:from-[#090714] dark:via-[#1a0f3d] dark:to-[#0c071a]">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <NeuralMesh />
