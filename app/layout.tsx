@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: 'https://karthik-orugonda.pages.dev',
     title: 'Karthik Orugonda | Senior Platform Engineer & SRE',
     description: 'Senior Platform Engineer with 10+ years building cloud-native platforms and internal developer tooling across AWS, Azure and GCP.',
-    images: ['https://github.com/ok-karthik.png'],
+    images: ['/og-image.png'],
   },
   icons: {
     icon: '/favicon.svg',
