@@ -41,3 +41,10 @@ pnpm dev
 ## Collaborators
 
 * **[Karthik Orugonda](https://github.com/ok-karthik)** — Lead Developer & Architect
+
+## License
+Copyright (c) 2026 Karthik Orugonda. All rights reserved.
+
+This repository and its contents are proprietary. You are welcome to view the code 
+for educational purposes, but you may not copy, modify, distribute, or host 
+this project (or any portion of it) for your own personal or commercial use.
