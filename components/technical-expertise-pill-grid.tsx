@@ -147,7 +147,13 @@ const categories: Category[] = [
   {
     title: "AI Infrastructure & Agentic Workflows",
     skills: [
-      { name: "LLM Serving", lucideIcon: Cpu, url: "https://ollama.com", subSkills: ["Ollama", "Llama.cpp", "FastAPI Inference Gateway"] },
+      { 
+        name: "NVIDIA GPU Platform", 
+        icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/nvidia.svg", 
+        url: "https://www.nvidia.com/en-us/data-center/cloud-native/",
+        subSkills: ["GPU Operator", "Device Plugin", "CUDA", "DCGM Exporter", "Time Slicing", "Karpenter"] 
+      },
+      { name: "LLM Serving", lucideIcon: Cpu, url: "https://ollama.com", subSkills: ["Ollama", "Llama.cpp", "FastAPI Gateway", "vLLM (coming soon)"] },
       { name: "MCP Servers", lucideIcon: PlugZap, url: "https://modelcontextprotocol.io", subSkills: [] },
       { name: "Google ADK", lucideIcon: Bot, url: "https://cloud.google.com/products/ai", subSkills: [] },
       { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://anthropic.com", subSkills: [] }

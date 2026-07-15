@@ -28,7 +28,7 @@ function AWSArchitecture() {
       <p className="text-sm text-muted-foreground leading-relaxed">
         A production-grade, multi-environment AWS infrastructure platform demonstrating the Hierarchical Blueprint Pattern with Terragrunt.
       </p>
-      
+
       <div className="p-6 rounded-xl border border-border bg-secondary/30 backdrop-blur-md space-y-6 font-mono text-xs text-center">
         {/* CI/CD Parallel Governance Gates */}
         <div className="border border-primary/30 rounded-lg p-4 relative bg-background/50">
@@ -64,7 +64,7 @@ function AWSArchitecture() {
               <div className="bg-blue-500/10 text-blue-600 dark:text-blue-400 p-2 rounded border border-blue-500/20">eu-central-1 / eks</div>
             </div>
           </div>
-          
+
           <div className="border border-purple-500/30 rounded-lg p-3 bg-purple-500/5 shadow-[0_0_15px_rgba(168,85,247,0.1)]">
             <div className="text-purple-600 dark:text-purple-400 font-bold mb-2">Prod Environment 🔐</div>
             <div className="space-y-2">
@@ -86,7 +86,7 @@ function GitOpsArchitecture() {
       </p>
 
       <div className="p-4 sm:p-6 rounded-xl border border-border bg-secondary/30 backdrop-blur-md space-y-4 font-mono text-xs text-center flex flex-col md:flex-row items-center justify-between gap-4">
-        
+
         {/* Dev Exp */}
         <div className="flex-1 w-full bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
           <div className="text-blue-600 dark:text-blue-400 font-bold mb-2">Developer Experience</div>
@@ -135,7 +135,7 @@ function FinOpsArchitecture() {
       </p>
 
       <div className="p-6 rounded-xl border border-border bg-secondary/30 backdrop-blur-md flex flex-col md:flex-row items-center gap-4 font-mono text-xs text-center">
-        
+
         {/* Component 1 */}
         <div className="flex-1 w-full bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
           <div className="text-purple-600 dark:text-purple-400 font-bold mb-2">Kopf Timer</div>
@@ -184,7 +184,7 @@ function HelmLibraryArchitecture() {
       </p>
 
       <div className="p-6 rounded-xl border border-border bg-secondary/30 backdrop-blur-md flex flex-col items-center gap-6 font-mono text-xs text-center">
-        
+
         {/* Library Chart */}
         <div className="w-full max-w-sm bg-primary/10 border border-primary/30 rounded-lg p-4">
           <div className="text-primary font-bold mb-3">library-chart (OCI Registry)</div>
@@ -202,7 +202,7 @@ function HelmLibraryArchitecture() {
         <div className="w-full max-w-sm bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
           <div className="text-emerald-600 dark:text-emerald-400 font-bold mb-2">caller-chart</div>
           <div className="text-left bg-background/50 p-3 rounded border border-emerald-500/20 text-[10px] overflow-hidden whitespace-pre">
-            <span className="text-pink-500">{"{{- include \"library-chart.deployment.tpl\" . -}}"}</span><br/>
+            <span className="text-pink-500">{"{{- include \"library-chart.deployment.tpl\" . -}}"}</span><br />
             <span className="text-pink-500">{"{{- include \"library-chart.service.tpl\" . -}}"}</span>
           </div>
         </div>
@@ -220,7 +220,7 @@ function ObservabilityArchitecture() {
       </p>
 
       <div className="p-6 rounded-xl border border-border bg-secondary/30 backdrop-blur-md flex flex-col md:flex-row items-center gap-4 font-mono text-xs text-center">
-        
+
         {/* Source */}
         <div className="flex-1 w-full bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
           <div className="text-blue-600 dark:text-blue-400 font-bold mb-2">EKS Workloads</div>
@@ -263,17 +263,99 @@ function ObservabilityArchitecture() {
           </div>
         </div>
       </div>
-      
+
       {/* Grafana */}
       <div className="w-full bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-3 text-center text-[10px]">
-         <div className="text-emerald-600 dark:text-emerald-400 font-bold">Grafana Dashboards</div>
-         <div className="text-muted-foreground mt-1">Unified Visualization & Alerting</div>
+        <div className="text-emerald-600 dark:text-emerald-400 font-bold">Grafana Dashboards</div>
+        <div className="text-muted-foreground mt-1">Unified Visualization & Alerting</div>
+      </div>
+    </div>
+  )
+}
+
+function GPUPlatformArchitecture() {
+  return (
+    <div className="space-y-6 pt-4">
+      <p className="text-sm text-muted-foreground leading-relaxed">
+        Production-style GPU platform on Amazon EKS featuring dynamic provisioning, NVIDIA GPU Operator, and DCGM observability.
+      </p>
+
+      <div className="p-6 rounded-xl border border-border bg-secondary/30 backdrop-blur-md flex flex-col items-center font-mono text-xs text-center">
+
+        {/* Observability Layer */}
+        <div className="flex flex-col items-center w-full max-w-sm mb-4">
+          <div className="w-full bg-orange-500/10 border border-orange-500/30 rounded-lg p-2.5 mb-2">
+            <div className="text-orange-600 dark:text-orange-400 font-bold">Prometheus & Grafana</div>
+          </div>
+          <div className="text-orange-500/50">▲</div>
+          <div className="text-orange-500/50">│</div>
+          <div className="w-full bg-orange-500/5 border border-orange-500/20 rounded-lg p-2.5 mt-2">
+            <div className="text-orange-600 dark:text-orange-400 font-bold">DCGM Exporter</div>
+          </div>
+        </div>
+
+        <div className="text-primary/50">▲</div>
+        <div className="text-primary/50">│</div>
+
+        {/* Operator Layer */}
+        <div className="w-full max-w-md bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4 shadow-[0_0_15px_rgba(16,185,129,0.15)] my-2 relative">
+          <div className="absolute -top-1 -right-1 flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+          </div>
+          <div className="text-emerald-600 dark:text-emerald-400 font-bold text-sm mb-3">NVIDIA GPU Operator</div>
+          <div className="grid grid-cols-2 gap-2 text-[10px]">
+            <div className="bg-background/50 p-2 rounded border border-emerald-500/20">Device Plugin</div>
+            <div className="bg-background/50 p-2 rounded border border-emerald-500/20">Node Feature Discovery</div>
+            <div className="bg-background/50 p-2 rounded border border-emerald-500/20">Container Toolkit</div>
+            <div className="bg-background/50 p-2 rounded border border-emerald-500/20">Time Slicing</div>
+          </div>
+        </div>
+
+        <div className="text-primary/50">▲</div>
+        <div className="text-primary/50">│</div>
+
+        {/* Infrastructure Layer */}
+        <div className="flex flex-col items-center w-full max-w-sm mt-2">
+          <div className="w-full bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+            <div className="text-blue-600 dark:text-blue-400 font-bold">GPU Node (Karpenter)</div>
+          </div>
+          <div className="text-blue-500/50 mt-2">▲</div>
+          <div className="text-blue-500/50">│</div>
+          <div className="w-full bg-purple-500/10 border border-purple-500/30 rounded-lg p-3 mt-2">
+            <div className="text-purple-600 dark:text-purple-400 font-bold">GPU Workloads (CUDA)</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Troubleshooting Section */}
+      <div className="mt-6 border border-border rounded-lg bg-card overflow-hidden text-left">
+        <div className="bg-secondary/50 p-3 border-b border-border">
+          <h4 className="font-mono text-sm font-bold text-foreground">Production Scenarios Explored (Troubleshooting)</h4>
+        </div>
+        <div className="p-4 grid sm:grid-cols-2 gap-2 text-xs font-mono text-muted-foreground">
+          <div className="flex items-center gap-2"><span className="text-red-400 font-bold">✗</span> Device Plugin CrashLoopBackOff</div>
+          <div className="flex items-center gap-2"><span className="text-red-400 font-bold">✗</span> Broken Time Slicing ConfigMap</div>
+          <div className="flex items-center gap-2"><span className="text-red-400 font-bold">✗</span> Node Feature Discovery failures</div>
+          <div className="flex items-center gap-2"><span className="text-amber-400 font-bold">⚠</span> GPU Operator reconciliation</div>
+          <div className="flex items-center gap-2"><span className="text-emerald-400 font-bold">✓</span> Karpenter GPU provisioning</div>
+          <div className="flex items-center gap-2"><span className="text-emerald-400 font-bold">✓</span> GPU node scale-down</div>
+          <div className="flex items-center gap-2"><span className="text-emerald-400 font-bold">✓</span> DCGM metrics validation</div>
+          <div className="flex items-center gap-2"><span className="text-emerald-400 font-bold">✓</span> CUDA workload debugging</div>
+        </div>
       </div>
     </div>
   )
 }
 
 const projects = [
+  {
+    title: "GPU Platform on Amazon EKS",
+    description: "Built a production-style GPU platform on Amazon EKS. Features dynamic provisioning using Karpenter, NVIDIA GPU Operator via Helm, GPU Time Slicing, and DCGM metrics visualization.",
+    tags: ["NVIDIA GPU Operator", "Karpenter", "EKS", "CUDA", "DCGM"],
+    githubUrl: "https://github.com/ok-karthik/ai-infrastructure-on-eks",
+    architecture: <GPUPlatformArchitecture />
+  },
   {
     title: "Enterprise AWS Infrastructure",
     description: "Production-grade, multi-environment AWS infrastructure platform built with Terragrunt and Terraform. Fully DRY, secure, observable, and automated.",
@@ -315,8 +397,8 @@ export function ProjectsCertifications() {
   return (
     <section id="projects" className="py-20 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
@@ -324,7 +406,7 @@ export function ProjectsCertifications() {
         >
           Projects & Certifications
         </motion.h2>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -336,7 +418,7 @@ export function ProjectsCertifications() {
 
         {/* Projects Section */}
         <div className="mb-20">
-          <motion.h3 
+          <motion.h3
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
@@ -346,7 +428,7 @@ export function ProjectsCertifications() {
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" /></svg>
             Featured Projects
           </motion.h3>
-          
+
           <div className="grid md:grid-cols-2 gap-6">
             {projects.map((project, index) => (
               <motion.div
@@ -372,12 +454,12 @@ export function ProjectsCertifications() {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="mt-6 pt-5 border-t border-border/50 flex flex-wrap items-center justify-between gap-3">
                   <Dialog>
                     <DialogTrigger asChild>
                       <button className="text-xs font-mono font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1.5 bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-md border border-primary/20">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-6-6H4a2 2 0 0 0-2 2v16z"/><path d="M14 2v6h6"/><path d="M10 12h4"/><path d="M10 16h4"/><path d="M8 12h.01"/><path d="M8 16h.01"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-6-6H4a2 2 0 0 0-2 2v16z" /><path d="M14 2v6h6" /><path d="M10 12h4" /><path d="M10 16h4" /><path d="M8 12h.01" /><path d="M8 16h.01" /></svg>
                         View Architecture
                       </button>
                     </DialogTrigger>
@@ -386,7 +468,7 @@ export function ProjectsCertifications() {
                         <DialogTitle className="text-xl font-bold text-foreground font-mono flex items-center gap-3">
                           {project.title}
                           <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
                           </a>
                         </DialogTitle>
                       </DialogHeader>
@@ -395,7 +477,7 @@ export function ProjectsCertifications() {
                   </Dialog>
 
                   <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
                     Source Code
                   </a>
                 </div>
@@ -408,7 +490,7 @@ export function ProjectsCertifications() {
         <div className="grid md:grid-cols-2 gap-10">
           {/* Certifications */}
           <div>
-            <motion.h3 
+            <motion.h3
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -418,7 +500,7 @@ export function ProjectsCertifications() {
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><circle cx="12" cy="8" r="6" /><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" /></svg>
               Certifications
             </motion.h3>
-            
+
             <div className="space-y-4">
               {certifications.map((cert, index) => (
                 <motion.div
@@ -446,14 +528,14 @@ export function ProjectsCertifications() {
 
           {/* Education & Languages */}
           <div>
-            <motion.h3 
+            <motion.h3
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M2 12h2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /><path d="M2 12h2" /></svg>
               Education & Languages
             </motion.h3>
 
@@ -472,7 +554,7 @@ export function ProjectsCertifications() {
                   <span className="text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded text-xs font-mono">Graduated: 2010</span>
                 </div>
                 <p className="text-muted-foreground text-sm mt-3 flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 14 4-4" /><path d="M3.34 19a10 10 0 1 1 17.32 0" /></svg>
                   CGPA: <span className="font-mono font-bold text-foreground">7.2 / 10</span>
                 </p>
               </div>

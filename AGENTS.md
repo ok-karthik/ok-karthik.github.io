@@ -19,3 +19,8 @@ Before making any changes to this codebase, you **MUST** read and adhere to the 
   1. `https://karthik-orugonda.pages.dev`
   2. `https://ok-karthik.github.io`
   Ensure the changes are visible and no critical 500/404 errors occurred during the deployment. Crucially, perform **content validation**: search the fetched HTML/DOM for expected content (e.g., "Karthik Orugonda" or the specific UI component you changed). This prevents silent failures where GitHub Pages returns a 200 status but renders a blank or default error page.
+
+## 4. UI Stability & Integrity Testing
+- **Website Working Properly**: Whenever changing layout, components, or UI code, you must ensure the application compiles and renders without crashing by writing unit tests.
+- **Icon and Layout Validation**: Always verify that all `img` elements have valid `src` and `alt` attributes. Layouts should not break or warp on different device sizes or text lengths.
+- **Write Test Cases**: Add or update `vitest` tests in `__tests__/` whenever major UI components are added or modified to ensure no regressions in rendering and icon integrity.

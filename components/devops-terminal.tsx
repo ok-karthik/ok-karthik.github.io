@@ -109,6 +109,7 @@ export function DevOpsTerminal() {
           { id: Math.random().toString(), text: "Available commands:", isSystem: true },
           { id: Math.random().toString(), text: "  whoami    - Display bio and role" },
           { id: Math.random().toString(), text: "  skills    - List core technical stack" },
+          { id: Math.random().toString(), text: "  gpu       - View GPU Platform experience" },
           { id: Math.random().toString(), text: "  contact   - Show contact information" },
           { id: Math.random().toString(), text: "  clear     - Clear terminal history" },
         ]
@@ -129,7 +130,22 @@ export function DevOpsTerminal() {
           { id: Math.random().toString(), text: "• Infrastructure as Code: Terraform, Terragrunt, Crossplane, Ansible" },
           { id: Math.random().toString(), text: "• Observability: OpenTelemetry, Prometheus, Grafana, Datadog, Dynatrace, Loki, Tempo" },
           { id: Math.random().toString(), text: "• Software Engineering: Python (APIs/Automation), Java (Groovy), Bash" },
-          { id: Math.random().toString(), text: "• AI Infra & Agentic Workflows: LLM Serving (Ollama, Llama.cpp, FastAPI Gateway), MCP Servers, Google ADK, n8n" },
+          { id: Math.random().toString(), text: "• AI Platform & Agentic Workflows: GPU Platform (Karpenter, GPU Operator, Time Slicing, DCGM), LLM Serving (Ollama, FastAPI Gateway), MCP Servers, Google ADK, n8n" },
+        ]
+        break
+      case "gpu":
+        outputLines = [
+          { id: Math.random().toString(), text: "GPU Platform", isSystem: true },
+          { id: Math.random().toString(), text: "✓ Amazon EKS", isSuccess: true },
+          { id: Math.random().toString(), text: "✓ Karpenter GPU NodePools", isSuccess: true },
+          { id: Math.random().toString(), text: "✓ NVIDIA GPU Operator", isSuccess: true },
+          { id: Math.random().toString(), text: "✓ Device Plugin", isSuccess: true },
+          { id: Math.random().toString(), text: "✓ Node Feature Discovery", isSuccess: true },
+          { id: Math.random().toString(), text: "✓ Time Slicing", isSuccess: true },
+          { id: Math.random().toString(), text: "✓ DCGM Exporter", isSuccess: true },
+          { id: Math.random().toString(), text: "✓ Prometheus", isSuccess: true },
+          { id: Math.random().toString(), text: "✓ Grafana", isSuccess: true },
+          { id: Math.random().toString(), text: "✓ CUDA Validation", isSuccess: true },
         ]
         break
       case "contact":
@@ -226,7 +242,7 @@ export function DevOpsTerminal() {
             
             {/* Suggested Commands */}
             <div className="flex flex-wrap gap-2 mt-2">
-              {['whoami', 'skills', 'contact', 'clear'].map(cmd => (
+              {['whoami', 'skills', 'gpu', 'contact', 'clear'].map(cmd => (
                 <button 
                   key={cmd}
                   onClick={() => executeCommand(cmd)}
