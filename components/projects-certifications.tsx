@@ -212,6 +212,67 @@ function HelmLibraryArchitecture() {
   )
 }
 
+function ObservabilityArchitecture() {
+  return (
+    <div className="space-y-6 pt-4">
+      <p className="text-sm text-muted-foreground leading-relaxed">
+        Unified observability platform on EKS. Application telemetry is ingested by OpenTelemetry Collector and routed to specialized backends for metrics, logs, and distributed tracing.
+      </p>
+
+      <div className="p-6 rounded-xl border border-border bg-secondary/30 backdrop-blur-md flex flex-col md:flex-row items-center gap-4 font-mono text-xs text-center">
+        
+        {/* Source */}
+        <div className="flex-1 w-full bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+          <div className="text-blue-600 dark:text-blue-400 font-bold mb-2">EKS Workloads</div>
+          <div className="space-y-2 text-[10px]">
+            <div className="bg-background/50 p-1.5 rounded border border-blue-500/20">Microservices</div>
+            <div className="bg-background/50 p-1.5 rounded border border-blue-500/20">Otel Instrumentation</div>
+          </div>
+        </div>
+
+        <div className="text-primary/50 rotate-90 md:rotate-0 font-bold">→</div>
+
+        {/* Collector */}
+        <div className="flex-1 w-full bg-primary/10 border border-primary/30 rounded-lg p-4 shadow-[0_0_15px_rgba(34,211,238,0.15)] relative">
+          <div className="absolute -top-1 -right-1 flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+          </div>
+          <div className="text-primary font-bold mb-2">OTel Collector</div>
+          <div className="space-y-2 mt-2 text-[10px]">
+            <div className="bg-background/50 p-1.5 rounded border border-primary/20">Receivers</div>
+            <div className="bg-background/50 p-1.5 rounded border border-primary/20">Processors / Exporters</div>
+          </div>
+        </div>
+
+        <div className="text-primary/50 rotate-90 md:rotate-0 font-bold">→</div>
+
+        {/* Backends */}
+        <div className="flex-1 w-full space-y-2">
+          <div className="bg-orange-500/10 border border-orange-500/30 rounded-lg p-2">
+            <div className="text-orange-600 dark:text-orange-400 font-bold text-[10px]">Prometheus</div>
+            <div className="text-muted-foreground text-[9px]">Metrics</div>
+          </div>
+          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-2">
+            <div className="text-red-600 dark:text-red-400 font-bold text-[10px]">Loki</div>
+            <div className="text-muted-foreground text-[9px]">Logs</div>
+          </div>
+          <div className="bg-blue-400/10 border border-blue-400/30 rounded-lg p-2">
+            <div className="text-blue-500 dark:text-blue-400 font-bold text-[10px]">Tempo</div>
+            <div className="text-muted-foreground text-[9px]">Traces</div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Grafana */}
+      <div className="w-full bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-3 text-center text-[10px]">
+         <div className="text-emerald-600 dark:text-emerald-400 font-bold">Grafana Dashboards</div>
+         <div className="text-muted-foreground mt-1">Unified Visualization & Alerting</div>
+      </div>
+    </div>
+  )
+}
+
 const projects = [
   {
     title: "Enterprise AWS Infrastructure",
@@ -240,6 +301,13 @@ const projects = [
     tags: ["Helm", "Kubernetes", "OCI Registry", "Library Chart"],
     githubUrl: "https://github.com/ok-karthik/app-library-helm-chart",
     architecture: <HelmLibraryArchitecture />
+  },
+  {
+    title: "OpenTelemetry & LGTM Platform",
+    description: "Cloud-native observability stack using OpenTelemetry Collectors (Agent & Gateway patterns) and the LGTM stack for unified metrics, logs, and distributed tracing.",
+    tags: ["OpenTelemetry", "LGTM Stack", "Prometheus", "Grafana", "Loki", "Tempo"],
+    githubUrl: "https://github.com/ok-karthik/otel-observability-platform-on-eks",
+    architecture: <ObservabilityArchitecture />
   },
 ]
 

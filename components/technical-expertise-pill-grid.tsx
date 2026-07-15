@@ -11,7 +11,8 @@ import {
   Blocks,
   ShieldBan,
   Key,
-  PlugZap
+  PlugZap,
+  Cpu
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -70,15 +71,20 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "CI/CD, IaC & GitOps",
+    title: "CI/CD & GitOps",
     skills: [
-      { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg", url: "https://www.terraform.io/" },
       { name: "ArgoCD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg", url: "https://argoproj.github.io/cd/" },
       { name: "GitHub Actions", icon: "https://cdn.simpleicons.org/githubactions/2088FF", url: "https://github.com/features/actions" },
+      { name: "GitLab", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg", url: "https://docs.gitlab.com/ee/ci/" },
+      { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", scale: 1.2, url: "https://www.jenkins.io/" },
+    ],
+  },
+  {
+    title: "Infrastructure as Code (IaC)",
+    skills: [
+      { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg", url: "https://www.terraform.io/" },
       { name: "Terragrunt", icon: "/terragrunt.svg", url: "https://terragrunt.gruntwork.io/" },
       { name: "Crossplane", icon: "/crossplane-icon.svg", scale: 1.2, url: "https://www.crossplane.io/" },
-      { name: "GitLab CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg", url: "https://docs.gitlab.com/ee/ci/" },
-      { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", scale: 1.2, url: "https://www.jenkins.io/" },
       { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg", url: "https://www.ansible.com/" },
     ],
   },
@@ -131,21 +137,21 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "Programming & Platform Architecture",
+    title: "Software Engineering",
     skills: [
-      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", url: "https://www.python.org/" },
-      { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg", url: "https://www.gnu.org/software/bash/" },
-    ],
+      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", url: "https://www.python.org", subSkills: ["Platform APIs", "Automation & CLI"] },
+      { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg", url: "https://www.java.com", subSkills: ["Groovy (Jenkins CI)", "Backend Services"] },
+      { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg", url: "https://www.gnu.org/software/bash", subSkills: [] },
+    ]
   },
   {
-    title: "Agentic Engineering",
+    title: "AI Infrastructure & Agentic Workflows",
     skills: [
-      { name: "MCP Servers", lucideIcon: PlugZap, url: "https://modelcontextprotocol.io/" },
-      { name: "Google ADK", lucideIcon: Bot, url: "https://github.com/google/agent-development-kit" },
-      { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview" },
-      { name: "n8n", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/n8n.svg", scale: 1.15, url: "https://n8n.io/" },
-      { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25, url: "https://ollama.com/" },
-    ],
+      { name: "LLM Serving", lucideIcon: Cpu, url: "https://ollama.com", subSkills: ["Ollama", "Llama.cpp", "FastAPI Inference Gateway"] },
+      { name: "MCP Servers", lucideIcon: PlugZap, url: "https://modelcontextprotocol.io", subSkills: [] },
+      { name: "Google ADK", lucideIcon: Bot, url: "https://cloud.google.com/products/ai", subSkills: [] },
+      { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://anthropic.com", subSkills: [] }
+    ]
   },
 ]
 
@@ -218,17 +224,18 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
 
   const PillContent = (
     <>
-      <div className="flex items-center justify-center w-10 h-10 bg-white/95 rounded-full p-2 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] shrink-0 overflow-hidden transition-all duration-300">
+      <div className="flex items-center justify-center w-10 h-10 bg-white/95 rounded-full p-2 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] shrink-0 overflow-hidden transition-all duration-300 relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         {LucideIcon ? (
           <LucideIcon 
-            className="w-full h-full text-slate-800 transition-transform duration-300 group-hover:scale-110" 
+            className="w-full h-full text-slate-800 transition-transform duration-300 group-hover:scale-110 relative z-10" 
             style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
           />
         ) : (
           <img
             src={skill.icon}
             alt={`${skill.name} logo`}
-            className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
+            className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110 relative z-10"
             style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
             crossOrigin="anonymous"
           />
@@ -238,10 +245,13 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
     </>
   )
 
-  const pillWrapperClass = `flex items-center gap-3.5 bg-black/5 dark:bg-white/[0.03] backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full pr-6 pl-2.5 py-2 [transition-property:color,background-color,border-color,box-shadow,transform] duration-300 text-base font-medium font-mono text-foreground/80 group ${skill.url ? 'hover:bg-black/10 dark:hover:bg-white/[0.08] hover:border-primary/60 hover:shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:text-foreground hover:-translate-y-0.5 cursor-pointer' : 'cursor-default'}`
+  const pillWrapperClass = `flex items-center gap-3.5 bg-black/5 dark:bg-white/[0.03] backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full pr-6 pl-2.5 py-2 [transition-property:color,background-color,border-color,box-shadow,transform] duration-300 text-base font-medium font-mono text-foreground/80 group w-fit ${skill.url ? 'hover:bg-black/10 dark:hover:bg-white/[0.08] hover:border-primary/60 hover:shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:text-foreground hover:-translate-y-0.5 cursor-pointer' : 'cursor-default'}`
 
   return (
-    <div className="flex flex-col gap-3 items-start">
+    <motion.div 
+      variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } } }}
+      className="flex flex-col gap-3 items-start w-full h-full"
+    >
       {skill.url ? (
         <a href={skill.url} target="_blank" rel="noopener noreferrer" className={pillWrapperClass}>
           {PillContent}
@@ -253,7 +263,7 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
       )}
       
       {skill.subSkills && skill.subSkills.length > 0 && (
-        <div className="flex flex-wrap gap-2 pl-3 max-w-[360px]">
+        <div className="flex flex-col gap-1.5 pl-3">
           {skill.subSkills.map((sub) => {
             const isString = typeof sub === 'string'
             const name = isString ? sub : sub.name
@@ -265,8 +275,8 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
             return (
               <span 
                 key={name as string} 
-                className="flex items-center gap-1.5 text-xs font-mono text-foreground/90 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full px-3 py-1
-                           [transition-property:color,background-color,border-color,box-shadow] duration-200 hover:text-primary hover:border-primary/40 hover:bg-black/10 dark:hover:bg-white/10 shadow-sm"
+                className="flex items-center gap-1.5 text-xs font-mono text-foreground/90 bg-black/5 dark:bg-white/5 rounded-full px-3 py-1 border border-black/10 dark:border-white/10 w-fit
+                           transition-all duration-200 hover:text-primary hover:bg-black/10 dark:hover:bg-white/10 hover:border-primary/40 shadow-sm"
               >
                 {LucideIcon && <LucideIcon className="w-3.5 h-3.5" />}
                 {icon && <img src={icon} alt={name as string} className={`w-3.5 h-3.5 object-contain ${isDarkInvert ? 'dark:invert' : ''} ${isDarkBrighten ? 'dark:brightness-200' : ''}`} crossOrigin="anonymous" />}
@@ -276,7 +286,7 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
           })}
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }
 
@@ -299,10 +309,13 @@ export function TechnicalExpertisePillGrid() {
               return (
                 <motion.div 
                   key={category.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial="hidden"
+                  whileInView="visible"
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.1, staggerChildren: 0.1 } }
+                  }}
                   className="relative mb-6"
                 >
                   <h3 className="text-xl font-bold text-primary mb-6 font-mono flex items-center gap-2">
@@ -310,11 +323,16 @@ export function TechnicalExpertisePillGrid() {
                     {category.title}
                   </h3>
                   
-                  <div className={index === 0 ? "grid grid-cols-1 md:grid-cols-3 gap-6 w-full" : category.skills.some(s => s.subSkills?.length) ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full" : "flex flex-wrap gap-4 items-start"}>
+                  <motion.div 
+                    variants={{
+                      visible: { transition: { staggerChildren: 0.1 } }
+                    }}
+                    className={index === 0 ? "grid grid-cols-1 lg:grid-cols-3 gap-6 w-full" : "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8 w-full"}
+                  >
                     {category.skills.map((skill) => (
                       <SkillPill key={skill.name} skill={skill} isPremium={index === 0} />
                     ))}
-                  </div>
+                  </motion.div>
                 </motion.div>
               )
             })}

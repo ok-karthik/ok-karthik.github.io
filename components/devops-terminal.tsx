@@ -11,17 +11,9 @@ type OutputLine = {
 }
 
 const bootSequence = [
-  { text: "$ platform-cli provision --env=production", isCommand: true, delay: 500 },
-  { text: "Authenticating via Microsoft Entra ID...", delay: 300 },
-  { text: "✓ Authentication successful. Context: Platform Engineer", isSuccess: true, delay: 200 },
-  { text: "Initializing Internal Developer Platform (IDP)...", delay: 300 },
-  { text: "  [+] Terraform state lock acquired ......... SUCCESS", isSystem: true, delay: 200 },
-  { text: "  [+] Core Infrastructure (AWS/Azure) ....... DRIFT-FREE", isSystem: true, delay: 200 },
-  { text: "  [+] Kubernetes Fleet (EKS/AKS) ............ ONLINE", isSystem: true, delay: 200 },
-  { text: "  [+] GitOps Reconciliation (ArgoCD) ........ SYNCED", isSystem: true, delay: 200 },
-  { text: "  [+] Developer Golden Paths ................ READY", isSystem: true, delay: 200 },
-  { text: "Platform provisioning complete. Scale is infinite. 🚀", isSuccess: true, delay: 400 },
-  { text: "Type 'help' for available commands.", isSystem: true, delay: 300 },
+  { text: "$ platform-cli init", isCommand: true, delay: 400 },
+  { text: "✓ Context: karthik-orugonda@platform-eng", isSuccess: true, delay: 300 },
+  { text: "Type 'help' for available commands or click a suggestion below.", isSystem: true, delay: 300 },
 ]
 
 export function DevOpsTerminal() {
@@ -98,73 +90,77 @@ export function DevOpsTerminal() {
   }, [bootIndex, isBooting])
 
   // Command handler
+  const executeCommand = (cmdStr: string) => {
+    const cmd = cmdStr.trim()
+    
+    const newCmdLine: OutputLine = { id: Math.random().toString(), text: `$ ${cmd}`, isCommand: true }
+    
+    if (!cmd) {
+      setHistory(prev => [...prev, newCmdLine])
+      return
+    }
+
+    const lowerCmd = cmd.toLowerCase()
+    let outputLines: OutputLine[] = []
+
+    switch (lowerCmd) {
+      case "help":
+        outputLines = [
+          { id: Math.random().toString(), text: "Available commands:", isSystem: true },
+          { id: Math.random().toString(), text: "  whoami    - Display bio and role" },
+          { id: Math.random().toString(), text: "  skills    - List core technical stack" },
+          { id: Math.random().toString(), text: "  contact   - Show contact information" },
+          { id: Math.random().toString(), text: "  clear     - Clear terminal history" },
+        ]
+        break
+      case "whoami":
+        outputLines = [
+          { id: Math.random().toString(), text: "Karthik Orugonda", isSuccess: true },
+          { id: Math.random().toString(), text: "Senior Platform & Cloud Infrastructure Engineer" },
+          { id: Math.random().toString(), text: "Building Internal Developer Platforms, scaling K8s, and automating Golden Paths." },
+        ]
+        break
+      case "skills":
+        outputLines = [
+          { id: Math.random().toString(), text: "Platform Engineering Stack:", isSystem: true },
+          { id: Math.random().toString(), text: "• Cloud & Platform Infrastructure: AWS, Azure, GCP" },
+          { id: Math.random().toString(), text: "• Containers & Orchestration: Kubernetes, Docker, Helm, Istio" },
+          { id: Math.random().toString(), text: "• CI/CD & GitOps: ArgoCD, GitHub Actions, GitLab, Jenkins" },
+          { id: Math.random().toString(), text: "• Infrastructure as Code: Terraform, Terragrunt, Crossplane, Ansible" },
+          { id: Math.random().toString(), text: "• Observability: OpenTelemetry, Prometheus, Grafana, Datadog, Dynatrace, Loki, Tempo" },
+          { id: Math.random().toString(), text: "• Software Engineering: Python (APIs/Automation), Java (Groovy), Bash" },
+          { id: Math.random().toString(), text: "• AI Infra & Agentic Workflows: LLM Serving (Ollama, Llama.cpp, FastAPI Gateway), MCP Servers, Google ADK, n8n" },
+        ]
+        break
+      case "contact":
+        outputLines = [
+          { id: Math.random().toString(), text: "Connecting to secure channel...", isSystem: true },
+          { id: Math.random().toString(), text: "Email: [Protected by IAM] - See Connect section below" },
+          { id: Math.random().toString(), text: "Location: Earth (eu-central-1)" },
+        ]
+        break
+      case "clear":
+        setHistory([])
+        return
+      case "sudo deploy":
+        outputLines = [
+          { id: Math.random().toString(), text: "Error: User 'guest' is not in the sudoers file. This incident will be reported.", isSystem: true },
+        ]
+        break
+      default:
+        outputLines = [
+          { id: Math.random().toString(), text: `bash: ${cmd}: command not found` },
+        ]
+        break
+    }
+
+    setHistory(prev => [...prev, newCmdLine, ...outputLines])
+  }
+
   const handleCommand = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      const cmd = input.trim()
+      executeCommand(input)
       setInput("")
-      
-      const newCmdLine: OutputLine = { id: Math.random().toString(), text: `$ ${cmd}`, isCommand: true }
-      
-      if (!cmd) {
-        setHistory(prev => [...prev, newCmdLine])
-        return
-      }
-
-      const lowerCmd = cmd.toLowerCase()
-      let outputLines: OutputLine[] = []
-
-      switch (lowerCmd) {
-        case "help":
-          outputLines = [
-            { id: Math.random().toString(), text: "Available commands:", isSystem: true },
-            { id: Math.random().toString(), text: "  whoami    - Display bio and role" },
-            { id: Math.random().toString(), text: "  skills    - List core technical stack" },
-            { id: Math.random().toString(), text: "  contact   - Show contact information" },
-            { id: Math.random().toString(), text: "  clear     - Clear terminal history" },
-          ]
-          break
-        case "whoami":
-          outputLines = [
-            { id: Math.random().toString(), text: "Karthik Orugonda", isSuccess: true },
-            { id: Math.random().toString(), text: "Senior Platform & Cloud Infrastructure Engineer" },
-            { id: Math.random().toString(), text: "Building Internal Developer Platforms, scaling K8s, and automating Golden Paths." },
-          ]
-          break
-        case "skills":
-          outputLines = [
-            { id: Math.random().toString(), text: "Platform Engineering Stack:", isSystem: true },
-            { id: Math.random().toString(), text: "• Cloud & Platform Infrastructure: AWS, Azure, GCP" },
-            { id: Math.random().toString(), text: "• Containers & Orchestration: Kubernetes, K8s Operators, Docker, Helm, Istio" },
-            { id: Math.random().toString(), text: "• CI/CD, IaC & GitOps: Terraform, ArgoCD, GitHub Actions, Terragrunt, Crossplane, GitLab CI/CD, Jenkins, Ansible" },
-            { id: Math.random().toString(), text: "• DevSecOps & Governance: Policy-as-Code (OPA, Kyverno), Security Scanning (IaC, Container, SAST/DAST), Secrets Management, Kubernetes Security (RBAC)" },
-            { id: Math.random().toString(), text: "• Observability & Reliability: OpenTelemetry, Prometheus, Grafana, Datadog, Dynatrace, Loki, Tempo" },
-            { id: Math.random().toString(), text: "• Programming & Architecture: Python, Bash" },
-            { id: Math.random().toString(), text: "• AI-assisted Engineering: Claude Code, GitHub Copilot, n8n, Ollama" },
-          ]
-          break
-        case "contact":
-          outputLines = [
-            { id: Math.random().toString(), text: "Connecting to secure channel...", isSystem: true },
-            { id: Math.random().toString(), text: "Email: [Protected by IAM] - See Connect section below" },
-            { id: Math.random().toString(), text: "Location: Earth (us-east-1)" },
-          ]
-          break
-        case "clear":
-          setHistory([])
-          return
-        case "sudo deploy":
-          outputLines = [
-            { id: Math.random().toString(), text: "Error: User 'guest' is not in the sudoers file. This incident will be reported.", isSystem: true },
-          ]
-          break
-        default:
-          outputLines = [
-            { id: Math.random().toString(), text: `bash: ${cmd}: command not found` },
-          ]
-          break
-      }
-
-      setHistory(prev => [...prev, newCmdLine, ...outputLines])
     }
   }
 
@@ -213,18 +209,33 @@ export function DevOpsTerminal() {
 
         {/* Interactive Prompt */}
         {!isBooting && (
-          <div className="flex items-center">
-            <span className="text-slate-400 mr-2">$</span>
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleCommand}
-              className="flex-1 bg-transparent border-none outline-none text-[#00ffe7] font-semibold min-w-0"
-              spellCheck={false}
-              autoComplete="off"
-            />
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center">
+              <span className="text-slate-400 mr-2">$</span>
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleCommand}
+                className="flex-1 bg-transparent border-none outline-none text-[#00ffe7] font-semibold min-w-0"
+                spellCheck={false}
+                autoComplete="off"
+              />
+            </div>
+            
+            {/* Suggested Commands */}
+            <div className="flex flex-wrap gap-2 mt-2">
+              {['whoami', 'skills', 'contact', 'clear'].map(cmd => (
+                <button 
+                  key={cmd}
+                  onClick={() => executeCommand(cmd)}
+                  className="bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white px-2.5 py-1 rounded border border-white/10 text-xs transition-colors duration-200"
+                >
+                  {cmd}
+                </button>
+              ))}
+            </div>
           </div>
         )}
 
