@@ -276,16 +276,17 @@ function ObservabilityArchitecture() {
 function GPUPlatformArchitecture() {
   return (
     <div className="space-y-6 pt-4">
-      <p className="text-sm text-muted-foreground leading-relaxed">
-        Production-style GPU platform on Amazon EKS featuring dynamic provisioning, NVIDIA GPU Operator, and DCGM observability.
-      </p>
-
       <div className="p-6 rounded-xl border border-border bg-secondary/30 backdrop-blur-md flex flex-col items-center font-mono text-xs text-center">
 
         {/* Observability Layer */}
         <div className="flex flex-col items-center w-full max-w-sm mb-4">
-          <div className="w-full bg-orange-500/10 border border-orange-500/30 rounded-lg p-2.5 mb-2">
-            <div className="text-orange-600 dark:text-orange-400 font-bold">Prometheus & Grafana</div>
+          <div className="w-full bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-2.5 mb-2">
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold">Grafana</div>
+          </div>
+          <div className="text-orange-500/50">▲</div>
+          <div className="text-orange-500/50">│</div>
+          <div className="w-full bg-orange-500/10 border border-orange-500/30 rounded-lg p-2.5 my-2">
+            <div className="text-orange-600 dark:text-orange-400 font-bold">Prometheus</div>
           </div>
           <div className="text-orange-500/50">▲</div>
           <div className="text-orange-500/50">│</div>
@@ -303,7 +304,7 @@ function GPUPlatformArchitecture() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
           </div>
-          <div className="text-emerald-600 dark:text-emerald-400 font-bold text-sm mb-3">NVIDIA GPU Operator</div>
+          <div className="text-emerald-600 dark:text-emerald-400 font-bold text-sm mb-3">GPU Operator</div>
           <div className="grid grid-cols-2 gap-2 text-[10px]">
             <div className="bg-background/50 p-2 rounded border border-emerald-500/20">Device Plugin</div>
             <div className="bg-background/50 p-2 rounded border border-emerald-500/20">Node Feature Discovery</div>
@@ -328,20 +329,59 @@ function GPUPlatformArchitecture() {
         </div>
       </div>
 
-      {/* Troubleshooting Section */}
+      {/* Metrics Row */}
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-5 gap-2 text-[10px] font-mono text-muted-foreground">
+        <div className="bg-emerald-500/5 border border-emerald-500/20 rounded p-2 text-center flex flex-col items-center justify-center gap-1">
+          <span className="text-emerald-500 font-bold">✓</span>
+          <span>Dynamic GPU provisioning</span>
+        </div>
+        <div className="bg-emerald-500/5 border border-emerald-500/20 rounded p-2 text-center flex flex-col items-center justify-center gap-1">
+          <span className="text-emerald-500 font-bold">✓</span>
+          <span>GPU sharing</span>
+        </div>
+        <div className="bg-emerald-500/5 border border-emerald-500/20 rounded p-2 text-center flex flex-col items-center justify-center gap-1">
+          <span className="text-emerald-500 font-bold">✓</span>
+          <span>CUDA workloads</span>
+        </div>
+        <div className="bg-emerald-500/5 border border-emerald-500/20 rounded p-2 text-center flex flex-col items-center justify-center gap-1">
+          <span className="text-emerald-500 font-bold">✓</span>
+          <span>GPU observability</span>
+        </div>
+        <div className="bg-emerald-500/5 border border-emerald-500/20 rounded p-2 text-center flex flex-col items-center justify-center gap-1 col-span-2 md:col-span-1">
+          <span className="text-emerald-500 font-bold">✓</span>
+          <span>Production troubleshooting</span>
+        </div>
+      </div>
+
+      {/* Production Scenarios Section */}
       <div className="mt-6 border border-border rounded-lg bg-card overflow-hidden text-left">
         <div className="bg-secondary/50 p-3 border-b border-border">
-          <h4 className="font-mono text-sm font-bold text-foreground">Production Scenarios Explored (Troubleshooting)</h4>
+          <h4 className="font-mono text-sm font-bold text-foreground">Production Validation</h4>
         </div>
-        <div className="p-4 grid sm:grid-cols-2 gap-2 text-xs font-mono text-muted-foreground">
-          <div className="flex items-center gap-2"><span className="text-red-400 font-bold">✗</span> Device Plugin CrashLoopBackOff</div>
-          <div className="flex items-center gap-2"><span className="text-red-400 font-bold">✗</span> Broken Time Slicing ConfigMap</div>
-          <div className="flex items-center gap-2"><span className="text-red-400 font-bold">✗</span> Node Feature Discovery failures</div>
-          <div className="flex items-center gap-2"><span className="text-amber-400 font-bold">⚠</span> GPU Operator reconciliation</div>
-          <div className="flex items-center gap-2"><span className="text-emerald-400 font-bold">✓</span> Karpenter GPU provisioning</div>
-          <div className="flex items-center gap-2"><span className="text-emerald-400 font-bold">✓</span> GPU node scale-down</div>
-          <div className="flex items-center gap-2"><span className="text-emerald-400 font-bold">✓</span> DCGM metrics validation</div>
-          <div className="flex items-center gap-2"><span className="text-emerald-400 font-bold">✓</span> CUDA workload debugging</div>
+        <div className="p-4 flex flex-wrap gap-2 text-xs font-mono">
+          <span className="px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border">Device Plugin Recovery</span>
+          <span className="px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border">GPU Scheduling</span>
+          <span className="px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border">Time Slicing</span>
+          <span className="px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border">DCGM Metrics</span>
+          <span className="px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border">Karpenter Provisioning</span>
+          <span className="px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border">CUDA Validation</span>
+          <span className="px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border">GPU Operator Recovery</span>
+        </div>
+      </div>
+
+      {/* GitHub Highlights Section */}
+      <div className="mt-6 border border-border rounded-lg bg-card overflow-hidden text-left">
+        <div className="bg-secondary/50 p-3 border-b border-border">
+          <h4 className="font-mono text-sm font-bold text-foreground">Repository Highlights</h4>
+        </div>
+        <div className="p-4">
+          <ul className="text-sm text-muted-foreground space-y-2 list-disc list-inside">
+            <li>6 hands-on labs</li>
+            <li>Production troubleshooting scenarios</li>
+            <li>Architecture diagrams</li>
+            <li>Operational documentation</li>
+            <li>Lessons learned</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -350,11 +390,18 @@ function GPUPlatformArchitecture() {
 
 const projects = [
   {
-    title: "GPU Platform on Amazon EKS",
-    description: "Built a production-style GPU platform on Amazon EKS. Features dynamic provisioning using Karpenter, NVIDIA GPU Operator via Helm, GPU Time Slicing, and DCGM metrics visualization.",
-    tags: ["NVIDIA GPU Operator", "Karpenter", "EKS", "CUDA", "DCGM"],
+    title: "AI Infrastructure on Amazon EKS",
+    description: "Production-style AI infrastructure platform on Amazon EKS for provisioning, sharing and observing NVIDIA GPUs. Built with Karpenter, GPU Operator, CUDA workloads and DCGM observability.",
+    tags: ["GPU Operator", "Karpenter", "CUDA", "Time Slicing", "Observability"],
     githubUrl: "https://github.com/ok-karthik/ai-infrastructure-on-eks",
     architecture: <GPUPlatformArchitecture />
+  },
+  {
+    title: "OpenTelemetry & LGTM Platform",
+    description: "Cloud-native observability stack using OpenTelemetry Collectors (Agent & Gateway patterns) and the LGTM stack for unified metrics, logs, and distributed tracing.",
+    tags: ["OpenTelemetry", "LGTM Stack", "Prometheus", "Grafana", "Loki", "Tempo"],
+    githubUrl: "https://github.com/ok-karthik/otel-observability-platform-on-eks",
+    architecture: <ObservabilityArchitecture />
   },
   {
     title: "Enterprise AWS Infrastructure",
@@ -383,13 +430,6 @@ const projects = [
     tags: ["Helm", "Kubernetes", "OCI Registry", "Library Chart"],
     githubUrl: "https://github.com/ok-karthik/app-library-helm-chart",
     architecture: <HelmLibraryArchitecture />
-  },
-  {
-    title: "OpenTelemetry & LGTM Platform",
-    description: "Cloud-native observability stack using OpenTelemetry Collectors (Agent & Gateway patterns) and the LGTM stack for unified metrics, logs, and distributed tracing.",
-    tags: ["OpenTelemetry", "LGTM Stack", "Prometheus", "Grafana", "Loki", "Tempo"],
-    githubUrl: "https://github.com/ok-karthik/otel-observability-platform-on-eks",
-    architecture: <ObservabilityArchitecture />
   },
 ]
 
@@ -441,9 +481,9 @@ export function ProjectsCertifications() {
                            [transition-property:color,background-color,border-color,box-shadow] duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] flex flex-col h-full group"
               >
                 <div className="flex-grow">
-                  <h4 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">{project.title}</h4>
-                  <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mt-5">
+                  <h4 className="text-[22px] font-bold text-foreground group-hover:text-primary transition-colors">{project.title}</h4>
+                  <p className="text-[13px] text-muted-foreground mt-4 leading-relaxed">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mt-6">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
@@ -455,7 +495,7 @@ export function ProjectsCertifications() {
                   </div>
                 </div>
 
-                <div className="mt-6 pt-5 border-t border-border/50 flex flex-wrap items-center justify-between gap-3">
+                <div className="mt-8 pt-5 border-t border-border/50 flex flex-wrap items-center justify-between gap-3">
                   <Dialog>
                     <DialogTrigger asChild>
                       <button className="text-xs font-mono font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1.5 bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-md border border-primary/20">

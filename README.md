@@ -25,9 +25,15 @@ To run this project locally:
 pnpm install
 ```
 
-2. Start the development server:
+2.1. Start the development server:
 ```bash
 pnpm dev
+```
+OR
+2.2. Build the project and start the production server:
+```bash
+pnpm build
+npx serve@latest out
 ```
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser.

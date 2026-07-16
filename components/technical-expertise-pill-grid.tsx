@@ -151,7 +151,7 @@ const categories: Category[] = [
         name: "NVIDIA GPU Platform", 
         icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/nvidia.svg", 
         url: "https://www.nvidia.com/en-us/data-center/cloud-native/",
-        subSkills: ["GPU Operator", "Device Plugin", "CUDA", "DCGM Exporter", "Time Slicing", "Karpenter"] 
+        subSkills: ["GPU Operator", "CUDA", "Time Slicing", "DCGM", "Karpenter"] 
       },
       { name: "LLM Serving", lucideIcon: Cpu, url: "https://ollama.com", subSkills: ["Ollama", "Llama.cpp", "FastAPI Gateway", "vLLM (coming soon)"] },
       { name: "MCP Servers", lucideIcon: PlugZap, url: "https://modelcontextprotocol.io", subSkills: [] },
