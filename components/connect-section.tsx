@@ -1,8 +1,8 @@
 const contactLinks = [
   {
     label: "Email",
-    href: "mailto:ok.karthik99@gmail.com",
-    value: "ok.karthik99@gmail.com",
+    href: "mailto:karthik.orugonda@gmail.com",
+    value: "karthik.orugonda@gmail.com",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -74,16 +74,16 @@ export function ConnectSection() {
             <h2 className="text-xl md:text-2xl font-display font-bold text-foreground mb-2">{"Let's build something together"}</h2>
             <p className="text-muted-foreground text-sm font-medium">Open to Senior Platform Eng, Staff SRE, AI Infra roles • Berlin or remote</p>
           </div>
-          
+
           <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 mt-4 md:mt-0">
-            <a 
-              href="mailto:ok.karthik99@gmail.com"
+            <a
+              href="mailto:karthik.orugonda@gmail.com"
               className="px-4 py-2.5 bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground font-mono text-sm font-medium rounded-lg transition-all flex items-center gap-2"
             >
-              ok.karthik99@gmail.com
+              karthik.orugonda@gmail.com
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
-            
+
             {contactLinks.slice(1).map((link) => (
               <a
                 key={link.label}
@@ -112,7 +112,7 @@ export function ConnectSection() {
             <span>Visa: German Permanent Residence</span>
           </div>
           <p className="opacity-70">
-            © {new Date().getFullYear()} Karthik Orugonda. Built with React & Next.js.
+            © {new Date().getFullYear()} Karthik Orugonda
           </p>
         </div>
       </div>

@@ -41,7 +41,7 @@ export function HeroSection() {
 
         {/* Right Column: Profile Card & Stats */}
         <div className="flex flex-col gap-4 md:gap-5 w-full max-w-lg mx-auto lg:ml-auto">
-          
+
           {/* Unified Profile Card */}
           <div className="flex flex-col w-full bg-card/20 backdrop-blur-xl border border-border/40 rounded-[2rem] pt-6 px-6 pb-5 md:pt-8 md:px-8 md:pb-6 shadow-2xl relative overflow-hidden group/card">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none transition-opacity duration-700 group-hover/card:opacity-70" />
@@ -50,9 +50,9 @@ export function HeroSection() {
               {/* Left Side: Avatar */}
               <div className="flex justify-center sm:justify-start shrink-0 pt-1">
                 <div className="relative group cursor-pointer">
-                  <img 
-                    src="https://github.com/ok-karthik.png" 
-                    alt="Karthik Orugonda" 
+                  <img
+                    src="https://github.com/ok-karthik.png"
+                    alt="Karthik Orugonda"
                     className="relative w-32 h-32 md:w-36 md:h-36 rounded-full border-2 border-primary/40 object-cover shadow-lg transition-all duration-500 group-hover:scale-125 group-hover:-translate-y-2 group-hover:border-primary/60 group-hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] z-10"
                   />
                 </div>
@@ -69,7 +69,7 @@ export function HeroSection() {
                       <div className="text-[13px] text-muted-foreground/80 font-medium leading-snug">IDP · GitOps · Self-service infra</div>
                     </div>
                   </div>
-                  
+
                   <div className="flex gap-3 group/item">
                     <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0 shadow-[0_0_8px_rgba(192,132,252,0.8)] transition-transform group-hover/item:scale-150" />
                     <div>
@@ -110,7 +110,7 @@ export function HeroSection() {
                 <Linkedin className="w-4 h-4 transition-transform group-hover:scale-110" />
                 <span className="text-[14px] font-medium transition-colors">LinkedIn</span>
               </a>
-              <a href="mailto:ok.karthik99@gmail.com" className="flex items-center gap-2 text-muted-foreground hover:text-red-400 transition-colors group">
+              <a href="mailto:karthik.orugonda@gmail.com" className="flex items-center gap-2 text-muted-foreground hover:text-red-400 transition-colors group">
                 <Mail className="w-4 h-4 transition-transform group-hover:scale-110" />
                 <span className="text-[14px] font-medium transition-colors">Email</span>
               </a>
