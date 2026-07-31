@@ -42,7 +42,10 @@ npx serve@latest out
 
 - `app/` - Next.js App Router core (layout, global styles, theme provider).
 - `components/` - React components including the interactive DevOps Terminal, Neural Mesh background, and animated sections.
-- `PROJECT_CONTEXT.md` - Context document detailing architectural and design choices.
+- `public/` - Static assets and SVG icons.
+- `__tests__/` - Vitest component testing suite.
+- `.agents/` - Customization root for AI agent workflows, containing `AGENTS.md`, rules, and skills.
+- `ARCHITECTURE.md` - Persistent context document detailing overarching architectural and design choices.
 
 ## Collaborators
 
