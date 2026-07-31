@@ -61,6 +61,15 @@ const categories: Category[] = [
     ],
   },
   {
+    title: "Software Engineering",
+    skills: [
+      { name: "Go", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg", url: "https://go.dev", subSkills: ["CLI & APIs"] },
+      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", url: "https://www.python.org", subSkills: ["Platform APIs", "Automation & CLI"] },
+      { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg", url: "https://www.java.com", subSkills: ["Groovy (Jenkins CI)", "Backend Services"] },
+      { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg", url: "https://www.gnu.org/software/bash", subSkills: [] },
+    ]
+  },
+  {
     title: "Containers & Orchestration",
     skills: [
       { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg", url: "https://kubernetes.io/" },
@@ -87,6 +96,32 @@ const categories: Category[] = [
       { name: "Crossplane", icon: "/crossplane-icon.svg", scale: 1.2, url: "https://www.crossplane.io/" },
       { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg", url: "https://www.ansible.com/" },
     ],
+  },
+  {
+    title: "Observability & Reliability",
+    skills: [
+      { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg", scale: 1.25, url: "https://opentelemetry.io/" },
+      { name: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg", url: "https://prometheus.io/" },
+      { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg", url: "https://grafana.com/" },
+      { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg", scale: 1.4, url: "https://www.datadoghq.com/" },
+      { name: "Dynatrace", icon: "https://cdn.simpleicons.org/dynatrace", scale: 1.15, url: "https://www.dynatrace.com/" },
+      { name: "Loki", icon: "/loki.svg", url: "https://grafana.com/oss/loki/" },
+      { name: "Tempo", icon: "/tempo.svg", url: "https://grafana.com/oss/tempo/" },
+    ],
+  },
+  {
+    title: "AI Infrastructure & Agentic Workflows",
+    skills: [
+      { 
+        name: "NVIDIA GPU Platform", 
+        icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/nvidia.svg", 
+        url: "https://www.nvidia.com/en-us/data-center/cloud-native/",
+        subSkills: ["GPU Operator", "CUDA", "Time Slicing", "DCGM", "Karpenter"] 
+      },
+      { name: "LLM Serving", lucideIcon: Cpu, url: "https://ollama.com", subSkills: ["Ollama", "Llama.cpp", "FastAPI Gateway"] },
+      { name: "MCP Servers", lucideIcon: PlugZap, url: "https://modelcontextprotocol.io", subSkills: [] },
+      { name: "AI Coding Workflows", lucideIcon: Sparkles, subSkills: ["Claude Code", "Cursor", "Gemini"] }
+    ]
   },
   {
     title: "DevSecOps & Governance",
@@ -123,41 +158,6 @@ const categories: Category[] = [
         subSkills: ["RBAC", "Network Policies"],
       },
     ],
-  },
-  {
-    title: "Observability & Reliability",
-    skills: [
-      { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg", scale: 1.25, url: "https://opentelemetry.io/" },
-      { name: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg", url: "https://prometheus.io/" },
-      { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg", url: "https://grafana.com/" },
-      { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg", scale: 1.4, url: "https://www.datadoghq.com/" },
-      { name: "Dynatrace", icon: "https://cdn.simpleicons.org/dynatrace", scale: 1.15, url: "https://www.dynatrace.com/" },
-      { name: "Loki", icon: "/loki.svg", url: "https://grafana.com/oss/loki/" },
-      { name: "Tempo", icon: "/tempo.svg", url: "https://grafana.com/oss/tempo/" },
-    ],
-  },
-  {
-    title: "Software Engineering",
-    skills: [
-      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", url: "https://www.python.org", subSkills: ["Platform APIs", "Automation & CLI"] },
-      { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg", url: "https://www.java.com", subSkills: ["Groovy (Jenkins CI)", "Backend Services"] },
-      { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg", url: "https://www.gnu.org/software/bash", subSkills: [] },
-    ]
-  },
-  {
-    title: "AI Infrastructure & Agentic Workflows",
-    skills: [
-      { 
-        name: "NVIDIA GPU Platform", 
-        icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/nvidia.svg", 
-        url: "https://www.nvidia.com/en-us/data-center/cloud-native/",
-        subSkills: ["GPU Operator", "CUDA", "Time Slicing", "DCGM", "Karpenter"] 
-      },
-      { name: "LLM Serving", lucideIcon: Cpu, url: "https://ollama.com", subSkills: ["Ollama", "Llama.cpp", "FastAPI Gateway", "vLLM (coming soon)"] },
-      { name: "MCP Servers", lucideIcon: PlugZap, url: "https://modelcontextprotocol.io", subSkills: [] },
-      { name: "Google ADK", lucideIcon: Bot, url: "https://cloud.google.com/products/ai", subSkills: [] },
-      { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://anthropic.com", subSkills: [] }
-    ]
   },
 ]
 
