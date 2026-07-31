@@ -119,7 +119,6 @@ const categories: Category[] = [
         subSkills: ["GPU Operator", "CUDA", "Time Slicing", "DCGM", "Karpenter"] 
       },
       { name: "LLM Serving", lucideIcon: Cpu, url: "https://ollama.com", subSkills: ["Ollama", "Llama.cpp", "FastAPI Gateway"] },
-      { name: "MCP Servers", lucideIcon: PlugZap, url: "https://modelcontextprotocol.io", subSkills: [] },
       { name: "AI Coding Workflows", lucideIcon: Sparkles, subSkills: ["Claude Code", "Cursor", "Gemini"] }
     ]
   },
