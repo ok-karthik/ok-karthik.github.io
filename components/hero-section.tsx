@@ -138,7 +138,7 @@ export function HeroSection() {
               {stats.map((stat, i) => (
                 <div
                   key={stat.label}
-                  className="glass glass-hover rounded-xl px-3 py-4 text-center"
+                  className="glass glass-hover rounded-xl px-2 py-4 text-center sm:px-3"
                 >
                   <CountUp
                     value={stat.value}

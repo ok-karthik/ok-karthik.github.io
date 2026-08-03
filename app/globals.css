@@ -29,32 +29,34 @@ html:not(.dark) {
   --popover: #ffffff;
   --popover-foreground: #17131f;
 
-  --primary: #0d7f94;
+  /* Darkened from #0d7f94, which measured 4.04:1 against the page wash
+     and failed AA. This is 5.31:1, and white-on-primary improves too. */
+  --primary: #0a6b7d;
   --primary-foreground: #ffffff;
 
   --secondary: #e6e3f0;
   --secondary-foreground: #17131f;
   --muted: #edebf4;
   --muted-foreground: #5b5570;
-  --accent: #0d7f94;
+  --accent: #0a6b7d;
   --accent-foreground: #ffffff;
 
   --border: rgba(23, 19, 31, 0.15);
   --border-strong: rgba(23, 19, 31, 0.26);
   --input: rgba(23, 19, 31, 0.15);
-  --ring: #0d7f94;
+  --ring: #0a6b7d;
 
   --ok: #1f7a4d;
   --warn: #8a5d0f;
   --err: #a83a32;
 
-  --glow: 0 0 0 1px rgba(13, 127, 148, 0.3), 0 8px 30px -14px rgba(13, 127, 148, 0.45);
+  --glow: 0 0 0 1px rgba(10, 107, 125, 0.3), 0 8px 30px -14px rgba(10, 107, 125, 0.45);
   --elevation: 0 1px 2px rgba(23, 19, 31, 0.05), 0 10px 30px -14px rgba(23, 19, 31, 0.28);
   --glass-highlight: rgba(255, 255, 255, 0.9);
   --chip: #f4f2f9;
   --mesh-opacity: 0.34;
   --spotlight-strength: 5%;
-  --field-dot: 13, 127, 148;
+  --field-dot: 10, 107, 125;
 }
 
 html.dark {
@@ -134,7 +136,7 @@ html.dark {
   --shadow-glow: var(--glow);
 
   /* Type scale — replaces ad-hoc text-[22px] / [15px] / [9px]. */
-  --text-micro: 0.6875rem;
+  --text-micro: 0.75rem;
   --text-micro--line-height: 1.45;
   --text-micro--letter-spacing: 0.09em;
   --text-small: 0.8125rem;

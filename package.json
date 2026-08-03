@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepare": "husky"
+    "prepare": "husky",
+    "audit": "pnpm build && python3 scripts/audit-build.py"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.1.15",
