@@ -19,7 +19,7 @@ export function ExperienceSection() {
       <div className="mx-auto max-w-6xl px-6 py-24">
         <header className="mb-14">
           <p className="label rule-label mb-4">Experience</p>
-          <h2 className="max-w-2xl font-display text-h2 font-semibold text-foreground">
+          <h2 className="max-w-2xl font-display text-display font-semibold tracking-tight text-foreground">
             {profile.yearsInTech} years building infrastructure and the teams that run it
           </h2>
         </header>

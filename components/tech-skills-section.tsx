@@ -58,15 +58,11 @@ export function TechSkillsSection() {
   return (
     <section id="tech-skills" className="scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6 py-24">
-        <header className="mb-14">
+        <header className="mb-10">
           <p className="label rule-label mb-4">Tech Skills</p>
-          <h2 className="font-display text-h2 font-semibold text-foreground">
+          <h2 className="font-display text-display font-semibold tracking-tight text-foreground">
             The stack I build platforms with
           </h2>
-          <p className="mt-4 max-w-2xl text-body text-muted-foreground">
-            Grouped the way a platform is actually assembled — from the cluster up through
-            delivery, observability and governance.
-          </p>
         </header>
 
         <motion.div

@@ -12,7 +12,7 @@ export function CredentialsSection() {
     <section id="credentials" className="scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <p className="label rule-label mb-4">Certifications &amp; Education</p>
-        <h2 className="mb-10 font-display text-h2 font-semibold text-foreground">
+        <h2 className="mb-10 font-display text-display font-semibold tracking-tight text-foreground">
           Qualifications
         </h2>
 

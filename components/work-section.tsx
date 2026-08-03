@@ -86,7 +86,7 @@ export function WorkSection() {
         <header className="mb-12 flex items-end justify-between gap-6">
           <div>
             <p className="label rule-label mb-4">Projects</p>
-            <h2 className="font-display text-h2 font-semibold text-foreground">
+            <h2 className="font-display text-display font-semibold tracking-tight text-foreground">
               What I built, and the decisions behind it
             </h2>
           </div>

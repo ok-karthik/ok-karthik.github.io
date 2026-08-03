@@ -79,11 +79,16 @@ describe('content is sourced from content/, not hardcoded', () => {
     }
   })
 
-  it('no section claims a Staff title, which would contradict LinkedIn and the CV', () => {
-    for (const [, element] of sections) {
-      const { container, unmount } = render(element)
-      expect(container.textContent).not.toMatch(/\bstaff\b/i)
-      unmount()
+  it('no role is titled Staff, which would contradict LinkedIn and the CV', () => {
+    // Scoped to job titles on purpose. Stating which roles Karthik is open to
+    // — including Staff — is not the same as claiming a title he has held, and
+    // only the second is a credibility risk at reference check.
+    for (const exp of experiences) {
+      expect(exp.title).not.toMatch(/\bstaff\b/i)
+    }
+    render(<ExperienceSection />)
+    for (const exp of experiences) {
+      expect(screen.getByText(exp.title)).toBeInTheDocument()
     }
   })
 })

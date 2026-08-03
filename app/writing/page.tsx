@@ -25,9 +25,8 @@ export default function WritingIndex() {
           <h1 className="font-display text-display font-semibold tracking-tight text-foreground">
             Notes on the decisions
           </h1>
-          <p className="mt-4 max-w-2xl text-body-lg text-muted-foreground">
-            Mostly trade-offs rather than tools — the reasoning behind choices I&apos;ve made
-            building platforms, and what each one cost.
+          <p className="mt-3 max-w-xl text-small text-muted-foreground">
+            Trade-offs rather than tools — why I chose what I chose, and what it cost.
           </p>
         </header>
 

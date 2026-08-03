@@ -41,7 +41,14 @@ export const profile = {
     visa: "German Permanent Residence",
   },
 
-  openToRoles: "Senior Platform Engineering, SRE and AI Infrastructure roles",
+  /**
+   * Note the distinction from the title rule: saying which roles he will
+   * *consider* is not claiming a title he holds. "Open to Senior and Staff
+   * roles" is normal and true; putting Staff in the Aldi Süd entry would not
+   * be. The test guards the second, not the first.
+   */
+  openToRoles:
+    "Senior and Staff Platform Engineering / SRE roles, and Senior AI Infrastructure roles",
 
   email: "karthik.orugonda@gmail.com",
 

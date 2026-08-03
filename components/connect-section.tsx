@@ -31,7 +31,7 @@ export function ConnectSection() {
         <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <p className="label rule-label mb-4">Contact</p>
-            <h2 className="max-w-2xl font-display text-h2 font-semibold text-foreground">
+            <h2 className="max-w-2xl font-display text-display font-semibold tracking-tight text-foreground">
               Open to {profile.openToRoles}
             </h2>
             <p className="mt-4 max-w-xl text-body-lg text-muted-foreground">

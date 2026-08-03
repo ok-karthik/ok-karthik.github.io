@@ -62,7 +62,7 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
           <h1 className="font-display text-display font-semibold text-foreground">
             {project.title}
           </h1>
-          <p className="mt-4 text-body-lg text-muted-foreground">{project.summary}</p>
+          <p className="mt-4 max-w-2xl text-body text-muted-foreground">{project.summary}</p>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
             <a
@@ -114,7 +114,7 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
         */}
         <section className="mt-14">
           <h2 className="label rule-label mb-2">Key decisions</h2>
-          <p className="mb-6 text-small text-muted-foreground">
+          <p className="mb-6 max-w-xl text-small text-muted-foreground">
             What was chosen, what it was chosen over, and why.
           </p>
           <DecisionList decisions={project.decisions} />
