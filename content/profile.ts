@@ -58,8 +58,13 @@ export const profile = {
   },
 
   /**
-   * TODO(karthik): replace with a committed public/karthik-orugonda-cv.pdf.
-   * The Google Docs export breaks if the doc's sharing changes and leaks the doc id.
+   * Google Docs export, deliberately — do not "fix" this to a committed PDF.
+   *
+   * It auto-updates: Karthik edits the doc and the link serves the new version.
+   * Committing a PDF would mean remembering to re-export and commit on every
+   * CV change, and a stale CV on the site is a worse failure than anything the
+   * link risks. The doc is already publicly viewable, so the visible id grants
+   * nothing the URL doesn't.
    */
   cvUrl:
     "https://docs.google.com/document/d/1ELiwLJcYCaPdQIdW1SQ24PowzJ1ZVwQ_bdLh6aXjO7E/export?format=pdf",
