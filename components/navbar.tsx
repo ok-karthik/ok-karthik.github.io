@@ -8,9 +8,9 @@ import { profile } from "@/content/profile"
 import { CommandPalette } from "@/components/command-palette"
 
 const links = [
+  { href: "/#tech-skills", label: "Tech Skills" },
   { href: "/#projects", label: "Projects" },
   { href: "/#experience", label: "Experience" },
-  { href: "/#tech-skills", label: "Tech Skills" },
   { href: "/#contact", label: "Contact" },
 ]
 

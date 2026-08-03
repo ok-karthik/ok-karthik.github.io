@@ -7,12 +7,14 @@ import { skillGroups, type Skill, type Tier } from "@/content/skills"
 const lucideMap = { Cpu, Sparkles, Key, ShieldCheck, ScanSearch }
 
 /**
- * One dense panel, not eight cards.
+ * One dense panel.
  *
- * This is reference material — nobody reads it linearly, they scan it for a
- * keyword. So it should behave like a datasheet: a single surface, tight rows,
- * clear column rules. Eight equally-weighted cards made a lookup table look
- * like eight things competing for attention.
+ * Reference material — nobody reads it linearly, they scan it for a keyword —
+ * so it behaves like a datasheet: a single surface, tight rows, clear column
+ * rules. A pill layout and a pill/panel hybrid were both built and rendered
+ * for comparison; the panel won on being simultaneously more compact (1052px
+ * vs 1484 and 1238) and easier to scan. Don't re-litigate it from description
+ * alone — the variants were judged side by side.
  *
  * Tier still orders each column strongest-first but is no longer rendered:
  * at CV-screen stage a visible "1 of 3" reads as a weakness, and the note line
@@ -25,20 +27,20 @@ function SkillIcon({ skill }: { skill: Skill }) {
 
   if (Lucide) {
     return (
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-border bg-primary/10">
-        <Lucide className="h-4 w-4 text-primary" aria-hidden />
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-primary/10">
+        <Lucide className="h-[18px] w-[18px] text-primary" aria-hidden />
       </span>
     )
   }
 
   if (skill.icon) {
     return (
-      <span className="logo-chip h-8 w-8 shrink-0">
+      <span className="logo-chip h-10 w-10 shrink-0">
         <img
           src={skill.icon}
           alt=""
-          width={20}
-          height={20}
+          width={26}
+          height={26}
           loading="lazy"
           decoding="async"
           className="h-full w-full object-contain"
@@ -48,7 +50,7 @@ function SkillIcon({ skill }: { skill: Skill }) {
   }
 
   return (
-    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-border bg-muted font-mono text-[9px] text-muted-foreground">
+    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted font-mono text-[10px] text-muted-foreground">
       {skill.name.slice(0, 2).toUpperCase()}
     </span>
   )
@@ -83,11 +85,11 @@ export function TechSkillsSection() {
                 } ${i < skillGroups.length - (skillGroups.length % 2 === 0 ? 2 : 1) ? "border-b md:border-b" : ""} last:xl:border-r-0`}
               >
                 <h3 className="label mb-4">{group.title}</h3>
-                <ul className="space-y-2.5">
+                <ul className="space-y-3">
                   {[...group.skills]
                     .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
                     .map((skill) => (
-                      <li key={skill.name} className="flex items-center gap-2.5">
+                      <li key={skill.name} className="flex items-center gap-3">
                         <SkillIcon skill={skill} />
                         <span className="min-w-0 flex-1">
                           <span className="block text-small text-foreground">{skill.name}</span>

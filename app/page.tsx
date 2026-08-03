@@ -7,12 +7,18 @@ import { CredentialsSection } from "@/components/credentials-section"
 import { ConnectSection } from "@/components/connect-section"
 
 /**
- * Work first.
+ * Hero -> Tech Skills -> Projects -> Experience.
  *
- * The old order put a 49-logo skills grid and a simulated terminal ahead of any
- * evidence, so the strongest asset — six systems with documented trade-offs —
- * was the fourth thing a reader reached. Capabilities now come after the work
- * that demonstrates them.
+ * Two audiences read this page and they gate in sequence. A recruiter screens
+ * against a job description first, and if they bounce there is no hiring-manager
+ * read at all — so the stack goes early, where it answers that scan directly.
+ * Projects follow immediately, because they are what convinces the person who
+ * actually decides.
+ *
+ * This is not the old order. The original put a 49-logo CDN grid and a
+ * simulated terminal ahead of any evidence; Tech Skills is now a calibrated,
+ * self-hosted section that earns the position, and Projects sit second rather
+ * than fourth.
  */
 export default function Home() {
   return (
@@ -20,9 +26,9 @@ export default function Home() {
       <Navbar />
       <main id="main">
         <HeroSection />
+        <TechSkillsSection />
         <WorkSection />
         <ExperienceSection />
-        <TechSkillsSection />
         <CredentialsSection />
         <ConnectSection />
       </main>

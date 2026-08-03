@@ -19,8 +19,9 @@
 html:not(.dark) {
   /* Wash is pulled down so white glass has something to sit against. The
      previous pairing (0.72-alpha white on #f4f7fa) was invisible. */
-  --background: #efedf5;
-  --background-deep: #e2dfec;
+  --background: #f3f1f8;
+  --background-mid: #e8e4f3;
+  --background-deep: #dedaea;
   --foreground: #17131f;
 
   --card: rgba(255, 255, 255, 0.86);
@@ -64,8 +65,12 @@ html.dark {
      saturated enough that a full-strength accent on top read as neon. The hue
      was never the problem — the acid accent, the text glow and the uniform
      glowing borders were. */
-  --background: #100d19;
-  --background-deep: #0a0811;
+  --background: #0d0a16;
+  /* The lift. Essentially main's #1a0f3d — the mid-tone is what gave the
+     old page its depth, and losing it is what made this one read flat.
+     Checked: muted text is 6.2:1 against it, well past AA. */
+  --background-mid: #191036;
+  --background-deep: #0a0812;
   --foreground: #ece9f2;
 
   --card: rgba(255, 255, 255, 0.042);
@@ -108,6 +113,7 @@ html.dark {
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 
   --color-background: var(--background);
+  --color-background-mid: var(--background-mid);
   --color-background-deep: var(--background-deep);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -173,8 +179,13 @@ html.dark {
   body {
     @apply text-foreground;
     background:
-      radial-gradient(1200px 600px at 50% -10%, color-mix(in oklab, var(--primary) 9%, transparent), transparent 70%),
-      linear-gradient(180deg, var(--background) 0%, var(--background-deep) 100%);
+      radial-gradient(1100px 620px at 50% -8%, color-mix(in oklab, var(--primary) 10%, transparent), transparent 70%),
+      linear-gradient(
+        152deg,
+        var(--background) 0%,
+        var(--background-mid) 46%,
+        var(--background-deep) 100%
+      );
     background-attachment: fixed;
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
@@ -257,7 +268,10 @@ html.dark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
+  /* Rounded, not circular. main used circles, but its wide wordmarks (AWS,
+     Go) lived in rounded cards instead — a circle crops them. Swap to
+     `border-radius: 9999px` if you want the old circular look. */
+  border-radius: var(--radius-md);
   /* Neutral tint rather than pure white, so the chip is visible in light mode
      where the surface behind it is also near-white. */
   background: var(--chip);

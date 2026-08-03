@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import * as Dialog from "@radix-ui/react-dialog"
 import { profile } from "@/content/profile"
 import { projects } from "@/content/projects"
+import { commands, findCommand } from "@/content/commands"
 
 /**
  * Replaces the inline terminal.
@@ -46,9 +47,9 @@ export function CommandPalette() {
   const actions = useMemo<Action[]>(
     () => [
       { id: "top", label: "Home", group: "Navigate", run: go("/#top") },
+      { id: "tech-skills", label: "Tech Skills", group: "Navigate", run: go("/#tech-skills") },
       { id: "projects", label: "Projects", group: "Navigate", run: go("/#projects") },
       { id: "experience", label: "Experience", group: "Navigate", run: go("/#experience") },
-      { id: "tech-skills", label: "Tech Skills", group: "Navigate", run: go("/#tech-skills") },
       { id: "contact", label: "Contact", group: "Navigate", run: go("/#contact") },
 
       ...projects.map((p) => ({
@@ -86,6 +87,16 @@ export function CommandPalette() {
       `${a.label} ${a.hint ?? ""} ${a.group}`.toLowerCase().includes(q),
     )
   }, [actions, query])
+
+  // Easter eggs. An exact command match takes over the result list; a partial
+  // one is offered alongside normal results so the commands are discoverable
+  // by typing rather than only by knowing.
+  const matched = findCommand(query)
+  const suggestions = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q || matched) return []
+    return commands.filter((c) => c.name.startsWith(q))
+  }, [query, matched])
 
   // Open on Cmd/Ctrl+K from anywhere.
   useEffect(() => {
@@ -160,7 +171,7 @@ export function CommandPalette() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={onInputKeyDown}
-              placeholder="Jump to…"
+              placeholder="Jump to… or try whoami"
               aria-label="Search"
               aria-controls="palette-results"
               aria-activedescendant={
@@ -169,6 +180,39 @@ export function CommandPalette() {
               className="w-full border-b border-border bg-transparent px-4 py-3.5 text-body text-foreground outline-none placeholder:text-muted-foreground"
             />
 
+            {matched && (
+              <div className="border-b border-border px-4 py-4">
+                <p className="label mb-2">Output</p>
+                <pre
+                  aria-live="polite"
+                  className="overflow-x-auto whitespace-pre-wrap font-mono text-small leading-relaxed text-foreground"
+                >
+                  {matched.lines().join("\n")}
+                </pre>
+                <p className="label mt-3">
+                  try: {commands.filter((c) => c.name !== matched.name).map((c) => c.name).join(" · ")}
+                </p>
+              </div>
+            )}
+
+            {suggestions.length > 0 && (
+              <div className="border-b border-border px-4 py-3">
+                <p className="label mb-2">Commands</p>
+                <ul className="flex flex-wrap gap-2">
+                  {suggestions.map((c) => (
+                    <li key={c.name}>
+                      <button
+                        onClick={() => setQuery(c.name)}
+                        className="rounded-full border border-border px-2.5 py-1 font-mono text-micro text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
+                      >
+                        {c.name}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <ul
               id="palette-results"
               ref={listRef}
@@ -176,9 +220,16 @@ export function CommandPalette() {
               aria-label="Results"
               className="max-h-[min(24rem,60vh)] overflow-y-auto p-2"
             >
-              {results.length === 0 && (
+              {results.length === 0 && !matched && (
                 <li className="px-3 py-6 text-center text-small text-muted-foreground">
-                  Nothing matches “{query}”.
+                  Nothing matches “{query}”. Try{" "}
+                  <button
+                    onClick={() => setQuery("whoami")}
+                    className="font-mono text-foreground underline underline-offset-2"
+                  >
+                    whoami
+                  </button>
+                  .
                 </li>
               )}
 

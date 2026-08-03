@@ -19,7 +19,7 @@ describe('Navbar', () => {
 
   it('renders every primary navigation link', () => {
     render(<Navbar />)
-    for (const label of ['Projects', 'Experience', 'Tech Skills', 'Contact']) {
+    for (const label of ['Tech Skills', 'Projects', 'Experience', 'Contact']) {
       expect(screen.getAllByRole('link', { name: label }).length).toBeGreaterThan(0)
     }
   })
