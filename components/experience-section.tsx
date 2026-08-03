@@ -12,8 +12,8 @@ import { profile } from "@/content/profile"
  */
 export function ExperienceSection() {
   return (
-    <section id="experience" className="scroll-mt-24 border-t border-border">
-      <div className="mx-auto max-w-5xl px-6 py-20">
+    <section id="experience" className="scroll-mt-24">
+      <div className="mx-auto max-w-6xl px-6 py-20">
         <header className="mb-12">
           <p className="label mb-3">Experience</p>
           <h2 className="font-display text-h2 font-semibold text-foreground">
@@ -21,7 +21,7 @@ export function ExperienceSection() {
           </h2>
         </header>
 
-        <ol className="border-t border-border">
+        <ol>
           {experiences.map((exp, i) => (
             <motion.li
               key={exp.company}
@@ -29,7 +29,7 @@ export function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: Math.min(i, 3) * 0.06 }}
-              className="border-b border-border py-8"
+              className="glass glass-hover mb-4 rounded-xl p-6"
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:gap-8">
                 <p className="label shrink-0 tabular sm:w-32 sm:pt-1.5">{exp.period}</p>

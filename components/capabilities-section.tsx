@@ -40,8 +40,8 @@ function CapabilityMeter({ tier }: { tier: Tier }) {
 
 export function CapabilitiesSection() {
   return (
-    <section id="capabilities" className="scroll-mt-24 border-t border-border">
-      <div className="mx-auto max-w-5xl px-6 py-20">
+    <section id="capabilities" className="scroll-mt-24">
+      <div className="mx-auto max-w-6xl px-6 py-20">
         <header className="mb-12">
           <p className="label mb-3">Capabilities</p>
           <h2 className="font-display text-h2 font-semibold text-foreground">
@@ -55,7 +55,7 @@ export function CapabilitiesSection() {
         </header>
 
         {/* Legend — defines the scale before any reading is shown. */}
-        <dl className="mb-14 grid gap-x-8 gap-y-4 rounded-lg border border-border bg-card p-5 sm:grid-cols-3">
+        <dl className="glass mb-12 grid gap-x-8 gap-y-4 rounded-xl p-5 sm:grid-cols-3">
           {(Object.keys(tiers) as Tier[])
             .slice()
             .reverse()
@@ -76,7 +76,7 @@ export function CapabilitiesSection() {
             ))}
         </dl>
 
-        <div className="grid gap-x-12 gap-y-12 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2">
           {skillGroups.map((group, i) => (
             <motion.div
               key={group.title}
@@ -84,21 +84,39 @@ export function CapabilitiesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: Math.min(i, 3) * 0.05 }}
+              className="glass glass-hover rounded-xl p-5"
             >
-              <h3 className="label mb-4 border-b border-border pb-2">{group.title}</h3>
+              <h3 className="label mb-4 border-b border-border pb-3">{group.title}</h3>
               <ul className="space-y-3">
                 {group.skills.map((skill) => (
-                  <li key={skill.name} className="flex items-baseline gap-3">
-                    <span className="mt-1 shrink-0">
-                      <CapabilityMeter tier={skill.tier} />
-                    </span>
+                  <li key={skill.name} className="flex items-center gap-3">
+                    {skill.icon ? (
+                      <span className="logo-chip h-8 w-8 shrink-0">
+                        <img
+                          src={skill.icon}
+                          alt=""
+                          width={20}
+                          height={20}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-contain"
+                        />
+                      </span>
+                    ) : (
+                      <span className="h-8 w-8 shrink-0 rounded-sm border border-border bg-muted" />
+                    )}
+
                     <span className="min-w-0 flex-1">
-                      <span className="text-body text-foreground">{skill.name}</span>
+                      <span className="block text-body text-foreground">{skill.name}</span>
                       {skill.note && (
-                        <span className="ml-2 font-mono text-micro text-muted-foreground">
+                        <span className="block font-mono text-micro text-muted-foreground">
                           {skill.note}
                         </span>
                       )}
+                    </span>
+
+                    <span className="shrink-0">
+                      <CapabilityMeter tier={skill.tier} />
                     </span>
                   </li>
                 ))}

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
+import { AmbientField } from '@/components/ambient-field'
 import { profile } from '@/content/profile'
 import './globals.css'
 
@@ -96,6 +97,7 @@ export default function RootLayout({
           drop its beacon snippet here.
         */}
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <AmbientField />
           {children}
         </ThemeProvider>
       </body>

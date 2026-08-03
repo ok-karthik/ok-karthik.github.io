@@ -33,10 +33,10 @@ export function Navbar() {
   const isDark = mounted && resolvedTheme === "dark"
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/70 backdrop-blur-xl">
       <nav
         aria-label="Main"
-        className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3"
+        className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3"
       >
         <Link
           href="/#top"

@@ -9,13 +9,13 @@ import { certifications, education, languages } from "@/content/profile"
  */
 export function CredentialsSection() {
   return (
-    <section id="credentials" className="scroll-mt-24 border-t border-border">
-      <div className="mx-auto max-w-5xl px-6 py-20">
+    <section id="credentials" className="scroll-mt-24">
+      <div className="mx-auto max-w-6xl px-6 py-20">
         <p className="label mb-10">Credentials</p>
 
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
-          <div>
-            <h3 className="label mb-4 border-b border-border pb-2">Certifications</h3>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="glass rounded-xl p-5">
+            <h3 className="label mb-4 border-b border-border pb-3">Certifications</h3>
             <ul className="space-y-4">
               {certifications.map((cert) => (
                 <li key={cert.name} className="flex items-center gap-3">
@@ -39,8 +39,8 @@ export function CredentialsSection() {
             </ul>
           </div>
 
-          <div>
-            <h3 className="label mb-4 border-b border-border pb-2">Education</h3>
+          <div className="glass rounded-xl p-5">
+            <h3 className="label mb-4 border-b border-border pb-3">Education</h3>
             <p className="text-body text-foreground">{education.degree}</p>
             <p className="mt-1.5 text-small text-muted-foreground">{education.institution}</p>
             <p className="mt-1.5 font-mono text-micro text-muted-foreground">
@@ -48,8 +48,8 @@ export function CredentialsSection() {
             </p>
           </div>
 
-          <div>
-            <h3 className="label mb-4 border-b border-border pb-2">Languages</h3>
+          <div className="glass rounded-xl p-5">
+            <h3 className="label mb-4 border-b border-border pb-3">Languages</h3>
             <ul className="space-y-3">
               {languages.map((lang) => (
                 <li key={lang.name} className="flex items-baseline justify-between gap-4">

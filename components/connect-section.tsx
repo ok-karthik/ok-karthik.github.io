@@ -20,7 +20,7 @@ const channels = [
 export function ConnectSection() {
   return (
     <footer id="contact" className="scroll-mt-24 border-t border-border">
-      <div className="mx-auto max-w-5xl px-6 py-20">
+      <div className="mx-auto max-w-6xl px-6 py-20">
         <p className="label mb-3">Contact</p>
         <h2 className="max-w-2xl font-display text-h2 font-semibold text-foreground">
           Open to {profile.openToRoles}
