@@ -31,10 +31,23 @@ export function ConnectSection() {
         <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <p className="label rule-label mb-4">Contact</p>
-            <h2 className="max-w-2xl font-display text-display font-semibold tracking-tight text-foreground">
-              Open to {profile.openToRoles}
+            <h2 className="font-display text-display font-semibold tracking-tight text-foreground">
+              Open to new roles
             </h2>
-            <p className="mt-4 max-w-xl text-body-lg text-muted-foreground">
+
+            <ul className="mt-6 max-w-md">
+              {profile.openToRoles.map((role) => (
+                <li
+                  key={role.domain}
+                  className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border py-3 first:border-t"
+                >
+                  <span className="text-body-lg text-foreground">{role.domain}</span>
+                  <span className="label">{role.level}</span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-6 max-w-xl text-body text-muted-foreground">
               {profile.location.availability}. Happy to talk through any of the work above.
             </p>
 

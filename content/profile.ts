@@ -42,13 +42,21 @@ export const profile = {
   },
 
   /**
-   * Note the distinction from the title rule: saying which roles he will
-   * *consider* is not claiming a title he holds. "Open to Senior and Staff
-   * roles" is normal and true; putting Staff in the Aldi Süd entry would not
-   * be. The test guards the second, not the first.
+   * Structured rather than a sentence. As prose this ran to three lines and
+   * used "roles" twice; it is a list, so it renders as one.
+   *
+   * Domain leads and level qualifies, because the domain is what a recruiter
+   * filters on. Note the distinction from the title rule: naming a level he
+   * will *consider* is not claiming a title he holds — "Senior or Staff" here
+   * is fine, "Staff" in the Aldi Süd entry would not be.
    */
-  openToRoles:
-    "Senior and Staff Platform Engineering / SRE roles, and Senior AI Infrastructure roles",
+  openToRoles: [
+    { domain: "Platform Engineering & SRE", level: "Senior or Staff" },
+    { domain: "AI Infrastructure", level: "Senior" },
+  ],
+
+  /** One-line form, for meta descriptions and the ⌘K palette. */
+  openToSummary: "Senior/Staff Platform Engineering & SRE, and Senior AI Infrastructure",
 
   email: "karthik.orugonda@gmail.com",
 

@@ -74,7 +74,7 @@ export const commands: Command[] = [
       "LinkedIn  linkedin.com/in/karthikorugonda",
       "GitHub    github.com/ok-karthik",
       "",
-      `Open to ${profile.openToRoles}.`,
+      `Open to ${profile.openToSummary}.`,
     ],
   },
   {
