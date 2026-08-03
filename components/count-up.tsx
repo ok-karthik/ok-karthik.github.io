@@ -5,22 +5,25 @@ import { useEffect, useRef, useState } from "react"
 /**
  * Counts a stat up on first view.
  *
- * Takes the display string ("10+", "400+", "~30%") and animates only the
- * numeric part, so prefixes and suffixes survive untouched. Under
- * prefers-reduced-motion it renders the final value immediately — the number
- * is the content, the motion is not.
+ * Animates only the numeric run, so prefixes and suffixes survive: "~30%"
+ * keeps both. Under prefers-reduced-motion the final value renders
+ * immediately — the number is the content, the motion is not.
+ *
+ * The parse lives inside the effect on purpose. Computing it in the render
+ * body produced a new array identity on every render, and depending on it
+ * re-ran the effect after each frame's setState — which reset the display to
+ * zero forever. Depend on `value` alone.
  */
 export function CountUp({ value, className }: { value: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null)
   const [display, setDisplay] = useState(value)
-  const match = value.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/)
 
   useEffect(() => {
-    if (!match) return
     const el = ref.current
     if (!el) return
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const match = value.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/)
+    if (!match || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setDisplay(value)
       return
     }
@@ -28,16 +31,17 @@ export function CountUp({ value, className }: { value: string; className?: strin
     const [, prefix, numStr, suffix] = match
     const target = parseFloat(numStr)
     const decimals = numStr.includes(".") ? numStr.split(".")[1].length : 0
+    const DURATION = 1100
+
     setDisplay(`${prefix}0${suffix}`)
 
     let raf = 0
     let start = 0
-    const DURATION = 1100
 
     const step = (t: number) => {
       if (!start) start = t
       const p = Math.min((t - start) / DURATION, 1)
-      // easeOutExpo — fast then settles, which reads as a gauge landing.
+      // easeOutExpo — fast, then settles, which reads as a gauge landing.
       const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p)
       setDisplay(`${prefix}${(target * eased).toFixed(decimals)}${suffix}`)
       if (p < 1) raf = requestAnimationFrame(step)
@@ -49,7 +53,7 @@ export function CountUp({ value, className }: { value: string; className?: strin
         observer.disconnect()
         raf = requestAnimationFrame(step)
       },
-      { threshold: 0.4 },
+      { threshold: 0.3 },
     )
     observer.observe(el)
 
@@ -57,7 +61,7 @@ export function CountUp({ value, className }: { value: string; className?: strin
       observer.disconnect()
       cancelAnimationFrame(raf)
     }
-  }, [value, match])
+  }, [value])
 
   return (
     <span ref={ref} className={className}>

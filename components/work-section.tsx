@@ -117,16 +117,16 @@ export function WorkSection() {
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <h3 className="flex items-start gap-2 font-display text-h3 font-semibold text-foreground transition-colors group-hover:text-primary">
+                  <h3 className="flex items-start gap-2 font-display text-h2 font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
                     {project.title}
                     <ArrowUpRight
-                      className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+                      className="mt-2 h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
                       aria-hidden
                     />
                   </h3>
 
                   {/* The problem, before any technology is named. */}
-                  <p className="mt-3 max-w-2xl text-body text-muted-foreground">
+                  <p className="mt-3 max-w-2xl text-small leading-relaxed text-muted-foreground">
                     {project.problem}
                   </p>
 
@@ -149,10 +149,10 @@ export function WorkSection() {
                   {project.decisions.length} key decisions
                 </p>
                 <div className="min-w-0 flex-1">
-                  <span className="text-body-lg text-foreground transition-colors group-hover:text-primary">
+                  <span className="font-display text-h3 font-semibold text-foreground transition-colors group-hover:text-primary">
                     {project.title}
                   </span>
-                  <p className="mt-1 text-small text-muted-foreground">{project.summary}</p>
+                  <p className="mt-1.5 text-small leading-relaxed text-muted-foreground">{project.summary}</p>
                 </div>
               </Link>
             </li>

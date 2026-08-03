@@ -19,11 +19,14 @@ export const profile = {
   yearsInTech: 15,
   yearsCloudNative: 10,
 
+  // Kept short and tool-free. The enumeration that used to close this line
+  // (Karpenter, GPU Operator, DCGM…) is already stated three times elsewhere on
+  // the page — in Focus Areas beside it, in the project tags, and in Tech
+  // Skills — and listing tools in a hero reads mid-level regardless.
   bio:
     "15 years in tech, 10 building cloud-native platforms across AWS, Azure and GCP. " +
     "I build Kubernetes-based internal developer platforms, Terraform-driven self-service " +
-    "infrastructure and GitOps delivery. Most recently I've been building GPU infrastructure " +
-    "on Kubernetes — Karpenter, the NVIDIA GPU Operator, time slicing and DCGM observability.",
+    "infrastructure and GitOps delivery — most recently for GPU and AI workloads.",
 
   /** Shorter variant for meta description and OG tags (~155 chars). */
   metaDescription:
