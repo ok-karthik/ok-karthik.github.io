@@ -14,24 +14,27 @@ export const profile = {
   title: "Senior Platform Engineer & SRE",
 
   /** Carries the AI-infrastructure positioning without over-claiming a title. */
-  subtitle: "Kubernetes platforms, GPU & AI infrastructure",
+  subtitle: "Kubernetes platforms · Multi-cloud · GPU & AI infrastructure",
 
   yearsInTech: 15,
   yearsCloudNative: 10,
 
-  // Kept short and tool-free. The enumeration that used to close this line
-  // (Karpenter, GPU Operator, DCGM…) is already stated three times elsewhere on
-  // the page — in Focus Areas beside it, in the project tags, and in Tech
-  // Skills — and listing tools in a hero reads mid-level regardless.
+  // Kept short, tool-free, and scoped to professional work only.
+  //
+  // It used to close with "— most recently for GPU and AI workloads", which
+  // implied recent work at Aldi Süd. It isn't — the GPU platform is a project,
+  // not a role. The subtitle and Focus Areas still carry the GPU/AI
+  // positioning, and the /work pages back it with a real repo; this line
+  // stays limited to what was done on the job.
   bio:
     "15 years in tech, 10 building cloud-native platforms across AWS, Azure and GCP. " +
     "I build Kubernetes-based internal developer platforms, Terraform-driven self-service " +
-    "infrastructure and GitOps delivery — most recently for GPU and AI workloads.",
+    "infrastructure and GitOps delivery.",
 
   /** Shorter variant for meta description and OG tags (~155 chars). */
   metaDescription:
     "Senior Platform Engineer & SRE with 10 years building cloud-native platforms across AWS, " +
-    "Azure and GCP. Kubernetes-based IDPs, GitOps delivery and GPU infrastructure.",
+    "Azure and GCP. Kubernetes-based internal developer platforms, GitOps delivery and SRE practice.",
 
   location: {
     city: "Berlin",
