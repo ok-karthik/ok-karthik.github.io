@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 // matted texture over a large dark area. Don't rebuild it.
 import { NeuralMesh } from '@/components/neural-mesh'
 import { Spotlight } from '@/components/spotlight'
+import { Analytics } from '@/components/analytics'
 import { profile } from '@/content/profile'
 import './globals.css'
 
@@ -91,20 +92,12 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        {/*
-          Vercel Analytics was removed: it POSTs to /_vercel/insights, which
-          exists only on Vercel. This site deploys to GitHub Pages and
-          Cloudflare Pages, so it was silently collecting nothing.
-
-          TODO(karthik): to get real numbers, enable Cloudflare Web Analytics
-          on the Pages project (free, cookieless, no consent banner needed) and
-          drop its beacon snippet here.
-        */}
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <NeuralMesh />
           <Spotlight />
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
