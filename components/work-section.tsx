@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import { projects } from "@/content/projects"
 import { skillGroups } from "@/content/skills"
+import { ArchitecturePreview } from "@/components/architecture"
 
 /** Tag -> self-hosted logo, resolved from the skills catalogue plus a few aliases. */
 const iconFor = (tag: string): string | undefined => {
@@ -81,10 +82,10 @@ export function WorkSection() {
 
   return (
     <section id="projects" className="scroll-mt-24">
-      <div className="mx-auto max-w-6xl px-6 py-20">
+      <div className="mx-auto max-w-6xl px-6 py-24">
         <header className="mb-12 flex items-end justify-between gap-6">
           <div>
-            <p className="label mb-3">Projects</p>
+            <p className="label rule-label mb-4">Projects</p>
             <h2 className="font-display text-h2 font-semibold text-foreground">
               What I built, and the decisions behind it
             </h2>
@@ -108,9 +109,12 @@ export function WorkSection() {
                 href={`/work/${project.slug}`}
                 className="group flex flex-col gap-4 p-6 sm:flex-row sm:gap-8"
               >
-                <p className="label shrink-0 tabular sm:w-32 sm:pt-1.5">
-                  {project.decisions.length} key decisions
-                </p>
+                <div className="shrink-0 sm:w-56">
+                  <ArchitecturePreview slug={project.slug} />
+                  <p className="label mt-3 tabular">
+                    {project.decisions.length} key decisions
+                  </p>
+                </div>
 
                 <div className="min-w-0 flex-1">
                   <h3 className="flex items-start gap-2 font-display text-h3 font-semibold text-foreground transition-colors group-hover:text-primary">

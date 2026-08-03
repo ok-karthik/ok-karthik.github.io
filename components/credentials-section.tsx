@@ -10,8 +10,8 @@ import { certifications, education, languages } from "@/content/profile"
 export function CredentialsSection() {
   return (
     <section id="credentials" className="scroll-mt-24">
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <p className="label mb-3">Certifications & Education</p>
+      <div className="mx-auto max-w-6xl px-6 py-24">
+        <p className="label rule-label mb-4">Certifications &amp; Education</p>
         <h2 className="mb-10 font-display text-h2 font-semibold text-foreground">
           Qualifications
         </h2>

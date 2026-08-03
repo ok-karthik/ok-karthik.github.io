@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import { NeuralMesh } from '@/components/neural-mesh'
+import { Spotlight } from '@/components/spotlight'
 import { profile } from '@/content/profile'
 import './globals.css'
 
@@ -98,6 +99,7 @@ export default function RootLayout({
         */}
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <NeuralMesh />
+          <Spotlight />
           {children}
         </ThemeProvider>
       </body>

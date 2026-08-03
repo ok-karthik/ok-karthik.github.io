@@ -19,7 +19,32 @@ export function Navbar() {
   const [mounted, setMounted] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
+  const [active, setActive] = useState<string>("")
+
   useEffect(() => setMounted(true), [])
+
+  // Scroll spy. Observes each section and marks the one nearest the top of the
+  // viewport, so the navbar always says where you are.
+  useEffect(() => {
+    const ids = links.map((l) => l.href.split("#")[1])
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el))
+    if (sections.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+        if (visible[0]) setActive(visible[0].target.id)
+      },
+      // Band just below the navbar, so "active" means "at the top of the page".
+      { rootMargin: "-20% 0px -70% 0px", threshold: 0 },
+    )
+    sections.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
 
   // Close the mobile menu on Escape — it's a disclosure, not a dialog, but
   // Escape is what people press.
@@ -51,9 +76,20 @@ export function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="font-mono text-micro uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
+                  aria-current={active === link.href.split("#")[1] ? "true" : undefined}
+                  className={`relative font-mono text-micro uppercase tracking-[0.08em] transition-colors hover:text-foreground ${
+                    active === link.href.split("#")[1]
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  }`}
                 >
                   {link.label}
+                  <span
+                    aria-hidden
+                    className={`absolute -bottom-1.5 left-0 h-px bg-primary transition-all duration-300 ${
+                      active === link.href.split("#")[1] ? "w-full opacity-100" : "w-0 opacity-0"
+                    }`}
+                  />
                 </Link>
               </li>
             ))}

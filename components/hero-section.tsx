@@ -1,5 +1,6 @@
 import { Download, Github, Linkedin, Mail } from "lucide-react"
 import { profile, stats, focusAreas } from "@/content/profile"
+import { CountUp } from "@/components/count-up"
 
 /** Accent per focus area — index-aligned with `focusAreas`. */
 const focusDots = [
@@ -9,7 +10,9 @@ const focusDots = [
   { dot: "bg-ok", hover: "group-hover/item:text-ok" },
 ]
 
-const statAccents = ["text-primary", "text-violet-400", "text-ok"]
+/* Accent diet: one stat carries the accent, the rest sit in foreground.
+   Three coloured numbers competed; one reads as emphasis. */
+const statAccents = ["text-primary", "text-foreground", "text-foreground"]
 
 export function HeroSection() {
   return (
@@ -18,7 +21,7 @@ export function HeroSection() {
         <div className="grid items-start gap-10 lg:grid-cols-2">
           {/* Left: the claim */}
           <div className="min-w-0">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5">
+            <div className="rise inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5" style={{ animationDelay: "80ms" }}>
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
@@ -28,19 +31,19 @@ export function HeroSection() {
               </span>
             </div>
 
-            <h1 className="mt-6 font-display text-display font-bold tracking-tight text-foreground md:text-display-lg">
+            <h1 className="rise mt-6 font-display text-display font-bold tracking-tight text-foreground md:text-display-lg" style={{ animationDelay: "160ms" }}>
               {profile.name}
             </h1>
-            <p className="mt-3 font-display text-h3 font-semibold text-primary">
+            <p className="rise mt-3 font-display text-h3 font-semibold text-primary" style={{ animationDelay: "240ms" }}>
               {profile.title}
             </p>
-            <p className="mt-1.5 font-mono text-small text-muted-foreground">
+            <p className="rise mt-1.5 font-mono text-small text-muted-foreground" style={{ animationDelay: "300ms" }}>
               {profile.subtitle}
             </p>
 
-            <p className="mt-6 max-w-xl text-body-lg text-muted-foreground">{profile.bio}</p>
+            <p className="rise mt-6 max-w-xl text-body-lg text-muted-foreground" style={{ animationDelay: "360ms" }}>{profile.bio}</p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="rise mt-8 flex flex-wrap items-center gap-3" style={{ animationDelay: "440ms" }}>
               <a
                 href="#projects"
                 className="rounded-lg bg-primary px-5 py-3 text-body font-semibold text-primary-foreground shadow-glow transition-opacity hover:opacity-90"
@@ -64,7 +67,7 @@ export function HeroSection() {
 
           {/* Right: profile card, then stats */}
           <div className="flex w-full flex-col gap-5">
-            <aside className="glass relative overflow-hidden rounded-2xl p-6 md:p-8">
+            <aside className="glass rise relative overflow-hidden rounded-2xl p-6 md:p-8" style={{ animationDelay: "520ms" }}>
               <div
                 className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-primary/12 blur-3xl"
                 aria-hidden
@@ -131,17 +134,16 @@ export function HeroSection() {
               </div>
             </aside>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="rise grid grid-cols-3 gap-4" style={{ animationDelay: "620ms" }}>
               {stats.map((stat, i) => (
                 <div
                   key={stat.label}
                   className="glass glass-hover rounded-xl px-3 py-4 text-center"
                 >
-                  <div
-                    className={`tabular font-mono text-h2 font-bold ${statAccents[i % statAccents.length]}`}
-                  >
-                    {stat.value}
-                  </div>
+                  <CountUp
+                    value={stat.value}
+                    className={`tabular block font-mono text-h2 font-bold ${statAccents[i % statAccents.length]}`}
+                  />
                   <div className="label mt-1.5 leading-tight">{stat.label}</div>
                 </div>
               ))}

@@ -232,7 +232,14 @@ export function NeuralMesh() {
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 opacity-70 dark:opacity-50"
+      className="pointer-events-none fixed inset-0 -z-10"
+      style={{
+        opacity: "var(--mesh-opacity, 0.5)",
+        // Ambient should carry the hero and then get out of the way; at full
+        // strength behind every section it competes with the content.
+        maskImage: "linear-gradient(to bottom, black 0%, black 38%, transparent 72%)",
+        WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 38%, transparent 72%)",
+      }}
     />
   )
 }

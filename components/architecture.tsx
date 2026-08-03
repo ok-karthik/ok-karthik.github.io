@@ -270,3 +270,34 @@ export const architectureBySlug: Record<string, () => ReactNode> = {
   "finops-k8s-operator": FinOps,
   "app-library-helm-chart": HelmLibrary,
 }
+
+/**
+ * Card thumbnail.
+ *
+ * Renders the actual diagram at reduced scale inside a clipped, faded box —
+ * a genuine preview rather than a decorative glyph. Inert: no pointer events,
+ * hidden from the accessibility tree, since the readable version lives on the
+ * project page.
+ */
+export function ArchitecturePreview({ slug }: { slug: string }) {
+  const Diagram = architectureBySlug[slug]
+  if (!Diagram) return null
+
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none relative h-32 select-none overflow-hidden rounded-lg border border-border bg-muted/40"
+      style={{
+        maskImage: "linear-gradient(to bottom, black 55%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, black 55%, transparent 100%)",
+      }}
+    >
+      <div
+        className="absolute left-0 top-0 origin-top-left"
+        style={{ transform: "scale(0.38)", width: "263%" }}
+      >
+        <Diagram />
+      </div>
+    </div>
+  )
+}
