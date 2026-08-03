@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { profile } from '@/content/profile'
 import './globals.css'
@@ -87,9 +86,17 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        {/*
+          Vercel Analytics was removed: it POSTs to /_vercel/insights, which
+          exists only on Vercel. This site deploys to GitHub Pages and
+          Cloudflare Pages, so it was silently collecting nothing.
+
+          TODO(karthik): to get real numbers, enable Cloudflare Web Analytics
+          on the Pages project (free, cookieless, no consent banner needed) and
+          drop its beacon snippet here.
+        */}
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           {children}
-          {process.env.NODE_ENV === 'production' && <Analytics />}
         </ThemeProvider>
       </body>
     </html>
