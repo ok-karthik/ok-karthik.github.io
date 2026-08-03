@@ -29,12 +29,16 @@ export const profile = {
   bio:
     "15 years in tech, 10 building cloud-native platforms across AWS, Azure and GCP. " +
     "I build Kubernetes-based internal developer platforms, Terraform-driven self-service " +
-    "infrastructure and GitOps delivery.",
+    "infrastructure, GitOps delivery and the observability that keeps them reliable.",
 
-  /** Shorter variant for meta description and OG tags (~155 chars). */
+  /**
+   * Meta description and OG tags. Keep under ~155 chars — Google truncates
+   * past that, and the tail is where the differentiating keywords sit.
+   * Currently 154.
+   */
   metaDescription:
-    "Senior Platform Engineer & SRE with 10 years building cloud-native platforms across AWS, " +
-    "Azure and GCP. Kubernetes-based internal developer platforms, GitOps delivery and SRE practice.",
+    "Senior Platform Engineer & SRE. 10 years building cloud-native platforms on AWS, " +
+    "Azure and GCP — Kubernetes IDPs, GitOps delivery, observability and SLOs.",
 
   location: {
     city: "Berlin",
