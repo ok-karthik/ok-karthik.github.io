@@ -1,36 +1,31 @@
 import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
-// Option 1: The original, spacious big square cards layout
-// import { TechnicalExpertiseSquareCards as TechnicalExpertise } from "@/components/technical-expertise-square-cards"
-
-// Option 2: The dense, scannable pill badge layout (Recommended)
-import { TechnicalExpertisePillGrid as TechnicalExpertise } from "@/components/technical-expertise-pill-grid"
-
+import { WorkSection } from "@/components/work-section"
 import { ExperienceSection } from "@/components/experience-section"
-import { ProjectsCertifications } from "@/components/projects-certifications"
+import { CapabilitiesSection } from "@/components/capabilities-section"
+import { CredentialsSection } from "@/components/credentials-section"
 import { ConnectSection } from "@/components/connect-section"
-import { DevOpsTerminal } from "@/components/devops-terminal"
 
+/**
+ * Work first.
+ *
+ * The old order put a 49-logo skills grid and a simulated terminal ahead of any
+ * evidence, so the strongest asset — six systems with documented trade-offs —
+ * was the fourth thing a reader reached. Capabilities now come after the work
+ * that demonstrates them.
+ */
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <>
       <Navbar />
-      <HeroSection />
-      <section className="px-6 pb-10 relative z-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-4 mb-8 opacity-50">
-            <div className="flex-1 h-px bg-border"></div>
-            <span className="font-mono text-xs tracking-widest text-muted-foreground uppercase">Interactive</span>
-            <div className="flex-1 h-px bg-border"></div>
-          </div>
-          <p className="text-muted-foreground mb-4">Curious? Try the terminal.</p>
-          <DevOpsTerminal />
-        </div>
-      </section>
-      <TechnicalExpertise />
-      <ExperienceSection />
-      <ProjectsCertifications />
-      <ConnectSection />
-    </main>
+      <main id="main">
+        <HeroSection />
+        <WorkSection />
+        <ExperienceSection />
+        <CapabilitiesSection />
+        <CredentialsSection />
+        <ConnectSection />
+      </main>
+    </>
   )
 }
