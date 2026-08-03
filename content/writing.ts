@@ -8,14 +8,15 @@
  * gap between how Senior and Staff roles are written (+32pp in the scraped
  * market data).
  *
- * !! TODO(karthik): THESE ARE DRAFTS. They are reconstructed from the
- * !! `decisions` you wrote in content/projects.ts, so the shape of the
- * !! argument is yours — but the specifics, numbers and anything stated as
- * !! lived experience need your review before this is published under your
- * !! name. Passages that most need your eye are marked with [CHECK].
+ * !! TODO(karthik): THESE ARE DRAFTS. The shape of each argument is yours —
+ * !! taken from the `decisions` in content/projects.ts — but the wording is
+ * !! mine, so read them before publishing under your name.
  * !!
- * !! Publishing a technical claim you can't defend is worse than publishing
- * !! nothing. Read every paragraph.
+ * !! First-person claims have been reconciled against the project READMEs
+ * !! (fetched 2026-08-03) and now assert only what those repos actually show.
+ * !! If you later add a sentence about something you did, hold it to the same
+ * !! bar: publishing a technical claim you can't defend in an interview is
+ * !! worse than publishing nothing.
  */
 
 export type Block =
@@ -95,7 +96,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "[CHECK] On the EKS platform I built, the workloads were development and inference under one team, on instance types without MIG support — so time slicing was the only option that existed, and also the right one. Recording that as a decision matters more than the decision itself: the next person to read the cluster config will otherwise assume isolation they do not have.",
+        text: "On the EKS platform I built, the instance families in play were g4dn and g6 — T4 and L4 class, with no MIG support at all. So the choice was made for me by the hardware, which is often how it goes. What still mattered was recording it: the next person to read that cluster config will otherwise assume an isolation boundary that is not there.",
       },
       { type: "h2", text: "The part people skip" },
       {
@@ -158,7 +159,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "[CHECK] Confirm this matches how you deployed it — agent DaemonSet forwarding to a gateway Deployment, or agent-only.",
+        text: "The platform I built runs both: a DaemonSet in each workload cluster enriching with Kubernetes metadata, forwarding to a gateway fleet in a separate observability cluster that owns filtering, batching and sampling. Splitting the cluster as well as the tier matters more than it sounds — it means a workload-cluster incident cannot take down the tooling you need to debug it.",
       },
       { type: "h2", text: "When to skip it" },
       {

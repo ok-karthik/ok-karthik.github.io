@@ -1,14 +1,22 @@
 ---
-description: Enforces Tailwind, Framer Motion, and Dark Mode design tokens.
+description: Framework, styling and theming constraints for all UI code.
 globs: ["**/*.tsx", "app/globals.css"]
 ---
 
 # UI Architecture & Design System
 
-- **Framework**: Next.js (App Router).
-- **Styling**: Tailwind CSS v4.
-- **Animations**: Framer Motion (use `motion.div` with scroll-driven entry animations).
-- **Theming**: Must support both light and dark mode via `next-themes`. 
-  - Do NOT use generic colors. Dark mode uses deep space purples/blues (`bg-card`, `border-white/10`). 
-  - Primary accent color is neon cyan (`#00ffe7`).
-- **Component Rules**: Do NOT pull in heavy third-party UI component libraries if not absolutely necessary. Stick to bespoke, customized components to maintain the "AI Native / Cyberpunk" aesthetic.
+- **Framework**: Next.js 16 (App Router), `output: 'export'` — static, no runtime server.
+- **Styling**: Tailwind CSS v4. All tokens live in `app/globals.css`.
+- **Animations**: Framer Motion for scroll reveals; CSS `animation-delay` for the
+  page-load sequence. Everything respects `prefers-reduced-motion`.
+- **Theming**: both light and dark must work, via `next-themes` (class strategy).
+  Never hardcode a colour — read `--primary`, `--card`, `--border`, `--ok`/`--warn`/`--err`.
+  The accent differs per theme, so a literal hex will be wrong in one of them.
+- **Design**: "control room" — deep desaturated purple-graphite base, glass panels
+  with real elevation, one cyan-teal accent. Full rules and the reasoning behind
+  them are in `.agents/skills/premium-portfolio-ui/SKILL.md` and `ARCHITECTURE.md`.
+- **Components**: bespoke and lean. The dependency list went 47 → 9 deliberately;
+  `@radix-ui/react-dialog` is the only UI library left. Do not add a component
+  library back.
+- **Content**: never hardcode copy in a component. Everything comes from
+  `content/{profile,experience,projects,skills,writing}.ts`.
