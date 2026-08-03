@@ -268,7 +268,10 @@ html.dark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
+  /* Rounded, not circular. main used circles, but its wide wordmarks (AWS,
+     Go) lived in rounded cards instead — a circle crops them. Swap to
+     `border-radius: 9999px` if you want the old circular look. */
+  border-radius: var(--radius-md);
   /* Neutral tint rather than pure white, so the chip is visible in light mode
      where the surface behind it is also near-white. */
   background: var(--chip);
