@@ -1,50 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-
-const experiences = [
-  {
-    title: "Senior Platform Engineer & SRE",
-    company: "Aldi Süd",
-    period: "Dec 2022 – Present",
-    tags: ["Platform Engineering", "SRE", "Kubernetes", "GitOps", "Observability", "Golden Paths"],
-    bullets: [
-      "Contributed to a Kubernetes-based Internal Developer Platform, developing reusable IaC modules, Helm library charts, GitOps workflows and golden paths that standardised deployment patterns across multiple engineering teams.",
-      "Established AIOps-driven observability using OpenTelemetry and Dynatrace, reducing MTTR and false positives by ~30% via alerting-as-code and SLO frameworks",
-      "Accelerated development of IaC modules and GitOps Platform workflows by integrating agentic coding tools (GitHub Copilot, Claude Code) into daily engineering practices",
-    ],
-  },
-  {
-    title: "Technical Lead - DevOps, Cloud & Platform",
-    company: "Rakuten",
-    period: "May 2018 – Nov 2022",
-    tags: ["Platform Engineering", "Kubernetes", "Helm", "Azure", "GCP", "Private Cloud", "Security Automation"],
-    bullets: [
-      "Operated multi-tenant Kubernetes platforms and CI/CD systems supporting 400+ engineers across multiple business domains.",
-      "Engineered resilient GitOps CI/CD pipelines enabling automated canary and blue-green deployments, and refactored Jenkins shared libraries used by 150+ teams.",
-      "Spearheaded migration from legacy PaaS (Mesos/Marathon) to Kubernetes and then to Private Cloud across multiple business units, leading a team of 5 engineers.",
-    ],
-  },
-  {
-    title: "IT Operations Lead & DevOps Engineer",
-    company: "Hewlett Packard Enterprise",
-    period: "Sep 2015 – Apr 2018",
-    tags: ["Production Operations", "Infrastructure Automation", "Incident Management", "Release Engineering"],
-    bullets: [
-      "Led a 25-member production operations team for high-traffic, enterprise e-commerce platforms.",
-      "Automated legacy release pipelines and infrastructure provisioning workflows.",
-    ],
-  },
-  {
-    title: "Senior Software Engineer",
-    company: "Tech Mahindra",
-    period: "Dec 2010 – Aug 2015",
-    tags: ["Backend Systems", "High Availability", "Linux"],
-    bullets: [
-      "Developed automated reporting tools reducing manual operational effort by ~30% for Vodafone UK backend systems.",
-    ],
-  },
-]
+import { experiences } from "@/content/experience"
+import { profile } from "@/content/profile"
 
 export function ExperienceSection() {
   return (
@@ -66,7 +24,7 @@ export function ExperienceSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-muted-foreground text-center mb-16 max-w-2xl mx-auto"
           >
-            15+ years building resilient infrastructure and empowering engineering teams
+            {profile.yearsInTech} years building resilient infrastructure and the teams that run it
           </motion.p>
 
           <div className="grid gap-6 relative">
@@ -96,6 +54,7 @@ export function ExperienceSection() {
                       </span>
                     </div>
                     <p className="text-primary font-medium mt-1">{exp.company}</p>
+                    <p className="text-sm text-muted-foreground mt-1.5">{exp.scope}</p>
                   </div>
                 </div>
 
