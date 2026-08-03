@@ -46,16 +46,16 @@ export function CommandPalette() {
   const actions = useMemo<Action[]>(
     () => [
       { id: "top", label: "Home", group: "Navigate", run: go("/#top") },
-      { id: "work", label: "Selected work", group: "Navigate", run: go("/#work") },
+      { id: "projects", label: "Projects", group: "Navigate", run: go("/#projects") },
       { id: "experience", label: "Experience", group: "Navigate", run: go("/#experience") },
-      { id: "capabilities", label: "Capabilities", group: "Navigate", run: go("/#capabilities") },
+      { id: "tech-skills", label: "Tech Skills", group: "Navigate", run: go("/#tech-skills") },
       { id: "contact", label: "Contact", group: "Navigate", run: go("/#contact") },
 
       ...projects.map((p) => ({
         id: p.slug,
         label: p.title,
         hint: `${p.decisions.length} decisions`,
-        group: "Work",
+        group: "Projects",
         run: go(`/work/${p.slug}`),
       })),
 

@@ -50,11 +50,11 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
       <Navbar />
       <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-28">
         <Link
-          href="/#work"
+          href="/#projects"
           className="label inline-flex items-center gap-2 transition-colors hover:text-foreground"
         >
           <ArrowLeft className="h-3 w-3" aria-hidden />
-          All work
+          All projects
         </Link>
 
         <header className="mt-6 border-b border-border pb-8">
@@ -137,10 +137,10 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
 
         <footer className="mt-16 border-t border-border pt-8">
           <Link
-            href="/#work"
+            href="/#projects"
             className="text-small text-muted-foreground transition-colors hover:text-foreground"
           >
-            ← Back to all work
+            ← Back to all projects
           </Link>
         </footer>
       </main>

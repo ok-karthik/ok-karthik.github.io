@@ -38,7 +38,9 @@ export type Skill = {
   tier: Tier
   /** Optional self-hosted icon path. External CDN icons are deliberately not used. */
   icon?: string
-  /** Optional one-line note — used where the tier alone under-sells the depth. */
+  /** Lucide icon name, for capabilities that have no product logo. */
+  lucide?: "Cpu" | "Sparkles" | "Key" | "ShieldCheck" | "ScanSearch"
+  /** Short evidence note — this is what actually conveys depth. */
   note?: string
 }
 
@@ -101,8 +103,8 @@ export const skillGroups: SkillGroup[] = [
       { name: "NVIDIA GPU Operator", icon: "/icons/nvidia.svg", tier: "production", note: "Device plugin, NFD, time slicing" },
       { name: "Karpenter", icon: "/icons/aws.svg", tier: "production", note: "GPU NodePools" },
       { name: "DCGM", icon: "/icons/nvidia.svg", tier: "production", note: "GPU observability" },
-      { name: "LLM serving", tier: "working", note: "Ollama, llama.cpp, FastAPI gateway" },
-      { name: "Agentic coding workflows", tier: "production", note: "Claude Code, Copilot, Cursor" },
+      { name: "LLM serving", lucide: "Cpu", tier: "working", note: "Ollama · llama.cpp · FastAPI gateway" },
+      { name: "Agentic coding workflows", lucide: "Sparkles", tier: "production", note: "Claude Code · Copilot · Cursor" },
     ],
   },
   {
@@ -117,11 +119,11 @@ export const skillGroups: SkillGroup[] = [
   {
     title: "Security & Governance",
     skills: [
-      { name: "OPA Gatekeeper", tier: "production" },
-      { name: "Kyverno", tier: "production" },
-      { name: "External Secrets", tier: "production" },
-      { name: "Kubernetes RBAC & Network Policies", tier: "production" },
-      { name: "IaC / container scanning", tier: "working" },
+      { name: "OPA Gatekeeper", icon: "/icons/opa.svg", tier: "production" },
+      { name: "Kyverno", icon: "/icons/kyverno.svg", tier: "production" },
+      { name: "External Secrets", lucide: "Key", tier: "production", note: "AWS Secrets Manager · Azure Key Vault" },
+      { name: "Kubernetes RBAC & Network Policies", lucide: "ShieldCheck", tier: "production" },
+      { name: "IaC / container scanning", lucide: "ScanSearch", tier: "working", note: "SAST · DAST · image scanning" },
     ],
   },
 ]

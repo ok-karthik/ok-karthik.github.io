@@ -80,13 +80,13 @@ export function WorkSection() {
   const rest = projects.filter((p) => !p.featured)
 
   return (
-    <section id="work" className="scroll-mt-24">
+    <section id="projects" className="scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6 py-20">
         <header className="mb-12 flex items-end justify-between gap-6">
           <div>
-            <p className="label mb-3">Selected work</p>
+            <p className="label mb-3">Projects</p>
             <h2 className="font-display text-h2 font-semibold text-foreground">
-              Systems I built, and why they are shaped that way
+              What I built, and the decisions behind it
             </h2>
           </div>
           <p className="label hidden shrink-0 tabular sm:block">
@@ -109,7 +109,7 @@ export function WorkSection() {
                 className="group flex flex-col gap-4 p-6 sm:flex-row sm:gap-8"
               >
                 <p className="label shrink-0 tabular sm:w-32 sm:pt-1.5">
-                  {project.decisions.length} decisions
+                  {project.decisions.length} key decisions
                 </p>
 
                 <div className="min-w-0 flex-1">
@@ -133,7 +133,7 @@ export function WorkSection() {
           ))}
         </ul>
 
-        <h3 className="label mb-4 mt-12">Also built</h3>
+        <h3 className="label mb-4 mt-12">More projects</h3>
         <ul className="grid gap-4 sm:grid-cols-2">
           {rest.map((project) => (
             <li key={project.slug} className="glass glass-hover rounded-xl">
@@ -142,7 +142,7 @@ export function WorkSection() {
                 className="group flex flex-col gap-1 p-5 sm:flex-row sm:items-baseline sm:gap-8"
               >
                 <p className="label shrink-0 tabular sm:w-32">
-                  {project.decisions.length} decisions
+                  {project.decisions.length} key decisions
                 </p>
                 <div className="min-w-0 flex-1">
                   <span className="text-body-lg text-foreground transition-colors group-hover:text-primary">

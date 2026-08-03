@@ -4,7 +4,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { HeroSection } from '@/components/hero-section'
 import { WorkSection } from '@/components/work-section'
 import { ExperienceSection } from '@/components/experience-section'
-import { CapabilitiesSection } from '@/components/capabilities-section'
+import { TechSkillsSection } from '@/components/tech-skills-section'
 import { CredentialsSection } from '@/components/credentials-section'
 import { ConnectSection } from '@/components/connect-section'
 
@@ -36,7 +36,7 @@ const sections = [
   ['HeroSection', <HeroSection key="hero" />],
   ['WorkSection', <WorkSection key="work" />],
   ['ExperienceSection', <ExperienceSection key="exp" />],
-  ['CapabilitiesSection', <CapabilitiesSection key="cap" />],
+  ['TechSkillsSection', <TechSkillsSection key="skills" />],
   ['CredentialsSection', <CredentialsSection key="cred" />],
   ['ConnectSection', <ConnectSection key="connect" />],
 ] as const
@@ -102,23 +102,38 @@ describe('work section', () => {
     for (const project of projects) {
       expect(project.decisions.length).toBeGreaterThan(0)
     }
-    expect(screen.getAllByText(/\d+ decisions/)).toHaveLength(projects.length)
+    expect(screen.getAllByText(/\d+ key decisions/)).toHaveLength(projects.length)
   })
 })
 
-describe('capability meter', () => {
-  it('renders one reading per skill, plus the three legend entries', () => {
-    render(<CapabilitiesSection />)
-    const totalSkills = skillGroups.reduce((n, g) => n + g.skills.length, 0)
-    expect(screen.getAllByRole('img')).toHaveLength(totalSkills + 3)
+describe('tech skills', () => {
+  it('renders every skill in every group', () => {
+    render(<TechSkillsSection />)
+    for (const group of skillGroups) {
+      expect(screen.getByText(group.title)).toBeInTheDocument()
+      for (const skill of group.skills) {
+        expect(screen.getByText(skill.name)).toBeInTheDocument()
+      }
+    }
   })
 
-  it('describes each reading in text rather than relying on the notches alone', () => {
-    render(<CapabilitiesSection />)
-    expect(screen.getAllByRole('img', { name: /deep — 3 of 3/i }).length).toBeGreaterThan(0)
-    expect(
-      screen.getAllByRole('img', { name: /working knowledge — 1 of 3/i }).length,
-    ).toBeGreaterThan(0)
+  it('gives every skill a visual marker, so no row renders an empty box', () => {
+    const { container } = render(<TechSkillsSection />)
+    const total = skillGroups.reduce((n, g) => n + g.skills.length, 0)
+    const markers = container.querySelectorAll('li > :first-child')
+    expect(markers).toHaveLength(total)
+    for (const marker of Array.from(markers)) {
+      const hasImg = marker.querySelector('img')
+      const hasSvg = marker.querySelector('svg')
+      const hasText = (marker.textContent ?? '').trim().length > 0
+      expect(Boolean(hasImg || hasSvg || hasText)).toBe(true)
+    }
+  })
+
+  it('does not render proficiency tiers, which read as a downgrade at CV screen', () => {
+    const { container } = render(<TechSkillsSection />)
+    expect(container.textContent).not.toMatch(/working knowledge/i)
+    expect(container.textContent).not.toMatch(/\d of 3/i)
   })
 })
 

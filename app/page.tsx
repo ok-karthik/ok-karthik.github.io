@@ -2,7 +2,7 @@ import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
 import { WorkSection } from "@/components/work-section"
 import { ExperienceSection } from "@/components/experience-section"
-import { CapabilitiesSection } from "@/components/capabilities-section"
+import { TechSkillsSection } from "@/components/tech-skills-section"
 import { CredentialsSection } from "@/components/credentials-section"
 import { ConnectSection } from "@/components/connect-section"
 
@@ -22,7 +22,7 @@ export default function Home() {
         <HeroSection />
         <WorkSection />
         <ExperienceSection />
-        <CapabilitiesSection />
+        <TechSkillsSection />
         <CredentialsSection />
         <ConnectSection />
       </main>

@@ -11,7 +11,10 @@ export function CredentialsSection() {
   return (
     <section id="credentials" className="scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6 py-20">
-        <p className="label mb-10">Credentials</p>
+        <p className="label mb-3">Certifications & Education</p>
+        <h2 className="mb-10 font-display text-h2 font-semibold text-foreground">
+          Qualifications
+        </h2>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <div className="glass rounded-xl p-5">
