@@ -9,23 +9,25 @@
  * needs no consent banner under GDPR — which matters for a site aimed at a
  * German audience.
  *
- * SETUP (one step, ~2 minutes):
- *   1. Cloudflare dashboard → Analytics & Logs → Web Analytics → Add a site
- *   2. Enter ok-karthik.github.io (and karthik-orugonda.pages.dev as a second
- *      site if you want them separated)
- *   3. Copy the token out of the snippet it shows you and paste it below
+ * Registered for hostname ok-karthik.github.io — the URL Karthik actually
+ * shares, since LinkedIn flags *.pages.dev links as possible malicious content.
  *
- * The token is not a secret — it ships in the client HTML by design, so there
- * is nothing to protect and no build-time env var needed.
+ * The token is not a secret. It ships in the client HTML by design, so there is
+ * nothing to protect and no build-time env var to plumb through CI.
+ *
+ * NOTE: this is Analytics & Logs → Web Analytics, which needs only a script
+ * tag. It is NOT "Connect your domain", which is DNS onboarding and cannot
+ * work here — GitHub owns github.io, so its nameservers aren't ours to move.
  */
 
-const CF_BEACON_TOKEN = "" // ← paste the token here to switch analytics on
+const CF_BEACON_TOKEN = "c1d3e3c1ca524f5b9cf8afeced260372"
 
 export function Analytics() {
   if (!CF_BEACON_TOKEN) return null
 
   return (
     <script
+      type="module"
       defer
       src="https://static.cloudflareinsights.com/beacon.min.js"
       data-cf-beacon={JSON.stringify({ token: CF_BEACON_TOKEN })}

@@ -29,9 +29,12 @@ export const experiences: Experience[] = [
       "Set the deployment standard used across multiple engineering teams — reusable Terraform modules, Helm library charts and GitOps golden paths that replaced per-team bespoke pipelines on the department's Kubernetes-based internal developer platform.",
       "Owned the observability practice end to end: OpenTelemetry and Dynatrace with alerting-as-code and SLO frameworks, cutting MTTR and false-positive alerts by ~30%.",
       "Brought agentic coding tools (GitHub Copilot, Claude Code) into daily platform work, accelerating delivery of IaC modules and GitOps workflows.",
-      // TODO(karthik): did other engineers pick up the agentic workflow you established?
-      // If yes, say so — adoption and mentorship are the two signals that most
-      // separate top-of-band Senior from the rest, and this is currently unclaimed.
+      // Asked and answered: no team-wide workflow was established at Aldi, so
+      // there is no adoption to claim here. The bullet stays scoped to Karthik's
+      // own daily practice, which is true. Do not upgrade this to "established a
+      // practice the team adopted" — it is the single easiest claim on the page
+      // to unravel in an interview, because the follow-up is always "how did you
+      // roll it out?"
     ],
     tags: ["Platform Engineering", "SRE", "Kubernetes", "GitOps", "Observability", "Golden Paths"],
   },
