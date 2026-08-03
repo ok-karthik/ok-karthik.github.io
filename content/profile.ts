@@ -94,7 +94,8 @@ export const education = {
   degree: "Bachelor of Engineering in Information Technology",
   institution: "SVEC, affiliated to JNT University, India",
   graduated: "2010",
-  grade: "7.2 / 10",
+  // No grade: German grades run 1.0 (best) to 5.0, so an Indian 7.2/10 has no
+  // local meaning and a recruiter can only misread it.
 } as const
 
 export const languages = [

@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
-import { Background } from '@/components/background'
+// Background. A flow-field alternative (particles on a noise field leaving
+// trails) was built and rejected: the trails accumulate into a scratchy,
+// matted texture over a large dark area. Don't rebuild it.
+import { NeuralMesh } from '@/components/neural-mesh'
 import { Spotlight } from '@/components/spotlight'
 import { profile } from '@/content/profile'
 import './globals.css'
@@ -98,7 +101,7 @@ export default function RootLayout({
           drop its beacon snippet here.
         */}
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <Background />
+          <NeuralMesh />
           <Spotlight />
           {children}
         </ThemeProvider>

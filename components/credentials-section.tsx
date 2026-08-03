@@ -47,7 +47,7 @@ export function CredentialsSection() {
             <p className="text-body text-foreground">{education.degree}</p>
             <p className="mt-1.5 text-small text-muted-foreground">{education.institution}</p>
             <p className="mt-1.5 font-mono text-micro text-muted-foreground">
-              Graduated {education.graduated} · CGPA {education.grade}
+              Graduated {education.graduated}
             </p>
           </div>
 

@@ -108,7 +108,9 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    title: "Languages",
+    // Not "Languages" — that word is already used for English/German
+    // under Certifications & Education, and two meanings on one page is a bug.
+    title: "Software Engineering",
     skills: [
       { name: "Bash", icon: "/icons/bash.svg", tier: "deep" },
       { name: "Python", icon: "/icons/python.svg", tier: "production", note: "Platform APIs, operators, automation" },

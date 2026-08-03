@@ -25,20 +25,20 @@ function SkillIcon({ skill }: { skill: Skill }) {
 
   if (Lucide) {
     return (
-      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border border-border bg-primary/10">
-        <Lucide className="h-3.5 w-3.5 text-primary" aria-hidden />
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-border bg-primary/10">
+        <Lucide className="h-4 w-4 text-primary" aria-hidden />
       </span>
     )
   }
 
   if (skill.icon) {
     return (
-      <span className="logo-chip h-7 w-7 shrink-0">
+      <span className="logo-chip h-8 w-8 shrink-0">
         <img
           src={skill.icon}
           alt=""
-          width={18}
-          height={18}
+          width={20}
+          height={20}
           loading="lazy"
           decoding="async"
           className="h-full w-full object-contain"
@@ -48,7 +48,7 @@ function SkillIcon({ skill }: { skill: Skill }) {
   }
 
   return (
-    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border border-border bg-muted font-mono text-[9px] text-muted-foreground">
+    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-border bg-muted font-mono text-[9px] text-muted-foreground">
       {skill.name.slice(0, 2).toUpperCase()}
     </span>
   )

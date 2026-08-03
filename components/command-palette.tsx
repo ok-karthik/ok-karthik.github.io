@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import * as Dialog from "@radix-ui/react-dialog"
 import { profile } from "@/content/profile"
 import { projects } from "@/content/projects"
+import { sortedPosts } from "@/content/writing"
 
 /**
  * Replaces the inline terminal.
@@ -49,6 +50,7 @@ export function CommandPalette() {
       { id: "projects", label: "Projects", group: "Navigate", run: go("/#projects") },
       { id: "experience", label: "Experience", group: "Navigate", run: go("/#experience") },
       { id: "tech-skills", label: "Tech Skills", group: "Navigate", run: go("/#tech-skills") },
+      { id: "writing", label: "Writing", group: "Navigate", run: go("/writing") },
       { id: "contact", label: "Contact", group: "Navigate", run: go("/#contact") },
 
       ...projects.map((p) => ({
@@ -57,6 +59,14 @@ export function CommandPalette() {
         hint: `${p.decisions.length} decisions`,
         group: "Projects",
         run: go(`/work/${p.slug}`),
+      })),
+
+      ...sortedPosts.map((post) => ({
+        id: post.slug,
+        label: post.title,
+        hint: `${post.readingMinutes} min`,
+        group: "Writing",
+        run: go(`/writing/${post.slug}`),
       })),
 
       {
