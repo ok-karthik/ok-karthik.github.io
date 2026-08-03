@@ -56,18 +56,12 @@ export default function NotFound() {
             ))}
         </ul>
 
-        <div className="mt-10 flex flex-wrap gap-3">
+        <div className="mt-10">
           <Link
             href="/"
             className="rounded-lg bg-primary px-5 py-3 text-body font-semibold text-primary-foreground transition-opacity hover:opacity-90"
           >
             Back home
-          </Link>
-          <Link
-            href="/writing"
-            className="glass glass-hover rounded-lg px-5 py-3 text-body font-medium text-foreground"
-          >
-            Read the writing
           </Link>
         </div>
       </main>

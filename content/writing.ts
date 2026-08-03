@@ -8,6 +8,14 @@
  * gap between how Senior and Staff roles are written (+32pp in the scraped
  * market data).
  *
+ * !! NOT PUBLISHED. The /writing routes were removed before the branch merged
+ * !! so these drafts don't ship unread under Karthik's name. The drafts stay
+ * !! here because this is where they get edited.
+ * !!
+ * !! To restore: `git checkout 152ea8c -- app/writing` then re-add the nav entry,
+ * !! the palette group and the sitemap entries. All four were removed in one
+ * !! commit, so its diff is the checklist.
+ * !!
  * !! TODO(karthik): THESE ARE DRAFTS. The shape of each argument is yours —
  * !! taken from the `decisions` in content/projects.ts — but the wording is
  * !! mine, so read them before publishing under your name.
