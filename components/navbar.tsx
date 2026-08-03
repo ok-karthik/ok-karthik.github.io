@@ -72,7 +72,7 @@ export function Navbar() {
         </Link>
 
         <div className="flex items-center gap-2">
-          <ul className="hidden items-center gap-6 sm:flex">
+          <ul className="hidden items-center gap-6 lg:flex">
             {links.map((link) => (
               <li key={link.href}>
                 <Link
@@ -96,7 +96,7 @@ export function Navbar() {
             ))}
           </ul>
 
-          <div className="ml-2 flex items-center gap-2 sm:border-l sm:border-border sm:pl-4">
+          <div className="ml-2 flex items-center gap-2 lg:border-l lg:border-border lg:pl-4">
             <CommandPalette />
 
             <button
@@ -114,7 +114,7 @@ export function Navbar() {
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
-              className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground sm:hidden"
+              className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground lg:hidden"
             >
               {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -123,7 +123,7 @@ export function Navbar() {
       </nav>
 
       {menuOpen && (
-        <ul id="mobile-nav" className="border-t border-border px-6 py-2 sm:hidden">
+        <ul id="mobile-nav" className="border-t border-border px-6 py-2 lg:hidden">
           {links.map((link) => (
             <li key={link.href}>
               <Link

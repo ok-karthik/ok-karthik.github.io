@@ -52,7 +52,7 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
       <main id="main" className="mx-auto max-w-4xl px-6 pb-24 pt-28">
         <Link
           href="/#projects"
-          className="label inline-flex items-center gap-2 transition-colors hover:text-foreground"
+          className="label -my-2 inline-flex items-center gap-2 py-2 transition-colors hover:text-foreground"
         >
           <ArrowLeft className="h-3 w-3" aria-hidden />
           All projects
@@ -130,7 +130,7 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
         <footer className="mt-16 border-t border-border pt-8">
           <Link
             href="/#projects"
-            className="text-small text-muted-foreground transition-colors hover:text-foreground"
+            className="-my-2 inline-block py-2 text-small text-muted-foreground transition-colors hover:text-foreground"
           >
             ← Back to all projects
           </Link>

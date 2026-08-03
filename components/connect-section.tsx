@@ -50,7 +50,7 @@ export function ConnectSection() {
             </a>
           </div>
 
-          <ul className="w-full lg:w-80">
+          <ul className="w-full lg:w-[27rem]">
             {channels.map(({ label, value, href, Icon }) => (
               <li key={label} className="border-t border-border last:border-b">
                 <a
@@ -61,7 +61,7 @@ export function ConnectSection() {
                 >
                   <Icon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
                   <span className="label w-20 shrink-0">{label}</span>
-                  <span className="min-w-0 flex-1 truncate font-mono text-small text-foreground transition-colors group-hover:text-primary">
+                  <span className="min-w-0 flex-1 break-all font-mono text-small text-foreground transition-colors group-hover:text-primary">
                     {value}
                   </span>
                 </a>
