@@ -11,14 +11,16 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "prepare": "husky",
-    "audit": "pnpm build && python3 scripts/audit-build.py"
+    "eval": "python3 .agents/skills/premium-portfolio-ui/scripts/evaluate.py",
+    "verify": "pnpm lint && pnpm test && pnpm eval && pnpm audit:html",
+    "audit:html": "pnpm build && python3 scripts/audit-build.py"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.1.15",
     "autoprefixer": "^10.4.20",
     "framer-motion": "^12.40.0",
     "lucide-react": "^0.564.0",
-    "next": "16.2.6",
+    "next": "16.2.12",
     "next-themes": "^0.4.6",
     "react": "^19",
     "react-dom": "^19"

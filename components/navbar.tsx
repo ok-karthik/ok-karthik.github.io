@@ -86,7 +86,7 @@ export function Navbar() {
                   {link.label}
                   <span
                     aria-hidden
-                    className={`absolute -bottom-1.5 left-0 h-px bg-primary transition-all duration-300 ${
+                    className={`absolute -bottom-1.5 left-0 h-px bg-primary transition-[width,opacity] duration-300 ${
                       active === link.href.split("#")[1] ? "w-full opacity-100" : "w-0 opacity-0"
                     }`}
                   />

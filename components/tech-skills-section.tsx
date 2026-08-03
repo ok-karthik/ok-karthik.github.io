@@ -50,7 +50,7 @@ function SkillIcon({ skill }: { skill: Skill }) {
   }
 
   return (
-    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted font-mono text-[10px] text-muted-foreground">
+    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted font-mono text-micro text-muted-foreground">
       {skill.name.slice(0, 2).toUpperCase()}
     </span>
   )
@@ -94,7 +94,7 @@ export function TechSkillsSection() {
                         <span className="min-w-0 flex-1">
                           <span className="block text-small text-foreground">{skill.name}</span>
                           {skill.note && (
-                            <span className="block font-mono text-[10px] leading-snug text-muted-foreground">
+                            <span className="block font-mono text-micro leading-snug text-muted-foreground">
                               {skill.note}
                             </span>
                           )}

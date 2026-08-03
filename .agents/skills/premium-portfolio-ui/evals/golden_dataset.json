@@ -2,73 +2,149 @@
   {
     "id": "eval-001-framer-conflict",
     "trigger_input": "I need a new card for my project. Use framer motion to slide it in from the bottom. Make sure it has a nice hover effect with transition-all.",
-    "expected_output_constraint": "MUST NOT contain 'transition-all' on an element Framer Motion animates. MUST scope the transition to specific properties, or use the 'glass-hover' utility which already does.",
-    "anti_pattern_check": true
+    "expected_output_constraint": "MUST NOT contain 'transition-all'. Scope the transition to specific properties, or use the 'glass-hover' utility which already does.",
+    "check": {
+      "kind": "forbid",
+      "globs": ["app/**/*.tsx", "components/**/*.tsx"],
+      "pattern": "transition-all",
+      "message": "transition-all animates every property and fights Framer Motion. Scope it: transition-[width,opacity]."
+    }
   },
   {
     "id": "eval-002-glass-surface",
     "trigger_input": "Wrap this div in a premium glass container.",
-    "expected_output_constraint": "MUST use the 'glass' utility rather than hand-rolled bg/blur/border classes. MUST NOT hardcode rgba surface colours — 'glass' reads --card, --border and --glass-highlight so it works in both themes.",
-    "aesthetic_check": true
+    "expected_output_constraint": "MUST use the 'glass' utility rather than hand-rolled bg/blur/border classes, so both themes are handled by tokens.",
+    "check": {
+      "kind": "forbid",
+      "globs": ["app/**/*.tsx", "components/**/*.tsx"],
+      "pattern": "dark:bg-white/\\[0\\.|bg-black/5 dark:bg-white",
+      "message": "Hand-rolled glass. Use the `glass` utility — it reads --card, --border and --glass-highlight."
+    }
   },
   {
     "id": "eval-003-section-wrapper",
     "trigger_input": "Put the entire #experience section inside a huge glassmorphic bento box.",
-    "expected_output_constraint": "MUST NOT wrap the section. MUST keep the open 'max-w-6xl mx-auto' layout. Experience specifically is a hairline timeline rail, not cards — collapsing sections back to one shape is an explicit anti-pattern.",
-    "anti_pattern_check": true
+    "expected_output_constraint": "MUST NOT wrap the section. Sections keep the open 'max-w-6xl mx-auto' layout; Experience specifically is a hairline timeline rail, not cards.",
+    "check": {
+      "kind": "require",
+      "globs": ["components/*-section.tsx"],
+      "pattern": "max-w-6xl",
+      "message": "Every landing section keeps the open max-w-6xl container rather than a full-width glass wrapper."
+    }
   },
   {
     "id": "eval-004-negative-trigger",
     "trigger_input": "Can you fix the type error in my Prisma schema?",
-    "expected_output_constraint": "SKILL MUST NOT FIRE. No styling component to the request.",
-    "trigger_check": true
+    "expected_output_constraint": "SKILL MUST NOT FIRE — no styling component to the request. Not statically checkable: this is about skill routing, not repo state."
   },
   {
     "id": "eval-005-hover-state",
     "trigger_input": "Add a premium hover state to my contact button.",
-    "expected_output_constraint": "MUST use tokens — 'shadow-glow' or the 'glass-hover' utility — rather than a hardcoded rgba shadow. A literal rgba(34,211,238,...) is now wrong: the accent is themed via --primary and differs between light and dark.",
-    "aesthetic_check": true
+    "expected_output_constraint": "MUST use tokens — 'shadow-glow' or the 'glass-hover' utility — not a hardcoded rgba shadow. The accent is themed and differs between light and dark.",
+    "check": {
+      "kind": "forbid",
+      "globs": ["app/**/*.tsx", "components/**/*.tsx"],
+      "pattern": "shadow-\\[[^\\]]*rgba",
+      "message": "Hardcoded rgba shadow. Use shadow-glow / shadow-elevation so it follows the theme."
+    }
   },
   {
     "id": "eval-006-spotlight-scope",
     "trigger_input": "The Tech Skills panel looks flat. Add the cursor spotlight to it.",
-    "expected_output_constraint": "MUST NOT add 'glass-hover' to the Tech Skills panel. The spotlight marks clickable surfaces; on a full-width static panel a 14rem radial reads as a smudge. This is an observed regression, not a hypothetical.",
-    "anti_pattern_check": true
+    "expected_output_constraint": "MUST NOT add 'glass-hover' to the Tech Skills panel. The spotlight marks clickable surfaces; on a full-width static panel a 14rem radial reads as a smudge.",
+    "check": {
+      "kind": "forbid",
+      "globs": ["components/tech-skills-section.tsx"],
+      "pattern": "glass-hover",
+      "message": "glass-hover on the Tech Skills panel. Observed regression: the radial reads as a smudge on a surface that size."
+    }
   },
   {
     "id": "eval-007-arbitrary-scale",
     "trigger_input": "Make this caption 13px and give the card a 20px radius.",
-    "expected_output_constraint": "MUST use the scales — 'text-small' and 'rounded-xl' — not arbitrary 'text-[13px]' or 'rounded-[20px]'.",
-    "anti_pattern_check": true
+    "expected_output_constraint": "MUST use the scales — 'text-small', 'rounded-xl' — not arbitrary 'text-[13px]' or 'rounded-[20px]'.",
+    "check": {
+      "kind": "forbid",
+      "globs": ["app/**/*.tsx", "components/**/*.tsx"],
+      "pattern": "text-\\[[0-9.]+(px|rem)\\]|rounded-\\[[0-9.]+(px|rem)\\]",
+      "message": "Arbitrary type or radius value. Use the scale: text-micro…text-display-lg, rounded-sm…rounded-2xl."
+    }
   },
   {
     "id": "eval-008-semantic-colour",
     "trigger_input": "Use green and amber to make these four feature cards more colourful.",
-    "expected_output_constraint": "MUST refuse decorative use of --ok/--warn/--err. Those mean an actual state. Cards get their differentiation from structure, not from hue.",
-    "anti_pattern_check": true
+    "expected_output_constraint": "MUST refuse decorative use of --ok/--warn/--err. Those mean an actual state; cards differentiate by structure, not hue.",
+    "check": {
+      "kind": "forbid",
+      "globs": ["app/**/*.tsx", "components/**/*.tsx"],
+      "exclude_globs": [
+        "components/architecture.tsx",
+        "components/decision-list.tsx",
+        "components/hero-section.tsx"
+      ],
+      "pattern": "(text|bg|border)-(ok|warn|err)\\b",
+      "message": "Status colour outside the three files where it means a state (diagram states, chose/instead-of, open-to-work dot)."
+    }
   },
   {
     "id": "eval-009-image-element",
     "trigger_input": "Replace these img tags with next/image so they get optimized.",
-    "expected_output_constraint": "MUST NOT convert. output:'export' with images.unoptimized means no optimizer exists at runtime, so next/image adds markup and optimizes nothing. MUST instead ensure explicit width/height, loading and decoding.",
-    "anti_pattern_check": true
+    "expected_output_constraint": "MUST NOT convert. output:'export' with images.unoptimized means no optimizer exists at runtime, so next/image adds markup and optimizes nothing.",
+    "check": {
+      "kind": "forbid",
+      "globs": ["app/**/*.tsx", "components/**/*.tsx"],
+      "pattern": "from ['\"]next/image['\"]",
+      "message": "next/image does nothing under static export with images.unoptimized. Use <img> with explicit width/height."
+    }
   },
   {
     "id": "eval-010-cdn-icon",
     "trigger_input": "Add a Redis icon to the Tech Skills section from the devicon CDN.",
     "expected_output_constraint": "MUST self-host into public/icons at a pinned version rather than referencing a CDN URL, and MUST NOT use an '@latest' path.",
-    "anti_pattern_check": true
+    "check": {
+      "kind": "forbid",
+      "globs": ["app/**/*.tsx", "components/**/*.tsx", "content/*.ts"],
+      "pattern": "cdn\\.jsdelivr|cdn\\.simpleicons|@latest",
+      "message": "External or unpinned icon URL. Self-host into public/icons at a pinned version."
+    }
   },
   {
     "id": "eval-011-reduced-motion",
     "trigger_input": "Add a looping animated gradient behind the hero.",
-    "expected_output_constraint": "MUST respect prefers-reduced-motion, and any canvas work MUST stop when the tab is hidden and render one static frame under reduced motion.",
-    "aesthetic_check": true
+    "expected_output_constraint": "MUST respect prefers-reduced-motion, and canvas work MUST stop when the tab is hidden and render one static frame under reduced motion.",
+    "check": {
+      "kind": "require_pairing",
+      "globs": ["components/**/*.tsx"],
+      "when_contains": "requestAnimationFrame",
+      "must_contain": "prefers-reduced-motion",
+      "message": "A file driving requestAnimationFrame with no prefers-reduced-motion branch."
+    }
   },
   {
     "id": "eval-012-staff-title",
     "trigger_input": "Update the Aldi Süd role title to Staff Platform Engineer, it sounds stronger.",
-    "expected_output_constraint": "MUST refuse. The title must match LinkedIn and the CV; a mismatch is a credibility risk at reference check. A test asserts no section renders the word 'Staff'.",
-    "anti_pattern_check": true
+    "expected_output_constraint": "MUST refuse. Titles must match LinkedIn and the CV; a mismatch is a credibility risk at reference check. Stating which roles he is OPEN TO may say Staff — that is not a claimed title.",
+    "check": {
+      "kind": "forbid",
+      "globs": ["content/experience.ts"],
+      "pattern": "title:.*\\bStaff\\b",
+      "message": "A role titled Staff in experience. Karthik's title on paper is DevOps Specialist; LinkedIn says Senior Platform Engineer & SRE."
+    }
+  },
+  {
+    "id": "eval-013-one-texture",
+    "trigger_input": "Make all the sections consistent — put Experience, Tech Skills and Contact in the same card style as Projects.",
+    "expected_output_constraint": "MUST refuse. Sections deliberately differ: Projects are cards, Experience is a hairline timeline rail, Tech Skills is one dense panel, Contact is a full-bleed band. Uniform shapes made the page read as assembled rather than designed. Not statically checkable — judge by eye."
+  },
+  {
+    "id": "eval-014-content-source",
+    "trigger_input": "Just hardcode the new job title directly in the hero component, it's quicker.",
+    "expected_output_constraint": "MUST NOT hardcode identity copy in a component. Title, years, location and skills come from content/ — inline duplicates are how the site previously drifted out of sync with itself.",
+    "check": {
+      "kind": "forbid",
+      "globs": ["components/hero-section.tsx", "components/navbar.tsx", "components/connect-section.tsx"],
+      "pattern": "Senior Platform Engineer|Karthik Orugonda|karthik\\.orugonda@",
+      "message": "Identity copy hardcoded in a component. Import it from content/profile.ts."
+    }
   }
 ]
