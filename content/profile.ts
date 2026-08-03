@@ -50,13 +50,40 @@ export const profile = {
    * will *consider* is not claiming a title he holds — "Senior or Staff" here
    * is fine, "Staff" in the Aldi Süd entry would not be.
    */
+  /*
+   * Titles chosen on posting volume, not on what sounds best. Counts come from
+   * Karthik's own scrape: 3,086 unique German postings over 16 scrape days,
+   * 13-31 July 2026. Earlier months were lost to rate limiting, so this is a
+   * three-week snapshot rather than a seasonal average — treat it as ranking
+   * signal, not absolute demand.
+   *
+   *   DevOps Engineer            102   Platform Engineer           95
+   *   Site Reliability Engineer   48   Cloud + Infra Engineer      52
+   *   AI Platform Engineer        21   AI Infrastructure           10
+   *
+   * "AI Infrastructure" was dropped: at 10 postings it is a category name in
+   * the tracker, not a title employers post. "AI Platform Engineer" is twice as
+   * common and sits in the learning plan's primary focus list.
+   *
+   * "AI Engineer" is the largest AI title (108) and is deliberately NOT here.
+   * Those are application-layer roles building with LLMs, where the
+   * infra-transferable slice is only 10-14% of what is asked.
+   *
+   * Lead is included at Karthik's request and is defensible — he was Technical
+   * Lead at Rakuten directing five engineers. Note it is ambiguous in this
+   * market: his own classifier splits IC-lead ("tech lead", "lead engineer")
+   * from people-manager ("team lead", "engineering lead"), so expect some
+   * management approaches alongside the IC ones.
+   */
   openToRoles: [
-    { domain: "Platform Engineering & SRE", level: "Senior or Staff" },
-    { domain: "AI Infrastructure", level: "Senior" },
+    { domain: "Platform Engineering & SRE", level: "Senior · Staff · Lead" },
+    { domain: "DevOps & Cloud Infrastructure", level: "Senior · Staff · Lead" },
+    { domain: "AI Platform Engineering", level: "Senior" },
   ],
 
   /** One-line form, for meta descriptions and the ⌘K palette. */
-  openToSummary: "Senior/Staff Platform Engineering & SRE, and Senior AI Infrastructure",
+  openToSummary:
+    "Senior, Staff and Lead roles in Platform Engineering, SRE and DevOps, and Senior AI Platform Engineering",
 
   email: "karthik.orugonda@gmail.com",
 
