@@ -190,7 +190,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "idp-gitops-architecture",
+    slug: "internal-developer-platform",
     title: "IDP & GitOps Reference Architecture",
     summary:
       "Internal Developer Platform blueprint for zero-touch service onboarding and multi-tenant continuous delivery via GitOps.",
@@ -240,8 +240,7 @@ export const projects: Project[] = [
       },
     ],
     tags: ["IDP", "GitOps", "Argo CD", "Kubernetes", "Python"],
-    githubUrl:
-      "https://github.com/ok-karthik/platform-engineering-idp-gitops-reference-architecture",
+    githubUrl: "https://github.com/ok-karthik/internal-developer-platform",
     featured: false,
   },
   {

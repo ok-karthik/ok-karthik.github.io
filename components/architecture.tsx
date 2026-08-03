@@ -266,7 +266,7 @@ export const architectureBySlug: Record<string, () => ReactNode> = {
   "ai-infrastructure-on-eks": GpuPlatform,
   "otel-observability-platform": Observability,
   "enterprise-aws-terragrunt": AwsTerragrunt,
-  "idp-gitops-architecture": GitOps,
+  "internal-developer-platform": GitOps,
   "finops-k8s-operator": FinOps,
   "app-library-helm-chart": HelmLibrary,
 }
