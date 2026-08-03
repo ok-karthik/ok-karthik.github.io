@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 const experiences = [
   {
-    title: "Staff SRE and Platform Engineer",
+    title: "Senior Platform Engineer & SRE",
     company: "Aldi Süd",
     period: "Dec 2022 – Present",
     tags: ["Platform Engineering", "SRE", "Kubernetes", "GitOps", "Observability", "Golden Paths"],
