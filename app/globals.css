@@ -19,29 +19,29 @@
 html:not(.dark) {
   /* Wash is pulled down so white glass has something to sit against. The
      previous pairing (0.72-alpha white on #f4f7fa) was invisible. */
-  --background: #eaeef4;
-  --background-deep: #dde4ec;
-  --foreground: #0d1520;
+  --background: #efedf5;
+  --background-deep: #e2dfec;
+  --foreground: #17131f;
 
   --card: rgba(255, 255, 255, 0.86);
   --card-solid: #ffffff;
-  --card-foreground: #0d1520;
+  --card-foreground: #17131f;
   --popover: #ffffff;
-  --popover-foreground: #0d1520;
+  --popover-foreground: #17131f;
 
   --primary: #0d7f94;
   --primary-foreground: #ffffff;
 
-  --secondary: #e2e9f0;
-  --secondary-foreground: #0d1520;
-  --muted: #eaeff5;
-  --muted-foreground: #51606f;
+  --secondary: #e6e3f0;
+  --secondary-foreground: #17131f;
+  --muted: #edebf4;
+  --muted-foreground: #5b5570;
   --accent: #0d7f94;
   --accent-foreground: #ffffff;
 
-  --border: rgba(13, 21, 32, 0.15);
-  --border-strong: rgba(13, 21, 32, 0.26);
-  --input: rgba(13, 21, 32, 0.15);
+  --border: rgba(23, 19, 31, 0.15);
+  --border-strong: rgba(23, 19, 31, 0.26);
+  --input: rgba(23, 19, 31, 0.15);
   --ring: #0d7f94;
 
   --ok: #1f7a4d;
@@ -49,32 +49,36 @@ html:not(.dark) {
   --err: #a83a32;
 
   --glow: 0 0 0 1px rgba(13, 127, 148, 0.3), 0 8px 30px -14px rgba(13, 127, 148, 0.45);
-  --elevation: 0 1px 2px rgba(13, 21, 32, 0.05), 0 10px 30px -14px rgba(13, 21, 32, 0.28);
+  --elevation: 0 1px 2px rgba(23, 19, 31, 0.05), 0 10px 30px -14px rgba(23, 19, 31, 0.28);
   --glass-highlight: rgba(255, 255, 255, 0.9);
-  --chip: #f2f5f9;
+  --chip: #f4f2f9;
   --mesh-opacity: 0.34;
   --spotlight-strength: 5%;
   --field-dot: 13, 127, 148;
 }
 
 html.dark {
-  --background: #0a0e14;
-  --background-deep: #070a0f;
-  --foreground: #e6edf3;
+  /* Deep, desaturated purple-graphite. Not the old #1a0f3d, which was
+     saturated enough that a full-strength accent on top read as neon. The hue
+     was never the problem — the acid accent, the text glow and the uniform
+     glowing borders were. */
+  --background: #100d19;
+  --background-deep: #0a0811;
+  --foreground: #ece9f2;
 
-  --card: rgba(255, 255, 255, 0.035);
-  --card-solid: #11161e;
-  --card-foreground: #e6edf3;
-  --popover: #11161e;
-  --popover-foreground: #e6edf3;
+  --card: rgba(255, 255, 255, 0.042);
+  --card-solid: #161221;
+  --card-foreground: #ece9f2;
+  --popover: #161221;
+  --popover-foreground: #ece9f2;
 
   --primary: #2bc8dd;
   --primary-foreground: #06131a;
 
-  --secondary: #1a212b;
-  --secondary-foreground: #e6edf3;
-  --muted: #151b24;
-  --muted-foreground: #93a3b4;
+  --secondary: #211b30;
+  --secondary-foreground: #ece9f2;
+  --muted: #191427;
+  --muted-foreground: #9c94ae;
   --accent: #2bc8dd;
   --accent-foreground: #06131a;
 

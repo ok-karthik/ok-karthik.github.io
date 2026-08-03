@@ -37,7 +37,7 @@ export function HeroSection() {
             <p className="rise mt-3 font-display text-h3 font-semibold text-primary" style={{ animationDelay: "240ms" }}>
               {profile.title}
             </p>
-            <p className="rise mt-1.5 font-mono text-small text-muted-foreground" style={{ animationDelay: "300ms" }}>
+            <p className="rise mt-2 font-mono text-small text-foreground/70" style={{ animationDelay: "300ms" }}>
               {profile.subtitle}
             </p>
 

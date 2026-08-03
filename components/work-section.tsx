@@ -51,7 +51,7 @@ function TagRow({ tags }: { tags: readonly string[] }) {
         return (
           <li
             key={tag}
-            className="flex items-center gap-1.5 rounded-full border border-border bg-secondary/50 py-1 pl-1 pr-2.5"
+            className="flex items-center gap-1.5 rounded-full border border-border bg-secondary/50 py-1 pl-1 pr-2.5 transition-colors hover:border-primary/40 hover:bg-secondary"
           >
             {icon ? (
               <span className="logo-chip h-5 w-5 rounded-full p-[3px]">
