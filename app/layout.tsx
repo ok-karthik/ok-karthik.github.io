@@ -1,13 +1,7 @@
 import type { Metadata } from 'next'
 import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
-// Background: swap these two imports to compare. Both take the accent from
-// --field-dot, are masked to fade below the hero, pause when the tab is
-// hidden, and render static under prefers-reduced-motion.
-//   NeuralMesh — particles + links (the current look)
-//   FlowField  — particles riding a noise field, leaving trails
-import { NeuralMesh } from '@/components/neural-mesh'
-// import { FlowField } from '@/components/flow-field'
+import { Background } from '@/components/background'
 import { Spotlight } from '@/components/spotlight'
 import { profile } from '@/content/profile'
 import './globals.css'
@@ -104,7 +98,7 @@ export default function RootLayout({
           drop its beacon snippet here.
         */}
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <NeuralMesh />
+          <Background />
           <Spotlight />
           {children}
         </ThemeProvider>
