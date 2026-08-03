@@ -1,25 +1,38 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { Navbar } from './navbar'
+import { profile } from '@/content/profile'
 
-// Mock next-themes
 vi.mock('next-themes', () => ({
-  useTheme: () => ({
-    theme: 'dark',
-    setTheme: vi.fn(),
-  }),
+  useTheme: () => ({ resolvedTheme: 'dark', setTheme: vi.fn() }),
 }))
 
-describe('Navbar Component', () => {
-  it('renders the branding name', () => {
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn() }),
+}))
+
+describe('Navbar', () => {
+  it('renders the branding name from content', () => {
     render(<Navbar />)
-    expect(screen.getByText('Karthik Orugonda')).toBeInTheDocument()
+    expect(screen.getAllByText(profile.name).length).toBeGreaterThan(0)
   })
 
-  it('renders navigation links', () => {
+  it('renders every primary navigation link', () => {
     render(<Navbar />)
-    expect(screen.getByText('Tech Skills')).toBeInTheDocument()
-    expect(screen.getByText('Experience')).toBeInTheDocument()
-    expect(screen.getByText('Projects')).toBeInTheDocument()
+    for (const label of ['Projects', 'Experience', 'Tech Skills', 'Contact']) {
+      expect(screen.getAllByRole('link', { name: label }).length).toBeGreaterThan(0)
+    }
+  })
+
+  it('exposes a mobile menu toggle so navigation exists below the sm breakpoint', () => {
+    render(<Navbar />)
+    const toggle = screen.getByRole('button', { name: /open menu/i })
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(toggle).toHaveAttribute('aria-controls', 'mobile-nav')
+  })
+
+  it('labels the theme toggle with its destination state', () => {
+    render(<Navbar />)
+    expect(screen.getByRole('button', { name: /switch to light theme/i })).toBeInTheDocument()
   })
 })

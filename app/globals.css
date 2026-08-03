@@ -1,76 +1,117 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import '@fontsource/fira-code/400.css';
-@import '@fontsource/fira-code/500.css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ============================================================================
+   Design tokens — "control room"
+
+   Deep blue-graphite base, translucent glass panels with real elevation, and a
+   cyan-teal accent that carries interaction. Product logos keep their own
+   brand colour — recognition is the whole point of a logo, and desaturating
+   them costs scannability for nothing.
+
+   The status triple (--ok / --warn / --err) still means an actual state and is
+   never used decoratively. That rule survived from the previous pass; the
+   mistake was extending it to everything, which left the page flat.
+   ========================================================================= */
+
 html:not(.dark) {
-  /* Light Mode Theme */
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --card: rgba(255, 255, 255, 0.75);
-  --card-foreground: #0f172a;
+  /* Wash is pulled down so white glass has something to sit against. The
+     previous pairing (0.72-alpha white on #f4f7fa) was invisible. */
+  --background: #efedf5;
+  --background-deep: #e2dfec;
+  --foreground: #17131f;
+
+  --card: rgba(255, 255, 255, 0.86);
+  --card-solid: #ffffff;
+  --card-foreground: #17131f;
   --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --primary: #0284c7;
+  --popover-foreground: #17131f;
+
+  /* Darkened from #0d7f94, which measured 4.04:1 against the page wash
+     and failed AA. This is 5.31:1, and white-on-primary improves too. */
+  --primary: #0a6b7d;
   --primary-foreground: #ffffff;
-  --secondary: #e2e8f0;
-  --secondary-foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #475569;
-  --accent: #0284c7;
+
+  --secondary: #e6e3f0;
+  --secondary-foreground: #17131f;
+  --muted: #edebf4;
+  --muted-foreground: #5b5570;
+  --accent: #0a6b7d;
   --accent-foreground: #ffffff;
-  --border: rgba(2, 132, 199, 0.15);
-  --input: rgba(2, 132, 199, 0.15);
-  --ring: #0284c7;
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --neon-glow: 0 0 20px rgba(2, 132, 199, 0.25);
+
+  --border: rgba(23, 19, 31, 0.15);
+  --border-strong: rgba(23, 19, 31, 0.26);
+  --input: rgba(23, 19, 31, 0.15);
+  --ring: #0a6b7d;
+
+  --ok: #1f7a4d;
+  --warn: #8a5d0f;
+  --err: #a83a32;
+
+  --glow: 0 0 0 1px rgba(10, 107, 125, 0.3), 0 8px 30px -14px rgba(10, 107, 125, 0.45);
+  --elevation: 0 1px 2px rgba(23, 19, 31, 0.05), 0 10px 30px -14px rgba(23, 19, 31, 0.28);
+  --glass-highlight: rgba(255, 255, 255, 0.9);
+  --chip: #f4f2f9;
+  --mesh-opacity: 0.34;
+  --spotlight-strength: 5%;
+  --field-dot: 10, 107, 125;
 }
 
 html.dark {
-  /* Premium Dark Purple Theme */
-  --background: #090714;
-  --foreground: #f8fafc;
-  --card: rgba(22, 16, 45, 0.65);
-  --card-foreground: #f8fafc;
-  --popover: #0f0a24;
-  --popover-foreground: #f8fafc;
-  --primary: #00ffe7;
-  --primary-foreground: #090714;
-  --secondary: #24184c;
-  --secondary-foreground: #f8fafc;
-  --muted: #181135;
-  --muted-foreground: #94a3b8;
-  --accent: #00ffe7;
-  --accent-foreground: #090714;
-  --border: rgba(0, 255, 231, 0.12);
-  --input: rgba(0, 255, 231, 0.12);
-  --ring: #00ffe7;
-  --radius: 0.625rem;
-  --neon-glow: 0 0 20px rgba(0, 255, 231, 0.5), 0 0 40px rgba(0, 255, 231, 0.3);
+  /* Deep, desaturated purple-graphite. Not the old #1a0f3d, which was
+     saturated enough that a full-strength accent on top read as neon. The hue
+     was never the problem — the acid accent, the text glow and the uniform
+     glowing borders were. */
+  --background: #100d19;
+  --background-deep: #0a0811;
+  --foreground: #ece9f2;
+
+  --card: rgba(255, 255, 255, 0.042);
+  --card-solid: #161221;
+  --card-foreground: #ece9f2;
+  --popover: #161221;
+  --popover-foreground: #ece9f2;
+
+  --primary: #2bc8dd;
+  --primary-foreground: #06131a;
+
+  --secondary: #211b30;
+  --secondary-foreground: #ece9f2;
+  --muted: #191427;
+  --muted-foreground: #9c94ae;
+  --accent: #2bc8dd;
+  --accent-foreground: #06131a;
+
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --input: rgba(255, 255, 255, 0.09);
+  --ring: #2bc8dd;
+
+  --ok: #4ade80;
+  --warn: #fbbf24;
+  --err: #f87171;
+
+  --glow: 0 0 0 1px rgba(43, 200, 221, 0.35), 0 8px 40px -12px rgba(43, 200, 221, 0.4);
+  --elevation: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 40px -16px rgba(0, 0, 0, 0.7);
+  --glass-highlight: rgba(255, 255, 255, 0.07);
+  --chip: rgba(255, 255, 255, 0.94);
+  --mesh-opacity: 0.5;
+  --spotlight-strength: 10%;
+  --field-dot: 43, 200, 221;
 }
 
 @theme inline {
-  --font-sans: var(--font-inter), sans-serif;
-  --font-display: var(--font-inter), sans-serif;
-  --font-mono: var(--font-mono), 'Fira Code', monospace;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
   --color-background: var(--background);
+  --color-background-deep: var(--background-deep);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
+  --color-card-solid: var(--card-solid);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
@@ -82,57 +123,200 @@ html.dark {
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --shadow-neon: var(--neon-glow);
 
-  --animate-marquee: marquee 40s linear infinite;
-  --animate-marquee-reverse: marquee-reverse 40s linear infinite;
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-err: var(--err);
 
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-100% - 1rem)); }
-  }
+  --shadow-elevation: var(--elevation);
+  --shadow-glow: var(--glow);
 
-  @keyframes marquee-reverse {
-    0% { transform: translateX(calc(-100% - 1rem)); }
-    100% { transform: translateX(0); }
-  }
+  /* Type scale — replaces ad-hoc text-[22px] / [15px] / [9px]. */
+  --text-micro: 0.75rem;
+  --text-micro--line-height: 1.45;
+  --text-micro--letter-spacing: 0.09em;
+  --text-small: 0.8125rem;
+  --text-small--line-height: 1.55;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.65;
+  --text-body-lg: 1.0625rem;
+  --text-body-lg--line-height: 1.6;
+  --text-h3: 1.3125rem;
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.011em;
+  --text-h2: 1.75rem;
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.018em;
+  --text-display: 2.25rem;
+  --text-display--line-height: 1.15;
+  --text-display--letter-spacing: -0.025em;
+  --text-display-lg: 3.25rem;
+  --text-display-lg--line-height: 1.02;
+  --text-display-lg--letter-spacing: -0.032em;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, color-mix(in oklab, var(--primary) 9%, transparent), transparent 70%),
+      linear-gradient(180deg, var(--background) 0%, var(--background-deep) 100%);
+    background-attachment: fixed;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
 }
 
-@utility glow-card-hover {
-  transition: all 0.3s ease-out;
-  &:hover {
-    border-color: var(--primary) !important;
-    box-shadow: var(--neon-glow) !important;
+/* Glass panel. The inset highlight is what makes it read as a lit surface
+   rather than a flat rectangle with opacity. */
+@utility glass {
+  position: relative;
+  background-color: var(--card);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--border);
+  box-shadow: var(--elevation), inset 0 1px 0 0 var(--glass-highlight);
+}
+
+/* Interactive panels only. The spotlight lives here rather than on `glass`
+   so it lights up things you can click, not large static reference surfaces —
+   on a full-width panel a radial this size reads as a smudge, and over a
+   near-white light-mode surface it reads as dirt. */
+@utility glass-hover {
+  position: relative;
+  isolation: isolate;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease,
+    background-color 0.25s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      14rem circle at var(--mx, -100%) var(--my, -100%),
+      color-mix(in oklab, var(--primary) var(--spotlight-strength, 9%), transparent),
+      transparent 70%
+    );
   }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &:hover {
+    border-color: color-mix(in oklab, var(--primary) 45%, transparent);
+    box-shadow: var(--elevation), var(--glow), inset 0 1px 0 0 var(--glass-highlight);
+    transform: translateY(-2px);
+  }
+}
+
+/* Mono label used for anything that names rather than states. */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  line-height: var(--text-micro--line-height);
+  letter-spacing: var(--text-micro--letter-spacing);
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* Chip that holds a product logo. Logos keep their brand colour, so they need
+   a consistent light plate behind them to sit on in both themes. */
+@utility logo-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  /* Neutral tint rather than pure white, so the chip is visible in light mode
+     where the surface behind it is also near-white. */
+  background: var(--chip);
+  border: 1px solid var(--border);
+  padding: 0.3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Film grain. Stops large glass surfaces reading as flat digital gradient.
+   Inline SVG turbulence, so no network request and no image asset. */
+@layer base {
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Section eyebrow inset into a rule that runs the full content width. */
+@utility rule-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+}
+
+/* Page-load choreography. One sequence, on load only; the reduced-motion
+   block below neutralises it. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility rise {
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }

@@ -1,71 +1,141 @@
 "use client"
 
+import Link from "next/link"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
-import { Sun, Moon } from "lucide-react"
+import { Sun, Moon, Menu, X } from "lucide-react"
+import { profile } from "@/content/profile"
+import { CommandPalette } from "@/components/command-palette"
+
+const links = [
+  { href: "/#projects", label: "Projects" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#tech-skills", label: "Tech Skills" },
+  { href: "/#contact", label: "Contact" },
+]
 
 export function Navbar() {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
+  const [active, setActive] = useState<string>("")
+
+  useEffect(() => setMounted(true), [])
+
+  // Scroll spy. Observes each section and marks the one nearest the top of the
+  // viewport, so the navbar always says where you are.
   useEffect(() => {
-    setMounted(true)
+    const ids = links.map((l) => l.href.split("#")[1])
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el))
+    if (sections.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+        if (visible[0]) setActive(visible[0].target.id)
+      },
+      // Band just below the navbar, so "active" means "at the top of the page".
+      { rootMargin: "-20% 0px -70% 0px", threshold: 0 },
+    )
+    sections.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
   }, [])
 
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
-      <div
-        className={`flex items-center gap-8 px-6 py-2.5 rounded-full transition-all duration-300
-          bg-card backdrop-blur-md border border-border shadow-lg`}
-      >
-        <a 
-          href="#" 
-          className="font-display font-bold text-foreground hover:text-primary transition-colors text-lg"
-        >
-          Karthik Orugonda
-        </a>
-        
-        <div className="hidden sm:flex items-center gap-6">
-          <a
-            href="#tech-skills"
-            className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            Tech Skills
-          </a>
-          <a
-            href="#experience"
-            className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            Experience
-          </a>
-          <a
-            href="#projects"
-            className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            Projects
-          </a>
-        </div>
+  // Close the mobile menu on Escape — it's a disclosure, not a dialog, but
+  // Escape is what people press.
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false)
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [menuOpen])
 
-        <div className="flex items-center gap-3 pl-2 sm:pl-4 border-l border-border/50">
-          <a 
-            href="#contact"
-            className="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-xs font-mono font-medium rounded-full bg-primary/10 text-primary hover:bg-primary/20 hover:scale-105 transition-all duration-300 border border-primary/20"
-          >
-            Let&apos;s Connect
-          </a>
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-1.5 rounded-full hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-300 flex items-center justify-center cursor-pointer"
-            aria-label="Toggle Theme"
-          >
-            {mounted && theme === "dark" ? (
-              <Sun className="w-4 h-4 text-amber-400 transition-transform duration-500 hover:rotate-90" />
-            ) : (
-              <Moon className="w-4 h-4 text-sky-400 transition-transform duration-500 hover:rotate-12" />
-            )}
-          </button>
+  const isDark = mounted && resolvedTheme === "dark"
+
+  return (
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/70 backdrop-blur-xl">
+      <nav
+        aria-label="Main"
+        className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3"
+      >
+        <Link
+          href="/#top"
+          className="font-display text-body font-semibold text-foreground transition-colors hover:text-primary"
+        >
+          {profile.name}
+        </Link>
+
+        <div className="flex items-center gap-2">
+          <ul className="hidden items-center gap-6 lg:flex">
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  aria-current={active === link.href.split("#")[1] ? "true" : undefined}
+                  className={`relative font-mono text-micro uppercase tracking-[0.08em] transition-colors hover:text-foreground ${
+                    active === link.href.split("#")[1]
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  {link.label}
+                  <span
+                    aria-hidden
+                    className={`absolute -bottom-1.5 left-0 h-px bg-primary transition-all duration-300 ${
+                      active === link.href.split("#")[1] ? "w-full opacity-100" : "w-0 opacity-0"
+                    }`}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="ml-2 flex items-center gap-2 lg:border-l lg:border-border lg:pl-4">
+            <CommandPalette />
+
+            <button
+              onClick={() => setTheme(isDark ? "light" : "dark")}
+              className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+            >
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+
+            {/* The previous navbar hid every link below the sm breakpoint,
+                which left mobile with no navigation at all. */}
+            <button
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground lg:hidden"
+            >
+              {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {menuOpen && (
+        <ul id="mobile-nav" className="border-t border-border px-6 py-2 lg:hidden">
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="block border-b border-border py-3 text-body text-muted-foreground transition-colors last:border-0 hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </header>
   )
 }
