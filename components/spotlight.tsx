@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 
 /**
- * Cursor spotlight for every `.glass` panel.
+ * Cursor spotlight for interactive `.glass-hover` panels.
  *
  * Mounted once. Rather than wrapping each card in a stateful component, this
  * delegates a single passive pointermove listener on the document and writes
@@ -34,7 +34,7 @@ export function Spotlight() {
 
     const onMove = (e: PointerEvent) => {
       const target = e.target as Element | null
-      const panel = target?.closest<HTMLElement>(".glass") ?? null
+      const panel = target?.closest<HTMLElement>(".glass-hover") ?? null
 
       if (panel !== last) {
         last?.style.removeProperty("--mx")

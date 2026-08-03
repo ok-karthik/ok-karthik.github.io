@@ -53,6 +53,7 @@ html:not(.dark) {
   --glass-highlight: rgba(255, 255, 255, 0.9);
   --chip: #f2f5f9;
   --mesh-opacity: 0.34;
+  --spotlight-strength: 5%;
   --field-dot: 13, 127, 148;
 }
 
@@ -91,6 +92,7 @@ html.dark {
   --glass-highlight: rgba(255, 255, 255, 0.07);
   --chip: rgba(255, 255, 255, 0.94);
   --mesh-opacity: 0.5;
+  --spotlight-strength: 10%;
   --field-dot: 43, 200, 221;
 }
 
@@ -192,10 +194,21 @@ html.dark {
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   border: 1px solid var(--border);
   box-shadow: var(--elevation), inset 0 1px 0 0 var(--glass-highlight);
-  isolation: isolate;
+}
 
-  /* Cursor spotlight. --mx/--my are written by <Spotlight /> on pointer move;
-     with no pointer the radial sits off-canvas and costs nothing. */
+/* Interactive panels only. The spotlight lives here rather than on `glass`
+   so it lights up things you can click, not large static reference surfaces —
+   on a full-width panel a radial this size reads as a smudge, and over a
+   near-white light-mode surface it reads as dirt. */
+@utility glass-hover {
+  position: relative;
+  isolation: isolate;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease,
+    background-color 0.25s ease;
+
   &::before {
     content: '';
     position: absolute;
@@ -203,29 +216,21 @@ html.dark {
     z-index: -1;
     border-radius: inherit;
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.3s ease;
     background: radial-gradient(
-      22rem circle at var(--mx, -100%) var(--my, -100%),
-      color-mix(in oklab, var(--primary) 16%, transparent),
-      transparent 65%
+      14rem circle at var(--mx, -100%) var(--my, -100%),
+      color-mix(in oklab, var(--primary) var(--spotlight-strength, 9%), transparent),
+      transparent 70%
     );
   }
 
   &:hover::before {
     opacity: 1;
   }
-}
-
-@utility glass-hover {
-  transition:
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.25s ease,
-    background-color 0.25s ease;
 
   &:hover {
     border-color: color-mix(in oklab, var(--primary) 45%, transparent);
-    box-shadow: var(--elevation), var(--glow), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    box-shadow: var(--elevation), var(--glow), inset 0 1px 0 0 var(--glass-highlight);
     transform: translateY(-2px);
   }
 }
