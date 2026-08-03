@@ -7,17 +7,23 @@
  * and direction" is the single largest gap between how Senior and Staff roles
  * are written (+32pp in Karthik's scraped market data).
  *
- * !! TODO(karthik): the `decisions` entries below are reconstructed from the
- * !! architecture diagrams and repo READMEs you wrote — the *choices* are
- * !! yours, but some of the *rationales* are my inference. Read every one and
- * !! correct it. A trade-off you can't defend live is worse than no trade-off
- * !! section at all. Entries marked CONFIRM are the ones I'm least sure of.
+ * Sourced from the project READMEs (fetched 2026-08-03), so the decisions and
+ * their alternatives are drawn from Karthik's own documentation rather than
+ * inferred. Two earlier inferences were wrong and are corrected here: the
+ * FinOps schedule annotation sits on the *namespace*, not the workload, and
+ * the server-side `field_selector` performance decision had been missed
+ * entirely.
+ *
+ * !! TODO(karthik): still worth a read-through before publishing — the
+ * !! wording is mine even where the facts are yours.
  */
 
 export type Decision = {
   /** What was chosen. */
   decision: string
-  /** Why — and, where it matters, what it was chosen over. */
+  /** The alternative it was chosen over. Drives the "instead of" line. */
+  insteadOf?: string
+  /** Why. */
   rationale: string
 }
 
@@ -53,24 +59,28 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        decision: "Karpenter GPU NodePools instead of static GPU node groups",
+        decision: "Karpenter NodePools keyed on nvidia.com/gpu",
+        insteadOf: "Static groups pay for accelerators between jobs. Karpenter provisions on pending-pod demand across the g4dn and g6 spot families and consolidates when idle — which matters far more at GPU pricing than at CPU pricing.",
         rationale:
-          "Static groups mean paying for accelerators between jobs. Karpenter provisions on pending-pod demand and drains when idle, which matters far more on GPU pricing than on CPU.",
+          "Static GPU managed node groups",
       },
       {
-        decision: "Time slicing rather than MIG for GPU sharing",
+        decision: "GPU time slicing for sharing",
+        insteadOf: "All three were evaluated against VRAM limits. Time slicing needs no hardware partitioning support, so it works on the instance families in play. The cost is no memory isolation between tenants — acceptable for development and inference under one team, not for untrusted multi-tenancy.",
         rationale:
-          "CONFIRM — time slicing shares a GPU across pods without partitioning it and works on hardware MIG doesn't support. The trade-off is no memory isolation between tenants, which is acceptable for development and inference but not for untrusted multi-tenancy.",
+          "MIG or MPS",
       },
       {
-        decision: "GPU Operator to manage the driver stack rather than baking drivers into AMIs",
+        decision: "GPU Operator owns the driver stack",
+        insteadOf: "Kernel modules, the container runtime hook, Node Feature Discovery and the device plugin are versioned and reconciled together, so a driver upgrade is a Helm value rather than an AMI rebuild and node roll.",
         rationale:
-          "Device plugin, Node Feature Discovery and container toolkit are versioned and reconciled together by the operator, so a driver upgrade isn't an AMI rebuild.",
+          "Baking drivers into a custom AMI",
       },
       {
-        decision: "DCGM exporter into the existing Prometheus/Grafana stack",
+        decision: "DCGM exporter into the existing Prometheus and Grafana",
+        insteadOf: "GPU telemetry becomes another Prometheus target on port 9400, so the same dashboards, alert rules and on-call paths apply. Utilisation and memory pressure are the two signals that say whether sharing is actually working.",
         rationale:
-          "GPU observability becomes another Prometheus target rather than a separate tool, so the same dashboards and alerting rules apply. Utilisation and memory pressure are the two signals that tell you whether sharing is working.",
+          "A separate GPU monitoring tool",
       },
     ],
     tags: ["GPU Operator", "Karpenter", "CUDA", "Time Slicing", "Observability"],
@@ -91,19 +101,34 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        decision: "OpenTelemetry Collector as the single ingest point, not direct-to-backend agents",
+        decision: "OpenTelemetry Collector as the single ingest point",
+        insteadOf: "Applications emit OTLP and know nothing about the backend, so changing or adding one becomes an exporter config change instead of a re-instrumentation project. That is the whole reason to accept the extra hop.",
         rationale:
-          "Applications emit OTLP once and know nothing about the backend. Swapping or adding a backend becomes an exporter config change instead of a re-instrumentation project — the whole reason to accept the extra hop.",
+          "Vendor agents exporting straight from each app",
       },
       {
-        decision: "Agent plus gateway collector topology rather than agent-only",
+        decision: "Agent DaemonSet feeding a central gateway",
+        insteadOf: "Node-local agents enrich with Kubernetes metadata and buffer through brief network trouble. The gateway holds everything needing a global view — filtering, batching and sampling — in one place instead of on every node.",
         rationale:
-          "CONFIRM — agents handle node-local collection and the gateway centralises processing, sampling and export, so tail sampling and egress control live in one place rather than on every node.",
+          "Agent-only collection",
       },
       {
-        decision: "Specialised backends (Prometheus, Loki, Tempo) over one general store",
+        decision: "A dedicated observability cluster",
+        insteadOf: "The platform team owns routing, sampling, dashboards and cost controls on isolated node groups, so a workload cluster incident does not take down the tooling you need to debug it.",
         rationale:
-          "Each signal has genuinely different retention and query characteristics. Grafana unifies them at the presentation layer, so the split costs nothing at the point of use.",
+          "Co-locating the backend with the workloads",
+      },
+      {
+        decision: "Tail-based sampling at the gateway",
+        insteadOf: "Keeps 100% of errors and latency outliers while shedding healthy high-volume traces. It cannot work at the agent, which only ever sees part of a trace — which is what forces the gateway tier.",
+        rationale:
+          "Head-based sampling at the source",
+      },
+      {
+        decision: "Specialised backends behind one Grafana",
+        insteadOf: "Metrics, logs and traces have genuinely different retention and query shapes. Grafana unifies them at the point of use, so the split costs nothing where it would be felt.",
+        rationale:
+          "A single general-purpose store",
       },
     ],
     tags: ["OpenTelemetry", "LGTM Stack", "Prometheus", "Grafana", "Loki", "Tempo"],
@@ -124,24 +149,40 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        decision: "Hierarchical Terragrunt blueprints instead of duplicated Terraform per environment",
+        decision: "Hierarchical Terragrunt blueprints",
+        insteadOf: "A generic module library is kept strictly separate from live environment config, which inherits from it. Dev and prod cannot structurally diverge, which is the usual failure mode of per-environment directories.",
         rationale:
-          "Environment config inherits from a shared blueprint, so dev and prod cannot structurally diverge — the usual failure mode of per-environment directories.",
+          "Duplicated Terraform per environment",
       },
       {
-        decision: "Governance gates run in parallel, not as a sequential chain",
+        decision: "Governance gates fan out in parallel",
+        insteadOf: "Static analysis, plan, policy and cost are independent. In a chain the first failure hides the rest, so three problems take three round trips to discover; in parallel one run reports every class of failure.",
         rationale:
-          "TFLint, plan, OPA/Conftest and Infracost are independent checks. Running them concurrently means one pipeline round-trip surfaces every class of failure rather than one at a time.",
+          "A sequential lint to plan to policy to cost chain",
       },
       {
-        decision: "OPA/Conftest against the plan output rather than the source HCL",
+        decision: "OPA and Conftest evaluate the plan",
+        insteadOf: "The plan shows what will actually be created, with module defaults, variables and computed values resolved. A rule like no-public-buckets is trivially evadable against source, where the offending value can arrive from three modules deep.",
         rationale:
-          "CONFIRM — policy evaluated on the plan sees what will actually be created, including values resolved from modules and variables that static HCL analysis can't see.",
+          "Static analysis of the HCL source",
       },
       {
-        decision: "Infracost as a first-class gate alongside security",
+        decision: "Infracost sits alongside the security gates",
+        insteadOf: "Cost surfaces while the change is still one revert away and in front of the person who made it, rather than weeks later in front of someone who did not.",
         rationale:
-          "Cost is treated as a governance concern rather than a monthly surprise, and it is visible while the change is still cheap to reverse.",
+          "Reviewing cost monthly, after the fact",
+      },
+      {
+        decision: "Nightly drift detection",
+        insteadOf: "Out-of-band changes are found on a schedule instead of during the next incident, which is the only way a Git-declared environment stays true over time.",
+        rationale:
+          "Trusting that applied state stays applied",
+      },
+      {
+        decision: "Manual approval gate on prod only",
+        insteadOf: "Dev applies automatically so the loop stays fast; prod requires a human after dev is stable. The gate is placed where the blast radius is, not everywhere.",
+        rationale:
+          "Uniform automation across environments",
       },
     ],
     tags: ["Terragrunt", "Terraform", "AWS", "OPA/Conftest", "GitHub Actions"],
@@ -162,24 +203,40 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        decision: "Separate tenant source repo from tenant GitOps repo",
+        decision: "Tenant source repo separate from tenant GitOps repo",
+        insteadOf: "Application code and desired cluster state have different reviewers, lifecycles and blast radius. Merging them makes every application commit a potential production change.",
         rationale:
-          "Application code and desired cluster state have different reviewers, lifecycles and blast radius. Merging them makes every app commit a potential production change.",
+          "One repository holding code and manifests",
       },
       {
-        decision: "Argo CD ApplicationSets instead of per-tenant Application manifests",
+        decision: "Argo CD ApplicationSet with a directory generator",
+        insteadOf: "Onboarding becomes a directory appearing in Git rather than a platform-team ticket, which is what makes zero-touch provisioning possible at all rather than merely automated.",
         rationale:
-          "Onboarding becomes adding a generator entry rather than authoring another Application, which is what makes zero-touch onboarding possible at all.",
+          "One Application manifest per service",
       },
       {
-        decision: "Kyverno admission policy as the isolation boundary",
+        decision: "Kyverno admission control",
+        insteadOf: "Guardrails over gates: the control plane enforces the boundary at admission, so a tenant cannot opt out by editing their own manifests and the platform team is not a queue.",
         rationale:
-          "CONFIRM — guardrails are enforced by the control plane at admission rather than by convention in templates, so a tenant cannot opt out by editing their own manifests.",
+          "Manual compliance review before merge",
       },
       {
-        decision: "A scaffolder CLI as the developer entry point, not a web portal",
+        decision: "A Python scaffolder CLI",
+        insteadOf: "Meets developers in the terminal they already work in, and keeps the golden path versionable and reviewable like any other code. A portal is on the roadmap once the templates have stabilised.",
         rationale:
-          "CONFIRM — meets developers in the terminal where they already are, and keeps the golden path versionable and reviewable like any other code.",
+          "A web developer portal such as Backstage",
+      },
+      {
+        decision: "Shared team infrastructure split from app-specific infrastructure",
+        insteadOf: "Onboarding a new application must not risk the shared resources its neighbours depend on, so manual changes to team infrastructure survive subsequent scaffolding runs.",
+        rationale:
+          "One Terraform state per tenant",
+      },
+      {
+        decision: "Crossplane claims as the infrastructure interface",
+        insteadOf: "Infrastructure is requested through a Kubernetes API the platform controls, so the same RBAC, admission policy and GitOps loop govern a database the way they govern a Deployment.",
+        rationale:
+          "Handing developers Terraform directly",
       },
     ],
     tags: ["IDP", "GitOps", "Argo CD", "Kubernetes", "Python"],
@@ -201,24 +258,46 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        decision: "Annotation-driven schedules rather than a central config file",
+        decision: "Sleep schedules annotated on the namespace",
+        insteadOf: "A team owns its namespace, so the schedule sits at the boundary the team already controls and every workload inside it inherits one intent rather than drifting apart.",
         rationale:
-          "The sleep window lives next to the workload it governs, owned by the team that owns the deployment, so it survives moves and stays reviewable in the same pull request.",
+          "Per-workload schedules or a central config file",
       },
       {
-        decision: "An explicit per-workload exclusion annotation",
+        decision: "Per-workload exclusion annotation",
+        insteadOf: "Opting a critical workload out has to be possible without a platform-team round trip. Cost automation only survives contact with users if the escape hatch is trivial.",
         rationale:
-          "A safety valve that a team can set without a platform-team round-trip. Cost automation only gets adopted if opting out is trivial.",
+          "A central allow-list maintained by the platform team",
       },
       {
-        decision: "Timer-based reconciliation on a 60-second loop rather than event-driven",
+        decision: "Server-side field_selector when listing pods",
+        insteadOf: "The API server does the filtering, so the operator does not pull every pod in the cluster into memory to count a handful. It also skips terminating pods, which would otherwise read as rogue workloads.",
         rationale:
-          "CONFIRM — the trigger is wall-clock time, not a cluster event, so a periodic timer matches the actual problem and converges on the desired state after any missed tick or restart.",
+          "Listing everything and filtering client-side",
       },
       {
-        decision: "Kopf in Python rather than the Go operator SDK",
+        decision: "Original replica count stored before scaling down",
+        insteadOf: "Waking a workload has to return it to the size it actually was, not to whatever the chart shipped, or the operator silently resizes production-shaped environments overnight.",
         rationale:
-          "CONFIRM — the reconciliation logic is small and schedule-shaped; Kopf keeps it readable and quick to iterate. The trade-off is a heavier runtime and a smaller ecosystem than controller-runtime.",
+          "Restoring to a fixed default",
+      },
+      {
+        decision: "Timer-based reconciliation every 60 seconds",
+        insteadOf: "The trigger is wall-clock time, not a cluster event. A periodic loop matches the shape of the problem and converges after any missed tick, restart or reschedule.",
+        rationale:
+          "Event-driven triggers",
+      },
+      {
+        decision: "System namespaces skipped unconditionally",
+        insteadOf: "kube-system and friends can never be scaled to zero by this operator regardless of configuration. The failure mode of a cost tool has to be inaction, never an outage.",
+        rationale:
+          "Relying on operators to annotate correctly",
+      },
+      {
+        decision: "Kopf and Python",
+        insteadOf: "The reconciliation logic is small and schedule-shaped, so Kopf keeps it short and quick to iterate. The trade is a heavier runtime and a smaller ecosystem than controller-runtime.",
+        rationale:
+          "The Go operator SDK and controller-runtime",
       },
     ],
     tags: ["Kubernetes Operator", "Python", "Kopf", "FinOps"],
@@ -239,19 +318,28 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        decision: "Helm library chart with named templates rather than a copyable starter chart",
+        decision: "A Helm library chart of named templates",
+        insteadOf: "A copied chart diverges the moment it lands. Consumed as a dependency, a template fix reaches every service by version bump instead of by a pull request against every repository.",
         rationale:
-          "A starter chart diverges the moment it's copied. A library chart consumed as a dependency means template fixes arrive by version bump instead of by pull request against every repo.",
+          "A starter chart teams copy",
       },
       {
-        decision: "OCI registry distribution instead of a classic Helm repo",
+        decision: "OCI registry distribution",
+        insteadOf: "Charts live in the same registry as the images, under the same authentication and retention rules, which removes a separate piece of infrastructure to run and secure.",
         rationale:
-          "Charts live in the same registry as the images, under the same authentication and retention rules, removing a separate piece of infrastructure to run.",
+          "A classic Helm chart repository",
       },
       {
         decision: "Caller charts own their values; the library owns only structure",
+        insteadOf: "Teams change configuration freely and inherit only the shape, which keeps the abstraction from becoming the bottleneck it was introduced to remove.",
         rationale:
-          "Keeps the abstraction from becoming a bottleneck — teams change configuration freely and only inherit the shape.",
+          "Centralising configuration in the library",
+      },
+      {
+        decision: "Environment-specific ConfigMaps and Secrets generated from files",
+        insteadOf: "A default directory plus per-environment overrides means adding an environment is adding a directory, and the diff between environments is visible in one place.",
+        rationale:
+          "Hand-written manifests per environment",
       },
     ],
     tags: ["Helm", "Kubernetes", "OCI Registry", "Library Chart"],

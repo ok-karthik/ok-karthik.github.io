@@ -5,6 +5,7 @@ import { ArrowLeft, Github } from "lucide-react"
 import { projects, getProject } from "@/content/projects"
 import { profile } from "@/content/profile"
 import { architectureBySlug } from "@/components/architecture"
+import { DecisionList } from "@/components/decision-list"
 import { Navbar } from "@/components/navbar"
 
 type Params = { slug: string }
@@ -48,7 +49,7 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
   return (
     <>
       <Navbar />
-      <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-28">
+      <main id="main" className="mx-auto max-w-4xl px-6 pb-24 pt-28">
         <Link
           href="/#projects"
           className="label inline-flex items-center gap-2 transition-colors hover:text-foreground"
@@ -83,13 +84,13 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
           </div>
         </header>
 
-        <section className="mt-12">
-          <h2 className="label mb-3">The problem</h2>
+        <section className="mt-14">
+          <h2 className="label rule-label mb-4">The problem</h2>
           <p className="text-body-lg text-foreground">{project.problem}</p>
         </section>
 
-        <section className="mt-12">
-          <h2 className="label mb-4">Constraints</h2>
+        <section className="mt-14">
+          <h2 className="label rule-label mb-4">Constraints</h2>
           <ul className="space-y-2.5">
             {project.constraints.map((constraint) => (
               <li key={constraint} className="flex gap-3 text-body text-muted-foreground">
@@ -101,8 +102,8 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
         </section>
 
         {Architecture && (
-          <section className="mt-12">
-            <h2 className="label mb-4">Architecture</h2>
+          <section className="mt-14">
+            <h2 className="label rule-label mb-4">Architecture</h2>
             <Architecture />
           </section>
         )}
@@ -111,26 +112,17 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
           The reason these pages exist. A stack list is table stakes; what a
           thing was chosen *over* is the part that survives an interview.
         */}
-        <section className="mt-12">
-          <h2 className="label mb-1">Key decisions</h2>
+        <section className="mt-14">
+          <h2 className="label rule-label mb-2">Key decisions</h2>
           <p className="mb-6 text-small text-muted-foreground">
-            What was chosen, and what it was chosen over.
+            What was chosen, what it was chosen over, and why.
           </p>
-          <ol className="border-t border-border">
-            {project.decisions.map((decision) => (
-              <li key={decision.decision} className="border-b border-border py-6">
-                <h3 className="text-body-lg font-semibold text-foreground">
-                  {decision.decision}
-                </h3>
-                <p className="mt-2 text-body text-muted-foreground">{decision.rationale}</p>
-              </li>
-            ))}
-          </ol>
+          <DecisionList decisions={project.decisions} />
         </section>
 
         {project.outcome && (
-          <section className="mt-12">
-            <h2 className="label mb-3">Outcome</h2>
+          <section className="mt-14">
+            <h2 className="label rule-label mb-4">Outcome</h2>
             <p className="text-body text-muted-foreground">{project.outcome}</p>
           </section>
         )}
