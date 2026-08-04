@@ -49,7 +49,7 @@ export default function NotFound() {
                     />
                   </span>
                   <span className="mt-2 block text-small text-muted-foreground">
-                    {project.decisions.length} key decisions
+                    {project.decisions.length} documented decisions
                   </span>
                 </Link>
               </li>
