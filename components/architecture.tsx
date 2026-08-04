@@ -268,7 +268,7 @@ export const architectureBySlug: Record<string, () => ReactNode> = {
   "enterprise-aws-terragrunt": AwsTerragrunt,
   "internal-developer-platform": GitOps,
   "finops-k8s-operator": FinOps,
-  "app-library-helm-chart": HelmLibrary,
+  "helm-library-chart": HelmLibrary,
 }
 
 /**

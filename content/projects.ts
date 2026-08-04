@@ -304,8 +304,8 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    slug: "app-library-helm-chart",
-    title: "App Library Helm Chart",
+    slug: "helm-library-chart",
+    title: "Helm Library Chart",
     summary:
       "Library Helm chart sharing standardised named templates for DRY generation of environment-specific ConfigMaps, Secrets and Deployments.",
     problem:
@@ -342,7 +342,7 @@ export const projects: Project[] = [
       },
     ],
     tags: ["Helm", "Kubernetes", "OCI Registry", "Library Chart"],
-    githubUrl: "https://github.com/ok-karthik/app-library-helm-chart",
+    githubUrl: "https://github.com/ok-karthik/helm-library-chart",
     featured: false,
   },
 ]

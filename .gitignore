@@ -16,3 +16,6 @@ out/
 .DS_Store
 # Local review sheet — not part of the site
 REVIEW.md
+
+# TypeScript incremental build cache — regenerated on every build
+tsconfig.tsbuildinfo
