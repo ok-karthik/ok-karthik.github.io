@@ -25,6 +25,24 @@
  * "Kopf and Python" look as important as the namespace ownership boundary and
  * pushed the FinOps page to 5.2 screens on mobile.
  *
+ * PROJECT ORDER IS ALSO MEANINGFUL, and is set by demand rather than by
+ * preference. Measured over 3,212 unique scraped German postings (13 Jul –
+ * 3 Aug 2026) as the share of jobs in Karthik's target categories — Platform
+ * Engineering (368), SRE (100), DevOps (142) — whose description mentions each
+ * project's subject matter. Among the 76 best-matching of those (FitScore ≥ 60):
+ *
+ *   observability / OTel / SLOs   71%      <- leads
+ *   Terraform / policy-as-code    67%
+ *   GitOps / IDP / Crossplane     62%
+ *   Helm                          21%
+ *   GPU / CUDA / Karpenter        11%      <- was previously first
+ *
+ * The GPU project used to open the page. It is the strongest differentiator he
+ * has and stays prominent, but it addresses 72 AI Infrastructure postings while
+ * he is applying to 610 Platform/SRE/DevOps ones, so it no longer leads.
+ * Re-derive with scripts/project_signal.py (reads the scraper repo) before
+ * reordering again — do not reorder on taste.
+ *
  * !! TODO(karthik): still worth a read-through before publishing — the
  * !! wording is mine even where the facts are yours.
  */
@@ -56,48 +74,6 @@ export type Project = {
 }
 
 export const projects: Project[] = [
-  {
-    slug: "ai-infrastructure-on-eks",
-    title: "AI Infrastructure on Amazon EKS",
-    summary:
-      "Production-style AI infrastructure on Amazon EKS for provisioning, sharing and observing NVIDIA GPUs — Karpenter, GPU Operator, CUDA workloads and DCGM observability.",
-    problem:
-      "GPU capacity is expensive, scarce and easy to strand: nodes sit idle between jobs, a single workload can hold a whole accelerator, and standard Kubernetes gives you almost no visibility into what the GPU is actually doing.",
-    constraints: [
-      "GPU nodes are costly enough that always-on capacity is not an option",
-      "Workloads are bursty — capacity has to appear and drain on demand",
-      "Standard Kubernetes metrics say nothing about GPU utilisation or memory",
-    ],
-    decisions: [
-      {
-        decision: "Karpenter NodePools keyed on nvidia.com/gpu",
-        insteadOf: "Static GPU managed node groups",
-        rationale:
-          "Static groups pay for accelerators between jobs. Karpenter provisions on pending-pod demand across the g4dn and g6 spot families and consolidates when idle — which matters far more at GPU pricing than at CPU pricing.",
-      },
-      {
-        decision: "GPU time slicing for sharing",
-        insteadOf: "MIG or MPS",
-        rationale:
-          "All three were evaluated against VRAM limits. Time slicing needs no hardware partitioning support, so it works on the instance families in play. The cost is no memory isolation between tenants — acceptable for development and inference under one team, not for untrusted multi-tenancy.",
-      },
-      {
-        decision: "GPU Operator owns the driver stack",
-        insteadOf: "Baking drivers into a custom AMI",
-        rationale:
-          "Kernel modules, the container runtime hook, Node Feature Discovery and the device plugin are versioned and reconciled together, so a driver upgrade is a Helm value rather than an AMI rebuild and node roll.",
-      },
-      {
-        decision: "DCGM exporter into the existing Prometheus and Grafana",
-        insteadOf: "A separate GPU monitoring tool",
-        rationale:
-          "GPU telemetry becomes another Prometheus target on port 9400, so the same dashboards, alert rules and on-call paths apply. Utilisation and memory pressure are the two signals that say whether sharing is actually working.",
-      },
-    ],
-    tags: ["GPU Operator", "Karpenter", "CUDA", "Time Slicing", "Observability"],
-    githubUrl: "https://github.com/ok-karthik/ai-infrastructure-on-eks",
-    featured: true,
-  },
   {
     slug: "otel-observability-platform",
     title: "OpenTelemetry & LGTM Platform",
@@ -144,6 +120,60 @@ export const projects: Project[] = [
     ],
     tags: ["OpenTelemetry", "LGTM Stack", "Prometheus", "Grafana", "Loki", "Tempo"],
     githubUrl: "https://github.com/ok-karthik/otel-observability-platform-on-eks",
+    featured: true,
+  },
+  {
+    slug: "internal-developer-platform",
+    title: "IDP & GitOps Reference Architecture",
+    summary:
+      "Internal Developer Platform blueprint for zero-touch service onboarding and multi-tenant continuous delivery via GitOps.",
+    problem:
+      "Onboarding a new service means a ticket, a wait, and a platform engineer hand-assembling the same manifests again — the platform team becomes the bottleneck for every team it serves.",
+    constraints: [
+      "Developers must self-serve without needing cluster access",
+      "Multi-tenant isolation cannot depend on tenants behaving correctly",
+      "Cluster state must be reconstructible from Git alone",
+    ],
+    decisions: [
+      {
+        decision: "Argo CD ApplicationSet with a directory generator",
+        insteadOf: "One Application manifest per service",
+        rationale:
+          "Onboarding becomes a directory appearing in Git rather than a platform-team ticket, which is what makes zero-touch provisioning possible at all rather than merely automated.",
+      },
+      {
+        decision: "Crossplane claims as the infrastructure interface",
+        insteadOf: "Handing developers Terraform directly",
+        rationale:
+          "Infrastructure is requested through a Kubernetes API the platform controls, so the same RBAC, admission policy and GitOps loop govern a database the way they govern a Deployment.",
+      },
+      {
+        decision: "Kyverno admission control",
+        insteadOf: "Manual compliance review before merge",
+        rationale:
+          "Guardrails over gates: the control plane enforces the boundary at admission, so a tenant cannot opt out by editing their own manifests and the platform team is not a queue.",
+      },
+      {
+        decision: "Tenant source repo separate from tenant GitOps repo",
+        insteadOf: "One repository holding code and manifests",
+        rationale:
+          "Application code and desired cluster state have different reviewers, lifecycles and blast radius. Merging them makes every application commit a potential production change.",
+      },
+      {
+        decision: "A Python scaffolder CLI",
+        insteadOf: "A web developer portal such as Backstage",
+        rationale:
+          "Meets developers in the terminal they already work in, and keeps the golden path versionable and reviewable like any other code. A portal is on the roadmap once the templates have stabilised.",
+      },
+      {
+        decision: "Shared team infrastructure split from app-specific infrastructure",
+        insteadOf: "One Terraform state per tenant",
+        rationale:
+          "Onboarding a new application must not risk the shared resources its neighbours depend on, so manual changes to team infrastructure survive subsequent scaffolding runs.",
+      },
+    ],
+    tags: ["IDP", "GitOps", "Argo CD", "Kubernetes", "Python"],
+    githubUrl: "https://github.com/ok-karthik/internal-developer-platform",
     featured: true,
   },
   {
@@ -201,57 +231,87 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "internal-developer-platform",
-    title: "IDP & GitOps Reference Architecture",
+    slug: "ai-infrastructure-on-eks",
+    title: "AI Infrastructure on Amazon EKS",
     summary:
-      "Internal Developer Platform blueprint for zero-touch service onboarding and multi-tenant continuous delivery via GitOps.",
+      "Production-style AI infrastructure on Amazon EKS for provisioning, sharing and observing NVIDIA GPUs — Karpenter, GPU Operator, CUDA workloads and DCGM observability.",
     problem:
-      "Onboarding a new service means a ticket, a wait, and a platform engineer hand-assembling the same manifests again — the platform team becomes the bottleneck for every team it serves.",
+      "GPU capacity is expensive, scarce and easy to strand: nodes sit idle between jobs, a single workload can hold a whole accelerator, and standard Kubernetes gives you almost no visibility into what the GPU is actually doing.",
     constraints: [
-      "Developers must self-serve without needing cluster access",
-      "Multi-tenant isolation cannot depend on tenants behaving correctly",
-      "Cluster state must be reconstructible from Git alone",
+      "GPU nodes are costly enough that always-on capacity is not an option",
+      "Workloads are bursty — capacity has to appear and drain on demand",
+      "Standard Kubernetes metrics say nothing about GPU utilisation or memory",
     ],
     decisions: [
       {
-        decision: "Argo CD ApplicationSet with a directory generator",
-        insteadOf: "One Application manifest per service",
+        decision: "Karpenter NodePools keyed on nvidia.com/gpu",
+        insteadOf: "Static GPU managed node groups",
         rationale:
-          "Onboarding becomes a directory appearing in Git rather than a platform-team ticket, which is what makes zero-touch provisioning possible at all rather than merely automated.",
+          "Static groups pay for accelerators between jobs. Karpenter provisions on pending-pod demand across the g4dn and g6 spot families and consolidates when idle — which matters far more at GPU pricing than at CPU pricing.",
       },
       {
-        decision: "Crossplane claims as the infrastructure interface",
-        insteadOf: "Handing developers Terraform directly",
+        decision: "GPU time slicing for sharing",
+        insteadOf: "MIG or MPS",
         rationale:
-          "Infrastructure is requested through a Kubernetes API the platform controls, so the same RBAC, admission policy and GitOps loop govern a database the way they govern a Deployment.",
+          "All three were evaluated against VRAM limits. Time slicing needs no hardware partitioning support, so it works on the instance families in play. The cost is no memory isolation between tenants — acceptable for development and inference under one team, not for untrusted multi-tenancy.",
       },
       {
-        decision: "Kyverno admission control",
-        insteadOf: "Manual compliance review before merge",
+        decision: "GPU Operator owns the driver stack",
+        insteadOf: "Baking drivers into a custom AMI",
         rationale:
-          "Guardrails over gates: the control plane enforces the boundary at admission, so a tenant cannot opt out by editing their own manifests and the platform team is not a queue.",
+          "Kernel modules, the container runtime hook, Node Feature Discovery and the device plugin are versioned and reconciled together, so a driver upgrade is a Helm value rather than an AMI rebuild and node roll.",
       },
       {
-        decision: "Tenant source repo separate from tenant GitOps repo",
-        insteadOf: "One repository holding code and manifests",
+        decision: "DCGM exporter into the existing Prometheus and Grafana",
+        insteadOf: "A separate GPU monitoring tool",
         rationale:
-          "Application code and desired cluster state have different reviewers, lifecycles and blast radius. Merging them makes every application commit a potential production change.",
-      },
-      {
-        decision: "A Python scaffolder CLI",
-        insteadOf: "A web developer portal such as Backstage",
-        rationale:
-          "Meets developers in the terminal they already work in, and keeps the golden path versionable and reviewable like any other code. A portal is on the roadmap once the templates have stabilised.",
-      },
-      {
-        decision: "Shared team infrastructure split from app-specific infrastructure",
-        insteadOf: "One Terraform state per tenant",
-        rationale:
-          "Onboarding a new application must not risk the shared resources its neighbours depend on, so manual changes to team infrastructure survive subsequent scaffolding runs.",
+          "GPU telemetry becomes another Prometheus target on port 9400, so the same dashboards, alert rules and on-call paths apply. Utilisation and memory pressure are the two signals that say whether sharing is actually working.",
       },
     ],
-    tags: ["IDP", "GitOps", "Argo CD", "Kubernetes", "Python"],
-    githubUrl: "https://github.com/ok-karthik/internal-developer-platform",
+    tags: ["GPU Operator", "Karpenter", "CUDA", "Time Slicing", "Observability"],
+    githubUrl: "https://github.com/ok-karthik/ai-infrastructure-on-eks",
+    featured: false,
+  },
+  {
+    slug: "helm-library-chart",
+    title: "Helm Library Chart",
+    summary:
+      "Library Helm chart sharing standardised named templates for DRY generation of environment-specific ConfigMaps, Secrets and Deployments.",
+    problem:
+      "Every service ends up with its own near-identical copy of the same Deployment and Service templates, so a platform-wide change — a new security context, a label convention — means a pull request against every repository.",
+    constraints: [
+      "Teams must keep control of their own values",
+      "A platform-wide template fix cannot require touching every service repo",
+      "Distribution has to work with the registries teams already authenticate against",
+    ],
+    decisions: [
+      {
+        decision: "A Helm library chart of named templates",
+        insteadOf: "A starter chart teams copy",
+        rationale:
+          "A copied chart diverges the moment it lands. Consumed as a dependency, a template fix reaches every service by version bump instead of by a pull request against every repository.",
+      },
+      {
+        decision: "OCI registry distribution",
+        insteadOf: "A classic Helm chart repository",
+        rationale:
+          "Charts live in the same registry as the images, under the same authentication and retention rules, which removes a separate piece of infrastructure to run and secure.",
+      },
+      {
+        decision: "Caller charts own their values; the library owns only structure",
+        insteadOf: "Centralising configuration in the library",
+        rationale:
+          "Teams change configuration freely and inherit only the shape, which keeps the abstraction from becoming the bottleneck it was introduced to remove.",
+      },
+      {
+        decision: "Environment-specific ConfigMaps and Secrets generated from files",
+        insteadOf: "Hand-written manifests per environment",
+        rationale:
+          "A default directory plus per-environment overrides means adding an environment is adding a directory, and the diff between environments is visible in one place.",
+      },
+    ],
+    tags: ["Helm", "Kubernetes", "OCI Registry", "Library Chart"],
+    githubUrl: "https://github.com/ok-karthik/helm-library-chart",
     featured: false,
   },
   {
@@ -312,48 +372,6 @@ export const projects: Project[] = [
     ],
     tags: ["Kubernetes Operator", "Python", "Kopf", "FinOps"],
     githubUrl: "https://github.com/ok-karthik/finops-k8s-operator",
-    featured: false,
-  },
-  {
-    slug: "helm-library-chart",
-    title: "Helm Library Chart",
-    summary:
-      "Library Helm chart sharing standardised named templates for DRY generation of environment-specific ConfigMaps, Secrets and Deployments.",
-    problem:
-      "Every service ends up with its own near-identical copy of the same Deployment and Service templates, so a platform-wide change — a new security context, a label convention — means a pull request against every repository.",
-    constraints: [
-      "Teams must keep control of their own values",
-      "A platform-wide template fix cannot require touching every service repo",
-      "Distribution has to work with the registries teams already authenticate against",
-    ],
-    decisions: [
-      {
-        decision: "A Helm library chart of named templates",
-        insteadOf: "A starter chart teams copy",
-        rationale:
-          "A copied chart diverges the moment it lands. Consumed as a dependency, a template fix reaches every service by version bump instead of by a pull request against every repository.",
-      },
-      {
-        decision: "OCI registry distribution",
-        insteadOf: "A classic Helm chart repository",
-        rationale:
-          "Charts live in the same registry as the images, under the same authentication and retention rules, which removes a separate piece of infrastructure to run and secure.",
-      },
-      {
-        decision: "Caller charts own their values; the library owns only structure",
-        insteadOf: "Centralising configuration in the library",
-        rationale:
-          "Teams change configuration freely and inherit only the shape, which keeps the abstraction from becoming the bottleneck it was introduced to remove.",
-      },
-      {
-        decision: "Environment-specific ConfigMaps and Secrets generated from files",
-        insteadOf: "Hand-written manifests per environment",
-        rationale:
-          "A default directory plus per-environment overrides means adding an environment is adding a directory, and the diff between environments is visible in one place.",
-      },
-    ],
-    tags: ["Helm", "Kubernetes", "OCI Registry", "Library Chart"],
-    githubUrl: "https://github.com/ok-karthik/helm-library-chart",
     featured: false,
   },
 ]
