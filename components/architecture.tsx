@@ -239,28 +239,6 @@ function FinOps() {
   )
 }
 
-function HelmLibrary() {
-  return (
-    <Frame>
-      <Group title="library-chart — OCI registry">
-        <div className="grid grid-cols-2 gap-2">
-          <Node>_deployment.tpl</Node>
-          <Node>_configmap.tpl</Node>
-          <Node>_service.tpl</Node>
-          <Node>_secret.tpl</Node>
-        </div>
-      </Group>
-      <p className="text-muted-foreground">↓ consumed as a versioned dependency ↓</p>
-      <Group title="caller-chart">
-        <pre className="overflow-x-auto rounded-md border border-border bg-muted p-3 text-left text-foreground">
-          {`{{- include "library-chart.deployment.tpl" . -}}
-{{- include "library-chart.service.tpl" . -}}`}
-        </pre>
-      </Group>
-    </Frame>
-  )
-}
-
 /** Slug → diagram. Projects without one render no architecture block. */
 export const architectureBySlug: Record<string, () => ReactNode> = {
   "ai-infrastructure-on-eks": GpuPlatform,
@@ -268,7 +246,6 @@ export const architectureBySlug: Record<string, () => ReactNode> = {
   "enterprise-aws-terragrunt": AwsTerragrunt,
   "internal-developer-platform": GitOps,
   "finops-k8s-operator": FinOps,
-  "helm-library-chart": HelmLibrary,
 }
 
 /**

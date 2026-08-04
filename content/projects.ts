@@ -34,14 +34,26 @@
  *   observability / OTel / SLOs   71%      <- leads
  *   Terraform / policy-as-code    67%
  *   GitOps / IDP / Crossplane     62%
- *   Helm                          21%
  *   GPU / CUDA / Karpenter        11%      <- was previously first
+ *   Kubernetes operator / FinOps   7%
  *
  * The GPU project used to open the page. It is the strongest differentiator he
  * has and stays prominent, but it addresses 72 AI Infrastructure postings while
  * he is applying to 610 Platform/SRE/DevOps ones, so it no longer leads.
  * Re-derive with scripts/project_signal.py (reads the scraper repo) before
  * reordering again — do not reorder on taste.
+ *
+ * A Helm library chart project was removed here. Frequency was not the reason —
+ * it out-scored FinOps 55 mentions to 21. It was redundant: of the 55 jobs
+ * mentioning Helm, 76% also mentioned observability, 71% Terraform and 58%
+ * GitOps, so only 2 of 610 target jobs (and 0 of the 76 best matches) mentioned
+ * Helm and nothing else in the portfolio. The same claim is already made more
+ * strongly in experience.ts as production work at Aldi, and skills.ts carries
+ * Helm at `deep` tier. FinOps stays despite the lower score because it is the
+ * only artifact showing a reconciliation loop written against the Kubernetes
+ * API rather than tools composed together — a different kind of evidence, not
+ * a weaker copy of the same kind. Restore with:
+ *   git show be3541c -- content/projects.ts components/architecture.tsx
  *
  * !! TODO(karthik): still worth a read-through before publishing — the
  * !! wording is mine even where the facts are yours.
@@ -270,48 +282,6 @@ export const projects: Project[] = [
     ],
     tags: ["GPU Operator", "Karpenter", "CUDA", "Time Slicing", "Observability"],
     githubUrl: "https://github.com/ok-karthik/ai-infrastructure-on-eks",
-    featured: false,
-  },
-  {
-    slug: "helm-library-chart",
-    title: "Helm Library Chart",
-    summary:
-      "Library Helm chart sharing standardised named templates for DRY generation of environment-specific ConfigMaps, Secrets and Deployments.",
-    problem:
-      "Every service ends up with its own near-identical copy of the same Deployment and Service templates, so a platform-wide change — a new security context, a label convention — means a pull request against every repository.",
-    constraints: [
-      "Teams must keep control of their own values",
-      "A platform-wide template fix cannot require touching every service repo",
-      "Distribution has to work with the registries teams already authenticate against",
-    ],
-    decisions: [
-      {
-        decision: "A Helm library chart of named templates",
-        insteadOf: "A starter chart teams copy",
-        rationale:
-          "A copied chart diverges the moment it lands. Consumed as a dependency, a template fix reaches every service by version bump instead of by a pull request against every repository.",
-      },
-      {
-        decision: "OCI registry distribution",
-        insteadOf: "A classic Helm chart repository",
-        rationale:
-          "Charts live in the same registry as the images, under the same authentication and retention rules, which removes a separate piece of infrastructure to run and secure.",
-      },
-      {
-        decision: "Caller charts own their values; the library owns only structure",
-        insteadOf: "Centralising configuration in the library",
-        rationale:
-          "Teams change configuration freely and inherit only the shape, which keeps the abstraction from becoming the bottleneck it was introduced to remove.",
-      },
-      {
-        decision: "Environment-specific ConfigMaps and Secrets generated from files",
-        insteadOf: "Hand-written manifests per environment",
-        rationale:
-          "A default directory plus per-environment overrides means adding an environment is adding a directory, and the diff between environments is visible in one place.",
-      },
-    ],
-    tags: ["Helm", "Kubernetes", "OCI Registry", "Library Chart"],
-    githubUrl: "https://github.com/ok-karthik/helm-library-chart",
     featured: false,
   },
   {
