@@ -87,7 +87,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "otel-observability-platform",
+    slug: "opentelemetry-platform-on-eks",
     title: "OpenTelemetry & LGTM Platform",
     summary:
       "Cloud-native observability stack using OpenTelemetry Collectors in agent and gateway patterns, feeding the LGTM stack for unified metrics, logs and distributed tracing.",
@@ -131,7 +131,7 @@ export const projects: Project[] = [
       },
     ],
     tags: ["OpenTelemetry", "LGTM Stack", "Prometheus", "Grafana", "Loki", "Tempo"],
-    githubUrl: "https://github.com/ok-karthik/otel-observability-platform-on-eks",
+    githubUrl: "https://github.com/ok-karthik/opentelemetry-platform-on-eks",
     featured: true,
   },
   {

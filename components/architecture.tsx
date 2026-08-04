@@ -242,7 +242,7 @@ function FinOps() {
 /** Slug → diagram. Projects without one render no architecture block. */
 export const architectureBySlug: Record<string, () => ReactNode> = {
   "ai-infrastructure-on-eks": GpuPlatform,
-  "otel-observability-platform": Observability,
+  "opentelemetry-platform-on-eks": Observability,
   "enterprise-aws-terragrunt": AwsTerragrunt,
   "internal-developer-platform": GitOps,
   "finops-k8s-operator": FinOps,

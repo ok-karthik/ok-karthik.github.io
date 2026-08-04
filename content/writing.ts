@@ -129,7 +129,7 @@ export const posts: Post[] = [
       "Sending telemetry straight to your backend is simpler and cheaper. Here is what that simplicity costs you the second time you change vendors.",
     readingMinutes: 5,
     tags: ["OpenTelemetry", "Observability", "Architecture"],
-    project: "otel-observability-platform",
+    project: "opentelemetry-platform-on-eks",
     body: [
       {
         type: "p",
