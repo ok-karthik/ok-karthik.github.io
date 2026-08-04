@@ -107,7 +107,7 @@ describe('work section', () => {
     for (const project of projects) {
       expect(project.decisions.length).toBeGreaterThan(0)
     }
-    expect(screen.getAllByText(/\d+ key decisions/)).toHaveLength(projects.length)
+    expect(screen.getAllByText(/\d+ documented decisions/)).toHaveLength(projects.length)
   })
 })
 

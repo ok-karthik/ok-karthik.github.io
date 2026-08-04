@@ -79,6 +79,10 @@ Each of these was tried, or caused an observed failure.
     Experience is a hairline timeline rail, Tech Skills is one dense panel,
     Contact is a full-bleed band. When everything was a glass rectangle the page
     read as assembled rather than designed.
+11. **Do NOT append a decision to the end of a project's list.** Order is
+    meaningful — the first three render as full cards, the rest as compact
+    rows. Put a new decision where it ranks. See the header of
+    `content/projects.ts`.
 
 ## 🛠 Stack
 

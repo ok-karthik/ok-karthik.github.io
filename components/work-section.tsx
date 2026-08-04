@@ -112,7 +112,7 @@ export function WorkSection() {
                 <div className="shrink-0 sm:w-56">
                   <ArchitecturePreview slug={project.slug} />
                   <p className="label mt-3 tabular">
-                    {project.decisions.length} key decisions
+                    {project.decisions.length} documented decisions
                   </p>
                 </div>
 
@@ -146,7 +146,7 @@ export function WorkSection() {
                 className="group flex flex-col gap-1 p-5 sm:flex-row sm:items-baseline sm:gap-8"
               >
                 <p className="label shrink-0 tabular sm:w-32">
-                  {project.decisions.length} key decisions
+                  {project.decisions.length} documented decisions
                 </p>
                 <div className="min-w-0 flex-1">
                   <span className="font-display text-h3 font-semibold text-foreground transition-colors group-hover:text-primary">

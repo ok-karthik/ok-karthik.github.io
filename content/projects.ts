@@ -14,6 +14,17 @@
  * the server-side `field_selector` performance decision had been missed
  * entirely.
  *
+ * ORDER IS MEANINGFUL. The first three decisions render as full cards under
+ * "Key decisions"; the rest render as compact rows under "Also decided". So
+ * the first three must be the ones worth defending at length — the load-
+ * bearing architectural choice, and the two that best answer the constraints
+ * listed above them. Tooling preferences go in the tail.
+ *
+ * Nothing is hidden: the tail keeps its rationale, at half the height. This
+ * replaced a flat list where all 32 decisions rendered identically, which made
+ * "Kopf and Python" look as important as the namespace ownership boundary and
+ * pushed the FinOps page to 5.2 screens on mobile.
+ *
  * !! TODO(karthik): still worth a read-through before publishing — the
  * !! wording is mine even where the facts are yours.
  */
@@ -113,16 +124,16 @@ export const projects: Project[] = [
           "Node-local agents enrich with Kubernetes metadata and buffer through brief network trouble. The gateway holds everything needing a global view — filtering, batching and sampling — in one place instead of on every node.",
       },
       {
-        decision: "A dedicated observability cluster",
-        insteadOf: "Co-locating the backend with the workloads",
-        rationale:
-          "The platform team owns routing, sampling, dashboards and cost controls on isolated node groups, so a workload cluster incident does not take down the tooling you need to debug it.",
-      },
-      {
         decision: "Tail-based sampling at the gateway",
         insteadOf: "Head-based sampling at the source",
         rationale:
           "Keeps 100% of errors and latency outliers while shedding healthy high-volume traces. It cannot work at the agent, which only ever sees part of a trace — which is what forces the gateway tier.",
+      },
+      {
+        decision: "A dedicated observability cluster",
+        insteadOf: "Co-locating the backend with the workloads",
+        rationale:
+          "The platform team owns routing, sampling, dashboards and cost controls on isolated node groups, so a workload cluster incident does not take down the tooling you need to debug it.",
       },
       {
         decision: "Specialised backends behind one Grafana",
@@ -155,16 +166,16 @@ export const projects: Project[] = [
           "A generic module library is kept strictly separate from live environment config, which inherits from it. Dev and prod cannot structurally diverge, which is the usual failure mode of per-environment directories.",
       },
       {
-        decision: "Governance gates fan out in parallel",
-        insteadOf: "A sequential lint to plan to policy to cost chain",
-        rationale:
-          "Static analysis, plan, policy and cost are independent. In a chain the first failure hides the rest, so three problems take three round trips to discover; in parallel one run reports every class of failure.",
-      },
-      {
         decision: "OPA and Conftest evaluate the plan",
         insteadOf: "Static analysis of the HCL source",
         rationale:
           "The plan shows what will actually be created, with module defaults, variables and computed values resolved. A rule like no-public-buckets is trivially evadable against source, where the offending value can arrive from three modules deep.",
+      },
+      {
+        decision: "Governance gates fan out in parallel",
+        insteadOf: "A sequential lint to plan to policy to cost chain",
+        rationale:
+          "Static analysis, plan, policy and cost are independent. In a chain the first failure hides the rest, so three problems take three round trips to discover; in parallel one run reports every class of failure.",
       },
       {
         decision: "Infracost sits alongside the security gates",
@@ -203,22 +214,28 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        decision: "Tenant source repo separate from tenant GitOps repo",
-        insteadOf: "One repository holding code and manifests",
-        rationale:
-          "Application code and desired cluster state have different reviewers, lifecycles and blast radius. Merging them makes every application commit a potential production change.",
-      },
-      {
         decision: "Argo CD ApplicationSet with a directory generator",
         insteadOf: "One Application manifest per service",
         rationale:
           "Onboarding becomes a directory appearing in Git rather than a platform-team ticket, which is what makes zero-touch provisioning possible at all rather than merely automated.",
       },
       {
+        decision: "Crossplane claims as the infrastructure interface",
+        insteadOf: "Handing developers Terraform directly",
+        rationale:
+          "Infrastructure is requested through a Kubernetes API the platform controls, so the same RBAC, admission policy and GitOps loop govern a database the way they govern a Deployment.",
+      },
+      {
         decision: "Kyverno admission control",
         insteadOf: "Manual compliance review before merge",
         rationale:
           "Guardrails over gates: the control plane enforces the boundary at admission, so a tenant cannot opt out by editing their own manifests and the platform team is not a queue.",
+      },
+      {
+        decision: "Tenant source repo separate from tenant GitOps repo",
+        insteadOf: "One repository holding code and manifests",
+        rationale:
+          "Application code and desired cluster state have different reviewers, lifecycles and blast radius. Merging them makes every application commit a potential production change.",
       },
       {
         decision: "A Python scaffolder CLI",
@@ -231,12 +248,6 @@ export const projects: Project[] = [
         insteadOf: "One Terraform state per tenant",
         rationale:
           "Onboarding a new application must not risk the shared resources its neighbours depend on, so manual changes to team infrastructure survive subsequent scaffolding runs.",
-      },
-      {
-        decision: "Crossplane claims as the infrastructure interface",
-        insteadOf: "Handing developers Terraform directly",
-        rationale:
-          "Infrastructure is requested through a Kubernetes API the platform controls, so the same RBAC, admission policy and GitOps loop govern a database the way they govern a Deployment.",
       },
     ],
     tags: ["IDP", "GitOps", "Argo CD", "Kubernetes", "Python"],
@@ -263,6 +274,18 @@ export const projects: Project[] = [
           "A team owns its namespace, so the schedule sits at the boundary the team already controls and every workload inside it inherits one intent rather than drifting apart.",
       },
       {
+        decision: "System namespaces skipped unconditionally",
+        insteadOf: "Relying on operators to annotate correctly",
+        rationale:
+          "kube-system and friends can never be scaled to zero by this operator regardless of configuration. The failure mode of a cost tool has to be inaction, never an outage.",
+      },
+      {
+        decision: "Original replica count stored before scaling down",
+        insteadOf: "Restoring to a fixed default",
+        rationale:
+          "Waking a workload has to return it to the size it actually was, not to whatever the chart shipped, or the operator silently resizes production-shaped environments overnight.",
+      },
+      {
         decision: "Per-workload exclusion annotation",
         insteadOf: "A central allow-list maintained by the platform team",
         rationale:
@@ -275,22 +298,10 @@ export const projects: Project[] = [
           "The API server does the filtering, so the operator does not pull every pod in the cluster into memory to count a handful. It also skips terminating pods, which would otherwise read as rogue workloads.",
       },
       {
-        decision: "Original replica count stored before scaling down",
-        insteadOf: "Restoring to a fixed default",
-        rationale:
-          "Waking a workload has to return it to the size it actually was, not to whatever the chart shipped, or the operator silently resizes production-shaped environments overnight.",
-      },
-      {
         decision: "Timer-based reconciliation every 60 seconds",
         insteadOf: "Event-driven triggers",
         rationale:
           "The trigger is wall-clock time, not a cluster event. A periodic loop matches the shape of the problem and converges after any missed tick, restart or reschedule.",
-      },
-      {
-        decision: "System namespaces skipped unconditionally",
-        insteadOf: "Relying on operators to annotate correctly",
-        rationale:
-          "kube-system and friends can never be scaled to zero by this operator regardless of configuration. The failure mode of a cost tool has to be inaction, never an outage.",
       },
       {
         decision: "Kopf and Python",
