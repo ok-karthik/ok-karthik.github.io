@@ -179,17 +179,24 @@ function GitOps() {
   return (
     <Frame>
       <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+        <Group title="Catalog">
+          <div className="space-y-2">
+            <Node active>Golden paths</Node>
+            <Node active>Output contract</Node>
+          </div>
+        </Group>
+        <Flow />
         <Group title="Developer">
           <div className="space-y-2">
-            <Node>IDP scaffolder CLI</Node>
-            <Node>Tenant source repo</Node>
+            <Node>Scaffolder CLI</Node>
+            <Node>Tenant repos</Node>
           </div>
         </Group>
         <Flow />
         <Group title="Delivery">
           <div className="space-y-2">
             <Node>GitHub Actions</Node>
-            <Node>Tenant GitOps repo</Node>
+            <Node>Rendered manifests</Node>
           </div>
         </Group>
         <Flow />

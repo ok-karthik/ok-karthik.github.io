@@ -14,6 +14,14 @@
  * the server-side `field_selector` performance decision had been missed
  * entirely.
  *
+ * internal-developer-platform re-sourced 2026-08-06 against the repo at tag
+ * v1.1.0, not the README alone. The page had gone stale in a way worth noting:
+ * it credited Crossplane as the infrastructure interface, which now lives in
+ * `archived/` and appears nowhere in the working tree, and it led on "a Python
+ * scaffolder CLI" when Go became the definitive engine. Claiming an
+ * architecture you have since abandoned is the one failure mode this page
+ * cannot afford, so verify against the repo — not the README — before editing.
+ *
  * ORDER IS MEANINGFUL. The first three decisions render as full cards under
  * "Key decisions"; the rest render as compact rows under "Also decided". So
  * the first three must be the ones worth defending at length — the load-
@@ -138,15 +146,22 @@ export const projects: Project[] = [
     slug: "internal-developer-platform",
     title: "IDP & GitOps Reference Architecture",
     summary:
-      "Internal Developer Platform blueprint for zero-touch service onboarding and multi-tenant continuous delivery via GitOps.",
+      "Internal Developer Platform for zero-touch service onboarding and multi-tenant GitOps delivery, driven by one versioned catalog that holds both the golden paths and the output contract — no scaffolder code contains a hardcoded path.",
     problem:
       "Onboarding a new service means a ticket, a wait, and a platform engineer hand-assembling the same manifests again — the platform team becomes the bottleneck for every team it serves.",
     constraints: [
       "Developers must self-serve without needing cluster access",
       "Multi-tenant isolation cannot depend on tenants behaving correctly",
       "Cluster state must be reconstructible from Git alone",
+      "The platform must be able to restructure its output without a code change",
     ],
     decisions: [
+      {
+        decision: "The catalog owns the output contract, not the scaffolder",
+        insteadOf: "Output paths written into the generator",
+        rationale:
+          "A `destinations` table maps every catalog source directory to its output path, so where a file lands is data the platform team edits, not logic they redeploy. Restructuring the whole tenant tree is a YAML change, and the loader rejects a catalog with a missing key before anything is written rather than halfway through.",
+      },
       {
         decision: "Argo CD ApplicationSet with a directory generator",
         insteadOf: "One Application manifest per service",
@@ -154,10 +169,10 @@ export const projects: Project[] = [
           "Onboarding becomes a directory appearing in Git rather than a platform-team ticket, which is what makes zero-touch provisioning possible at all rather than merely automated.",
       },
       {
-        decision: "Crossplane claims as the infrastructure interface",
-        insteadOf: "Handing developers Terraform directly",
+        decision: "Version-pinned Terraform modules behind capability names",
+        insteadOf: "Crossplane compositions as the infrastructure interface",
         rationale:
-          "Infrastructure is requested through a Kubernetes API the platform controls, so the same RBAC, admission policy and GitOps loop govern a database the way they govern a Deployment.",
+          "A service declares `postgres`, and the catalog resolves that to a specific module at a specific tag. Crossplane bought a Kubernetes-native API at the cost of a second abstraction to author and debug for infrastructure Terraform already described. Pinning is what actually protects tenants: the platform ships a module change without touching a tenant repo, and a bad one is a pin rollback rather than an incident.",
       },
       {
         decision: "Kyverno admission control",
@@ -166,25 +181,31 @@ export const projects: Project[] = [
           "Guardrails over gates: the control plane enforces the boundary at admission, so a tenant cannot opt out by editing their own manifests and the platform team is not a queue.",
       },
       {
-        decision: "Tenant source repo separate from tenant GitOps repo",
-        insteadOf: "One repository holding code and manifests",
+        decision: "Tenant-first monorepo whose paths are the split prefixes",
+        insteadOf: "Separate repositories from day one",
         rationale:
-          "Application code and desired cluster state have different reviewers, lifecycles and blast radius. Merging them makes every application commit a potential production change.",
+          "Output is `<team>/{apps,infra,gitops}/`, and those three paths are exactly the `git subtree split` prefixes. The demo stays one repo while the production shape — code, Terraform and desired state under different reviewers and blast radius — is already encoded, so splitting is a no-op rather than a reshuffle.",
       },
       {
-        decision: "A Python scaffolder CLI",
-        insteadOf: "A web developer portal such as Backstage",
+        decision: "Ownership enforced by CODEOWNERS at each would-be repo root",
+        insteadOf: "Documenting which directories the platform team owns",
         rationale:
-          "Meets developers in the terminal they already work in, and keeps the golden path versionable and reviewable like any other code. A portal is on the roadmap once the templates have stabilised.",
+          "GitHub honours CODEOWNERS only at a repo root, so nesting it under the platform directory would have made it decorative. Inside `infra/` and `gitops/` the split is by ownership rather than taxonomy, which reduces the whole rule to two globs.",
       },
       {
-        decision: "Shared team infrastructure split from app-specific infrastructure",
-        insteadOf: "One Terraform state per tenant",
+        decision: "Backstage System as metadata, not a directory level",
+        insteadOf: "A `<system>/` directory under each team",
         rationale:
-          "Onboarding a new application must not risk the shared resources its neighbours depend on, so manual changes to team infrastructure survive subsequent scaffolding runs.",
+          "Reversed after building it. The justifications did not survive scrutiny — Terraform blast radius is set by where `apply` runs, and a team ApplicationSet globbing `apps/*/*` discovers services perfectly well. It now lives only in `catalog-info.yaml`, where it cannot drift from a second encoding in the path.",
+      },
+      {
+        decision: "Two independent scaffolder engines against one catalog",
+        insteadOf: "A single implementation and a claim that the catalog is a contract",
+        rationale:
+          "Go and Python both render the catalog, and their output trees are diffed byte-for-byte in CI. A difference means either the engines drifted or the catalog under-specified something both had to guess — so the contract is falsifiable rather than asserted. In production you would ship one; here it is the test.",
       },
     ],
-    tags: ["IDP", "GitOps", "Argo CD", "Kubernetes", "Python"],
+    tags: ["IDP", "GitOps", "Argo CD", "Kubernetes", "Terraform", "Go"],
     githubUrl: "https://github.com/ok-karthik/internal-developer-platform",
     featured: true,
   },
