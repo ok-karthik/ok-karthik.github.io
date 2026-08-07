@@ -55,13 +55,23 @@ export const profile = {
   },
 
   /**
-   * Earliest start date. Deliberately a separate field from
-   * `location.availability`, which is a *where* and is shared with the footer
-   * and the ⌘K palette — this is a *when* and belongs only to the hero pill,
-   * because that is where a recruiter scanning for a start date looks first.
+   * Earliest start date. NOT currently rendered — see the hero pill in
+   * components/hero-section.tsx. Reinstating it is one interpolation.
    *
-   * Notice period ends 30 Nov 2026. Keep this current or delete it: a stale
-   * start date is worse than none.
+   * Held back because a date only helps once it beats what a recruiter already
+   * assumes. German notice is standardly three months, so a reader silently
+   * pencils in "today + 3 months"; on 2026-08-07 that was 7 Nov, which makes
+   * 15 Dec look 38 days *worse* than saying nothing at all.
+   *
+   * The crossover is **15 September 2026** — from then on, today + 3 months
+   * lands after 15 Dec and the date becomes a genuine advantage. Add it back
+   * then, and remove it again once the date has passed: "available from" a
+   * date in the past reads as "unemployed since then, still looking", which is
+   * the worst of the three states.
+   *
+   * Kept as a separate field from `location.availability` on purpose — that
+   * one is a *where*, is shared with the footer and the ⌘K palette, and must
+   * not absorb a *when*.
    */
   availableFrom: "Available from 15 Dec 2026",
 

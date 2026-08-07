@@ -27,12 +27,10 @@ export function HeroSection() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
               <span className="text-small font-medium text-primary">
-                {/* The pill wraps to two lines under ~420px. Held together so it
-                    breaks at a "·" and not mid-date — rendered at 375px it split
-                    as "…Available from 15 Dec / 2026 · Berlin or remote", which
-                    fragments the one token a recruiter is scanning for. */}
-                Open to opportunities · <span className="whitespace-nowrap">{profile.availableFrom}</span> ·{" "}
-                <span className="whitespace-nowrap">{profile.location.availability}</span>
+                {/* `profile.availableFrom` is deliberately not rendered here yet —
+                    see the field's comment in content/profile.ts for when to add
+                    it back. Reinstating it is one interpolation. */}
+                Open to opportunities · {profile.location.availability}
               </span>
             </div>
 
