@@ -13,8 +13,23 @@ export const profile = {
   /** Must match LinkedIn and the CV exactly. Verifiable at reference check. */
   title: "Senior Platform Engineer & SRE",
 
-  /** Carries the AI-infrastructure positioning without over-claiming a title. */
-  subtitle: "Kubernetes platforms · Multi-cloud · GPU & AI infrastructure",
+  /**
+   * The scan line — four nouns a recruiter reads before the bio. Matches the
+   * CV's summary line on purpose, same rule as `title`.
+   *
+   * "GPU & AI infrastructure" was dropped 2026-08-07. It appears in ~0.1% of
+   * Karthik's target postings and it duplicated `focusAreas[3]` word for word,
+   * so it spent the most valuable slot on the page's least-demanded track and
+   * said nothing new. Observability took the slot on 63.7% of senior
+   * Platform/SRE postings. The GPU/AI positioning is unchanged — Focus Areas
+   * still names it and the /work pages back it with a real repo.
+   *
+   * "Multi-cloud" stays over "AWS & Azure": the bio directly below already
+   * reads "across AWS, Azure and GCP", so the provider names would repeat two
+   * lines apart *and* narrow three clouds to two. The abstraction earns its
+   * slot by saying something the specifics don't.
+   */
+  subtitle: "Kubernetes · Multi-cloud · IDPs · Observability",
 
   yearsInTech: 15,
   yearsCloudNative: 10,
@@ -23,9 +38,9 @@ export const profile = {
   //
   // It used to close with "— most recently for GPU and AI workloads", which
   // implied recent work at Aldi Süd. It isn't — the GPU platform is a project,
-  // not a role. The subtitle and Focus Areas still carry the GPU/AI
-  // positioning, and the /work pages back it with a real repo; this line
-  // stays limited to what was done on the job.
+  // not a role. Focus Areas still carries the GPU/AI positioning — the
+  // subtitle no longer does, see its comment above — and the /work pages back
+  // it with a real repo; this line stays limited to what was done on the job.
   //
   // The opening used to read "15 years in tech, 10 building cloud-native
   // platforms…". Dropped 2026-08-07: total-tenure framing anchors on years
