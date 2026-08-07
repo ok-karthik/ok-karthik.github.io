@@ -26,8 +26,14 @@ export const profile = {
   // not a role. The subtitle and Focus Areas still carry the GPU/AI
   // positioning, and the /work pages back it with a real repo; this line
   // stays limited to what was done on the job.
+  //
+  // The opening used to read "15 years in tech, 10 building cloud-native
+  // platforms…". Dropped 2026-08-07: total-tenure framing anchors on years
+  // rather than scope, and the first five were legacy WebLogic/Java ops that
+  // pull against the platform positioning. The Experience section still shows
+  // the full span, so nothing is hidden — it just isn't the lead.
   bio:
-    "15 years in tech, 10 building cloud-native platforms across AWS, Azure and GCP. " +
+    "10+ years building cloud-native platforms across AWS, Azure and GCP. " +
     "I build Kubernetes-based internal developer platforms, Terraform-driven self-service " +
     "infrastructure, GitOps delivery and the observability that keeps them reliable.",
 
@@ -47,6 +53,17 @@ export const profile = {
     availability: "Berlin or remote",
     visa: "German Permanent Residence",
   },
+
+  /**
+   * Earliest start date. Deliberately a separate field from
+   * `location.availability`, which is a *where* and is shared with the footer
+   * and the ⌘K palette — this is a *when* and belongs only to the hero pill,
+   * because that is where a recruiter scanning for a start date looks first.
+   *
+   * Notice period ends 30 Nov 2026. Keep this current or delete it: a stale
+   * start date is worse than none.
+   */
+  availableFrom: "Available from 15 Dec 2026",
 
   /**
    * Structured rather than a sentence. As prose this ran to three lines and
@@ -131,16 +148,19 @@ export const focusAreas = [
     detail: "IDP · GitOps · Self-service infra",
   },
   {
-    name: "AI & GPU Infrastructure",
-    detail: "GPU scheduling · LLM serving · Observability",
-  },
-  {
     name: "Cloud Infrastructure",
     detail: "AWS · Azure · GCP",
   },
   {
     name: "SRE & Reliability",
     detail: "SLOs · Observability · Incident response",
+  },
+  // Moved from second to last 2026-08-07, for the same reason as the Tech
+  // Skills card: it is a real secondary track, not the headline. See the
+  // "AI & GPU Infrastructure" group in content/skills.ts for the numbers.
+  {
+    name: "AI & GPU Infrastructure",
+    detail: "GPU scheduling · LLM serving · Observability",
   },
 ] as const
 

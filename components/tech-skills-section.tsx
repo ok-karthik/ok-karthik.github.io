@@ -1,10 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Cpu, Sparkles, Key, ShieldCheck, ScanSearch } from "lucide-react"
+import { Cpu, Sparkles, Key, ShieldCheck, ScanSearch, Terminal, Network, Waypoints, Siren } from "lucide-react"
 import { skillGroups, type Skill, type Tier } from "@/content/skills"
 
-const lucideMap = { Cpu, Sparkles, Key, ShieldCheck, ScanSearch }
+const lucideMap = { Cpu, Sparkles, Key, ShieldCheck, ScanSearch, Terminal, Network, Waypoints, Siren }
 
 /**
  * One dense panel.
