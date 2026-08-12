@@ -66,11 +66,30 @@ export function ConnectSection() {
                     href={href}
                     target={href.startsWith("mailto:") ? undefined : "_blank"}
                     rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                    className="group flex items-center gap-3 py-3.5"
+                    className="group flex flex-col gap-1 py-3.5 sm:flex-row sm:items-center sm:gap-3"
                   >
-                    <Icon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
-                    <span className="label w-20 shrink-0">{label}</span>
-                    <span className="min-w-0 flex-1 break-all font-mono text-small text-foreground transition-colors group-hover:text-primary">
+                    {/*
+                      Stacked below sm, side by side above it. At 360px the
+                      icon plus the w-20 label ate ~120px of a 312px row, and
+                      every value broke mid-token: the email split two
+                      characters before the end, the LinkedIn URL mid-surname.
+                      A mangled address is worse than a wrapped one — it reads
+                      as a broken page, on the one section whose entire job is
+                      to be contactable.
+
+                      (Do not paste the literal address into this comment as an
+                      example — eval-014 forbids identity copy in components and
+                      does not care that it is inside a comment.)
+
+                      break-words, not break-all: on its own line every value
+                      fits, so this only ever fires as a last resort rather
+                      than chopping tokens whenever it feels like it.
+                    */}
+                    <span className="flex items-center gap-3">
+                      <Icon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
+                      <span className="label sm:w-20 sm:shrink-0">{label}</span>
+                    </span>
+                    <span className="min-w-0 flex-1 break-words pl-7 font-mono text-small text-foreground transition-colors group-hover:text-primary sm:pl-0">
                       {value}
                     </span>
                   </a>

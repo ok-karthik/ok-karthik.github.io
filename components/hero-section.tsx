@@ -77,16 +77,35 @@ export function HeroSection() {
               />
 
               <div className="relative flex flex-col gap-6 sm:flex-row sm:gap-8">
+                {/*
+                  Self-hosted, deliberately. This used to hotlink
+                  https://github.com/ok-karthik.png and it failed in the real
+                  world — observed 2026-08-12 on an Android browser as
+                  ERR_HTTP2_SERVER_REFUSED_STREAM, and reproduced intermittently
+                  in headless Chromium. GitHub throttles that redirect, and it
+                  is a third party we do not control sitting in front of the
+                  single most personal element on the page.
+
+                  The failure was not graceful: `alt` was the full
+                  "name, title" string, which rendered as four lines of text
+                  bursting out of a 128px circle. So the fallback is now also
+                  contained — `overflow-hidden` on the frame clips it, and the
+                  alt is just the name. The screen-reader value is unchanged:
+                  the h1 and the title sit directly beside this image, so the
+                  title in the alt was duplication anyway.
+                */}
                 <div className="flex shrink-0 justify-center sm:justify-start">
-                  <img
-                    src="https://github.com/ok-karthik.png"
-                    alt={`${profile.name}, ${profile.title}`}
-                    width={144}
-                    height={144}
-                    loading="eager"
-                    decoding="async"
-                    className="h-32 w-32 rounded-full border-2 border-primary/40 object-cover shadow-glow transition-transform duration-500 hover:scale-105 md:h-36 md:w-36"
-                  />
+                  <span className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-primary/40 shadow-glow md:h-36 md:w-36">
+                    <img
+                      src="/ok-karthik.png"
+                      alt={profile.name}
+                      width={144}
+                      height={144}
+                      loading="eager"
+                      decoding="async"
+                      className="h-full w-full rounded-full object-cover text-small text-muted-foreground transition-transform duration-500 hover:scale-105"
+                    />
+                  </span>
                 </div>
 
                 <div className="min-w-0 flex-1">
