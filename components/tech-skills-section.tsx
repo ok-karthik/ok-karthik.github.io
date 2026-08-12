@@ -109,16 +109,63 @@ export function TechSkillsSection() {
                 } ${i < skillGroups.length - (skillGroups.length % 2 === 0 ? 2 : 1) ? "border-b md:border-b" : ""} last:xl:border-r-0`}
               >
                 <h3 className="label mb-4">{group.title}</h3>
-                <ul className="space-y-3">
+                {/*
+                  Row rhythm, rebuilt 2026-08-12. Three things were wrong and
+                  they compounded:
+
+                  1. The note sat flush under the name with no gap, so a skill
+                     read as one dense clump rather than a label and its
+                     evidence.
+                  2. Rows were space-y-3 (12px) while a wrapped note's own line
+                     gap is ~4px — too close for the eye to tell "second line of
+                     this note" from "next skill", which is what made the
+                     spacing under the sub-labels feel wrong.
+                  3. items-center floated the icon into the middle of a
+                     three-line block (Linux, IaC scanning), so the icon no
+                     longer marked where its row began.
+
+                  Now: 4px name -> note, 20px row -> row. The 1:5 ratio is what
+                  does the grouping; keep them proportional if you retune.
+                */}
+                {/*
+                  Two alternatives were built, rendered and rejected 2026-08-12.
+                  Both are recorded here so they are not rebuilt from a
+                  description, which is how the first pill layout came back.
+
+                  "Airy": 44px chips, padded rows, a flat hover fill. Read as
+                  indistinguishable from this at a glance — Karthik's words —
+                  while costing +93px desktop and +231px mobile. Not worth a
+                  pixel.
+
+                  "Pills": rounded pills flowing across the full width, note
+                  inside the pill after a hairline. Genuinely handsome and the
+                  closest to the layout Karthik remembered liking, and it wins
+                  hugely on mobile — 2763px against this panel's 3575px, because
+                  pills wrap two or three to a row where the grid gives every
+                  skill its own. It lost on desktop (1490px vs 1302px: each
+                  group starts a fresh line and leaves a ragged tail) and on
+                  legibility — a wrapping row hides the strongest-first tier
+                  order that a column makes obvious, and long names wrap inside
+                  the pill on a phone. Karthik chose this grid over it.
+                */}
+                <ul className="space-y-5">
                   {[...group.skills]
                     .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
                     .map((skill) => (
-                      <li key={skill.name} className="flex items-center gap-3">
+                      <li
+                        key={skill.name}
+                        // Top-aligned only when there is a note to flow beneath
+                        // the name; a bare row still centres against its icon,
+                        // which is the correct optical result for one line.
+                        className={`flex gap-3 ${skill.note ? "items-start" : "items-center"}`}
+                      >
                         <SkillIcon skill={skill} />
                         <span className="min-w-0 flex-1">
-                          <span className="block text-small text-foreground">{skill.name}</span>
+                          <span className="block text-small leading-snug text-foreground">
+                            {skill.name}
+                          </span>
                           {skill.note && (
-                            <span className="block font-mono text-micro leading-snug text-muted-foreground">
+                            <span className="mt-1 block font-mono text-micro leading-snug text-muted-foreground">
                               {skill.note}
                             </span>
                           )}

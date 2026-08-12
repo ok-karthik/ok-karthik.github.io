@@ -128,9 +128,23 @@ export const skillGroups: SkillGroup[] = [
       // the whole of row 1, because cards stretch to the tallest in the row.
       { name: "OpenTelemetry", icon: "/icons/opentelemetry.svg", tier: "deep", note: "Collector · Gateway · vendor-neutral" },
       { name: "Dynatrace", icon: "/icons/dynatrace.svg", tier: "deep" },
+      // Prometheus, then L-G-T in the stack's own order 2026-08-12. "Loki /
+      // Tempo" used to sit as one row *after* Grafana, which spelled nothing;
+      // read top to bottom these now say LGTM, which is how the stack is named
+      // in postings. The rows are separate rather than one "LGTM stack" row so
+      // each product still matches a keyword scan on its own.
+      //
+      // Order works because the tier sort is stable: all three are production,
+      // so their source order here survives into the render. Change a tier and
+      // the sequence breaks — that is the trade for sorting by tier at all.
+      //
+      // The M is deliberately absent: Mimir is the fourth letter and Karthik
+      // has not run it. Add the row only if that changes; the sequence is worth
+      // less than a claim he can defend.
       { name: "Prometheus", icon: "/icons/prometheus.svg", tier: "production" },
-      { name: "Grafana", icon: "/icons/grafana.svg", tier: "production" },
-      { name: "Loki / Tempo", icon: "/loki.svg", tier: "production" },
+      { name: "Loki", icon: "/loki.svg", tier: "production" },
+      { name: "Grafana", icon: "/icons/grafana.svg", tier: "production", note: "LGTM stack" },
+      { name: "Tempo", icon: "/tempo.svg", tier: "production" },
       { name: "Datadog", icon: "/icons/datadog.svg", tier: "working" },
       // Not a tool row, deliberately: on-call and incident response appear in
       // 41.5% of Senior/Staff Platform/SRE postings and had no representation
@@ -184,8 +198,15 @@ export const skillGroups: SkillGroup[] = [
       // Two clauses, not three: this is a showcase page rather than an ATS
       // target, and three chained keywords read as stuffing where two read as
       // a description. "performance" was the one dropped.
-      { name: "Linux", lucide: "Terminal", tier: "deep", note: "Administration · production troubleshooting" },
-      { name: "Networking", lucide: "Network", tier: "production", note: "DNS · TCP/IP · TLS · load balancing · ingress" },
+      //
+      // Both trimmed again 2026-08-12: at the card's ~190px measure these were
+      // the only two notes in the panel still wrapping to three lines, and a
+      // three-line note is what made the row rhythm look broken in the first
+      // place. Two lines is the ceiling — check it before lengthening either.
+      // "ingress" went to Networking's dropped clause because Kubernetes and
+      // Istio already carry it two cards over.
+      { name: "Linux", lucide: "Terminal", tier: "deep", note: "Administration · troubleshooting" },
+      { name: "Networking", lucide: "Network", tier: "production", note: "DNS · TCP/IP · TLS · load balancing" },
       { name: "VPC & subnet design", lucide: "Waypoints", tier: "production", note: "Cross-account connectivity" },
     ],
   },
@@ -205,7 +226,18 @@ export const skillGroups: SkillGroup[] = [
       // his call to make. Rendered result is Python, Bash, Go, Java / Groovy.
       { name: "Python", icon: "/icons/python.svg", tier: "deep", note: "Platform APIs, operators, automation" },
       { name: "Go", icon: "/icons/go.svg", tier: "working", note: "CLIs — actively deepening" },
-      { name: "Bash", icon: "/icons/bash.svg", tier: "deep" },
+      // Note added 2026-08-12. "Automation and scripting" is a phrase that
+      // recurs in the target postings, and nothing on the page said it: Python
+      // carries "automation" but reads as an application language, and Bash sat
+      // as a bare row that a reader has to interpret. Scripting is not assumed
+      // from the word "Bash" by anyone scanning — it is assumed by engineers,
+      // and they are not the first filter.
+      //
+      // A separate "Scripting" row was the alternative and was rejected: it
+      // would be a capability with no product behind it sitting next to four
+      // named languages, which reads as padding. The note attaches the same
+      // words to the tool that actually earns them.
+      { name: "Bash", icon: "/icons/bash.svg", tier: "deep", note: "Automation · operational tooling" },
       { name: "Java / Groovy", icon: "/icons/java.svg", tier: "working", note: "Jenkins pipeline libraries" },
       // Added 2026-08-12 from the CV's Software Engineering line. Kept to a
       // bare row with no note: it is a supporting skill in platform work, and

@@ -1,0 +1,78 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/karthik.orugonda/.local/bin/graphify hook-guard search"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/karthik.orugonda/.local/bin/graphify hook-guard read"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(pnpm *)",
+      "Bash(pnpm verify)",
+      "Bash(pnpm test)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm eval)",
+      "Bash(pnpm build)",
+      "Bash(pnpm audit:html)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(python3 *)",
+      "Bash(python *)",
+      "Bash(uv *)",
+      "Bash(uvx *)",
+      "Bash(go *)",
+      "Bash(gofmt *)",
+      "Bash(golangci-lint *)",
+      "Bash(make *)",
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(graphify *)",
+      "Bash(curl *)",
+      "Bash(helm *)",
+      "Bash(kubebuilder *)",
+      "Bash(brew *)",
+      "Bash(jq *)",
+      "Bash(rg *)",
+      "Bash(sed *)",
+      "Bash(awk *)",
+      "Bash(tr *)",
+      "Bash(printf *)",
+      "Bash(base64 *)",
+      "Bash(uniq *)",
+      "Bash(less *)",
+      "Bash(file *)",
+      "Bash(du *)",
+      "Bash(lsof *)",
+      "Bash(sips *)",
+      "Bash(open *)",
+      "Bash(sleep *)",
+      "Bash(kill *)",
+      "Bash(mkdir *)",
+      "Bash(rmdir *)",
+      "Bash(touch *)",
+      "Bash(chmod *)",
+      "Bash(ln *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(rm *)",
+      "Bash(python3 scripts/audit-build.py)"
+    ]
+  }
+}
