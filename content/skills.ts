@@ -49,6 +49,8 @@ export type Skill = {
     | "Network"
     | "Waypoints"
     | "Siren"
+    | "Layers"
+    | "Database"
   /** Short evidence note — this is what actually conveys depth. */
   note?: string
 }
@@ -66,6 +68,11 @@ export const skillGroups: SkillGroup[] = [
       { name: "Helm", icon: "/icons/helm.svg", tier: "deep", note: "Library charts, OCI distribution" },
       { name: "Docker", icon: "/icons/docker.svg", tier: "deep" },
       { name: "Kubernetes Operators", icon: "/icons/kubernetes.svg", tier: "production" },
+      // Added 2026-08-12 from the CV's Containers line. Lucide rather than a
+      // logo: there is no Kustomize SVG in public/icons and the brand-logo rule
+      // forbids pulling one from a CDN. Tiered on the file's under-claim rule —
+      // raise it if you'd defend it next to Helm.
+      { name: "Kustomize", lucide: "Layers", tier: "working" },
       // Moved out of AI & GPU Infrastructure: Karpenter is a general node
       // autoscaler that happens to also manage GPU NodePools, and filing it
       // under GPU understated it. This is now its only mention — it was also
@@ -92,7 +99,11 @@ export const skillGroups: SkillGroup[] = [
     // 1 of 1,350 target postings in Karthik's scrape. Terragrunt (0.9%) stays.
     title: "IaC & GitOps",
     skills: [
-      { name: "Terraform", icon: "/icons/terraform.svg", tier: "deep" },
+      // Note added 2026-08-12: the CV now lists Monitoring-as-Code as a named
+      // capability, and Terraform is where Karthik actually does it. It sits
+      // here rather than on an observability row because the point is that the
+      // dashboards and alerts go through the same review path as the infra.
+      { name: "Terraform", icon: "/icons/terraform.svg", tier: "deep", note: "Reusable modules · monitoring-as-code" },
       { name: "Terragrunt", icon: "/terragrunt.svg", tier: "deep" },
       { name: "Ansible", icon: "/icons/ansible.svg", tier: "production" },
       { name: "Argo CD", icon: "/icons/argocd.svg", tier: "deep" },
@@ -125,7 +136,7 @@ export const skillGroups: SkillGroup[] = [
       // 41.5% of Senior/Staff Platform/SRE postings and had no representation
       // anywhere on the page. Tiered "production" rather than "deep" on the
       // file's own under-claim rule; raise it if you'd defend it as a daily driver.
-      { name: "Incident Response", lucide: "Siren", tier: "production", note: "On-call · blameless postmortems · MTTR reduction" },
+      { name: "Incident Response", lucide: "Siren", tier: "production", note: "On-call · postmortems · MTTR reduction" },
     ],
   },
   {
@@ -152,7 +163,11 @@ export const skillGroups: SkillGroup[] = [
       // Karpenter dropped from this note 2026-08-07 — it has its own row in
       // Containers & Orchestration now, and naming it in both places read as
       // padding rather than as scope.
-      { name: "AWS", icon: "/icons/aws.svg", tier: "production", note: "EKS, VPC, IAM/IRSA" },
+      // Note widened 2026-08-12 to match the CV's expanded AWS line. VPC and
+      // cross-account networking are deliberately NOT repeated here — the
+      // "VPC & subnet design" row in Linux & Networking carries them, and this
+      // note has room for what that row doesn't say.
+      { name: "AWS", icon: "/icons/aws.svg", tier: "production", note: "EKS · ECS · IAM/IRSA · multi-account" },
       { name: "Azure", icon: "/icons/azure.svg", tier: "production", note: "AKS, Entra ID, Key Vault" },
       { name: "GCP", icon: "/icons/gcp.svg", tier: "working", note: "GKE, Cloud IAM" },
     ],
@@ -192,6 +207,10 @@ export const skillGroups: SkillGroup[] = [
       { name: "Go", icon: "/icons/go.svg", tier: "working", note: "CLIs — actively deepening" },
       { name: "Bash", icon: "/icons/bash.svg", tier: "deep" },
       { name: "Java / Groovy", icon: "/icons/java.svg", tier: "working", note: "Jenkins pipeline libraries" },
+      // Added 2026-08-12 from the CV's Software Engineering line. Kept to a
+      // bare row with no note: it is a supporting skill in platform work, and
+      // a note would give it more weight on the card than it earns.
+      { name: "SQL", lucide: "Database", tier: "working" },
     ],
   },
   {
@@ -214,7 +233,10 @@ export const skillGroups: SkillGroup[] = [
       // conversation, where Karthik can expand them if someone probes.
       { name: "NVIDIA GPU Operator", icon: "/icons/nvidia.svg", tier: "production", note: "Device plugin · time slicing · GPU metrics" },
       { name: "LLM serving", lucide: "Cpu", tier: "working", note: "Ollama · llama.cpp · FastAPI gateway" },
-      { name: "Agentic coding workflows", lucide: "Sparkles", tier: "production", note: "Claude Code · Copilot · Cursor" },
+      // MCP added 2026-08-12, as the CV now names it. It is the one item on
+      // this row that says something about *how* the tools are wired in rather
+      // than which ones are open.
+      { name: "Agentic coding workflows", lucide: "Sparkles", tier: "production", note: "Claude Code · Copilot · Cursor · MCP" },
     ],
   },
 ]

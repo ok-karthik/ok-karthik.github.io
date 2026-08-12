@@ -24,10 +24,13 @@ export const profile = {
    * Platform/SRE postings. The GPU/AI positioning is unchanged — Focus Areas
    * still names it and the /work pages back it with a real repo.
    *
-   * "Multi-cloud" stays over "AWS & Azure": the bio directly below already
-   * reads "across AWS, Azure and GCP", so the provider names would repeat two
-   * lines apart *and* narrow three clouds to two. The abstraction earns its
-   * slot by saying something the specifics don't.
+   * "Multi-cloud" stays over "AWS & Azure" — including after the 2026-08-12 CV,
+   * which now reads "AWS & Azure" in this slot. The bio directly below reads
+   * "across AWS, Azure and GCP", so the provider names would repeat two lines
+   * apart *and* narrow three clouds to two. The abstraction earns its slot by
+   * saying something the specifics don't. This is the one line where the site
+   * knowingly differs from the CV; it is a slot-level wording call, not a claim
+   * difference, so it carries no reference-check risk.
    */
   subtitle: "Kubernetes · Multi-cloud · IDPs · Observability",
 
@@ -47,10 +50,26 @@ export const profile = {
   // rather than scope, and the first five were legacy WebLogic/Java ops that
   // pull against the platform positioning. The Experience section still shows
   // the full span, so nothing is hidden — it just isn't the lead.
+  //
+  // Realigned to the CV summary 2026-08-12. It now carries the CV's first two
+  // sentences almost verbatim — "building *and operating*" (the CV's own
+  // addition, and the half of the job a build-only line drops) and the four
+  // named focuses. The CV's remaining two sentences are employer-specific
+  // ("At Aldi Süd… At Rakuten…") and deliberately stay out: the Experience
+  // section carries them, and repeating them here would make the hero the
+  // second-best version of a section further down the page.
+  //
+  // The closing clause is carried over from the pre-CV bio at Karthik's
+  // request. Note it restates "observability" and "reliability" from the focus
+  // list one sentence earlier; it survives that repetition because the two say
+  // different things — the list names observability as a focus, the clause says
+  // what it is *for*. If it ever reads as padding, cut the two words from the
+  // focus list rather than the clause: the clause is the one doing the work.
   bio:
-    "10+ years building cloud-native platforms across AWS, Azure and GCP. " +
-    "I build Kubernetes-based internal developer platforms, Terraform-driven self-service " +
-    "infrastructure, GitOps delivery and the observability that keeps them reliable.",
+    "10+ years building and operating cloud-native platforms across AWS, Azure and GCP, " +
+    "with a focus on Kubernetes, reliability, observability and developer experience. " +
+    "I lead platform initiatives across engineering teams, turning shared infrastructure " +
+    "into automated, self-service golden paths — and the observability that keeps them reliable.",
 
   /**
    * Meta description and OG tags. Keep under ~155 chars — Google truncates
