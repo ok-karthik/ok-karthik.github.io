@@ -24,7 +24,7 @@
  * one option in it.
  */
 
-export type SkinId = "aurora" | "spatial" | "blueprint" | "current"
+export type SkinId = "aurora" | "blueprint" | "current"
 
 export type Skin = {
   id: SkinId
@@ -41,12 +41,6 @@ export const skins: Skin[] = [
     label: "Aurora Glass",
     note: "Thick glass over a live aurora; architecture diagrams assemble inside the panels.",
     swatch: "#6cc0f0",
-  },
-  {
-    id: "spatial",
-    label: "Spatial",
-    note: "A floating 3D deck of the real platform layers, violet-to-teal lume, solid elevation.",
-    swatch: "#7c5cff",
   },
   {
     id: "blueprint",

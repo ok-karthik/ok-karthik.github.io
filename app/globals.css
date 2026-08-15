@@ -462,85 +462,6 @@ html[data-skin='aurora']:not(.dark) {
   --aur-3: 140, 190, 220;
 }
 
-/* ---------- SPATIAL ------------------------------------------------------
-   Solid elevation rather than glass: opaque panels lit by two radial lumes,
-   so depth comes from shadow and light instead of transparency. Deliberately
-   a different type system (Manrope, wider and rounder than Geist) so the two
-   dark skins can't be mistaken for each other.                              */
-html[data-skin='spatial'] {
-  --ui-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --ui-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
-
-  --background: #0d1117;
-  --background-mid: #141b26;
-  --background-deep: #090c11;
-  --foreground: #eef2f7;
-  --muted-foreground: #93a4b7;
-
-  --primary: #9b82ff;
-  --primary-foreground: #0b0718;
-  --accent: #9b82ff;
-  --accent-foreground: #0b0718;
-
-  --card: #141a23;
-  --card-solid: #141a23;
-  --popover: #141a23;
-  --secondary: #1a212c;
-  --muted: #131922;
-  --border: #232c39;
-  --border-strong: #33415240;
-  --ring: #9b82ff;
-
-  --panel-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012));
-  --panel-border: #222b38;
-  --panel-blur: 8px;
-  --panel-sat: 120%;
-  --panel-shadow: 0 26px 54px -32px #000;
-  --glass-highlight: rgba(255, 255, 255, 0.1);
-
-  --glow: 0 0 0 1px rgba(155, 130, 255, 0.32), 0 18px 46px -18px rgba(155, 130, 255, 0.5);
-  --elevation: 0 26px 54px -32px #000;
-  --chip: rgba(255, 255, 255, 0.94);
-  --spotlight-strength: 10%;
-  --field-dot: 155, 130, 255;
-  --mesh-opacity: 0;
-
-  /* Second lume. Not --ok: this is a light source, not a status. */
-  --lume-2: #2fd6b0;
-}
-
-html[data-skin='spatial']:not(.dark) {
-  --background: #f5f6fb;
-  --background-mid: #eceef7;
-  --background-deep: #e3e6f2;
-  --foreground: #101620;
-  --muted-foreground: #545e6e;
-  /* 5.6:1 on the deepest wash; the dark skin's #9b82ff measures 2.9 on white. */
-  --primary: #5433c9;
-  --primary-foreground: #ffffff;
-  --accent: #5433c9;
-  --card: #ffffff;
-  --card-solid: #ffffff;
-  --popover: #ffffff;
-  --secondary: #e9ebf5;
-  --muted: #eff1f8;
-  --border: rgba(16, 22, 32, 0.12);
-  --border-strong: rgba(16, 22, 32, 0.26);
-  --ring: #5433c9;
-  --panel-bg: #ffffff;
-  --panel-border: rgba(16, 22, 32, 0.1);
-  --panel-blur: 0px;
-  --panel-shadow: 0 22px 44px -30px rgba(16, 22, 32, 0.55);
-  --glass-highlight: transparent;
-  --elevation: 0 22px 44px -30px rgba(16, 22, 32, 0.55);
-  --glow: 0 0 0 1px rgba(84, 51, 201, 0.24), 0 16px 38px -18px rgba(84, 51, 201, 0.45);
-  --chip: #f4f5fb;
-  --spotlight-strength: 5%;
-  --field-dot: 84, 51, 201;
-  --lume-2: #0e8f74;
-}
-
 /* ---------- BLUEPRINT ----------------------------------------------------
    Daylight technical sheet: title block, dimension rules, condensed caps, one
    pencil. Paper, not glass — --panel-blur is 0 and the highlight is off.
@@ -713,9 +634,9 @@ html[data-skin='blueprint'].dark {
   }
 }
 
-/* Spatial's floating deck of platform layers. Three planes in one perspective,
-   drifting on a long loop — the layers are the real stack (infrastructure,
-   control plane, workloads), not decoration. */
+/* The platform deck: three planes in one perspective, drifting on a long loop.
+   The layers are the real stack — cloud foundation, control plane, workloads —
+   and each one carries the logos of the tools that run at that tier. */
 .deck-scene {
   perspective: 1100px;
 }
@@ -761,9 +682,7 @@ html[data-skin='blueprint'].dark {
 
 /* The planes have to be *lit* or they read as three grey rectangles. Each skin
    lights them with its own sources: Aurora takes a wash of the accent so the
-   deck belongs to the same light as the backdrop, Spatial runs the full violet
-   → teal traverse because that pair is the entire palette and the deck is its
-   hero image. */
+   deck belongs to the same light as the backdrop. */
 html[data-skin='aurora'] .deck-layer {
   background: linear-gradient(
     150deg,
@@ -771,19 +690,6 @@ html[data-skin='aurora'] .deck-layer {
     rgba(255, 255, 255, 0.05) 60%,
     color-mix(in oklab, var(--primary) 12%, transparent)
   );
-}
-
-/* Opaque, mixed into the card colour rather than into transparency. Spatial's
-   whole argument is solids and shadow; translucent planes let the lower deck's
-   logos bleed through the upper one, which turned three legible tiers into one
-   busy overlap. */
-html[data-skin='spatial'] .deck-layer {
-  background: linear-gradient(
-    150deg,
-    color-mix(in oklab, var(--primary) 30%, var(--card-solid)),
-    color-mix(in oklab, var(--lume-2) 20%, var(--card-solid))
-  );
-  border-color: color-mix(in oklab, var(--primary) 40%, transparent);
 }
 
 /* What is printed on each plane.

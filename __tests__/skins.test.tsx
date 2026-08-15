@@ -2,7 +2,6 @@ import { render, screen, within } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 
 import { AuroraSkin } from '@/components/skins/aurora'
-import { SpatialSkin } from '@/components/skins/spatial'
 import { BlueprintSkin } from '@/components/skins/blueprint'
 import { CurrentSkin } from '@/components/skins/current'
 import { skins, isSkinId, defaultSkin } from '@/content/skins'
@@ -43,7 +42,6 @@ vi.mock('framer-motion', async () => {
  */
 const compositions = [
   ['AuroraSkin', <AuroraSkin key="aurora" />],
-  ['SpatialSkin', <SpatialSkin key="spatial" />],
   ['BlueprintSkin', <BlueprintSkin key="blueprint" />],
   ['CurrentSkin', <CurrentSkin key="current" />],
 ] as const
@@ -111,9 +109,10 @@ describe('skin registry', () => {
   })
 
   it('rejects ids that are not skins, so a stale localStorage value cannot blank the page', () => {
-    // 'a2' and 'original' were Aurora's colourways before that mechanism was
-    // cut. A browser that stored one must not be able to resurrect it.
-    for (const bad of ['', 'Aurora', 'nope', 'a2', 'original', null, undefined, 42]) {
+    // 'spatial' was a skin and 'a2'/'original' were Aurora's colourways before
+    // both were cut. A browser holding a stored value from either must fall
+    // back to the default, not render nothing.
+    for (const bad of ['', 'Aurora', 'nope', 'spatial', 'a2', 'original', null, undefined, 42]) {
       expect(isSkinId(bad)).toBe(false)
     }
   })

@@ -1,7 +1,6 @@
 "use client"
 
 import { AuroraSkin } from "./aurora"
-import { SpatialSkin } from "./spatial"
 import { BlueprintSkin } from "./blueprint"
 import { CurrentSkin } from "./current"
 import { SkinSwitcher } from "./skin-switcher"
@@ -20,7 +19,6 @@ import { useSkin } from "./use-skin"
  */
 const compositions = {
   aurora: AuroraSkin,
-  spatial: SpatialSkin,
   blueprint: BlueprintSkin,
   current: CurrentSkin,
 } as const

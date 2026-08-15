@@ -21,7 +21,6 @@ import { useSkin } from "./use-skin"
  */
 const preferredTheme: Record<SkinId, "dark" | "light"> = {
   aurora: "dark",
-  spatial: "dark",
   blueprint: "light",
   current: "dark",
 }

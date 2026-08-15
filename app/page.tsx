@@ -5,7 +5,7 @@ import { SkinStage } from "@/components/skins/skin-stage"
  * Three candidate designs, switchable in the browser.
  *
  * This page used to compose the sections directly. It now delegates to
- * `SkinStage`, which picks one of four compositions — Aurora Glass, Spatial,
+ * `SkinStage`, which picks one of three compositions — Aurora Glass,
  * Blueprint, or the current live site as a control — from `data-skin` on
  * `<html>`. The section order is per-skin and lives with each composition;
  * Aurora and the control keep the order this file used to document, which is

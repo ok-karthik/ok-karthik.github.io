@@ -13,7 +13,7 @@ import { PlatformDeck, platformLayers } from "@/components/skins/platform-deck"
  *
  * Hovering or focusing a row lights its plane, so the list and the object are
  * the same thing seen twice rather than a diagram with a caption. The layer
- * data lives in `platform-deck.tsx`, shared with Spatial.
+ * data lives in `platform-deck.tsx`.
  */
 export function AuroraLayers() {
   const [lit, setLit] = useState<string | null>(null)

@@ -4,7 +4,6 @@ import {
   IBM_Plex_Mono,
   Geist,
   Geist_Mono,
-  Manrope,
   Archivo,
   Barlow_Condensed,
 } from 'next/font/google'
@@ -42,7 +41,6 @@ const plexMono = IBM_Plex_Mono({
  */
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' })
-const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope', display: 'swap' })
 const archivo = Archivo({ subsets: ['latin'], variable: '--font-archivo', display: 'swap' })
 const barlowCondensed = Barlow_Condensed({
   subsets: ['latin'],
@@ -56,7 +54,6 @@ const fontVars = [
   plexMono.variable,
   geist.variable,
   geistMono.variable,
-  manrope.variable,
   archivo.variable,
   barlowCondensed.variable,
 ].join(' ')

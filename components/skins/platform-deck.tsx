@@ -14,15 +14,16 @@
  * is already self-hosted for the Tech Skills section. Nothing new is claimed
  * by the picture that isn't claimed in text somewhere a reader can check.
  *
- * Shared by Aurora (one section, mid-page) and Spatial (the hero object), so
- * the two designs can't drift into telling different stories about the stack.
+ * Lives on its own rather than inside the Aurora section that renders it: it
+ * was shared with a second skin, and whatever design wins is likely to want
+ * the deck somewhere other than where Aurora puts it.
  */
 export type DeckLayer = {
   id: string
   name: string
   /** Long form, for Aurora's list. */
   detail: string
-  /** Short form, for Spatial's tighter legend. */
+  /** Short form, for a tighter legend. */
   short: string
   tools: { name: string; icon: string }[]
 }

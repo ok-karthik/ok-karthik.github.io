@@ -14,7 +14,7 @@ import { SKIN_KEY, defaultSkin } from "@/content/skins"
 const boot = `
 (function(){
   try {
-    var skins = ['aurora','spatial','blueprint','current'];
+    var skins = ['aurora','blueprint','current'];
     var p = new URLSearchParams(location.search);
     var s = p.get('skin');
     if (skins.indexOf(s) === -1) s = localStorage.getItem('${SKIN_KEY}');
