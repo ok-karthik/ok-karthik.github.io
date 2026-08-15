@@ -4,44 +4,8 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import { projects } from "@/content/projects"
-import { skillGroups } from "@/content/skills"
+import { iconFor } from "@/content/tag-icons"
 import { ArchitecturePreview } from "@/components/architecture"
-
-/** Tag -> self-hosted logo, resolved from the skills catalogue plus a few aliases. */
-const iconFor = (tag: string): string | undefined => {
-  const all = skillGroups.flatMap((g) => g.skills)
-  const hit = all.find((s) => s.name.toLowerCase() === tag.toLowerCase())
-  if (hit?.icon) return hit.icon
-  const alias: Record<string, string> = {
-    "gpu operator": "/icons/nvidia.svg",
-    "cuda": "/icons/nvidia.svg",
-    "time slicing": "/icons/nvidia.svg",
-    "karpenter": "/icons/aws.svg",
-    "observability": "/icons/opentelemetry.svg",
-    "lgtm stack": "/icons/grafana.svg",
-    "loki": "/loki.svg",
-    "tempo": "/tempo.svg",
-    "terragrunt": "/terragrunt.svg",
-    "aws": "/icons/aws.svg",
-    "opa/conftest": "/icons/kubernetes.svg",
-    "github actions": "/icons/githubactions.svg",
-    "idp": "/icons/kubernetes.svg",
-    "gitops": "/icons/argocd.svg",
-    "argo cd": "/icons/argocd.svg",
-    "kubernetes": "/icons/kubernetes.svg",
-    "kubernetes operator": "/icons/kubernetes.svg",
-    "python": "/icons/python.svg",
-    "kopf": "/icons/python.svg",
-    "helm": "/icons/helm.svg",
-    "oci registry": "/icons/docker.svg",
-    "library chart": "/icons/helm.svg",
-    "terraform": "/icons/terraform.svg",
-    "prometheus": "/icons/prometheus.svg",
-    "grafana": "/icons/grafana.svg",
-    "opentelemetry": "/icons/opentelemetry.svg",
-  }
-  return alias[tag.toLowerCase()]
-}
 
 function TagRow({ tags }: { tags: readonly string[] }) {
   return (

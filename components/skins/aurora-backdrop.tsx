@@ -1,0 +1,128 @@
+"use client"
+
+import { useEffect, useRef } from "react"
+
+/**
+ * The light behind the glass.
+ *
+ * Three slow radial blooms on a fixed canvas, composited additively. Colours
+ * come from `--aur-1..3` on <html>, so switching colourway or theme repaints
+ * without touching this file.
+ *
+ * Why canvas and not CSS gradients: the blooms have to drift independently and
+ * overlap additively for the glass to have anything worth refracting. Three
+ * animated `radial-gradient` layers on a full-page element repaint the whole
+ * viewport every frame; one canvas at devicePixelRatio ≤2 does not.
+ *
+ * Costs nothing when it isn't earning: paused when the tab is hidden, and one
+ * static frame under `prefers-reduced-motion`.
+ */
+const BLOOMS = [
+  { v: "--aur-1", x: 0.24, y: 0.26, r: 0.62, s: 0.000105 },
+  { v: "--aur-2", x: 0.78, y: 0.3, r: 0.54, s: 0.000155 },
+  { v: "--aur-3", x: 0.52, y: 0.84, r: 0.58, s: 0.000125 },
+]
+
+export function AuroraBackdrop() {
+  const ref = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = ref.current
+    if (!canvas) return
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)")
+    let raf = 0
+    let running = false
+
+    const colours = () => {
+      const css = getComputedStyle(document.documentElement)
+      return BLOOMS.map((b) => css.getPropertyValue(b.v).trim() || "120,170,210")
+    }
+    let rgb = colours()
+
+    const size = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = Math.floor(window.innerWidth * dpr)
+      canvas.height = Math.floor(window.innerHeight * dpr)
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+
+    const draw = (t: number) => {
+      const w = window.innerWidth
+      const h = window.innerHeight
+      ctx.clearRect(0, 0, w, h)
+      ctx.globalCompositeOperation = "lighter"
+      BLOOMS.forEach((b, i) => {
+        const px = (b.x + Math.sin(t * b.s + i * 2.2) * 0.1) * w
+        const py = (b.y + Math.cos(t * b.s * 1.25 + i) * 0.08) * h
+        const rad = b.r * Math.max(w, h) * 0.9
+        const g = ctx.createRadialGradient(px, py, 0, px, py, rad)
+        g.addColorStop(0, `rgba(${rgb[i]},0.30)`)
+        g.addColorStop(1, `rgba(${rgb[i]},0)`)
+        ctx.fillStyle = g
+        ctx.beginPath()
+        ctx.arc(px, py, rad, 0, Math.PI * 2)
+        ctx.fill()
+      })
+      ctx.globalCompositeOperation = "source-over"
+      if (running) raf = requestAnimationFrame(draw)
+    }
+
+    const start = () => {
+      if (running || reduced.matches) return
+      running = true
+      raf = requestAnimationFrame(draw)
+    }
+    const stop = () => {
+      running = false
+      cancelAnimationFrame(raf)
+    }
+
+    const onResize = () => {
+      size()
+      if (!running) draw(0)
+    }
+    const onVisibility = () => (document.hidden ? stop() : start())
+    // The palette lives on <html>; repaint the static frame when it changes.
+    const observer = new MutationObserver(() => {
+      rgb = colours()
+      if (!running) draw(0)
+    })
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class", "data-skin", "data-cw"],
+    })
+
+    size()
+    draw(0)
+    start()
+
+    window.addEventListener("resize", onResize)
+    document.addEventListener("visibilitychange", onVisibility)
+    reduced.addEventListener("change", () => (reduced.matches ? stop() : start()))
+
+    return () => {
+      stop()
+      observer.disconnect()
+      window.removeEventListener("resize", onResize)
+      document.removeEventListener("visibilitychange", onVisibility)
+    }
+  }, [])
+
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
+      <canvas ref={ref} className="h-full w-full" />
+      {/* Grain. Stops the blooms reading as a flat CSS gradient — the same
+          reason the base design carries it on the body. */}
+      <div
+        className="absolute inset-0 opacity-[0.14]"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+        }}
+      />
+    </div>
+  )
+}

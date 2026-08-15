@@ -262,23 +262,46 @@ export const architectureBySlug: Record<string, () => ReactNode> = {
  * a genuine preview rather than a decorative glyph. Inert: no pointer events,
  * hidden from the accessibility tree, since the readable version lives on the
  * project page.
+ *
+ * Scale is `--arch-scale`, set by the caller's className, not a number prop.
+ * Legibility is a function of the column the frame sits in and that column
+ * changes at every breakpoint, which an inline transform cannot follow: a
+ * scale tuned for a 500px desktop column showed a 390px viewport one node and
+ * half an arrow. As a custom property it takes variants like anything else —
+ * `[--arch-scale:0.5] sm:[--arch-scale:0.8]`.
+ *
+ * The 0.38 fallback is the thumbnail, which renders the 12px mono labels at
+ * ~4.6px. That is grey noise, and these diagrams are the one asset on the page
+ * a competing portfolio can't copy — hence the lead card runs near 1.
  */
-export function ArchitecturePreview({ slug }: { slug: string }) {
+export function ArchitecturePreview({
+  slug,
+  className = "h-32",
+  fadeFrom = "55%",
+}: {
+  slug: string
+  /** Frame sizing and `--arch-scale`. Both belong to the caller. */
+  className?: string
+  /** Where the bottom mask starts fading, as a percentage of the frame. */
+  fadeFrom?: string
+}) {
   const Diagram = architectureBySlug[slug]
   if (!Diagram) return null
+
+  const fade = `linear-gradient(to bottom, black ${fadeFrom}, transparent 100%)`
 
   return (
     <div
       aria-hidden
-      className="pointer-events-none relative h-32 select-none overflow-hidden rounded-lg border border-border bg-muted/40"
-      style={{
-        maskImage: "linear-gradient(to bottom, black 55%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(to bottom, black 55%, transparent 100%)",
-      }}
+      className={`pointer-events-none relative select-none overflow-hidden rounded-lg border border-border bg-muted/40 ${className}`}
+      style={{ maskImage: fade, WebkitMaskImage: fade }}
     >
       <div
         className="absolute left-0 top-0 origin-top-left"
-        style={{ transform: "scale(0.38)", width: "263%" }}
+        style={{
+          transform: "scale(var(--arch-scale, 0.38))",
+          width: "calc(100% / var(--arch-scale, 0.38))",
+        }}
       >
         <Diagram />
       </div>

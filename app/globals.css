@@ -107,10 +107,27 @@ html.dark {
   --field-dot: 43, 200, 221;
 }
 
+/* Typeface roles are indirected through --ui-* so a skin can swap the whole
+   type system by redefining three variables. The defaults are the current
+   site's: Plex Sans carries claims, Plex Mono carries anything measured. */
+:root {
+  --ui-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --ui-display: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --ui-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  /* Panel surface. `glass` reads these rather than hard-coding blur, so a skin
+     that wants paper instead of glass sets --panel-blur to 0 and is done. */
+  --panel-bg: var(--card);
+  --panel-border: var(--border);
+  --panel-blur: 16px;
+  --panel-sat: 140%;
+  --panel-shadow: var(--elevation);
+}
+
 @theme inline {
-  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-sans: var(--ui-sans);
+  --font-display: var(--ui-display);
+  --font-mono: var(--ui-mono);
 
   --color-background: var(--background);
   --color-background-mid: var(--background-mid);
@@ -206,11 +223,11 @@ html.dark {
    rather than a flat rectangle with opacity. */
 @utility glass {
   position: relative;
-  background-color: var(--card);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid var(--border);
-  box-shadow: var(--elevation), inset 0 1px 0 0 var(--glass-highlight);
+  background: var(--panel-bg);
+  backdrop-filter: blur(var(--panel-blur)) saturate(var(--panel-sat));
+  -webkit-backdrop-filter: blur(var(--panel-blur)) saturate(var(--panel-sat));
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--panel-shadow), inset 0 1px 0 0 var(--glass-highlight);
 }
 
 /* Interactive panels only. The spotlight lives here rather than on `glass`
@@ -333,4 +350,443 @@ html.dark {
 
 @utility rise {
   animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* ============================================================================
+   SKINS — three candidate designs, switchable at runtime.
+
+   Temporary. `content/skins.ts` explains the mechanism and says when to delete
+   this block: as soon as a design is chosen, the other two go and the winner's
+   tokens move up into the base blocks above.
+
+   Each skin redefines only tokens. Components never test the skin id, which is
+   why `tech-skills`, `credentials` and `contact` restyle themselves for free —
+   they were already written against tokens rather than colours.
+
+   Specificity: `html[data-skin=x]` ties with `html.dark`, so it must come
+   after it (it does). Light variants use `:not(.dark)` to outrank it.
+   ========================================================================= */
+
+/* ---------- AURORA -------------------------------------------------------
+   Thick glass over a live canvas aurora. The panel tokens are the whole
+   argument: 26px of blur at 185% saturation with a bright top edge, versus
+   the current site's 16px over a 4% white fill that has nothing behind it to
+   refract. Glass only reads as glass when something is moving underneath.  */
+html[data-skin='aurora'] {
+  --ui-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --background: #070e15;
+  --background-mid: #0b1926;
+  --background-deep: #050a10;
+  --foreground: #e9f2f8;
+  --muted-foreground: #8fa8bb;
+
+  --primary: #6cc0f0;
+  --primary-foreground: #04141d;
+  --accent: #6cc0f0;
+  --accent-foreground: #04141d;
+
+  --card: rgba(255, 255, 255, 0.075);
+  --card-solid: #0d1a24;
+  --popover: #0d1a24;
+  --secondary: #12222f;
+  --muted: #0f1c27;
+  --border: rgba(255, 255, 255, 0.13);
+  --border-strong: rgba(255, 255, 255, 0.24);
+  --ring: #6cc0f0;
+
+  --panel-bg: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.13),
+    rgba(255, 255, 255, 0.045) 46%,
+    rgba(255, 255, 255, 0.085)
+  );
+  --panel-border: rgba(255, 255, 255, 0.13);
+  --panel-blur: 26px;
+  --panel-sat: 185%;
+  --panel-shadow: 0 28px 64px -30px rgba(0, 0, 0, 0.95);
+  --glass-highlight: rgba(255, 255, 255, 0.5);
+
+  --glow: 0 0 0 1px rgba(108, 192, 240, 0.3), 0 14px 40px -16px rgba(108, 192, 240, 0.55);
+  --elevation: 0 28px 64px -30px rgba(0, 0, 0, 0.95);
+  --chip: rgba(255, 255, 255, 0.94);
+  --spotlight-strength: 12%;
+  --field-dot: 108, 192, 240;
+  /* The aurora canvas is the backdrop; the neural mesh on top of it is two
+     ambient layers fighting. */
+  --mesh-opacity: 0;
+
+  /* Aurora's own light sources, read by the canvas. */
+  --aur-1: 56, 142, 196;
+  --aur-2: 24, 86, 138;
+  --aur-3: 96, 180, 225;
+}
+
+/* The original 05 palette, kept switchable because it was the first thing
+   Karthik reacted to — cyan against coral. Two hues plus violet is a lot for
+   an infrastructure portfolio, which is why `a2` is the default. */
+html[data-skin='aurora'][data-cw='original'] {
+  --background: #0a0a12;
+  --background-mid: #14122a;
+  --background-deep: #07070e;
+  --foreground: #f2f0ff;
+  --muted-foreground: #a8a4c4;
+  --primary: #6ee7ff;
+  --primary-foreground: #04131a;
+  --accent: #6ee7ff;
+  --card-solid: #131126;
+  --popover: #131126;
+  --secondary: #1b1836;
+  --muted: #16142b;
+  --glow: 0 0 0 1px rgba(110, 231, 255, 0.3), 0 14px 40px -16px rgba(255, 122, 77, 0.4);
+  --field-dot: 110, 231, 255;
+  --aur-1: 110, 231, 255;
+  --aur-2: 255, 122, 77;
+  --aur-3: 124, 92, 255;
+}
+
+html[data-skin='aurora']:not(.dark) {
+  --background: #eef3f8;
+  --background-mid: #e3ecf4;
+  --background-deep: #d8e4ee;
+  --foreground: #0c1a24;
+  --muted-foreground: #4c6072;
+  /* 5.9:1 on the deepest wash. The obvious #0a6b7d only reaches 4.5 on the
+     lightest one, and this skin's wash runs darker. */
+  --primary: #0a5566;
+  --primary-foreground: #ffffff;
+  --accent: #0a5566;
+  --card: rgba(255, 255, 255, 0.66);
+  --card-solid: #ffffff;
+  --popover: #ffffff;
+  --secondary: #dfe8f1;
+  --muted: #e7eef5;
+  --border: rgba(12, 26, 36, 0.14);
+  --border-strong: rgba(12, 26, 36, 0.28);
+  --ring: #0a5566;
+  --panel-bg: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.86),
+    rgba(255, 255, 255, 0.58) 46%,
+    rgba(255, 255, 255, 0.76)
+  );
+  --panel-border: rgba(12, 26, 36, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.95);
+  --panel-shadow: 0 24px 50px -30px rgba(12, 26, 36, 0.5);
+  --elevation: 0 24px 50px -30px rgba(12, 26, 36, 0.5);
+  --glow: 0 0 0 1px rgba(10, 85, 102, 0.25), 0 14px 34px -16px rgba(10, 85, 102, 0.45);
+  --chip: #f2f6fa;
+  --spotlight-strength: 6%;
+  --field-dot: 10, 85, 102;
+  --aur-1: 120, 178, 214;
+  --aur-2: 168, 206, 230;
+  --aur-3: 140, 190, 220;
+}
+
+/* ---------- SPATIAL ------------------------------------------------------
+   Solid elevation rather than glass: opaque panels lit by two radial lumes,
+   so depth comes from shadow and light instead of transparency. Deliberately
+   a different type system (Manrope, wider and rounder than Geist) so the two
+   dark skins can't be mistaken for each other.                              */
+html[data-skin='spatial'] {
+  --ui-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --ui-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --background: #0d1117;
+  --background-mid: #141b26;
+  --background-deep: #090c11;
+  --foreground: #eef2f7;
+  --muted-foreground: #93a4b7;
+
+  --primary: #9b82ff;
+  --primary-foreground: #0b0718;
+  --accent: #9b82ff;
+  --accent-foreground: #0b0718;
+
+  --card: #141a23;
+  --card-solid: #141a23;
+  --popover: #141a23;
+  --secondary: #1a212c;
+  --muted: #131922;
+  --border: #232c39;
+  --border-strong: #33415240;
+  --ring: #9b82ff;
+
+  --panel-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012));
+  --panel-border: #222b38;
+  --panel-blur: 8px;
+  --panel-sat: 120%;
+  --panel-shadow: 0 26px 54px -32px #000;
+  --glass-highlight: rgba(255, 255, 255, 0.1);
+
+  --glow: 0 0 0 1px rgba(155, 130, 255, 0.32), 0 18px 46px -18px rgba(155, 130, 255, 0.5);
+  --elevation: 0 26px 54px -32px #000;
+  --chip: rgba(255, 255, 255, 0.94);
+  --spotlight-strength: 10%;
+  --field-dot: 155, 130, 255;
+  --mesh-opacity: 0;
+
+  /* Second lume. Not --ok: this is a light source, not a status. */
+  --lume-2: #2fd6b0;
+}
+
+html[data-skin='spatial']:not(.dark) {
+  --background: #f5f6fb;
+  --background-mid: #eceef7;
+  --background-deep: #e3e6f2;
+  --foreground: #101620;
+  --muted-foreground: #545e6e;
+  /* 5.6:1 on the deepest wash; the dark skin's #9b82ff measures 2.9 on white. */
+  --primary: #5433c9;
+  --primary-foreground: #ffffff;
+  --accent: #5433c9;
+  --card: #ffffff;
+  --card-solid: #ffffff;
+  --popover: #ffffff;
+  --secondary: #e9ebf5;
+  --muted: #eff1f8;
+  --border: rgba(16, 22, 32, 0.12);
+  --border-strong: rgba(16, 22, 32, 0.26);
+  --ring: #5433c9;
+  --panel-bg: #ffffff;
+  --panel-border: rgba(16, 22, 32, 0.1);
+  --panel-blur: 0px;
+  --panel-shadow: 0 22px 44px -30px rgba(16, 22, 32, 0.55);
+  --glass-highlight: transparent;
+  --elevation: 0 22px 44px -30px rgba(16, 22, 32, 0.55);
+  --glow: 0 0 0 1px rgba(84, 51, 201, 0.24), 0 16px 38px -18px rgba(84, 51, 201, 0.45);
+  --chip: #f4f5fb;
+  --spotlight-strength: 5%;
+  --field-dot: 84, 51, 201;
+  --lume-2: #0e8f74;
+}
+
+/* ---------- BLUEPRINT ----------------------------------------------------
+   Daylight drafting sheet. Karthik rejected the graph-paper background from
+   the first pitch, so there is none: the drawing vocabulary is carried by the
+   title block, the dimension rules, condensed caps and one red pencil.
+   Paper, not glass — --panel-blur is 0 and the highlight is off.            */
+html[data-skin='blueprint'] {
+  --ui-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --ui-display: var(--font-barlow-condensed), var(--font-archivo), ui-sans-serif, sans-serif;
+  --ui-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --background: #eaeef2;
+  --background-mid: #e3e9ef;
+  --background-deep: #dae2ea;
+  --foreground: #16293a;
+  --muted-foreground: #4f6478;
+
+  /* Red pencil. 5.2:1 on the deepest wash — the #b4402c from the pitch
+     measured 4.3 and would have failed AA on a caption. */
+  --primary: #9c3524;
+  --primary-foreground: #ffffff;
+  --accent: #9c3524;
+  --accent-foreground: #ffffff;
+
+  --card: #ffffff;
+  --card-solid: #ffffff;
+  --popover: #ffffff;
+  --secondary: #e2e8ee;
+  --muted: #edf1f5;
+  --border: rgba(22, 41, 58, 0.2);
+  --border-strong: rgba(22, 41, 58, 0.38);
+  --ring: #9c3524;
+
+  --panel-bg: #ffffff;
+  --panel-border: rgba(22, 41, 58, 0.22);
+  --panel-blur: 0px;
+  --panel-sat: 100%;
+  --panel-shadow: 0 1px 2px rgba(22, 41, 58, 0.07);
+  --glass-highlight: transparent;
+
+  --glow: 0 0 0 1px rgba(156, 53, 36, 0.28), 0 8px 22px -12px rgba(156, 53, 36, 0.4);
+  --elevation: 0 1px 2px rgba(22, 41, 58, 0.07);
+  --chip: #f4f7fa;
+  --mesh-opacity: 0;
+  --spotlight-strength: 0%;
+  --field-dot: 156, 53, 36;
+}
+
+html[data-skin='blueprint'].dark {
+  /* The sheet under a darkroom lamp. Same drawing, inverted stock. */
+  --background: #0b1a26;
+  --background-mid: #0f2433;
+  --background-deep: #08131c;
+  --foreground: #dbe7ef;
+  --muted-foreground: #8ba5b8;
+  --primary: #f0866a;
+  --primary-foreground: #14100f;
+  --accent: #f0866a;
+  --card: #0f2231;
+  --card-solid: #0f2231;
+  --popover: #0f2231;
+  --secondary: #14293a;
+  --muted: #102130;
+  --border: rgba(219, 231, 239, 0.2);
+  --border-strong: rgba(219, 231, 239, 0.36);
+  --ring: #f0866a;
+  --panel-bg: #0f2231;
+  --panel-border: rgba(219, 231, 239, 0.2);
+  --panel-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --elevation: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --chip: rgba(255, 255, 255, 0.94);
+  --field-dot: 240, 134, 106;
+}
+
+/* ---------- Skin-agnostic pieces the skins share ------------------------- */
+
+/* Specular top-left highlight. Only reads on a translucent surface, which is
+   why it is opt-in per element rather than baked into `glass`. */
+@utility sheen {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(130% 74% at 12% 0%, rgba(255, 255, 255, 0.19), transparent 58%);
+  }
+}
+
+/* Availability dot. Replaces `animate-ping` — an expanding ring is the SaaS
+   "live" tell and it was the loudest motion above the fold. */
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@utility breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+/* Diagram assembly. The architecture previews wipe in left to right with a
+   bright edge travelling ahead of the reveal, so the diagram reads as being
+   drawn rather than faded in. Applied once, when the card enters view. */
+@keyframes assemble-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes assemble-edge {
+  from {
+    transform: translateX(-2%);
+    opacity: 0.9;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.assemble > * {
+  animation: assemble-wipe 1.15s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+.assemble::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 14%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--primary) 55%, transparent));
+  animation: assemble-edge 1.15s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+/* A rule that runs to both sides of its label, for section headers that sit
+   in the middle of a sheet rather than at its left edge. */
+@utility rule-both {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+}
+
+/* Spatial's floating deck of platform layers. Three planes in one perspective,
+   drifting on a long loop — the layers are the real stack (infrastructure,
+   control plane, workloads), not decoration. */
+.deck-scene {
+  perspective: 1100px;
+}
+
+.deck {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(58deg) rotateZ(-38deg);
+  animation: deck-drift 10s ease-in-out infinite alternate;
+}
+
+@keyframes deck-drift {
+  from {
+    transform: rotateX(58deg) rotateZ(-38deg);
+  }
+  to {
+    transform: rotateX(53deg) rotateZ(-31deg);
+  }
+}
+
+.deck-layer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 196px;
+  height: 196px;
+  margin: -98px 0 0 -98px;
+  border-radius: var(--radius-lg);
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 30px 60px -32px rgba(0, 0, 0, 0.9);
+}
+
+.deck-layer[data-lit='true'] {
+  border-color: color-mix(in oklab, var(--primary) 55%, transparent);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 32px 66px -28px color-mix(in oklab, var(--primary) 50%, transparent);
+}
+
+/* The planes have to be *lit* or they read as three grey rectangles. Each skin
+   lights them with its own sources: Aurora takes a wash of the accent so the
+   deck belongs to the same light as the backdrop, Spatial runs the full violet
+   → teal traverse because that pair is the entire palette and the deck is its
+   hero image. */
+html[data-skin='aurora'] .deck-layer {
+  background: linear-gradient(
+    150deg,
+    color-mix(in oklab, var(--primary) 22%, transparent),
+    rgba(255, 255, 255, 0.05) 60%,
+    color-mix(in oklab, var(--primary) 12%, transparent)
+  );
+}
+
+html[data-skin='spatial'] .deck-layer {
+  background: linear-gradient(
+    150deg,
+    color-mix(in oklab, var(--primary) 34%, transparent),
+    color-mix(in oklab, var(--lume-2) 22%, transparent)
+  );
+  border-color: color-mix(in oklab, var(--primary) 34%, transparent);
 }
