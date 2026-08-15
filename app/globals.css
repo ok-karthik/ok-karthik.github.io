@@ -424,29 +424,6 @@ html[data-skin='aurora'] {
   --aur-3: 96, 180, 225;
 }
 
-/* The original 05 palette, kept switchable because it was the first thing
-   Karthik reacted to — cyan against coral. Two hues plus violet is a lot for
-   an infrastructure portfolio, which is why `a2` is the default. */
-html[data-skin='aurora'][data-cw='original'] {
-  --background: #0a0a12;
-  --background-mid: #14122a;
-  --background-deep: #07070e;
-  --foreground: #f2f0ff;
-  --muted-foreground: #a8a4c4;
-  --primary: #6ee7ff;
-  --primary-foreground: #04131a;
-  --accent: #6ee7ff;
-  --card-solid: #131126;
-  --popover: #131126;
-  --secondary: #1b1836;
-  --muted: #16142b;
-  --glow: 0 0 0 1px rgba(110, 231, 255, 0.3), 0 14px 40px -16px rgba(255, 122, 77, 0.4);
-  --field-dot: 110, 231, 255;
-  --aur-1: 110, 231, 255;
-  --aur-2: 255, 122, 77;
-  --aur-3: 124, 92, 255;
-}
-
 html[data-skin='aurora']:not(.dark) {
   --background: #eef3f8;
   --background-mid: #e3ecf4;
@@ -565,10 +542,18 @@ html[data-skin='spatial']:not(.dark) {
 }
 
 /* ---------- BLUEPRINT ----------------------------------------------------
-   Daylight drafting sheet. Karthik rejected the graph-paper background from
-   the first pitch, so there is none: the drawing vocabulary is carried by the
-   title block, the dimension rules, condensed caps and one red pencil.
-   Paper, not glass — --panel-blur is 0 and the highlight is off.            */
+   Daylight technical sheet: title block, dimension rules, condensed caps, one
+   pencil. Paper, not glass — --panel-blur is 0 and the highlight is off.
+
+   The pencil is drafting blue. It was #9c3524 until Karthik pointed out that
+   a dark rust reads as Claude's own brand colour, which is not an association
+   a portfolio wants doing its talking. #1552b8 measures 6.14:1 on the paper
+   and 5.48:1 on the deepest wash — within 0.05 of what the rust measured, so
+   the swap moved the hue and nothing else.
+
+   Gridlines are back, at 2%. The first pitch had them at wallpaper strength
+   and Karthik was right to reject that; see `BlueprintPaper` for what
+   changed.                                                                  */
 html[data-skin='blueprint'] {
   --ui-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --ui-display: var(--font-barlow-condensed), var(--font-archivo), ui-sans-serif, sans-serif;
@@ -580,11 +565,9 @@ html[data-skin='blueprint'] {
   --foreground: #16293a;
   --muted-foreground: #4f6478;
 
-  /* Red pencil. 5.2:1 on the deepest wash — the #b4402c from the pitch
-     measured 4.3 and would have failed AA on a caption. */
-  --primary: #9c3524;
+  --primary: #1552b8;
   --primary-foreground: #ffffff;
-  --accent: #9c3524;
+  --accent: #1552b8;
   --accent-foreground: #ffffff;
 
   --card: #ffffff;
@@ -594,7 +577,7 @@ html[data-skin='blueprint'] {
   --muted: #edf1f5;
   --border: rgba(22, 41, 58, 0.2);
   --border-strong: rgba(22, 41, 58, 0.38);
-  --ring: #9c3524;
+  --ring: #1552b8;
 
   --panel-bg: #ffffff;
   --panel-border: rgba(22, 41, 58, 0.22);
@@ -603,12 +586,17 @@ html[data-skin='blueprint'] {
   --panel-shadow: 0 1px 2px rgba(22, 41, 58, 0.07);
   --glass-highlight: transparent;
 
-  --glow: 0 0 0 1px rgba(156, 53, 36, 0.28), 0 8px 22px -12px rgba(156, 53, 36, 0.4);
+  --glow: 0 0 0 1px rgba(21, 82, 184, 0.28), 0 8px 22px -12px rgba(21, 82, 184, 0.4);
   --elevation: 0 1px 2px rgba(22, 41, 58, 0.07);
   --chip: #f4f7fa;
   --mesh-opacity: 0;
   --spotlight-strength: 0%;
-  --field-dot: 156, 53, 36;
+  --field-dot: 21, 82, 184;
+
+  /* Grid ink, read by `BlueprintPaper`. Separate from --border so the ruling
+     can be tuned without moving every panel edge on the page with it. */
+  --rule-ink: rgba(22, 41, 58, 0.075);
+  --rule-ink-minor: rgba(22, 41, 58, 0.04);
 }
 
 html[data-skin='blueprint'].dark {
@@ -618,9 +606,9 @@ html[data-skin='blueprint'].dark {
   --background-deep: #08131c;
   --foreground: #dbe7ef;
   --muted-foreground: #8ba5b8;
-  --primary: #f0866a;
-  --primary-foreground: #14100f;
-  --accent: #f0866a;
+  --primary: #79b8ff;
+  --primary-foreground: #08131c;
+  --accent: #79b8ff;
   --card: #0f2231;
   --card-solid: #0f2231;
   --popover: #0f2231;
@@ -628,13 +616,16 @@ html[data-skin='blueprint'].dark {
   --muted: #102130;
   --border: rgba(219, 231, 239, 0.2);
   --border-strong: rgba(219, 231, 239, 0.36);
-  --ring: #f0866a;
+  --ring: #79b8ff;
   --panel-bg: #0f2231;
   --panel-border: rgba(219, 231, 239, 0.2);
   --panel-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   --elevation: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --glow: 0 0 0 1px rgba(121, 184, 255, 0.28), 0 8px 22px -12px rgba(121, 184, 255, 0.4);
   --chip: rgba(255, 255, 255, 0.94);
-  --field-dot: 240, 134, 106;
+  --field-dot: 121, 184, 255;
+  --rule-ink: rgba(219, 231, 239, 0.075);
+  --rule-ink-minor: rgba(219, 231, 239, 0.04);
 }
 
 /* ---------- Skin-agnostic pieces the skins share ------------------------- */
@@ -750,9 +741,9 @@ html[data-skin='blueprint'].dark {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 196px;
-  height: 196px;
-  margin: -98px 0 0 -98px;
+  width: 224px;
+  height: 224px;
+  margin: -112px 0 0 -112px;
   border-radius: var(--radius-lg);
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
@@ -782,11 +773,55 @@ html[data-skin='aurora'] .deck-layer {
   );
 }
 
+/* Opaque, mixed into the card colour rather than into transparency. Spatial's
+   whole argument is solids and shadow; translucent planes let the lower deck's
+   logos bleed through the upper one, which turned three legible tiers into one
+   busy overlap. */
 html[data-skin='spatial'] .deck-layer {
   background: linear-gradient(
     150deg,
-    color-mix(in oklab, var(--primary) 34%, transparent),
-    color-mix(in oklab, var(--lume-2) 22%, transparent)
+    color-mix(in oklab, var(--primary) 30%, var(--card-solid)),
+    color-mix(in oklab, var(--lume-2) 20%, var(--card-solid))
   );
-  border-color: color-mix(in oklab, var(--primary) 34%, transparent);
+  border-color: color-mix(in oklab, var(--primary) 40%, transparent);
+}
+
+/* What is printed on each plane.
+ *
+ * The deck was three empty slabs, which is a shape rather than a statement —
+ * it asked the reader to take "three layers" on trust. Each plane now carries
+ * the logos of the tools that actually run at that tier, so the object is
+ * evidence: the top plane is the telemetry stack, the middle one the control
+ * plane, the bottom one the cloud it all lands on.
+ *
+ * The chips sit *in* the plane, so the perspective shears them. That is the
+ * point — they read as printed on the surface rather than floating over a
+ * picture of one. Legibility survives it because logos are shapes; the names
+ * are in the legend beside the deck, where a screen reader can also get them.
+ */
+.deck-face {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  height: 100%;
+  padding: 22px;
+  place-content: center;
+}
+
+.deck-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--chip);
+  border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+  box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.45);
+}
+
+.deck-chip img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
 }

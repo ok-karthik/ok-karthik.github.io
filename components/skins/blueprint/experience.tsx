@@ -3,30 +3,32 @@
 import { motion } from "framer-motion"
 import { experiences } from "@/content/experience"
 import { profile } from "@/content/profile"
-import { DimRule } from "./parts"
+import { SheetHead } from "./parts"
 
 /**
- * A revision history.
+ * Experience, ruled.
  *
- * Every drawing carries one: what changed, when, and who signed it off. It is
- * the closest real drafting convention to a career, and unlike a table of
- * dates it keeps the prose readable — the period sits in the margin as a
- * dimension, the role reads as a heading, the bullets stay full sentences.
+ * This was styled as a drawing's revision history — "Rev 4", "issued for
+ * construction" — which was a borrowed metaphor doing no work for a reader
+ * scanning dates and companies. What survives is the part that was actually
+ * good: the period sits out in a wide left margin as an annotation, the role
+ * reads as a heading, and one hairline separates entries.
  *
- * Karthik rejected the first light direction for looking like a ledger, so
- * this is explicitly *not* a table: no cell borders, no zebra rows, one
- * hairline per entry and a wide left margin doing the alignment.
+ * Explicitly not a table. Karthik rejected the first light-mode direction for
+ * looking like a ledger, and a schedule grid here would land in exactly that
+ * trap: cell borders, zebra rows, prose squeezed into a column.
  */
 export function BlueprintExperience() {
   return (
     <section id="experience" className="scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        <DimRule
-          label={`${profile.yearsInTech} years building infrastructure and the teams that run it`}
-          sheet="Sheet 04"
+        <SheetHead
+          index="04"
+          eyebrow="Experience"
+          title={`${profile.yearsInTech} years building infrastructure and the teams that run it`}
         />
 
-        <ol className="mt-10">
+        <ol>
           {experiences.map((exp, i) => {
             const current = exp.period.toLowerCase().includes("present")
             return (
@@ -39,12 +41,11 @@ export function BlueprintExperience() {
                 className="grid gap-x-10 gap-y-3 border-t border-border-strong py-9 last:border-b md:grid-cols-[13rem_1fr]"
               >
                 <div className="md:sticky md:top-24 md:self-start">
-                  <p className="label tabular">Rev {experiences.length - i}</p>
-                  <p className="mt-1 font-mono text-small tabular text-foreground">{exp.period}</p>
+                  <p className="font-mono text-small tabular text-foreground">{exp.period}</p>
                   {current ? (
                     <p className="mt-2 inline-flex items-center gap-1.5 font-mono text-micro uppercase tracking-[0.18em] text-primary">
                       <span className="breathe h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
-                      Issued for construction
+                      Current role
                     </p>
                   ) : null}
                 </div>

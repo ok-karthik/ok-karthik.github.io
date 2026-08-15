@@ -1,38 +1,20 @@
 "use client"
 
 import { useState } from "react"
+import { PlatformDeck, platformLayers } from "@/components/skins/platform-deck"
 
 /**
  * "Three layers, one owner" — the deck moment inside Aurora.
  *
  * The single hardest thing to say on a platform CV is *how far down the stack
  * you go*, because every layer sounds like the others written as a bullet
- * list. Three planes in one perspective say it in a glance: the reader sees
- * three tiers and one person holding all of them.
+ * list. Three planes in one perspective, each carrying the tools that run at
+ * that tier, say it in a glance.
  *
- * The layers are the real stack Karthik works across, not decoration — each
- * one names tools that appear in `experience.ts` or `projects.ts`. Hovering or
- * focusing a row lights its plane, so the list and the object are the same
- * thing seen twice rather than a diagram with a caption.
+ * Hovering or focusing a row lights its plane, so the list and the object are
+ * the same thing seen twice rather than a diagram with a caption. The layer
+ * data lives in `platform-deck.tsx`, shared with Spatial.
  */
-const LAYERS = [
-  {
-    id: "workloads",
-    name: "Workloads & telemetry",
-    detail: "OpenTelemetry pipelines, LGTM backends, SLOs and alerting as code",
-  },
-  {
-    id: "control-plane",
-    name: "Control plane",
-    detail: "Kubernetes, Argo CD, Helm library charts, admission policy",
-  },
-  {
-    id: "foundation",
-    name: "Cloud foundation",
-    detail: "Terraform and Terragrunt across AWS, Azure and GCP",
-  },
-]
-
 export function AuroraLayers() {
   const [lit, setLit] = useState<string | null>(null)
 
@@ -53,7 +35,7 @@ export function AuroraLayers() {
               </p>
 
               <ul className="mt-8 divide-y divide-border border-y border-border">
-                {LAYERS.map((layer) => (
+                {platformLayers.map((layer) => (
                   <li key={layer.id}>
                     <button
                       type="button"
@@ -88,23 +70,10 @@ export function AuroraLayers() {
               </ul>
             </div>
 
-            {/* The object itself. Inert — the list above is the accessible
-                version, and this adds nothing a screen reader could use. */}
-            <div
-              aria-hidden
-              className="deck-scene relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px]"
-            >
-              <div className="deck">
-                {LAYERS.map((layer, i) => (
-                  <div
-                    key={layer.id}
-                    className="deck-layer"
-                    data-lit={lit === layer.id ? "true" : "false"}
-                    style={{ transform: `translateZ(${(LAYERS.length - 1 - i) * 62}px)` }}
-                  />
-                ))}
-              </div>
-            </div>
+            <PlatformDeck
+              lit={lit}
+              className="mx-auto h-[320px] w-full max-w-[440px] sm:h-[380px]"
+            />
           </div>
         </div>
       </div>

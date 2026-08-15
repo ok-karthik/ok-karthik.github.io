@@ -16,12 +16,15 @@
  * `aurora` is the default because it is the one that renders server-side: the
  * exported HTML contains exactly one composition, so the heading hierarchy
  * stays valid and the ids stay unique for `pnpm audit:html`.
+ *
+ * Aurora briefly shipped a second colourway (cyan / coral / violet, the
+ * original 05 palette). Cut 2026-08-15: three hues at full saturation read as
+ * a rainbow, and an infrastructure portfolio is arguing for judgement. The
+ * whole `data-cw` mechanism went with it rather than leaving a switch with
+ * one option in it.
  */
 
 export type SkinId = "aurora" | "spatial" | "blueprint" | "current"
-
-/** Aurora ships two palettes; the rest have one. */
-export type ColourwayId = "a2" | "original"
 
 export type Skin = {
   id: SkinId
@@ -30,7 +33,6 @@ export type Skin = {
   note: string
   /** Colour ground the design commits to, for the switcher's dot. */
   swatch: string
-  colourways?: { id: ColourwayId; label: string; swatch: string }[]
 }
 
 export const skins: Skin[] = [
@@ -39,22 +41,18 @@ export const skins: Skin[] = [
     label: "Aurora Glass",
     note: "Thick glass over a live aurora; architecture diagrams assemble inside the panels.",
     swatch: "#6cc0f0",
-    colourways: [
-      { id: "a2", label: "Anodized blue", swatch: "#6cc0f0" },
-      { id: "original", label: "Cyan / coral", swatch: "#6ee7ff" },
-    ],
   },
   {
     id: "spatial",
     label: "Spatial",
-    note: "A floating 3D deck of platform layers, violet-to-teal lume, solid elevation.",
+    note: "A floating 3D deck of the real platform layers, violet-to-teal lume, solid elevation.",
     swatch: "#7c5cff",
   },
   {
     id: "blueprint",
     label: "Blueprint",
-    note: "Daylight drafting sheet — title block, condensed caps, red-pencil annotations. No gridlines.",
-    swatch: "#b4402c",
+    note: "Daylight technical sheet — title block, condensed caps, drafting blue, ruled paper.",
+    swatch: "#1552b8",
   },
   {
     id: "current",
@@ -65,14 +63,9 @@ export const skins: Skin[] = [
 ]
 
 export const defaultSkin: SkinId = "aurora"
-export const defaultColourway: ColourwayId = "a2"
 
 export const isSkinId = (v: unknown): v is SkinId =>
   typeof v === "string" && skins.some((s) => s.id === v)
 
-export const isColourwayId = (v: unknown): v is ColourwayId =>
-  v === "a2" || v === "original"
-
-/** Storage keys. Shared by the no-flash script and the provider. */
+/** Storage key. Shared by the no-flash script and the provider. */
 export const SKIN_KEY = "site-skin"
-export const COLOURWAY_KEY = "site-colourway"

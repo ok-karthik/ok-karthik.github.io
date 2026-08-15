@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useTheme } from "next-themes"
 import { Check, Palette, X } from "lucide-react"
-import { skins, type ColourwayId, type SkinId } from "@/content/skins"
+import { skins, type SkinId } from "@/content/skins"
 import { useSkin } from "./use-skin"
 
 /**
@@ -27,7 +27,7 @@ const preferredTheme: Record<SkinId, "dark" | "light"> = {
 }
 
 export function SkinSwitcher() {
-  const { skin, colourway, setSkin, setColourway, ready } = useSkin()
+  const { skin, setSkin, ready } = useSkin()
   const { resolvedTheme, setTheme } = useTheme()
   const [open, setOpen] = useState(false)
 
@@ -92,34 +92,6 @@ export function SkinSwitcher() {
               )
             })}
           </ul>
-
-          {active?.colourways ? (
-            <div className="mt-4 border-t border-border pt-3">
-              <p className="label mb-2">Colourway</p>
-              <div className="flex flex-wrap gap-2">
-                {active.colourways.map((cw) => (
-                  <button
-                    key={cw.id}
-                    type="button"
-                    aria-pressed={cw.id === colourway}
-                    onClick={() => setColourway(cw.id as ColourwayId)}
-                    className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-small transition-colors ${
-                      cw.id === colourway
-                        ? "border-primary/50 bg-primary/10 text-foreground"
-                        : "border-border text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    <span
-                      className="h-2.5 w-2.5 rounded-full"
-                      style={{ background: cw.swatch }}
-                      aria-hidden
-                    />
-                    {cw.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          ) : null}
 
           <div className="mt-4 border-t border-border pt-3">
             <p className="label mb-2">Theme</p>

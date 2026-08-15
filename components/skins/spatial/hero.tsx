@@ -4,25 +4,21 @@ import { useState } from "react"
 import { Download, Github, Linkedin, Mail } from "lucide-react"
 import { profile, stats, focusAreas } from "@/content/profile"
 import { CountUp } from "@/components/count-up"
+import { PlatformDeck, platformLayers } from "@/components/skins/platform-deck"
 
 /**
  * Spatial leads with the object.
  *
  * Aurora shows the deck once, halfway down, as a supporting section. Here it
  * *is* the hero image — the first thing on the page is a three-tier platform
- * seen in perspective, with the focus areas below it acting as its legend.
- * That is the whole difference in argument between the two designs: one opens
- * with a claim on glass, the other opens with the thing being claimed.
+ * seen in perspective, each plane carrying the tools that run at that tier,
+ * with the legend beneath naming them. That is the whole difference in
+ * argument between the two designs: one opens with a claim on glass, the
+ * other opens with the thing being claimed.
  *
  * Type is Manrope, wider and rounder than Aurora's Geist, and the panels are
  * opaque — depth here is shadow and elevation, never transparency.
  */
-const PLANES = [
-  { id: "workloads", name: "Workloads", detail: "OTel · LGTM · SLOs" },
-  { id: "control-plane", name: "Control plane", detail: "Kubernetes · Argo CD · Helm" },
-  { id: "foundation", name: "Foundation", detail: "Terraform · AWS · Azure · GCP" },
-]
-
 export function SpatialHero() {
   const [lit, setLit] = useState<string | null>(null)
 
@@ -144,43 +140,35 @@ export function SpatialHero() {
 
           {/* The object, and its legend. */}
           <div className="min-w-0">
-            <div
-              aria-hidden
-              className="deck-scene relative mx-auto h-[300px] w-full max-w-[400px] sm:h-[380px]"
-            >
-              <div className="deck">
-                {PLANES.map((plane, i) => (
-                  <div
-                    key={plane.id}
-                    className="deck-layer"
-                    data-lit={lit === plane.id ? "true" : "false"}
-                    style={{ transform: `translateZ(${(PLANES.length - 1 - i) * 66}px)` }}
-                  />
-                ))}
-              </div>
-            </div>
+            {/* No caption over the deck: at the larger plane spacing it pushed
+                up under the sticky navbar, and the legend directly below names
+                every tier anyway. */}
+            <PlatformDeck
+              lit={lit}
+              className="mx-auto h-[280px] w-full max-w-[420px] sm:h-[330px]"
+            />
 
-            <ul className="mt-6 divide-y divide-border border-y border-border">
-              {PLANES.map((plane) => (
-                <li key={plane.id}>
+            <ul className="mt-4 divide-y divide-border border-y border-border">
+              {platformLayers.map((layer) => (
+                <li key={layer.id}>
                   <button
                     type="button"
-                    onMouseEnter={() => setLit(plane.id)}
+                    onMouseEnter={() => setLit(layer.id)}
                     onMouseLeave={() => setLit(null)}
-                    onFocus={() => setLit(plane.id)}
+                    onFocus={() => setLit(layer.id)}
                     onBlur={() => setLit(null)}
-                    aria-pressed={lit === plane.id}
-                    className="flex w-full items-baseline justify-between gap-4 py-3 text-left"
+                    aria-pressed={lit === layer.id}
+                    className="flex w-full flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 py-3 text-left"
                   >
                     <span
                       className={`text-body font-semibold transition-colors ${
-                        lit === plane.id ? "text-primary" : "text-foreground"
+                        lit === layer.id ? "text-primary" : "text-foreground"
                       }`}
                     >
-                      {plane.name}
+                      {layer.name}
                     </span>
                     <span className="font-mono text-micro text-muted-foreground">
-                      {plane.detail}
+                      {layer.short}
                     </span>
                   </button>
                 </li>

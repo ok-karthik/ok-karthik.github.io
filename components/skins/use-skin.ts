@@ -1,16 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
-import {
-  COLOURWAY_KEY,
-  SKIN_KEY,
-  type ColourwayId,
-  type SkinId,
-  defaultColourway,
-  defaultSkin,
-  isColourwayId,
-  isSkinId,
-} from "@/content/skins"
+import { SKIN_KEY, type SkinId, defaultSkin, isSkinId } from "@/content/skins"
 
 /**
  * Reads and writes the active skin.
@@ -26,15 +17,11 @@ import {
  */
 export function useSkin() {
   const [skin, setSkinState] = useState<SkinId>(defaultSkin)
-  const [colourway, setColourwayState] = useState<ColourwayId>(defaultColourway)
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    const el = document.documentElement
-    const s = el.getAttribute("data-skin")
-    const c = el.getAttribute("data-cw")
+    const s = document.documentElement.getAttribute("data-skin")
     if (isSkinId(s)) setSkinState(s)
-    if (isColourwayId(c)) setColourwayState(c)
     setReady(true)
   }, [])
 
@@ -48,15 +35,5 @@ export function useSkin() {
     }
   }, [])
 
-  const setColourway = useCallback((next: ColourwayId) => {
-    setColourwayState(next)
-    document.documentElement.setAttribute("data-cw", next)
-    try {
-      localStorage.setItem(COLOURWAY_KEY, next)
-    } catch {
-      // As above.
-    }
-  }, [])
-
-  return { skin, colourway, setSkin, setColourway, ready }
+  return { skin, setSkin, ready }
 }

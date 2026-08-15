@@ -5,7 +5,7 @@ import { AuroraSkin } from '@/components/skins/aurora'
 import { SpatialSkin } from '@/components/skins/spatial'
 import { BlueprintSkin } from '@/components/skins/blueprint'
 import { CurrentSkin } from '@/components/skins/current'
-import { skins, isSkinId, isColourwayId, defaultSkin } from '@/content/skins'
+import { skins, isSkinId, defaultSkin } from '@/content/skins'
 
 import { profile } from '@/content/profile'
 import { projects } from '@/content/projects'
@@ -111,11 +111,11 @@ describe('skin registry', () => {
   })
 
   it('rejects ids that are not skins, so a stale localStorage value cannot blank the page', () => {
-    for (const bad of ['', 'Aurora', 'nope', null, undefined, 42]) {
+    // 'a2' and 'original' were Aurora's colourways before that mechanism was
+    // cut. A browser that stored one must not be able to resurrect it.
+    for (const bad of ['', 'Aurora', 'nope', 'a2', 'original', null, undefined, 42]) {
       expect(isSkinId(bad)).toBe(false)
     }
-    expect(isColourwayId('a3')).toBe(false)
-    expect(isColourwayId('a2')).toBe(true)
   })
 
   it('every skin carries a note and a swatch, since the switcher renders both', () => {

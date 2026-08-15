@@ -6,20 +6,20 @@ import { ArrowUpRight } from "lucide-react"
 import { projects } from "@/content/projects"
 import { iconFor } from "@/content/tag-icons"
 import { ArchitecturePreview } from "@/components/architecture"
-import { DimRule } from "./parts"
+import { SheetHead } from "./parts"
 
 /**
  * Each project is a sheet.
  *
- * The diagram gets a ruled frame and a figure caption, the text gets the
- * facing column, and the sheet header carries the same fields every time —
- * figure number, title, decision count. Consistency is the point: on a set of
- * drawings you learn the layout once and then read the fifth as fast as the
+ * The diagram gets a ruled frame and a caption, the text gets the facing
+ * column, and every card's header strip carries the same two fields — the
+ * project's number and how many decisions are written down. Consistency is
+ * the point: you learn the layout once and read the fifth card as fast as the
  * first.
  *
- * Sheet numbers are real here. These projects are ordered by market demand
- * (see `content/projects.ts`), so the sequence is telling the reader what to
- * look at first rather than decorating the margin.
+ * The numbers are real. Projects are ordered by market demand (see the note in
+ * `content/projects.ts`), so 01 is telling a reader what to look at first
+ * rather than decorating the margin.
  */
 export function BlueprintWork() {
   const featured = projects.filter((p) => p.featured)
@@ -28,9 +28,12 @@ export function BlueprintWork() {
   return (
     <section id="projects" className="scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        <DimRule label="What I built, and the decisions behind it" sheet="Sheet 03" />
+        <SheetHead index="03" eyebrow="Projects" title="What I built, and the decisions behind it">
+          Every project below documents what was chosen and what it was chosen over. Describing a
+          stack is table stakes; defending a trade-off is not.
+        </SheetHead>
 
-        <ul className="mt-10 space-y-5">
+        <ul className="space-y-5">
           {featured.map((project, i) => (
             <motion.li
               key={project.slug}
@@ -43,7 +46,7 @@ export function BlueprintWork() {
               <Link href={`/work/${project.slug}`} className="group block">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border-strong px-6 py-3">
                   <p className="label tabular">
-                    Fig. {String(i + 1).padStart(2, "0")}
+                    Project {String(i + 1).padStart(2, "0")}
                   </p>
                   <p className="label tabular">
                     {project.decisions.length} documented decisions
@@ -115,7 +118,7 @@ export function BlueprintWork() {
           ))}
         </ul>
 
-        <p className="label mb-3 mt-12">Also drawn</p>
+        <h3 className="label mb-3 mt-12">More projects</h3>
         <ul className="border-t border-border-strong">
           {rest.map((project, i) => (
             <li key={project.slug} className="border-b border-border-strong">
@@ -123,8 +126,8 @@ export function BlueprintWork() {
                 href={`/work/${project.slug}`}
                 className="group flex flex-col gap-2 py-5 sm:flex-row sm:items-baseline sm:gap-8"
               >
-                <p className="label shrink-0 tabular sm:w-24">
-                  Fig. {String(featured.length + i + 1).padStart(2, "0")}
+                <p className="label shrink-0 tabular sm:w-28">
+                  Project {String(featured.length + i + 1).padStart(2, "0")}
                 </p>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
