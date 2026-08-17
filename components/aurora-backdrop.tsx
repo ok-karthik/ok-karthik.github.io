@@ -6,8 +6,8 @@ import { useEffect, useRef } from "react"
  * The light behind the glass.
  *
  * Three slow radial blooms on a fixed canvas, composited additively. Colours
- * come from `--aur-1..3` on <html>, so switching colourway or theme repaints
- * without touching this file.
+ * come from `--aur-1..3` on <html>, so switching theme repaints without
+ * touching this file.
  *
  * Why canvas and not CSS gradients: the blooms have to drift independently and
  * overlap additively for the glass to have anything worth refracting. Three
@@ -85,14 +85,13 @@ export function AuroraBackdrop() {
       if (!running) draw(0)
     }
     const onVisibility = () => (document.hidden ? stop() : start())
-    // The palette lives on <html>; repaint the static frame when it changes.
     const observer = new MutationObserver(() => {
       rgb = colours()
       if (!running) draw(0)
     })
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["class", "data-skin", "data-cw"],
+      attributeFilter: ["class"],
     })
 
     size()

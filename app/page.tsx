@@ -1,24 +1,25 @@
 import { Navbar } from "@/components/navbar"
-import { SkinStage } from "@/components/skins/skin-stage"
+import { AuroraBackdrop } from "@/components/aurora-backdrop"
+import { HeroSection } from "@/components/hero-section"
+import { TechSkillsSection } from "@/components/tech-skills-section"
+import { WorkSection } from "@/components/work-section"
+import { ExperienceSection } from "@/components/experience-section"
+import { CredentialsSection } from "@/components/credentials-section"
+import { ConnectSection } from "@/components/connect-section"
 
-/**
- * Three candidate designs, switchable in the browser.
- *
- * This page used to compose the sections directly. It now delegates to
- * `SkinStage`, which picks one of three compositions — Aurora Glass,
- * Blueprint, or the current live site as a control — from `data-skin` on
- * `<html>`. The section order is per-skin and lives with each composition;
- * Aurora and the control keep the order this file used to document, which is
- * recorded in `components/skins/current.tsx`.
- *
- * TEMPORARY. `content/skins.ts` says when to collapse this back to a single
- * composition: as soon as Karthik picks one.
- */
 export default function Home() {
   return (
     <>
       <Navbar />
-      <SkinStage />
+      <main id="main">
+        <AuroraBackdrop />
+        <HeroSection />
+        <TechSkillsSection />
+        <WorkSection />
+        <ExperienceSection />
+        <CredentialsSection />
+        <ConnectSection />
+      </main>
     </>
   )
 }

@@ -4,6 +4,11 @@
 **Date:** 2026-08-16
 **Written for:** a second and third opinion from other models before Karthik commits to one direction.
 
+> **Status: decided, 2026-08-17.** Ship **Aurora Glass**; delete Blueprint, the
+> `current`-skin control, and the comparison flag. See **§9** for the full decision
+> and the implementation checklist. §§0–8 below are kept as-is as the record of how
+> the decision was reached — skip to §9 for the outcome.
+
 ---
 
 ## 0. If you are the reviewer, read this first
@@ -342,6 +347,7 @@ Each of these was built or pitched and specifically rejected. Full detail in
 | **Neumorphism** | Contrast is unfixable at AA. |
 | **Neubrutalism / anti-design** | Reads junior for a Senior/Staff infra role. |
 | **Bento grid as a hero device** | Commodity in 2026; adds no signal. |
+| **Blueprint (Position B / C)** | Decided against 2026-08-17 — Karthik didn't like the light/paper "drafting sheet" direction on sight, independent of §4.2's recruiter-facts argument for it. See §9. |
 | Rebuilding the **flow-field background** | Built once, rejected — trails matte into a scratchy texture over large dark areas. |
 | Reintroducing the **O(n²) particle loop** | Performance. The mesh uses a spatial hash. |
 | A **committed PDF CV** | See §2. |
@@ -426,3 +432,129 @@ quoted the half that supported its conclusion.
 - Gradient and shader craft: [stripe.com](https://stripe.com)
 - Disciplined glass: [resend.com](https://resend.com), [clerk.com](https://clerk.com)
 - Galleries: [land-book.com](https://land-book.com) (filterable by style, colour, typography), [godly.website](https://godly.website), [refero.design](https://refero.design)
+
+---
+
+## 9. Decision & next steps — 2026-08-17
+
+**Ship Aurora Glass (§4.1 / Position A).** Blueprint is rejected outright — Karthik
+reviewed both live and didn't like the light/paper direction, independent of §4.2's
+"facts above the fold" argument for it. That argument doesn't transfer to Aurora as
+a reason to switch; it transfers as a **to-do inside Aurora** (§9.2).
+
+Flagged per §4.4's own honesty standard: this is a preference call, not one backed
+by recruiter-outcome evidence the way §4.2's argument was. Bias #3 in §4.4 — "I have
+not tested any of this on a real recruiter" — still applies. Decided anyway, because
+Karthik has to be able to live with the page, and a design he's lukewarm on doesn't
+get maintained past launch.
+
+### 9.1 — "Which glassmorphism is better?" — resolved, and it wasn't the question
+
+Comparing `localhost:3000` (current `redesign-explore` HEAD) against the still-live
+`ok-karthik.github.io` surfaced a mix-up worth recording before it causes confusion
+later: **they are not two different skins.** Both are Aurora Glass — the deployed
+site is simply an earlier point in Aurora's own history, from before the
+2026-08-15 colourway cut recorded in `content/skins.ts`'s header comment. So it
+still carries the original three-hue cyan/coral/violet accent and a visible
+constellation/node-mesh backdrop; local is post-cut, down to a single blue accent,
+and the mesh isn't visibly rendering in a static capture of local at all (worth a
+look — intentional simplification from the later "restore clean unboxed hero
+layout" commits, or a regression, is unconfirmed).
+
+Net: **the `.glass` panel treatment itself — 26px blur, 185% saturation, the top
+specular highlight — is identical in both builds.** What Karthik is responding to
+in the deployed version is the backdrop layer underneath the glass, not the glass.
+That's an axis §5 already has an answer for and specifically kept rather than
+deleting:
+
+> **The two-lume gradient** — violet `#9b82ff` top-left, teal `#2fd6b0`
+> bottom-right (light-mode-safe values `#5433c9` / `#0e8f74`). Two *opposing* hues
+> at *two* corners, not three hues at full saturation — the thing that got cut was
+> specifically **three** saturated hues reading as a rainbow.
+
+**Update, confirmed in code:** the missing mesh is not a regression. Aurora dark
+sets `--mesh-opacity: 0` explicitly, with a comment on the line above it: "the
+aurora canvas is the backdrop; the neural mesh on top of it is two ambient layers
+fighting." Someone already tried the mesh at full strength alongside the canvas
+blooms and turned it off on purpose. That call was made without knowing Karthik
+would independently respond to exactly that layered look on the deployed build, so
+it's worth one more look, but re-enabling it at whatever value caused "fighting"
+would just reproduce the original complaint.
+
+**Action:** reintroduce the two-lume gradient (violet/teal only, not the cut
+cyan/coral/violet trio) as Aurora's backdrop wash, and bring `--mesh-opacity` back
+in at a low, non-zero value (try ~0.08–0.15, not a full revert) so the constellation
+texture reads without repeating the "two layers fighting" problem the original
+implementer flagged. Tune by eye against the aurora canvas at that value — don't
+just flip the switch back to whatever it was before.
+
+### 9.2 — Section order, the jump-index row, and the "Three layers" section
+
+Karthik's preferred order — **Hero → Tech Skills → Projects → Experience** —
+matches §2's existing hard constraint on that ordering (job-posting keyword
+frequency, not aesthetics). No conflict; nothing to relitigate there.
+
+**Cut the jump-index row** (`01 Overview → 07 Contact`) that currently sits
+directly under the hero. It's a second navigation system duplicating the sticky
+top navbar in the same first-viewport real estate that §1 says matters most for
+the recruiter-bounce-in-seconds case, and it isn't even fully redundant in a good
+way — its few non-overlapping entries (Overview, Architecture, Capabilities,
+Credentials) aren't sections a recruiter needs a dedicated jump link for, and
+Architecture loses its case for one anyway once demoted below. One nav system, not
+two: if a section genuinely needs a direct link, add it to the top navbar instead.
+
+The "Three layers, one owner" section (the 3D isometric platform deck) is **not**
+one of the four constrained sections, so it's free to move. Karthik's read: nice
+visual, but it doesn't carry differentiated signal the way the project diagrams
+do — the projects section is already this site's stated asset (§1, §4.5). Demote
+it. In ascending order of effort:
+
+1. Cut the 3D deck; keep the three-tier grouping as a compact left-aligned text
+   list, placed near the Tech Skills intro or beside the lead project.
+2. Keep the 3D deck but shrink it and move it out of its own full-width section —
+   e.g. to the end of Tech Skills, not between Hero and Tech Skills.
+3. Cut it entirely; fold the three-tier grouping into Tech Skills' existing
+   category labels, which already group tools similarly.
+
+No pick made yet — worth looking at option 1 built small before choosing between
+these, per Karthik's own hunch that the 3D rendering isn't earning its section.
+
+Also confirmed, no action needed: the 2-column grid for secondary project cards,
+already landed on `redesign-explore` via the Position C hybrid commits (`8a77529`
+onward), is being kept as-is. (The jump-index nav landed in that same commit range
+but is the one piece of it being reversed — see above.)
+
+### 9.3 — `premium-ui-pass`: what to port, what's already covered
+
+There's a second branch, `premium-ui-pass` (commit `0752ae9`), cut from the same
+`main` commit `redesign-explore` branched from — a sibling, not an ancestor, so
+**don't `git merge` it.** It edits the pre-skin base components
+(`components/hero-section.tsx`, `experience-section.tsx`, `work-section.tsx`,
+`architecture.tsx`) that now only back the `current` control skin being deleted in
+§9.4. What matters is whether its five fixes are still needed *inside Aurora's own
+files*. Checked against current `redesign-explore` HEAD:
+
+| Fix | Status | Action |
+|---|---|---|
+| **P1** — lead project diagram at legible scale (`--arch-scale`, replacing a fixed 0.38 thumbnail that rendered 12px labels at ~4.6px) | Already on Aurora — `components/architecture.tsx` has near-identical `--arch-scale` logic | None |
+| **P5** — light-mode accent under AA (`--primary` measured 4.49:1 on the deep end of the fixed gradient) | Already handled, and better — Aurora's light accent `#0a5566` ships with its own measured comment: "5.9:1 on the deepest wash. The obvious #0a6b7d only reaches 4.5." | None |
+| **P2** — experience rail invisible at 0.16 alpha (1.5:1) | Aurora's timeline is its own build, not the patched base component — the rail reuses `--border-strong` (0.24 alpha), not a separate under-tuned token, so the specific bug doesn't appear to exist here | None; optional spot-check of `--border-strong` contrast at 1440 if there's time |
+| **P4** — `section-tight/-base/-loud` rhythm tokens replacing ad hoc `py-24`, plus `text-wrap: balance/pretty` | Genuinely missing — no such tokens in `app/globals.css` | **Port.** Cheap, systemic, no design risk |
+| **P3** — hero's three stat cards fused into one hairline-divided strip (plus `animate-ping` → a slower opacity breathe on the availability dot) | **Missing, and it's a regression** — §3's own description of Candidate A already calls for exactly this ("the three KPIs fused to its bottom edge behind a hairline. Not five separate panels whose edges compete"), but the current hero renders three separate rounded tiles with gaps between them. A later hero-layout commit reverted this | **Fix.** Not just an optional import from another branch — it's drifted from this document's own stated design intent. `premium-ui-pass`'s implementation is a working reference for the fused-strip layout |
+
+### 9.4 — Cleanup, once §9.1–9.3 are settled
+
+Per §4.5 (already agreed by all three positions before this decision) — delete the
+decision-aid machinery, don't leave it running permanently:
+
+- `content/skins.ts`, `components/skins/skin-switcher.tsx`, `skin-stage.tsx`,
+  `skin-boot.tsx`, `use-skin.ts`
+- `components/skins/blueprint/` (whole directory) and `components/skins/current.tsx`
+- The `html[data-skin='blueprint']` / `html[data-skin='current']` token blocks in
+  `app/globals.css` — promote Aurora's tokens directly into `:root` / `.dark`
+- The `SkinBootScript` call in `app/layout.tsx`; `app/page.tsx` renders the Aurora
+  composition directly instead of `<SkinStage />`
+
+Do this cleanup **last**, after §9.1 and §9.2 land — the flag is still useful for
+A/B-ing the backdrop restoration and the layers-section demotion while they're in
+progress, and it's cheaper to delete once than to delete and partially rebuild.

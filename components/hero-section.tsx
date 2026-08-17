@@ -7,46 +7,65 @@ const focusDots = [
   { dot: "bg-primary", hover: "group-hover/item:text-primary" },
   { dot: "bg-violet-400", hover: "group-hover/item:text-violet-400" },
   { dot: "bg-sky-400", hover: "group-hover/item:text-sky-400" },
-  { dot: "bg-ok", hover: "group-hover/item:text-ok" },
+  { dot: "bg-indigo-400", hover: "group-hover/item:text-indigo-400" },
 ]
 
-/* Accent diet: one stat carries the accent, the rest sit in foreground.
-   Three coloured numbers competed; one reads as emphasis. */
 const statAccents = ["text-primary", "text-foreground", "text-foreground"]
 
+/**
+ * Aurora's Hero Section: Clean, balanced, and uncluttered.
+ *
+ * Left: Unboxed claim, title, keywords, bio, and primary CTA buttons.
+ * Right: Luminous glass card with circular avatar, focus areas, and social links.
+ * Bottom: Three floating stat tiles.
+ */
 export function HeroSection() {
   return (
     <section id="top" className="scroll-mt-24">
-      <div className="mx-auto max-w-6xl px-6 pb-20 pt-32">
+      <div className="mx-auto max-w-6xl px-6 pb-16 pt-28 md:pt-32">
         <div className="grid items-start gap-10 lg:grid-cols-2">
           {/* Left: the claim */}
           <div className="min-w-0">
-            <div className="rise inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5" style={{ animationDelay: "80ms" }}>
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-              </span>
+            <div
+              className="rise inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5"
+              style={{ animationDelay: "80ms" }}
+            >
+              <span className="breathe h-2 w-2 rounded-full bg-primary" aria-hidden />
               <span className="text-small font-medium text-primary">
-                {/* `profile.availableFrom` is deliberately not rendered here yet —
-                    see the field's comment in content/profile.ts for when to add
-                    it back. Reinstating it is one interpolation. */}
                 Open to opportunities · {profile.location.availability}
               </span>
             </div>
 
-            <h1 className="rise mt-6 font-display text-display font-bold tracking-tight text-foreground md:text-display-lg" style={{ animationDelay: "160ms" }}>
+            <h1
+              className="rise mt-6 font-display text-display font-bold tracking-tight text-foreground md:text-display-lg"
+              style={{ animationDelay: "160ms" }}
+            >
               {profile.name}
             </h1>
-            <p className="rise mt-3 font-display text-h3 font-semibold text-primary" style={{ animationDelay: "240ms" }}>
+            <p
+              className="rise mt-3 font-display text-h3 font-semibold text-primary"
+              style={{ animationDelay: "240ms" }}
+            >
               {profile.title}
             </p>
-            <p className="rise mt-2 font-mono text-small text-foreground/70" style={{ animationDelay: "300ms" }}>
+            <p
+              className="rise mt-2 font-mono text-small text-foreground/70"
+              style={{ animationDelay: "300ms" }}
+            >
               {profile.subtitle}
             </p>
 
-            <p className="rise mt-6 max-w-xl text-body-lg text-muted-foreground" style={{ animationDelay: "360ms" }}>{profile.bio}</p>
+            <p
+              className="rise mt-6 max-w-xl text-body-lg leading-relaxed text-muted-foreground text-pretty"
+              style={{ animationDelay: "360ms" }}
+            >
+              {profile.bio}
+            </p>
 
-            <div className="rise mt-8 flex flex-wrap items-center gap-3" style={{ animationDelay: "440ms" }}>
+            <div
+              className="rise mt-8 flex flex-wrap items-center gap-3"
+              style={{ animationDelay: "440ms" }}
+            >
               <a
                 href="#projects"
                 className="rounded-lg bg-primary px-5 py-3 text-body font-semibold text-primary-foreground shadow-glow transition-opacity hover:opacity-90"
@@ -68,32 +87,18 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right: profile card, then stats */}
+          {/* Right: profile card and stats */}
           <div className="flex w-full flex-col gap-5">
-            <aside className="glass rise relative overflow-hidden rounded-2xl p-6 md:p-8" style={{ animationDelay: "520ms" }}>
+            <aside
+              className="glass rise relative overflow-hidden rounded-2xl p-6 md:p-8"
+              style={{ animationDelay: "520ms" }}
+            >
               <div
                 className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-primary/12 blur-3xl"
                 aria-hidden
               />
 
               <div className="relative flex flex-col gap-6 sm:flex-row sm:gap-8">
-                {/*
-                  Self-hosted, deliberately. This used to hotlink
-                  https://github.com/ok-karthik.png and it failed in the real
-                  world — observed 2026-08-12 on an Android browser as
-                  ERR_HTTP2_SERVER_REFUSED_STREAM, and reproduced intermittently
-                  in headless Chromium. GitHub throttles that redirect, and it
-                  is a third party we do not control sitting in front of the
-                  single most personal element on the page.
-
-                  The failure was not graceful: `alt` was the full
-                  "name, title" string, which rendered as four lines of text
-                  bursting out of a 128px circle. So the fallback is now also
-                  contained — `overflow-hidden` on the frame clips it, and the
-                  alt is just the name. The screen-reader value is unchanged:
-                  the h1 and the title sit directly beside this image, so the
-                  title in the alt was duplication anyway.
-                */}
                 <div className="flex shrink-0 justify-center sm:justify-start">
                   <span className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-primary/40 shadow-glow md:h-36 md:w-36">
                     <img
@@ -156,6 +161,7 @@ export function HeroSection() {
               </div>
             </aside>
 
+            {/* 3 Floating Stat Tiles */}
             <div className="rise grid grid-cols-3 gap-4" style={{ animationDelay: "620ms" }}>
               {stats.map((stat, i) => (
                 <div

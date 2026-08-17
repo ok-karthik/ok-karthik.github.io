@@ -17,110 +17,131 @@
    ========================================================================= */
 
 html:not(.dark) {
-  /* Wash is pulled down so white glass has something to sit against. The
-     previous pairing (0.72-alpha white on #f4f7fa) was invisible. */
-  --background: #f3f1f8;
-  --background-mid: #e8e4f3;
-  --background-deep: #dedaea;
-  --foreground: #17131f;
+  --ui-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  --card: rgba(255, 255, 255, 0.86);
-  --card-solid: #ffffff;
-  --card-foreground: #17131f;
-  --popover: #ffffff;
-  --popover-foreground: #17131f;
+  --background: #eef3f8;
+  --background-mid: #e3ecf4;
+  --background-deep: #d8e4ee;
+  --foreground: #0c1a24;
+  --muted-foreground: #4c6072;
 
-  /* Darkened from #0d7f94, which measured 4.04:1 against the page wash
-     and failed AA. This is 5.31:1, and white-on-primary improves too. */
-  --primary: #0a6b7d;
+  --primary: #0a5566;
   --primary-foreground: #ffffff;
-
-  --secondary: #e6e3f0;
-  --secondary-foreground: #17131f;
-  --muted: #edebf4;
-  --muted-foreground: #5b5570;
-  --accent: #0a6b7d;
+  --accent: #0a5566;
   --accent-foreground: #ffffff;
 
-  --border: rgba(23, 19, 31, 0.15);
-  --border-strong: rgba(23, 19, 31, 0.26);
-  --input: rgba(23, 19, 31, 0.15);
-  --ring: #0a6b7d;
+  --card: rgba(255, 255, 255, 0.66);
+  --card-solid: #ffffff;
+  --card-foreground: #0c1a24;
+  --popover: #ffffff;
+  --popover-foreground: #0c1a24;
+
+  --secondary: #dfe8f1;
+  --secondary-foreground: #0c1a24;
+  --muted: #e7eef5;
+  --border: rgba(12, 26, 36, 0.14);
+  --border-strong: rgba(12, 26, 36, 0.28);
+  --input: rgba(12, 26, 36, 0.14);
+  --ring: #0a5566;
 
   --ok: #1f7a4d;
   --warn: #8a5d0f;
   --err: #a83a32;
 
-  --glow: 0 0 0 1px rgba(10, 107, 125, 0.3), 0 8px 30px -14px rgba(10, 107, 125, 0.45);
-  --elevation: 0 1px 2px rgba(23, 19, 31, 0.05), 0 10px 30px -14px rgba(23, 19, 31, 0.28);
-  --glass-highlight: rgba(255, 255, 255, 0.9);
-  --chip: #f4f2f9;
-  --mesh-opacity: 0.34;
-  --spotlight-strength: 5%;
-  --field-dot: 10, 107, 125;
+  --panel-bg: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.86),
+    rgba(255, 255, 255, 0.58) 46%,
+    rgba(255, 255, 255, 0.76)
+  );
+  --panel-border: rgba(12, 26, 36, 0.12);
+  --panel-blur: 26px;
+  --panel-sat: 185%;
+  --panel-shadow: 0 24px 50px -30px rgba(12, 26, 36, 0.5);
+  --elevation: 0 24px 50px -30px rgba(12, 26, 36, 0.5);
+  --glass-highlight: rgba(255, 255, 255, 0.95);
+  --glow: 0 0 0 1px rgba(10, 85, 102, 0.25), 0 14px 34px -16px rgba(10, 85, 102, 0.45);
+  --chip: #f2f6fa;
+  --mesh-opacity: 0.08;
+  --spotlight-strength: 6%;
+  --field-dot: 10, 85, 102;
+
+  /* Two-lume aurora backdrop blooms (light-mode safe) */
+  --aur-1: 84, 51, 201;
+  --aur-2: 14, 143, 116;
+  --aur-3: 10, 85, 102;
 }
 
 html.dark {
-  /* Deep, desaturated purple-graphite. Not the old #1a0f3d, which was
-     saturated enough that a full-strength accent on top read as neon. The hue
-     was never the problem — the acid accent, the text glow and the uniform
-     glowing borders were. */
-  --background: #0d0a16;
-  /* The lift. Essentially main's #1a0f3d — the mid-tone is what gave the
-     old page its depth, and losing it is what made this one read flat.
-     Checked: muted text is 6.2:1 against it, well past AA. */
-  --background-mid: #191036;
-  --background-deep: #0a0812;
-  --foreground: #ece9f2;
+  --ui-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  --card: rgba(255, 255, 255, 0.042);
-  --card-solid: #161221;
-  --card-foreground: #ece9f2;
-  --popover: #161221;
-  --popover-foreground: #ece9f2;
+  --background: #070e15;
+  --background-mid: #0b1926;
+  --background-deep: #050a10;
+  --foreground: #e9f2f8;
+  --muted-foreground: #8fa8bb;
 
-  --primary: #2bc8dd;
-  --primary-foreground: #06131a;
+  --primary: #6cc0f0;
+  --primary-foreground: #04141d;
+  --accent: #6cc0f0;
+  --accent-foreground: #04141d;
 
-  --secondary: #211b30;
-  --secondary-foreground: #ece9f2;
-  --muted: #191427;
-  --muted-foreground: #9c94ae;
-  --accent: #2bc8dd;
-  --accent-foreground: #06131a;
+  --card: rgba(255, 255, 255, 0.075);
+  --card-solid: #0d1a24;
+  --card-foreground: #e9f2f8;
+  --popover: #0d1a24;
+  --popover-foreground: #e9f2f8;
 
-  --border: rgba(255, 255, 255, 0.09);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --input: rgba(255, 255, 255, 0.09);
-  --ring: #2bc8dd;
+  --secondary: #12222f;
+  --secondary-foreground: #e9f2f8;
+  --muted: #0f1c27;
+  --border: rgba(255, 255, 255, 0.13);
+  --border-strong: rgba(255, 255, 255, 0.24);
+  --input: rgba(255, 255, 255, 0.13);
+  --ring: #6cc0f0;
 
   --ok: #4ade80;
   --warn: #fbbf24;
   --err: #f87171;
 
-  --glow: 0 0 0 1px rgba(43, 200, 221, 0.35), 0 8px 40px -12px rgba(43, 200, 221, 0.4);
-  --elevation: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 40px -16px rgba(0, 0, 0, 0.7);
-  --glass-highlight: rgba(255, 255, 255, 0.07);
+  --panel-bg: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.13),
+    rgba(255, 255, 255, 0.045) 46%,
+    rgba(255, 255, 255, 0.085)
+  );
+  --panel-border: rgba(255, 255, 255, 0.13);
+  --panel-blur: 26px;
+  --panel-sat: 185%;
+  --panel-shadow: 0 28px 64px -30px rgba(0, 0, 0, 0.95);
+  --glass-highlight: rgba(255, 255, 255, 0.5);
+
+  --glow: 0 0 0 1px rgba(108, 192, 240, 0.3), 0 14px 40px -16px rgba(108, 192, 240, 0.55);
+  --elevation: 0 28px 64px -30px rgba(0, 0, 0, 0.95);
   --chip: rgba(255, 255, 255, 0.94);
-  --mesh-opacity: 0.5;
-  --spotlight-strength: 10%;
-  --field-dot: 43, 200, 221;
+  --spotlight-strength: 12%;
+  --field-dot: 108, 192, 240;
+  --mesh-opacity: 0.12;
+
+  /* Two-lume aurora backdrop blooms (violet top-left, teal bottom-right, cyan balance) */
+  --aur-1: 155, 130, 255;
+  --aur-2: 47, 214, 176;
+  --aur-3: 108, 192, 240;
 }
 
-/* Typeface roles are indirected through --ui-* so a skin can swap the whole
-   type system by redefining three variables. The defaults are the current
-   site's: Plex Sans carries claims, Plex Mono carries anything measured. */
 :root {
-  --ui-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
-  --ui-display: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
-  --ui-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --ui-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Panel surface. `glass` reads these rather than hard-coding blur, so a skin
-     that wants paper instead of glass sets --panel-blur to 0 and is done. */
   --panel-bg: var(--card);
   --panel-border: var(--border);
-  --panel-blur: 16px;
-  --panel-sat: 140%;
+  --panel-blur: 26px;
+  --panel-sat: 185%;
   --panel-shadow: var(--elevation);
 }
 
@@ -352,204 +373,23 @@ html.dark {
   animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
-/* ============================================================================
-   SKINS — three candidate designs, switchable at runtime.
-
-   Temporary. `content/skins.ts` explains the mechanism and says when to delete
-   this block: as soon as a design is chosen, the other two go and the winner's
-   tokens move up into the base blocks above.
-
-   Each skin redefines only tokens. Components never test the skin id, which is
-   why `tech-skills`, `credentials` and `contact` restyle themselves for free —
-   they were already written against tokens rather than colours.
-
-   Specificity: `html[data-skin=x]` ties with `html.dark`, so it must come
-   after it (it does). Light variants use `:not(.dark)` to outrank it.
-   ========================================================================= */
-
-/* ---------- AURORA -------------------------------------------------------
-   Thick glass over a live canvas aurora. The panel tokens are the whole
-   argument: 26px of blur at 185% saturation with a bright top edge, versus
-   the current site's 16px over a 4% white fill that has nothing behind it to
-   refract. Glass only reads as glass when something is moving underneath.  */
-html[data-skin='aurora'] {
-  --ui-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --ui-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
-
-  --background: #070e15;
-  --background-mid: #0b1926;
-  --background-deep: #050a10;
-  --foreground: #e9f2f8;
-  --muted-foreground: #8fa8bb;
-
-  --primary: #6cc0f0;
-  --primary-foreground: #04141d;
-  --accent: #6cc0f0;
-  --accent-foreground: #04141d;
-
-  --card: rgba(255, 255, 255, 0.075);
-  --card-solid: #0d1a24;
-  --popover: #0d1a24;
-  --secondary: #12222f;
-  --muted: #0f1c27;
-  --border: rgba(255, 255, 255, 0.13);
-  --border-strong: rgba(255, 255, 255, 0.24);
-  --ring: #6cc0f0;
-
-  --panel-bg: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.13),
-    rgba(255, 255, 255, 0.045) 46%,
-    rgba(255, 255, 255, 0.085)
-  );
-  --panel-border: rgba(255, 255, 255, 0.13);
-  --panel-blur: 26px;
-  --panel-sat: 185%;
-  --panel-shadow: 0 28px 64px -30px rgba(0, 0, 0, 0.95);
-  --glass-highlight: rgba(255, 255, 255, 0.5);
-
-  --glow: 0 0 0 1px rgba(108, 192, 240, 0.3), 0 14px 40px -16px rgba(108, 192, 240, 0.55);
-  --elevation: 0 28px 64px -30px rgba(0, 0, 0, 0.95);
-  --chip: rgba(255, 255, 255, 0.94);
-  --spotlight-strength: 12%;
-  --field-dot: 108, 192, 240;
-  /* The aurora canvas is the backdrop; the neural mesh on top of it is two
-     ambient layers fighting. */
-  --mesh-opacity: 0;
-
-  /* Aurora's own light sources, read by the canvas. */
-  --aur-1: 56, 142, 196;
-  --aur-2: 24, 86, 138;
-  --aur-3: 96, 180, 225;
+/* Section vertical rhythm utilities */
+@utility section-tight {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
 }
 
-html[data-skin='aurora']:not(.dark) {
-  --background: #eef3f8;
-  --background-mid: #e3ecf4;
-  --background-deep: #d8e4ee;
-  --foreground: #0c1a24;
-  --muted-foreground: #4c6072;
-  /* 5.9:1 on the deepest wash. The obvious #0a6b7d only reaches 4.5 on the
-     lightest one, and this skin's wash runs darker. */
-  --primary: #0a5566;
-  --primary-foreground: #ffffff;
-  --accent: #0a5566;
-  --card: rgba(255, 255, 255, 0.66);
-  --card-solid: #ffffff;
-  --popover: #ffffff;
-  --secondary: #dfe8f1;
-  --muted: #e7eef5;
-  --border: rgba(12, 26, 36, 0.14);
-  --border-strong: rgba(12, 26, 36, 0.28);
-  --ring: #0a5566;
-  --panel-bg: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.86),
-    rgba(255, 255, 255, 0.58) 46%,
-    rgba(255, 255, 255, 0.76)
-  );
-  --panel-border: rgba(12, 26, 36, 0.12);
-  --glass-highlight: rgba(255, 255, 255, 0.95);
-  --panel-shadow: 0 24px 50px -30px rgba(12, 26, 36, 0.5);
-  --elevation: 0 24px 50px -30px rgba(12, 26, 36, 0.5);
-  --glow: 0 0 0 1px rgba(10, 85, 102, 0.25), 0 14px 34px -16px rgba(10, 85, 102, 0.45);
-  --chip: #f2f6fa;
-  --spotlight-strength: 6%;
-  --field-dot: 10, 85, 102;
-  --aur-1: 120, 178, 214;
-  --aur-2: 168, 206, 230;
-  --aur-3: 140, 190, 220;
+@utility section-base {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
-/* ---------- BLUEPRINT ----------------------------------------------------
-   Daylight technical sheet: title block, dimension rules, condensed caps, one
-   pencil. Paper, not glass — --panel-blur is 0 and the highlight is off.
-
-   The pencil is drafting blue. It was #9c3524 until Karthik pointed out that
-   a dark rust reads as Claude's own brand colour, which is not an association
-   a portfolio wants doing its talking. #1552b8 measures 6.14:1 on the paper
-   and 5.48:1 on the deepest wash — within 0.05 of what the rust measured, so
-   the swap moved the hue and nothing else.
-
-   Gridlines are back, at 2%. The first pitch had them at wallpaper strength
-   and Karthik was right to reject that; see `BlueprintPaper` for what
-   changed.                                                                  */
-html[data-skin='blueprint'] {
-  --ui-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --ui-display: var(--font-barlow-condensed), var(--font-archivo), ui-sans-serif, sans-serif;
-  --ui-mono: var(--font-plex-mono), ui-monospace, monospace;
-
-  --background: #eaeef2;
-  --background-mid: #e3e9ef;
-  --background-deep: #dae2ea;
-  --foreground: #16293a;
-  --muted-foreground: #4f6478;
-
-  --primary: #1552b8;
-  --primary-foreground: #ffffff;
-  --accent: #1552b8;
-  --accent-foreground: #ffffff;
-
-  --card: #ffffff;
-  --card-solid: #ffffff;
-  --popover: #ffffff;
-  --secondary: #e2e8ee;
-  --muted: #edf1f5;
-  --border: rgba(22, 41, 58, 0.2);
-  --border-strong: rgba(22, 41, 58, 0.38);
-  --ring: #1552b8;
-
-  --panel-bg: #ffffff;
-  --panel-border: rgba(22, 41, 58, 0.22);
-  --panel-blur: 0px;
-  --panel-sat: 100%;
-  --panel-shadow: 0 1px 2px rgba(22, 41, 58, 0.07);
-  --glass-highlight: transparent;
-
-  --glow: 0 0 0 1px rgba(21, 82, 184, 0.28), 0 8px 22px -12px rgba(21, 82, 184, 0.4);
-  --elevation: 0 1px 2px rgba(22, 41, 58, 0.07);
-  --chip: #f4f7fa;
-  --mesh-opacity: 0;
-  --spotlight-strength: 0%;
-  --field-dot: 21, 82, 184;
-
-  /* Grid ink, read by `BlueprintPaper`. Separate from --border so the ruling
-     can be tuned without moving every panel edge on the page with it. */
-  --rule-ink: rgba(22, 41, 58, 0.075);
-  --rule-ink-minor: rgba(22, 41, 58, 0.04);
+@utility section-loud {
+  padding-top: 6.5rem;
+  padding-bottom: 6.5rem;
 }
 
-html[data-skin='blueprint'].dark {
-  /* The sheet under a darkroom lamp. Same drawing, inverted stock. */
-  --background: #0b1a26;
-  --background-mid: #0f2433;
-  --background-deep: #08131c;
-  --foreground: #dbe7ef;
-  --muted-foreground: #8ba5b8;
-  --primary: #79b8ff;
-  --primary-foreground: #08131c;
-  --accent: #79b8ff;
-  --card: #0f2231;
-  --card-solid: #0f2231;
-  --popover: #0f2231;
-  --secondary: #14293a;
-  --muted: #102130;
-  --border: rgba(219, 231, 239, 0.2);
-  --border-strong: rgba(219, 231, 239, 0.36);
-  --ring: #79b8ff;
-  --panel-bg: #0f2231;
-  --panel-border: rgba(219, 231, 239, 0.2);
-  --panel-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --elevation: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --glow: 0 0 0 1px rgba(121, 184, 255, 0.28), 0 8px 22px -12px rgba(121, 184, 255, 0.4);
-  --chip: rgba(255, 255, 255, 0.94);
-  --field-dot: 121, 184, 255;
-  --rule-ink: rgba(219, 231, 239, 0.075);
-  --rule-ink-minor: rgba(219, 231, 239, 0.04);
-}
-
-/* ---------- Skin-agnostic pieces the skins share ------------------------- */
+/* ---------- Shared UI Elements ------------------------------------------- */
 
 /* Specular top-left highlight. Only reads on a translucent surface, which is
    why it is opt-in per element rather than baked into `glass`. */
@@ -666,7 +506,12 @@ html[data-skin='blueprint'].dark {
   height: 224px;
   margin: -112px 0 0 -112px;
   border-radius: var(--radius-lg);
-  background: var(--panel-bg);
+  background: linear-gradient(
+    150deg,
+    color-mix(in oklab, var(--primary) 22%, transparent),
+    rgba(255, 255, 255, 0.05) 60%,
+    color-mix(in oklab, var(--primary) 12%, transparent)
+  );
   border: 1px solid var(--panel-border);
   box-shadow:
     inset 0 1px 0 var(--glass-highlight),
@@ -680,31 +525,7 @@ html[data-skin='blueprint'].dark {
     0 32px 66px -28px color-mix(in oklab, var(--primary) 50%, transparent);
 }
 
-/* The planes have to be *lit* or they read as three grey rectangles. Each skin
-   lights them with its own sources: Aurora takes a wash of the accent so the
-   deck belongs to the same light as the backdrop. */
-html[data-skin='aurora'] .deck-layer {
-  background: linear-gradient(
-    150deg,
-    color-mix(in oklab, var(--primary) 22%, transparent),
-    rgba(255, 255, 255, 0.05) 60%,
-    color-mix(in oklab, var(--primary) 12%, transparent)
-  );
-}
-
-/* What is printed on each plane.
- *
- * The deck was three empty slabs, which is a shape rather than a statement —
- * it asked the reader to take "three layers" on trust. Each plane now carries
- * the logos of the tools that actually run at that tier, so the object is
- * evidence: the top plane is the telemetry stack, the middle one the control
- * plane, the bottom one the cloud it all lands on.
- *
- * The chips sit *in* the plane, so the perspective shears them. That is the
- * point — they read as printed on the surface rather than floating over a
- * picture of one. Legibility survives it because logos are shapes; the names
- * are in the legend beside the deck, where a screen reader can also get them.
- */
+/* What is printed on each plane. */
 .deck-face {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
