@@ -114,6 +114,93 @@ html.dark {
   --field-dot: 43, 200, 221;
 }
 
+/* Aurora Skin Token Overrides */
+html[data-skin="aurora"]:not(.dark) {
+  --ui-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --background: #eef3f8;
+  --background-mid: #e3ecf4;
+  --background-deep: #d8e4ee;
+  --foreground: #0c1a24;
+  --muted-foreground: #4c6072;
+
+  --primary: #0a5566;
+  --primary-foreground: #ffffff;
+  --accent: #0a5566;
+  --accent-foreground: #ffffff;
+
+  --card: rgba(255, 255, 255, 0.66);
+  --card-solid: #ffffff;
+  --card-foreground: #0c1a24;
+  --popover: #ffffff;
+  --popover-foreground: #0c1a24;
+
+  --secondary: #dfe8f1;
+  --secondary-foreground: #0c1a24;
+  --muted: #e7eef5;
+  --border: rgba(12, 26, 36, 0.14);
+  --border-strong: rgba(12, 26, 36, 0.28);
+  --input: rgba(12, 26, 36, 0.14);
+  --ring: #0a5566;
+
+  --glow: 0 0 0 1px rgba(10, 85, 102, 0.25), 0 14px 34px -16px rgba(10, 85, 102, 0.45);
+  --elevation: 0 24px 50px -30px rgba(12, 26, 36, 0.5);
+  --glass-highlight: rgba(255, 255, 255, 0.95);
+  --chip: #f2f6fa;
+  --mesh-opacity: 0.08;
+  --spotlight-strength: 6%;
+  --field-dot: 10, 85, 102;
+
+  --aur-1: 84, 51, 201;
+  --aur-2: 14, 143, 116;
+  --aur-3: 10, 85, 102;
+}
+
+html[data-skin="aurora"].dark {
+  --ui-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --background: #070e15;
+  --background-mid: #0b1926;
+  --background-deep: #050a10;
+  --foreground: #e9f2f8;
+  --muted-foreground: #8fa8bb;
+
+  --primary: #6cc0f0;
+  --primary-foreground: #04141d;
+  --accent: #6cc0f0;
+  --accent-foreground: #04141d;
+
+  --card: rgba(255, 255, 255, 0.075);
+  --card-solid: #0d1a24;
+  --card-foreground: #e9f2f8;
+  --popover: #0d1a24;
+  --popover-foreground: #e9f2f8;
+
+  --secondary: #12222f;
+  --secondary-foreground: #e9f2f8;
+  --muted: #0f1c27;
+  --border: rgba(255, 255, 255, 0.13);
+  --border-strong: rgba(255, 255, 255, 0.24);
+  --input: rgba(255, 255, 255, 0.13);
+  --ring: #6cc0f0;
+
+  --glow: 0 0 0 1px rgba(108, 192, 240, 0.3), 0 14px 40px -16px rgba(108, 192, 240, 0.55);
+  --elevation: 0 28px 64px -30px rgba(0, 0, 0, 0.95);
+  --glass-highlight: rgba(255, 255, 255, 0.5);
+  --chip: rgba(255, 255, 255, 0.94);
+  --spotlight-strength: 12%;
+  --field-dot: 108, 192, 240;
+  --mesh-opacity: 0.12;
+
+  --aur-1: 155, 130, 255;
+  --aur-2: 47, 214, 176;
+  --aur-3: 108, 192, 240;
+}
+
 :root {
   --ui-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --ui-display: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
