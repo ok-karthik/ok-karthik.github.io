@@ -51,6 +51,17 @@ function Tags({ tags }: { tags: readonly string[] }) {
  * The remaining two featured projects sit beside each other in a 2-column grid,
  * and the fifth is a compact row.
  */
+const fullWidthDiagramProps: Record<string, { className: string; fadeFrom: string }> = {
+  "opentelemetry-platform-on-eks": {
+    className: "h-56 [--arch-scale:0.5] sm:h-64 sm:[--arch-scale:0.68] lg:h-72 lg:[--arch-scale:0.74]",
+    fadeFrom: "78%",
+  },
+  "internal-developer-platform": {
+    className: "h-48 [--arch-scale:0.55] sm:h-52 sm:[--arch-scale:0.72] lg:h-56 lg:[--arch-scale:0.82]",
+    fadeFrom: "85%",
+  },
+}
+
 export function WorkSection() {
   const featured = projects.filter((p) => p.featured)
   const fullWidth = featured.slice(0, 2)
@@ -73,49 +84,56 @@ export function WorkSection() {
 
         {/* 2 Full-Width Primary Project Cards */}
         <div className="space-y-6">
-          {fullWidth.map((project, i) => (
-            <motion.article
-              key={project.slug}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: i * 0.08 }}
-              className="glass sheen glass-hover overflow-hidden rounded-2xl"
-            >
-              <Link href={`/work/${project.slug}`} className="group block">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border/80 px-7 py-3 sm:px-9">
-                  <p className="label font-mono tabular text-primary">
-                    Project {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <p className="label tabular">
-                    {project.decisions.length} documented decisions
-                  </p>
-                </div>
+          {fullWidth.map((project, i) => {
+            const diagram = fullWidthDiagramProps[project.slug] ?? {
+              className: "h-56 [--arch-scale:0.5] sm:h-64 sm:[--arch-scale:0.68] lg:h-72 lg:[--arch-scale:0.74]",
+              fadeFrom: "78%",
+            }
 
-                <div className="grid gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_1.15fr] lg:items-center">
-                  <div className="min-w-0">
-                    <h3 className="flex items-start gap-2 font-display text-h2 font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
-                      {project.title}
-                      <ArrowUpRight
-                        className="mt-2 h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
-                        aria-hidden
-                      />
-                    </h3>
-                    <p className="mt-3 max-w-xl text-body leading-relaxed text-muted-foreground text-pretty">
-                      {project.problem}
+            return (
+              <motion.article
+                key={project.slug}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.45, delay: i * 0.08 }}
+                className="glass sheen glass-hover overflow-hidden rounded-2xl"
+              >
+                <Link href={`/work/${project.slug}`} className="group block">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border/80 px-7 py-3 sm:px-9">
+                    <p className="label font-mono tabular text-primary">
+                      Project {String(i + 1).padStart(2, "0")}
                     </p>
-                    <Tags tags={project.tags} />
+                    <p className="label tabular">
+                      {project.decisions.length} documented decisions
+                    </p>
                   </div>
 
-                  <AssemblingDiagram
-                    slug={project.slug}
-                    className="h-56 [--arch-scale:0.5] sm:h-64 sm:[--arch-scale:0.68] lg:h-72 lg:[--arch-scale:0.74]"
-                    fadeFrom="78%"
-                  />
-                </div>
-              </Link>
-            </motion.article>
-          ))}
+                  <div className="grid gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+                    <div className="min-w-0">
+                      <h3 className="flex items-start gap-2 font-display text-h2 font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                        {project.title}
+                        <ArrowUpRight
+                          className="mt-2 h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+                          aria-hidden
+                        />
+                      </h3>
+                      <p className="mt-3 max-w-xl text-body leading-relaxed text-muted-foreground text-pretty">
+                        {project.problem}
+                      </p>
+                      <Tags tags={project.tags} />
+                    </div>
+
+                    <AssemblingDiagram
+                      slug={project.slug}
+                      className={diagram.className}
+                      fadeFrom={diagram.fadeFrom}
+                    />
+                  </div>
+                </Link>
+              </motion.article>
+            )
+          })}
         </div>
 
         {/* 2 Half-Tile Secondary Project Cards */}

@@ -91,7 +91,7 @@ export function AuroraHero() {
               />
 
               <div className="relative flex flex-col gap-6 sm:flex-row sm:gap-8">
-                <div className="flex shrink-0 flex-col items-center gap-2.5 sm:items-start">
+                <div className="flex shrink-0 justify-center sm:justify-start">
                   <span className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-primary/40 shadow-glow md:h-36 md:w-36">
                     <img
                       src="/ok-karthik.png"
@@ -103,14 +103,6 @@ export function AuroraHero() {
                       className="h-full w-full rounded-full object-cover text-small text-muted-foreground transition-transform duration-500 hover:scale-105"
                     />
                   </span>
-                  <div className="text-center sm:text-left">
-                    <p className="font-mono text-micro text-foreground/90">
-                      {profile.location.city}, {profile.location.country}
-                    </p>
-                    <p className="font-mono text-micro text-primary">
-                      {profile.location.visa}
-                    </p>
-                  </div>
                 </div>
 
                 <div className="min-w-0 flex-1">
@@ -161,13 +153,13 @@ export function AuroraHero() {
               </div>
             </aside>
 
-            {/* 3 Floating Stat Tiles */}
-            <div className="rise grid grid-cols-3 gap-4" style={{ animationDelay: "620ms" }}>
+            {/* Fused instrument stat strip */}
+            <div
+              className="rise grid grid-cols-3 divide-x divide-border border-t border-border pt-2"
+              style={{ animationDelay: "620ms" }}
+            >
               {stats.map((stat, i) => (
-                <div
-                  key={stat.label}
-                  className="glass glass-hover rounded-xl px-2 py-4 text-center sm:px-3"
-                >
+                <div key={stat.label} className="px-4 pt-2 text-center sm:text-left first:pl-0 last:pr-0">
                   <CountUp
                     value={stat.value}
                     className={`tabular block font-mono text-h2 font-bold ${statAccents[i % statAccents.length]}`}

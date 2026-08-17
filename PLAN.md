@@ -648,3 +648,126 @@ the three headers directly:
 move the "N projects" count elsewhere — next to the eyebrow text, or beside the
 H2 — or restructure so the rule's containing block is the full header width
 regardless of where the count label ends up.
+
+**Status, checked against code:** §10.2 and §10.3 landed (`c8ab48d`) — confirmed
+`work-section.tsx` now splits `fullWidth`/`halfTiles`/`rest` correctly, both
+full-width cards use `AssemblingDiagram`, and the header rule is a direct
+`<header>` child. §10.1 landed too, but see §11.1 — it's being reversed.
+
+---
+
+## 11. Four fixes from a follow-up render — 2026-08-17
+
+Rendered `?skin=current` and `?skin=aurora` again after the §10 changes landed,
+and checked each of Karthik's four points against the actual code rather than
+just the screenshots.
+
+### 11.1 — Reverse §10.1: drop the hero-card caption, keep it footer-only
+
+Karthik doesn't want "Berlin, Germany / German Permanent Residence" under the
+photo — it's already in the footer and on the CV, and that's enough. **This
+overrides §10.1's recommendation**; leave the fact where it already lives rather
+than duplicating it above the fold.
+
+Location to revert, in both places it was added (the same block, once per
+skin): `components/hero-section.tsx:106-113` and
+`components/skins/aurora/hero.tsx:106-113` —
+
+```tsx
+<div className="text-center sm:text-left">
+  <p className="font-mono text-micro text-foreground/90">
+    {profile.location.city}, {profile.location.country}
+  </p>
+  <p className="font-mono text-micro text-primary">
+    {profile.location.visa}
+  </p>
+</div>
+```
+
+Remove this block (and the now-unused wrapping `flex flex-col items-center...`
+adjustments around the photo if they were added solely to make room for it) in
+both files. `content/profile.ts`'s `location.visa` field stays — the footer and
+`⌘K` palette both still read from it.
+
+### 11.2 — Color: found why Aurora still doesn't match, and it isn't the mesh
+
+Asked directly: is `?skin=aurora`'s color better than the live site's now? **No,
+not yet** — but the cause isn't what §9.1 guessed last time (mesh opacity,
+bloom-canvas colour). It's the base gradient itself.
+
+`body`'s background (`app/globals.css:285-298`) is one fixed formula for every
+skin — a 152° linear gradient through `--background` → `--background-mid` →
+`--background-deep`, plus a faint primary-tinted glow at the top. Whatever mood
+the page has starts here, before any canvas or mesh renders on top of it.
+
+- **Current** (`html.dark`, lines 75-77): `#0d0a16 → #191036 → #0a0812` — all
+  three stops are genuinely **purple**. That gradient alone, with nothing
+  animated on top, is most of why Current reads as rich and cohesive.
+- **Aurora dark** (`html[data-skin="aurora"].dark`, lines 166-168):
+  `#070e15 → #0b1926 → #050a10` — all three stops are **navy blue**, not purple.
+  Aurora is relying on the animated bloom canvas (`aur-1/2/3`, additive-blended
+  radial gradients at 0.30 alpha, drifting) to inject the violet/teal color on
+  top of a blue base. That's a much less reliable mechanism than a static
+  gradient — it's subtle, it's moving, and a good chunk of the viewport sits
+  outside where the blooms currently are.
+
+The two-lume violet/teal restoration in §9.1 wasn't wrong, it just isn't enough
+on its own while it's fighting a blue foundation instead of building on a purple
+one.
+
+**Fix:** change Aurora dark's three background tokens
+(`app/globals.css:166-168`) to purple stops matching Current's — reuse
+`#0d0a16 / #191036 / #0a0812` directly, or something close. Keep the bloom
+canvas and the mesh dots exactly as they are on top of it; those are Aurora's
+real addition over Current (Current has no animated layer at all — its texture
+is one static gradient plus mesh dots), and they'll finally have a base worth
+sitting on. Do the same comparison for Aurora's **light** background stops
+(lines 123-125) against Current's light `.dark`-equivalent block if light mode
+gets the same scrutiny later — not checked this pass.
+
+### 11.3 — Stat strip: squares vs. lines — lines, and it's not just preference
+
+Asked to weigh in: the fused hairline strip (Current, `?skin=current`) over the
+three separate bordered tiles (Aurora, `?skin=aurora`). **Lines.** Three
+independent `glass rounded-xl` boxes sitting directly under a `glass` Focus Areas
+card repeats the same rounded-panel motif twice in a row, which is exactly the
+"assembled, not designed" failure mode §2 warns about for the four section
+shapes — here it's happening *within* the hero, not across sections, but the
+same principle applies: not every group of numbers needs its own card chrome.
+
+This was already flagged in §9.3 (P3) and evidently didn't make it into
+`components/skins/aurora/hero.tsx` — confirmed still there, lines 164-170,
+literally commented `{/* 3 Floating Stat Tiles */}`, `grid grid-cols-3 gap-4`,
+each stat in its own `glass glass-hover rounded-xl px-2 py-4` box. Worth
+repeating precisely because it keeps not landing: **this isn't a new
+preference** — §3's own description of Aurora's intended design already called
+for "the three KPIs fused to its bottom edge behind a hairline. Not five
+separate panels whose edges compete." Current's `hero-section.tsx` already has
+the correct version; port that exact markup into `aurora/hero.tsx`, don't
+redesign it.
+
+### 11.4 — Projects: the gap under the second diagram, root-caused
+
+The empty space under Project 02's (IDP & GitOps) diagram, inside an otherwise
+identically-sized card to Project 01, comes from `work-section.tsx:110-113`: both
+full-width cards share **one hardcoded className** on `AssemblingDiagram` —
+fixed height (`h-56 sm:h-64 lg:h-72`) and fixed `--arch-scale` per breakpoint —
+applied identically inside the `fullWidth.map()` loop. The two diagrams aren't
+the same shape: OpenTelemetry's has an extra full-width "Grafana — unified query
+and alerting" bar under its three columns that IDP & GitOps's doesn't, so at the
+same scale in the same frame height, Project 02's diagram simply has less
+content and stops short, leaving the gap.
+
+This was the exact risk flagged as an open question in §10.2 ("two full-width
+cards that behave differently would read as inconsistent") — it landed
+consistent in code (both use `AssemblingDiagram`) but not consistent in
+*rendered result*, because content height varies and scale doesn't compensate.
+
+**Fix:** stop sharing one className across `fullWidth.map()`. `architecture.tsx`
+already documents that `--arch-scale` is meant to be tuned per caller ("scale
+tuned for a 500px desktop column showed a 390px viewport one node and a cropped
+arrow" — same principle applies here, just per-diagram instead of per-viewport).
+Give each full-width project its own scale/height pairing sized to its own
+diagram's actual content — bump IDP & GitOps's `--arch-scale` until it fills the
+frame, or give it a shorter frame if scaling up starts cropping instead. Either
+way, tune per-slug rather than reusing OpenTelemetry's numbers.
