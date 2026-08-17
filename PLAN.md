@@ -818,3 +818,59 @@ actively degrading the base it sits on rather than adding to it.
    opacity at all, or has its job shrunk to "faint movement, not color"? If the
    latter, option 1 at a much lower value (or gating opacity behind
    `prefers-reduced-motion` more aggressively) may be the whole fix.
+
+**Status:** `5d0d811` addressed this — bloom alpha dropped from 0.30 to
+0.08/0.03 per stop, and compositing moved from `ctx.globalCompositeOperation =
+"lighter"` to `"source-over"` with the lightening now done once, at the
+element level, via `mix-blend-screen` at `opacity-85` on the `<canvas>` itself
+(`aurora-backdrop.tsx:44,50-51,103`). Washout is fixed. See §13 for what that
+same commit didn't fix.
+
+---
+
+## 13. The bloom canvas has no scope — it's still painting past the hero
+
+Karthik's read on `?skin=aurora` vs `?skin=current`, scrolled to Projects: Current
+still looks cleaner, and there's an "extra colour" patch on top of the project
+cards that reads as odd rather than intentional. **Agreed on both, and it's one
+root cause, confirmed in code, not a style call to weigh in on.**
+
+`components/aurora-backdrop.tsx`'s outer element (line 102) is
+`fixed inset-0 -z-10` with **no fade-out mask** — it covers the full viewport at
+every scroll depth, for the entire page, not just the hero. The three blooms are
+positioned as fractions of the *viewport* (`BLOOMS`, lines 8-11) — e.g. bloom 2
+sits at `x: 0.78, y: 0.3`, roughly the upper-right of the screen — and because
+the wrapper is `fixed` rather than scrolling with the document, that screen
+position never moves. Whatever card happens to occupy that same corner of the
+viewport when the user scrolls there shows bloom 2's glow bleeding through it via
+`mix-blend-screen`. That's exactly the patch on the Project cards: it isn't
+content-aware, it's the hero's ambient light still rendering over whatever's on
+screen, because nothing tells it to stop past the hero.
+
+The fix pattern already exists in the same codebase, on the component right next
+to it. `components/neural-mesh.tsx` solved the identical problem — an ambient
+canvas effect that shouldn't run at full strength for the whole page — with a
+mask:
+
+```
+maskImage: "linear-gradient(to bottom, black 0%, black 38%, transparent 72%)"
+```
+
+confining it to roughly the top 40–70% of the page. `AuroraBackdrop` never got
+the equivalent.
+
+**Fix:** add the same kind of `maskImage`/`WebkitMaskImage` fade to
+`aurora-backdrop.tsx`'s outer `<div>` (line 102), tuned so the blooms read as
+"ambient light behind the hero" and are fully faded out well before Projects —
+matching or reusing `neural-mesh.tsx`'s existing curve is a reasonable starting
+point rather than inventing new numbers. Once masked, re-check whether
+`mix-blend-screen opacity-85` on the canvas (line 103) is still doing useful work
+at the now-much-lower per-bloom alpha (0.08/0.03) or whether it can come down
+too — 85% is a large multiplier to sit on top of values that were just
+deliberately made subtle.
+
+**Overall verdict, asked directly:** Current is still the cleaner of the two
+right now. Not because Aurora's direction is wrong — the color fix in §12 landed,
+and once this scoping bug is fixed there's no remaining known reason for Aurora
+to look worse than Current, only reasons rooted in Aurora's ambient layer
+spilling where it shouldn't.
