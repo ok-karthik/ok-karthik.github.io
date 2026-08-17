@@ -771,3 +771,50 @@ Give each full-width project its own scale/height pairing sized to its own
 diagram's actual content — bump IDP & GitOps's `--arch-scale` until it fills the
 frame, or give it a shorter frame if scaling up starts cropping instead. Either
 way, tune per-slug rather than reusing OpenTelemetry's numbers.
+
+---
+
+## 12. Color, round two: the fix landed, and exposed a different bug — 2026-08-17
+
+Asked again, directly: `?skin=aurora` vs `?skin=current`, which color is better?
+**Current, still** — but not for the §11.2 reason anymore. That fix landed
+correctly; something else is now actively working against it.
+
+**What landed correctly (`0e0e828`):** Aurora dark's tokens in `app/globals.css`
+were brought in line with Current's almost entirely — `--primary: #2bc8dd`,
+`--mesh-opacity: 0.5`, `--field-dot: 43, 200, 221`, `--card`, and the purple
+`--background/-mid/-deep` stops are now the same values as base `.dark`. Only
+`--aur-1/2/3` (the bloom colors) and the font tokens still differ. This is
+exactly what §11.2 asked for.
+
+**What's still different, and why it's now the whole gap:**
+`components/aurora-backdrop.tsx` wasn't touched by that commit and still renders
+its three drifting blooms with `ctx.globalCompositeOperation = "lighter"`
+(line 44) — additive blending — at `rgba(${rgb[i]}, 0.30)` per bloom (line 50).
+Additive blending **adds light** to what's underneath; it doesn't tint a color,
+it washes it toward white. Painted over the same rich, saturated purple that
+makes Current read as premium, it's exactly what's lightening and desaturating
+Aurora's background into the flatter teal-gray visible in the screenshot — and
+because the Focus Areas card is translucent glass (`--card: rgba(255,255,255,
+0.042)`), the washed-out color shows straight through it, which is why the card
+itself looks teal-tinted in Aurora and purple-navy in Current despite `--card`
+being the identical token value in both.
+
+Net: the two skins now share almost every token, and Aurora still looks worse,
+because the one thing that's still different — the animated bloom canvas — is
+actively degrading the base it sits on rather than adding to it.
+
+**Fix, in order of how much it costs:**
+1. Cheapest: lower the bloom alpha well below 0.30 — additive blending's washing
+   effect compounds with three overlapping blooms, so even 0.30 each is likely
+   too strong now that the base is already the right color.
+2. More correct: swap `"lighter"` for a composite/blend approach that adds
+   subtle color variation and movement *without* lightening the base — e.g. draw
+   the blooms into an offscreen canvas and apply them via a CSS `mix-blend-mode`
+   like `soft-light` or `color-dodge` at low opacity on the `<canvas>` element,
+   rather than `ctx.globalCompositeOperation` inside the draw loop.
+3. Worth asking before either: now that the base gradient alone carries Aurora's
+   color correctly, does the bloom canvas still need to run at meaningful
+   opacity at all, or has its job shrunk to "faint movement, not color"? If the
+   latter, option 1 at a much lower value (or gating opacity behind
+   `prefers-reduced-motion` more aggressively) may be the whole fix.
