@@ -210,14 +210,8 @@ export const posts: Post[] = [
       },
       {
         type: "code",
-        lang: "text",
-        text: `                   ┌── TFLint ────────┐
-                   │                  │
-  change ── plan ──┼── Conftest ──────┼── merge
-                   │                  │
-                   └── Infracost ─────┘
-
-  one round trip, every class of failure reported`,
+        lang: "pipeline",
+        text: "one round trip, every class of failure reported in parallel",
       },
       {
         type: "p",

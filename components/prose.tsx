@@ -1,5 +1,56 @@
 import type { Block } from "@/content/writing"
 
+function PipelineDiagram() {
+  return (
+    <div className="my-8 overflow-hidden rounded-xl border border-border bg-card p-6">
+      <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
+        {/* Step 1: Input */}
+        <div className="flex items-center gap-3">
+          <div className="rounded-lg border border-border bg-muted px-3.5 py-2 font-mono text-small text-foreground">
+            change
+          </div>
+          <span className="font-mono text-muted-foreground">→</span>
+          <div className="rounded-lg border border-border bg-muted px-3.5 py-2 font-mono text-small text-foreground">
+            plan
+          </div>
+        </div>
+
+        {/* Fan Out Connector & Gates */}
+        <div className="flex items-center gap-3">
+          <div className="hidden h-28 w-px bg-primary/40 sm:block" />
+          <div className="flex flex-col gap-2.5">
+            <div className="flex items-center justify-between gap-6 rounded-lg border border-primary/40 bg-primary/5 px-3.5 py-1.5 font-mono text-small text-primary">
+              <span>TFLint</span>
+              <span className="text-micro text-muted-foreground">static syntax</span>
+            </div>
+            <div className="flex items-center justify-between gap-6 rounded-lg border border-primary/40 bg-primary/5 px-3.5 py-1.5 font-mono text-small text-primary">
+              <span>Conftest</span>
+              <span className="text-micro text-muted-foreground">security policy</span>
+            </div>
+            <div className="flex items-center justify-between gap-6 rounded-lg border border-primary/40 bg-primary/5 px-3.5 py-1.5 font-mono text-small text-primary">
+              <span>Infracost</span>
+              <span className="text-micro text-muted-foreground">cost delta</span>
+            </div>
+          </div>
+          <div className="hidden h-28 w-px bg-primary/40 sm:block" />
+        </div>
+
+        {/* Step 3: Merge */}
+        <div className="flex items-center gap-3">
+          <span className="font-mono text-muted-foreground">→</span>
+          <div className="rounded-lg border border-primary/60 bg-primary/10 px-4 py-2 font-mono text-small font-semibold text-primary">
+            merge
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-5 border-t border-border pt-3 text-center font-mono text-micro text-muted-foreground">
+        one round trip · every class of failure reported in parallel
+      </div>
+    </div>
+  )
+}
+
 /**
  * Renders a post body.
  *
@@ -55,6 +106,9 @@ export function Prose({ blocks }: { blocks: Block[] }) {
             )
 
           case "code":
+            if (block.lang === "pipeline") {
+              return <PipelineDiagram key={i} />
+            }
             return (
               <pre
                 key={i}
