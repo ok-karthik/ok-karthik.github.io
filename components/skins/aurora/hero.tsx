@@ -16,19 +16,19 @@ const contents = [
 ]
 
 /**
- * Aurora's hero: one slab of glass with integrated screening HUD.
+ * Aurora's hero: high-density executive console.
  *
- * Combines the recruiter-critical 4-field metadata block (Focus, Location,
- * Availability, Right to Work) and the fast jump navigation with the obsidian
- * glass surface, luminous ring portrait, and fused stat strip.
+ * Left: Claim, title, bio, actions and social links.
+ * Right: Profile badge and spacious focus areas matrix.
+ * Bottom: Unified 4-cell KPI & right-to-work HUD.
  */
 export function AuroraHero() {
   return (
     <section id="top" className="scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6 pb-12 pt-28 md:pt-32">
         <div className="glass sheen rise overflow-hidden rounded-2xl">
-          <div className="relative grid gap-10 p-7 sm:p-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14 lg:p-12">
-            {/* The claim */}
+          <div className="relative grid gap-8 p-7 sm:p-9 lg:grid-cols-[1.15fr_1fr] lg:gap-12 lg:p-10">
+            {/* The claim and bio */}
             <div className="min-w-0">
               <p
                 className="rise inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5"
@@ -41,38 +41,39 @@ export function AuroraHero() {
               </p>
 
               <h1
-                className="rise mt-6 font-display text-display font-bold tracking-tight text-foreground text-balance md:text-display-lg"
+                className="rise mt-5 font-display text-display font-bold tracking-tight text-foreground text-balance md:text-display-lg"
                 style={{ animationDelay: "160ms" }}
               >
                 {profile.name}
               </h1>
               <p
-                className="rise mt-3 font-display text-h3 font-semibold text-primary"
+                className="rise mt-2.5 font-display text-h3 font-semibold text-primary"
                 style={{ animationDelay: "220ms" }}
               >
                 {profile.title}
               </p>
               <p
-                className="rise mt-2 font-mono text-small text-foreground/65"
+                className="rise mt-1.5 font-mono text-small text-foreground/65"
                 style={{ animationDelay: "280ms" }}
               >
                 {profile.subtitle}
               </p>
 
               <p
-                className="rise mt-6 max-w-xl text-body-lg text-muted-foreground text-pretty"
+                className="rise mt-5 max-w-xl text-body-lg leading-relaxed text-muted-foreground text-pretty"
                 style={{ animationDelay: "340ms" }}
               >
                 {profile.bio}
               </p>
 
+              {/* Action buttons and social links in one cohesive row */}
               <div
-                className="rise mt-8 flex flex-wrap items-center gap-3"
+                className="rise mt-7 flex flex-wrap items-center gap-3"
                 style={{ animationDelay: "420ms" }}
               >
                 <a
                   href="#projects"
-                  className="rounded-lg bg-primary px-5 py-3 text-body font-semibold text-primary-foreground shadow-glow transition-opacity hover:opacity-90"
+                  className="rounded-lg bg-primary px-5 py-2.5 text-body font-semibold text-primary-foreground shadow-glow transition-opacity hover:opacity-90"
                 >
                   View projects
                 </a>
@@ -80,7 +81,7 @@ export function AuroraHero() {
                   href={profile.cvUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 rounded-lg border border-border-strong px-5 py-3 text-body font-medium text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+                  className="group inline-flex items-center gap-2 rounded-lg border border-border-strong px-5 py-2.5 text-body font-medium text-foreground transition-colors hover:border-primary/50 hover:text-primary"
                 >
                   <Download
                     className="h-4 w-4 transition-transform group-hover:translate-y-0.5"
@@ -88,111 +89,88 @@ export function AuroraHero() {
                   />
                   Download CV
                 </a>
+
+                {/* Social icons inline */}
+                <div className="flex items-center gap-1.5 pl-1 sm:pl-2">
+                  {[
+                    { href: profile.social.github, Icon: Github, label: "GitHub" },
+                    { href: profile.social.linkedin, Icon: Linkedin, label: "LinkedIn" },
+                    { href: `mailto:${profile.email}`, Icon: Mail, label: "Email" },
+                  ].map(({ href, Icon, label }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target={href.startsWith("mailto:") ? undefined : "_blank"}
+                      rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                      aria-label={label}
+                      className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary/30 text-muted-foreground transition-colors hover:border-primary/40 hover:bg-secondary/60 hover:text-primary"
+                    >
+                      <Icon className="h-4 w-4" aria-hidden />
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Identity and focus. Sits inside the same pane, divided by a
-                hairline rather than a second border. */}
-            <div className="min-w-0 lg:border-l lg:border-border lg:pl-12">
-              <div className="flex flex-col gap-6 sm:flex-row lg:flex-col xl:flex-row">
-                <div className="shrink-0">
-                  <span className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-2xl border border-primary/40 shadow-glow">
-                    <img
-                      src="/ok-karthik.png"
-                      alt={profile.name}
-                      width={144}
-                      height={144}
-                      loading="eager"
-                      decoding="async"
-                      className="h-full w-full object-cover text-small text-muted-foreground"
-                    />
+            {/* Profile identity and Focus Areas matrix */}
+            <div className="min-w-0 lg:border-l lg:border-border lg:pl-10">
+              <div className="flex items-center gap-4 rounded-xl border border-border/80 bg-secondary/20 p-4">
+                <span className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-primary/40 shadow-glow">
+                  <img
+                    src="/ok-karthik.png"
+                    alt={profile.name}
+                    width={96}
+                    height={96}
+                    loading="eager"
+                    decoding="async"
+                    className="h-full w-full object-cover text-small text-muted-foreground"
+                  />
+                </span>
+                <div className="min-w-0">
+                  <span className="block font-display text-body font-semibold text-foreground">
+                    {profile.name}
                   </span>
-                  <ul className="mt-5 flex gap-4 sm:flex-col sm:gap-2.5 lg:flex-row lg:gap-4 xl:flex-col xl:gap-2.5">
-                    {[
-                      { href: profile.social.github, Icon: Github, label: "GitHub" },
-                      { href: profile.social.linkedin, Icon: Linkedin, label: "LinkedIn" },
-                      { href: `mailto:${profile.email}`, Icon: Mail, label: "Email" },
-                    ].map(({ href, Icon, label }) => (
-                      <li key={label}>
-                        <a
-                          href={href}
-                          target={href.startsWith("mailto:") ? undefined : "_blank"}
-                          rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                          className="group inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
-                        >
-                          <Icon className="h-4 w-4" aria-hidden />
-                          <span className="text-small font-medium">{label}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+                  <span className="block font-mono text-micro text-primary">
+                    {profile.location.city}, {profile.location.country}
+                  </span>
+                  <span className="mt-0.5 block font-mono text-micro text-muted-foreground">
+                    {profile.location.visa}
+                  </span>
                 </div>
+              </div>
 
-                <div className="min-w-0 flex-1">
-                  <p className="label mb-4">Focus areas</p>
-                  <ul className="space-y-3.5">
-                    {focusAreas.map((area, i) => (
-                      <li key={area.name} className="flex gap-3">
-                        <span
-                          className={`mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full ${focusDots[i % focusDots.length]}`}
-                          aria-hidden
-                        />
-                        <div className="min-w-0">
-                          <div className="text-body font-semibold text-foreground">{area.name}</div>
-                          <div className="text-small text-muted-foreground">{area.detail}</div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="mt-5">
+                <p className="label mb-3">Core Focus Areas</p>
+                <ul className="space-y-2.5">
+                  {focusAreas.map((area, i) => (
+                    <li
+                      key={area.name}
+                      className="flex items-start gap-3 rounded-lg border border-border/60 bg-card/40 px-3.5 py-2.5 transition-colors hover:border-border-strong"
+                    >
+                      <span
+                        className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${focusDots[i % focusDots.length]}`}
+                        aria-hidden
+                      />
+                      <div className="min-w-0">
+                        <div className="text-small font-semibold text-foreground">{area.name}</div>
+                        <div className="font-mono text-micro text-muted-foreground">{area.detail}</div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
 
-          {/* 4-Field Screening HUD — Essential for German / Berlin Recruiter Triage */}
+          {/* Unified 4-Cell KPI & Authorization HUD */}
           <dl
-            className="rise grid grid-cols-1 divide-y divide-border border-t border-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4"
-            style={{ animationDelay: "480ms" }}
-          >
-            <div className="px-6 py-4">
-              <dt className="label mb-1">Focus</dt>
-              <dd className="font-display text-body font-semibold text-foreground">
-                Platform engineering / SRE
-              </dd>
-            </div>
-            <div className="px-6 py-4">
-              <dt className="label mb-1">Based in</dt>
-              <dd className="font-display text-body font-semibold text-foreground">
-                {profile.location.city}, {profile.location.country}
-              </dd>
-            </div>
-            <div className="px-6 py-4">
-              <dt className="label mb-1">Availability</dt>
-              <dd className="font-display text-body font-semibold text-foreground">
-                Open · {profile.location.availability}
-              </dd>
-            </div>
-            <div className="px-6 py-4">
-              <dt className="label mb-1">Right to work</dt>
-              <dd className="font-display text-body font-semibold text-primary">
-                {profile.location.visa}
-              </dd>
-            </div>
-          </dl>
-
-          {/* Fused stat strip. Same pane, hairline divisions. */}
-          <dl
-            className="rise grid grid-cols-1 border-t border-border sm:grid-cols-3"
-            style={{ animationDelay: "560ms" }}
+            className="rise grid grid-cols-2 divide-x divide-y divide-border border-t border-border sm:grid-cols-4 sm:divide-y-0"
+            style={{ animationDelay: "520ms" }}
           >
             {stats.map((stat, i) => (
-              // Column-reverse so the number reads first while `dt` still
-              // precedes its `dd` in the DOM, which the markup audit requires.
               <div
                 key={stat.label}
-                className={`flex flex-col-reverse gap-1 px-7 py-5 sm:px-8 sm:py-6 ${
-                  i > 0 ? "border-t border-border sm:border-l sm:border-t-0" : ""
-                }`}
+                className="flex flex-col-reverse gap-0.5 px-6 py-4 sm:px-8 sm:py-5"
               >
                 <dt className="label">{stat.label}</dt>
                 <dd>
@@ -205,6 +183,14 @@ export function AuroraHero() {
                 </dd>
               </div>
             ))}
+
+            {/* Cell 4: Legal Work Authorization & Location */}
+            <div className="flex flex-col-reverse gap-0.5 px-6 py-4 sm:px-8 sm:py-5">
+              <dt className="label">Right to work</dt>
+              <dd className="font-display text-body font-semibold text-primary">
+                {profile.location.visa}
+              </dd>
+            </div>
           </dl>
         </div>
 
