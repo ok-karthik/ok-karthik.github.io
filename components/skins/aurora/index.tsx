@@ -24,9 +24,9 @@ export function AuroraSkin() {
     <>
       <AuroraBackdrop />
       <AuroraHero />
+      <AuroraLayers />
       <TechSkillsSection />
       <AuroraWork />
-      <AuroraLayers />
       <AuroraExperience />
       <CredentialsSection />
       <ConnectSection />

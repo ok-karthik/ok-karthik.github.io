@@ -19,7 +19,7 @@ export function AuroraLayers() {
   const [lit, setLit] = useState<string | null>(null)
 
   return (
-    <section className="scroll-mt-24">
+    <section id="architecture" className="scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6 py-20">
         <div className="glass sheen overflow-hidden rounded-2xl">
           <div className="grid items-center gap-10 p-7 sm:p-10 lg:grid-cols-[1fr_1.05fr] lg:p-12">

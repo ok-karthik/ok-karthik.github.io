@@ -81,12 +81,18 @@ export function AuroraWork() {
             className="glass sheen glass-hover overflow-hidden rounded-2xl"
           >
             <Link href={`/work/${lead.slug}`} className="group block">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border/80 px-7 py-3 sm:px-9">
+                <p className="label font-mono tabular text-primary">
+                  Project 01 · Lead project
+                </p>
+                <p className="label tabular">
+                  {lead.decisions.length} documented decisions
+                </p>
+              </div>
+
               <div className="grid gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_1.15fr] lg:items-center">
                 <div className="min-w-0">
-                  <p className="label tabular">
-                    Lead project · {lead.decisions.length} documented decisions
-                  </p>
-                  <h3 className="mt-3 flex items-start gap-2 font-display text-h2 font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                  <h3 className="flex items-start gap-2 font-display text-h2 font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
                     {lead.title}
                     <ArrowUpRight
                       className="mt-2 h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
@@ -117,23 +123,30 @@ export function AuroraWork() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="glass glass-hover rounded-xl"
+              className="glass glass-hover overflow-hidden rounded-xl"
             >
-              <Link href={`/work/${project.slug}`} className="group block p-6">
-                <ArchitecturePreview
-                  slug={project.slug}
-                  className="h-28 [--arch-scale:0.42]"
-                  fadeFrom="62%"
-                />
-                <p className="label mt-4 tabular">
-                  {project.decisions.length} documented decisions
-                </p>
-                <h3 className="mt-2 font-display text-h3 font-semibold text-foreground transition-colors group-hover:text-primary">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-small leading-relaxed text-muted-foreground text-pretty">
-                  {project.summary}
-                </p>
+              <Link href={`/work/${project.slug}`} className="group block">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-border/80 px-6 py-2.5">
+                  <p className="label font-mono tabular">
+                    Project {String(i + 2).padStart(2, "0")}
+                  </p>
+                  <p className="label tabular">
+                    {project.decisions.length} documented decisions
+                  </p>
+                </div>
+                <div className="p-6">
+                  <ArchitecturePreview
+                    slug={project.slug}
+                    className="h-28 [--arch-scale:0.42]"
+                    fadeFrom="62%"
+                  />
+                  <h3 className="mt-4 font-display text-h3 font-semibold text-foreground transition-colors group-hover:text-primary">
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 text-small leading-relaxed text-muted-foreground text-pretty">
+                    {project.summary}
+                  </p>
+                </div>
               </Link>
             </motion.li>
           ))}
@@ -141,12 +154,15 @@ export function AuroraWork() {
 
         <h3 className="label mb-4 mt-12">More projects</h3>
         <ul className="grid gap-3">
-          {rest.map((project) => (
+          {rest.map((project, i) => (
             <li key={project.slug} className="glass glass-hover rounded-xl">
               <Link
                 href={`/work/${project.slug}`}
                 className="group flex flex-col gap-2 p-5 sm:flex-row sm:items-baseline sm:gap-8"
               >
+                <p className="label shrink-0 font-mono tabular sm:w-28">
+                  Project {String(featured.length + i + 1).padStart(2, "0")}
+                </p>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
                     <span className="font-display text-h3 font-semibold text-foreground transition-colors group-hover:text-primary">

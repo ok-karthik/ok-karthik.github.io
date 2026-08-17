@@ -5,24 +5,27 @@ import { CountUp } from "@/components/count-up"
 /** Accent per focus area — index-aligned with `focusAreas`. */
 const focusDots = ["bg-primary", "bg-primary/70", "bg-primary/45", "bg-primary/25"]
 
+const contents = [
+  { index: "01", label: "Overview", href: "#top" },
+  { index: "02", label: "Architecture", href: "#architecture" },
+  { index: "03", label: "Capabilities", href: "#tech-skills" },
+  { index: "04", label: "Projects", href: "#projects" },
+  { index: "05", label: "Experience", href: "#experience" },
+  { index: "06", label: "Credentials", href: "#credentials" },
+  { index: "07", label: "Contact", href: "#contact" },
+]
+
 /**
- * Aurora's hero: one slab of glass, not five.
+ * Aurora's hero: one slab of glass with integrated screening HUD.
  *
- * The current site's hero is a claim column beside a card beside three stat
- * tiles — three separate panels whose edges compete with each other. Here the
- * whole thing is a single pane with the stat strip fused to its bottom edge
- * behind a hairline, so the aurora underneath refracts through one continuous
- * surface. That is the only way thick glass reads as thick: a small panel is
- * mostly border.
- *
- * The focus-area dots step down one accent rather than running through violet,
- * sky and green. On a live coloured backdrop, four decorative hues is the
- * thing that makes a portfolio look like a template.
+ * Combines the recruiter-critical 4-field metadata block (Focus, Location,
+ * Availability, Right to Work) and the fast jump navigation with the obsidian
+ * glass surface, luminous ring portrait, and fused stat strip.
  */
 export function AuroraHero() {
   return (
     <section id="top" className="scroll-mt-24">
-      <div className="mx-auto max-w-6xl px-6 pb-16 pt-28 md:pt-32">
+      <div className="mx-auto max-w-6xl px-6 pb-12 pt-28 md:pt-32">
         <div className="glass sheen rise overflow-hidden rounded-2xl">
           <div className="relative grid gap-10 p-7 sm:p-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14 lg:p-12">
             {/* The claim */}
@@ -146,6 +149,37 @@ export function AuroraHero() {
             </div>
           </div>
 
+          {/* 4-Field Screening HUD — Essential for German / Berlin Recruiter Triage */}
+          <dl
+            className="rise grid grid-cols-1 divide-y divide-border border-t border-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4"
+            style={{ animationDelay: "480ms" }}
+          >
+            <div className="px-6 py-4">
+              <dt className="label mb-1">Focus</dt>
+              <dd className="font-display text-body font-semibold text-foreground">
+                Platform engineering / SRE
+              </dd>
+            </div>
+            <div className="px-6 py-4">
+              <dt className="label mb-1">Based in</dt>
+              <dd className="font-display text-body font-semibold text-foreground">
+                {profile.location.city}, {profile.location.country}
+              </dd>
+            </div>
+            <div className="px-6 py-4">
+              <dt className="label mb-1">Availability</dt>
+              <dd className="font-display text-body font-semibold text-foreground">
+                Open · {profile.location.availability}
+              </dd>
+            </div>
+            <div className="px-6 py-4">
+              <dt className="label mb-1">Right to work</dt>
+              <dd className="font-display text-body font-semibold text-primary">
+                {profile.location.visa}
+              </dd>
+            </div>
+          </dl>
+
           {/* Fused stat strip. Same pane, hairline divisions. */}
           <dl
             className="rise grid grid-cols-1 border-t border-border sm:grid-cols-3"
@@ -173,7 +207,29 @@ export function AuroraHero() {
             ))}
           </dl>
         </div>
+
+        {/* Section Jump Index */}
+        <nav aria-label="Sections" className="mt-3.5 overflow-hidden rounded-xl border border-border bg-card/60 backdrop-blur-md">
+          <ol className="grid grid-cols-2 divide-x divide-y divide-border sm:grid-cols-4 lg:grid-cols-7 lg:divide-y-0">
+            {contents.map((item) => (
+              <li key={item.index}>
+                <a
+                  href={item.href}
+                  className="group flex items-baseline gap-2.5 px-4 py-3 transition-colors hover:bg-secondary/60"
+                >
+                  <span className="font-mono text-micro tabular text-primary/80 transition-colors group-hover:text-primary">
+                    {item.index}
+                  </span>
+                  <span className="font-display text-small font-medium tracking-wide text-foreground/90 transition-colors group-hover:text-foreground">
+                    {item.label}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
       </div>
     </section>
   )
 }
+
