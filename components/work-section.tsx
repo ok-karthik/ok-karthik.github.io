@@ -44,80 +44,83 @@ function Tags({ tags }: { tags: readonly string[] }) {
 /**
  * Selected work, weighted.
  *
- * The lead project gets a diagram large enough to actually read — the whole
- * argument of this section is "here is the architecture and here is why", and
- * a 4px-tall mono label makes that argument invisible. It draws itself on
- * entry (`AssemblingDiagram`), which is the one place on the page where motion
- * carries information rather than decorating a fade.
+ * The top two projects get full-width cards with diagrams that draw themselves
+ * on entry (`AssemblingDiagram`), so the two primary architecture proofs are
+ * legible at scale.
  *
- * The two remaining featured projects sit beside each other at thumbnail
- * scale, and the rest are rows. Three sizes, in demand order — see the
- * ordering note in `content/projects.ts`.
+ * The remaining two featured projects sit beside each other in a 2-column grid,
+ * and the fifth is a compact row.
  */
 export function WorkSection() {
   const featured = projects.filter((p) => p.featured)
-  const [lead, ...others] = featured
+  const fullWidth = featured.slice(0, 2)
+  const halfTiles = featured.slice(2)
   const rest = projects.filter((p) => !p.featured)
 
   return (
     <section id="projects" className="section-loud scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6">
-        <header className="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="label rule-label mb-4">Projects</p>
-            <h2 className="font-display text-display font-semibold tracking-tight text-foreground text-balance">
-              What I built, and the decisions behind it
-            </h2>
-            <p className="mt-2 text-body text-muted-foreground">{projectsDeck}</p>
+        <header className="mb-10">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <p className="label rule-label flex-1">Projects</p>
+            <p className="label hidden shrink-0 tabular sm:block">{projects.length} projects</p>
           </div>
-          <p className="label hidden shrink-0 tabular sm:block">{projects.length} projects</p>
+          <h2 className="font-display text-display font-semibold tracking-tight text-foreground text-balance">
+            What I built, and the decisions behind it
+          </h2>
+          <p className="mt-2 text-body text-muted-foreground">{projectsDeck}</p>
         </header>
 
-        {lead ? (
-          <motion.article
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.45 }}
-            className="glass sheen glass-hover overflow-hidden rounded-2xl"
-          >
-            <Link href={`/work/${lead.slug}`} className="group block">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border/80 px-7 py-3 sm:px-9">
-                <p className="label font-mono tabular text-primary">
-                  Project 01 · Lead project
-                </p>
-                <p className="label tabular">
-                  {lead.decisions.length} documented decisions
-                </p>
-              </div>
-
-              <div className="grid gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_1.15fr] lg:items-center">
-                <div className="min-w-0">
-                  <h3 className="flex items-start gap-2 font-display text-h2 font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
-                    {lead.title}
-                    <ArrowUpRight
-                      className="mt-2 h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
-                      aria-hidden
-                    />
-                  </h3>
-                  <p className="mt-3 max-w-xl text-body leading-relaxed text-muted-foreground text-pretty">
-                    {lead.problem}
+        {/* 2 Full-Width Primary Project Cards */}
+        <div className="space-y-6">
+          {fullWidth.map((project, i) => (
+            <motion.article
+              key={project.slug}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.45, delay: i * 0.08 }}
+              className="glass sheen glass-hover overflow-hidden rounded-2xl"
+            >
+              <Link href={`/work/${project.slug}`} className="group block">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border/80 px-7 py-3 sm:px-9">
+                  <p className="label font-mono tabular text-primary">
+                    Project {String(i + 1).padStart(2, "0")}
                   </p>
-                  <Tags tags={lead.tags} />
+                  <p className="label tabular">
+                    {project.decisions.length} documented decisions
+                  </p>
                 </div>
 
-                <AssemblingDiagram
-                  slug={lead.slug}
-                  className="h-56 [--arch-scale:0.5] sm:h-64 sm:[--arch-scale:0.68] lg:h-72 lg:[--arch-scale:0.74]"
-                  fadeFrom="78%"
-                />
-              </div>
-            </Link>
-          </motion.article>
-        ) : null}
+                <div className="grid gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+                  <div className="min-w-0">
+                    <h3 className="flex items-start gap-2 font-display text-h2 font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                      {project.title}
+                      <ArrowUpRight
+                        className="mt-2 h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+                        aria-hidden
+                      />
+                    </h3>
+                    <p className="mt-3 max-w-xl text-body leading-relaxed text-muted-foreground text-pretty">
+                      {project.problem}
+                    </p>
+                    <Tags tags={project.tags} />
+                  </div>
 
-        <ul className="mt-4 grid gap-4 sm:grid-cols-2">
-          {others.map((project, i) => (
+                  <AssemblingDiagram
+                    slug={project.slug}
+                    className="h-56 [--arch-scale:0.5] sm:h-64 sm:[--arch-scale:0.68] lg:h-72 lg:[--arch-scale:0.74]"
+                    fadeFrom="78%"
+                  />
+                </div>
+              </Link>
+            </motion.article>
+          ))}
+        </div>
+
+        {/* 2 Half-Tile Secondary Project Cards */}
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+          {halfTiles.map((project, i) => (
             <motion.li
               key={project.slug}
               initial={{ opacity: 0, y: 8 }}
@@ -129,7 +132,7 @@ export function WorkSection() {
               <Link href={`/work/${project.slug}`} className="group block">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-border/80 px-6 py-2.5">
                   <p className="label font-mono tabular">
-                    Project {String(i + 2).padStart(2, "0")}
+                    Project {String(fullWidth.length + i + 1).padStart(2, "0")}
                   </p>
                   <p className="label tabular">
                     {project.decisions.length} documented decisions
@@ -153,6 +156,7 @@ export function WorkSection() {
           ))}
         </ul>
 
+        {/* 1 More Projects Row */}
         <h3 className="label mb-4 mt-12">More projects</h3>
         <ul className="grid gap-3">
           {rest.map((project, i) => (

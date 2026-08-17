@@ -311,7 +311,7 @@ export const projects: Project[] = [
     ],
     tags: ["GPU Operator", "Karpenter", "CUDA", "Time Slicing", "Observability"],
     githubUrl: "https://github.com/ok-karthik/ai-infrastructure-on-eks",
-    featured: false,
+    featured: true,
   },
   {
     slug: "finops-k8s-operator",

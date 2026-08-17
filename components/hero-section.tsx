@@ -99,7 +99,7 @@ export function HeroSection() {
               />
 
               <div className="relative flex flex-col gap-6 sm:flex-row sm:gap-8">
-                <div className="flex shrink-0 justify-center sm:justify-start">
+                <div className="flex shrink-0 flex-col items-center gap-2.5 sm:items-start">
                   <span className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-primary/40 shadow-glow md:h-36 md:w-36">
                     <img
                       src="/ok-karthik.png"
@@ -111,6 +111,14 @@ export function HeroSection() {
                       className="h-full w-full rounded-full object-cover text-small text-muted-foreground transition-transform duration-500 hover:scale-105"
                     />
                   </span>
+                  <div className="text-center sm:text-left">
+                    <p className="font-mono text-micro text-foreground/90">
+                      {profile.location.city}, {profile.location.country}
+                    </p>
+                    <p className="font-mono text-micro text-primary">
+                      {profile.location.visa}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="min-w-0 flex-1">

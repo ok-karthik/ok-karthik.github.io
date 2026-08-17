@@ -521,7 +521,8 @@ these, per Karthik's own hunch that the 3D rendering isn't earning its section.
 
 Also confirmed, no action needed: the 2-column grid for secondary project cards,
 already landed on `redesign-explore` via the Position C hybrid commits (`8a77529`
-onward), is being kept as-is. (The jump-index nav landed in that same commit range
+onward), is being kept as-is — though see §10.2 for a change to which projects sit
+in which tier. (The jump-index nav landed in that same commit range
 but is the one piece of it being reversed — see above.)
 
 ### 9.3 — `premium-ui-pass`: what to port, what's already covered
@@ -558,3 +559,92 @@ decision-aid machinery, don't leave it running permanently:
 Do this cleanup **last**, after §9.1 and §9.2 land — the flag is still useful for
 A/B-ing the backdrop restoration and the layers-section demotion while they're in
 progress, and it's cheaper to delete once than to delete and partially rebuild.
+
+---
+
+## 10. Hero card, Projects section shape, and a header bug — 2026-08-17
+
+Three more items from a walkthrough of `?skin=current` vs `?skin=aurora`, all
+checked against the actual component code, not just the screenshots.
+
+### 10.1 — Hero card: add the fact that's missing, not any other content
+
+The Focus Areas card (photo, four focus areas, GitHub/LinkedIn/Email) is
+well-argued — `content/profile.ts` documents the reasoning behind nearly every
+word on the page. It's fine as content. But it's missing something that used to
+be there: an earlier screenshot of this same branch shows "Karthik Orugonda /
+Berlin, Germany / German Permanent Residence" set directly beside the photo. That
+got dropped somewhere in the redesign and nothing replaced it — the only place
+"German Permanent Residence" appears now is the footer, below the fold.
+
+Not a style nit. §4.2 already made the strongest outcomes-based argument on this
+entire document: *"'German Permanent Residence' answered before a recruiter has
+to ask removes the single most common silent disqualification."* That argument
+was made in service of Blueprint, which lost — but the argument doesn't depend on
+Blueprint, and §4.5's "what all three positions agree on" already says the four
+screening facts belong above the fold regardless of which design won. Right now
+none of Karthik's designs are actually doing that.
+
+**Action:** add a compact line under or beside the photo — `Berlin, Germany ·
+German Permanent Residence` or equivalent. Doesn't need Blueprint's four-cell
+title-block treatment, just needs to exist above the fold instead of only in the
+footer.
+
+### 10.2 — Projects: drop "Lead project," promote a second card to full width
+
+Two changes, both in `components/work-section.tsx`.
+
+**Cut the "Lead project" label** — line 87, `Project 01 · Lead project`. Just
+"Project 01," matching how 02–05 are labelled. The "Lead" framing doesn't carry
+information a recruiter uses and implies a hierarchy the site doesn't otherwise
+argue for.
+
+**Promote IDP & GitOps Reference Architecture into the full-width tier alongside
+OpenTelemetry & LGTM Platform**, instead of it sharing the half-tile grid with
+Enterprise AWS. New shape: **2 full-width → 2 half-tile → 1 "more projects" row**
+(currently 1 → 2 → 2).
+
+This doesn't touch project *order* — `content/projects.ts` keeps the existing
+job-posting-frequency order from §2 (observability leads), and the two promoted
+are already the top two by that same ordering. Only the shape tier each project
+sits in changes, which §2's ordering constraint doesn't cover.
+
+Implementation isn't a pure content edit — the current data model only has two
+tiers (`featured` → one lead + a half-tile grid; everything else → "more
+projects" rows), and this needs three:
+
+- `content/projects.ts`: flip `AI Infrastructure on Amazon EKS` (currently
+  `featured: false`, ~line 272) to `featured: true`. `featuredProjects` becomes
+  4 items; only `FinOps Kubernetes Operator` stays `featured: false`.
+- `components/work-section.tsx` line 59: `const [lead, ...others] = featured`
+  takes one item as the full-width "lead" and puts the rest in the half-tile
+  grid. Change to take the first **two** as full-width, leaving the remaining
+  two (`Enterprise AWS Infrastructure`, `AI Infrastructure on Amazon EKS`) in the
+  half-tile grid, and `rest` (FinOps) as the sole "more projects" row.
+- Open question worth deciding while in there: the full-width tier currently
+  gets `AssemblingDiagram` (the self-drawing reveal, lines 109–113) while
+  everything else gets the static `ArchitecturePreview`. If IDP & GitOps joins
+  the full-width tier, it should probably get the same self-drawing treatment
+  for consistency — two full-width cards that behave differently would read as
+  inconsistent, not intentional.
+
+### 10.3 — Projects header rule doesn't reach the edge — found the cause
+
+The eyebrow rule next to "PROJECTS" stops short of the content edge, unlike Tech
+Skills' or Experience's, which run the full width. Confirmed why, by comparing
+the three headers directly:
+
+- `tech-skills-section.tsx:87-88` and `experience-section.tsx:23-24` put the
+  `rule-label` `<p>` directly inside a plain `<header className="mb-10/12">`, so
+  its `::after` rule fills the full `max-w-6xl` content width.
+- `work-section.tsx:65-73` does it differently: `<header>` is
+  `sm:flex sm:justify-between`, and the eyebrow/h2/deck text sit inside an inner
+  `<div>` that's only the *first* flex item — the "N projects" label is the
+  second. An auto-width flex item stretches only to fit its own content, so the
+  rule fills up to that inner div's edge, well short of where "N projects" sits.
+
+**Fix:** stop nesting the eyebrow inside the two-column flex div. Either make
+`rule-label` a direct child of `<header>` (matching the other two sections) and
+move the "N projects" count elsewhere — next to the eyebrow text, or beside the
+H2 — or restructure so the rule's containing block is the full header width
+regardless of where the count label ends up.
