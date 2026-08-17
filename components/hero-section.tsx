@@ -13,11 +13,11 @@ const focusDots = [
 const statAccents = ["text-primary", "text-foreground", "text-foreground"]
 
 /**
- * Aurora's Hero Section: Clean, balanced, and uncluttered.
+ * Hero Section: Clean, balanced, and uncluttered.
  *
  * Left: Unboxed claim, title, keywords, bio, and primary CTA buttons.
  * Right: Luminous glass card with circular avatar, focus areas, and social links.
- * Bottom: Three floating stat tiles.
+ * Bottom: Hairline-divided instrument stat strip (P3).
  */
 export function HeroSection() {
   return (
@@ -30,7 +30,7 @@ export function HeroSection() {
               className="rise inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5"
               style={{ animationDelay: "80ms" }}
             >
-              <span className="breathe h-2 w-2 rounded-full bg-primary" aria-hidden />
+              <span className="breathe h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden />
               <span className="text-small font-medium text-primary">
                 Open to opportunities · {profile.location.availability}
               </span>
@@ -87,8 +87,8 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right: profile card and stats */}
-          <div className="flex w-full flex-col gap-5">
+          {/* Right: profile card and fused stats strip */}
+          <div className="flex w-full flex-col gap-6">
             <aside
               className="glass rise relative overflow-hidden rounded-2xl p-6 md:p-8"
               style={{ animationDelay: "520ms" }}
@@ -161,13 +161,13 @@ export function HeroSection() {
               </div>
             </aside>
 
-            {/* 3 Floating Stat Tiles */}
-            <div className="rise grid grid-cols-3 gap-4" style={{ animationDelay: "620ms" }}>
+            {/* An instrument strip, not three cards (P3) */}
+            <div
+              className="rise grid grid-cols-3 divide-x divide-border border-t border-border pt-2"
+              style={{ animationDelay: "620ms" }}
+            >
               {stats.map((stat, i) => (
-                <div
-                  key={stat.label}
-                  className="glass glass-hover rounded-xl px-2 py-4 text-center sm:px-3"
-                >
+                <div key={stat.label} className="px-4 pt-2 text-center sm:text-left first:pl-0 last:pr-0">
                   <CountUp
                     value={stat.value}
                     className={`tabular block font-mono text-h2 font-bold ${statAccents[i % statAccents.length]}`}

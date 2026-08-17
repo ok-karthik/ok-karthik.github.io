@@ -26,8 +26,8 @@ const channels = [
  */
 export function ConnectSection() {
   return (
-    <footer id="contact" className="scroll-mt-24 border-t border-border bg-card-solid/60">
-      <div className="mx-auto max-w-6xl px-6 py-24">
+    <footer id="contact" className="section-base scroll-mt-24 border-t border-border bg-card-solid/60">
+      <div className="mx-auto max-w-6xl px-6">
         <header>
           <p className="label rule-label mb-4">Contact</p>
           <h2 className="font-display text-display font-semibold tracking-tight text-foreground">

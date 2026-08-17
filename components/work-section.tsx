@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
-import { projects } from "@/content/projects"
+import { projects, projectsDeck } from "@/content/projects"
 import { iconFor } from "@/content/tag-icons"
 import { ArchitecturePreview } from "@/components/architecture"
 import { AssemblingDiagram } from "@/components/assembling-diagram"
@@ -60,14 +60,15 @@ export function WorkSection() {
   const rest = projects.filter((p) => !p.featured)
 
   return (
-    <section id="projects" className="scroll-mt-24">
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <header className="mb-10 flex items-end justify-between gap-6">
+    <section id="projects" className="section-loud scroll-mt-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <header className="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="label rule-label mb-4">Projects</p>
             <h2 className="font-display text-display font-semibold tracking-tight text-foreground text-balance">
               What I built, and the decisions behind it
             </h2>
+            <p className="mt-2 text-body text-muted-foreground">{projectsDeck}</p>
           </div>
           <p className="label hidden shrink-0 tabular sm:block">{projects.length} projects</p>
         </header>

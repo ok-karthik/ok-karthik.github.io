@@ -17,131 +17,112 @@
    ========================================================================= */
 
 html:not(.dark) {
-  --ui-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --ui-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --background: #f3f1f8;
+  --background-mid: #e8e4f3;
+  --background-deep: #dedaea;
+  --foreground: #17131f;
 
-  --background: #eef3f8;
-  --background-mid: #e3ecf4;
-  --background-deep: #d8e4ee;
-  --foreground: #0c1a24;
-  --muted-foreground: #4c6072;
+  --card: rgba(255, 255, 255, 0.86);
+  --card-solid: #ffffff;
+  --card-foreground: #17131f;
+  --popover: #ffffff;
+  --popover-foreground: #17131f;
 
-  --primary: #0a5566;
+  /* Darkened from #0d7f94, which measured 4.04:1 against the page wash and
+     failed AA. Darkened again from #0a6b7d, which was measured against the
+     wash (#f3f1f8) only: the body gradient is `background-attachment: fixed`
+     and runs to #dedaea, so any section can sit over the deep end, where
+     #0a6b7d was 4.49:1 — under AA for small text. This is 4.97:1 there,
+     6.08:1 on the wash, and white-on-primary improves to 6.81:1. */
+  --primary: #096473;
   --primary-foreground: #ffffff;
-  --accent: #0a5566;
+
+  --secondary: #e6e3f0;
+  --secondary-foreground: #17131f;
+  --muted: #edebf4;
+  --muted-foreground: #5b5570;
+  --accent: #096473;
   --accent-foreground: #ffffff;
 
-  --card: rgba(255, 255, 255, 0.66);
-  --card-solid: #ffffff;
-  --card-foreground: #0c1a24;
-  --popover: #ffffff;
-  --popover-foreground: #0c1a24;
+  --border: rgba(23, 19, 31, 0.15);
+  --border-strong: rgba(23, 19, 31, 0.26);
+  --input: rgba(23, 19, 31, 0.15);
+  --ring: #096473;
 
-  --secondary: #dfe8f1;
-  --secondary-foreground: #0c1a24;
-  --muted: #e7eef5;
-  --border: rgba(12, 26, 36, 0.14);
-  --border-strong: rgba(12, 26, 36, 0.28);
-  --input: rgba(12, 26, 36, 0.14);
-  --ring: #0a5566;
+  /* Timeline rail only. --border-strong is tuned for a panel edge that has a
+     fill behind it; on a bare 1px line with nothing either side it measured
+     1.4:1 against the wash and the one section that encodes sequence didn't
+     visibly encode it. 0.38 lands at 2.4:1 — a thread you can follow, still
+     well under the 3:1 that would read as a drawn box. */
+  --rail: rgba(23, 19, 31, 0.38);
 
   --ok: #1f7a4d;
   --warn: #8a5d0f;
   --err: #a83a32;
 
-  --panel-bg: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.86),
-    rgba(255, 255, 255, 0.58) 46%,
-    rgba(255, 255, 255, 0.76)
-  );
-  --panel-border: rgba(12, 26, 36, 0.12);
-  --panel-blur: 26px;
-  --panel-sat: 185%;
-  --panel-shadow: 0 24px 50px -30px rgba(12, 26, 36, 0.5);
-  --elevation: 0 24px 50px -30px rgba(12, 26, 36, 0.5);
-  --glass-highlight: rgba(255, 255, 255, 0.95);
-  --glow: 0 0 0 1px rgba(10, 85, 102, 0.25), 0 14px 34px -16px rgba(10, 85, 102, 0.45);
-  --chip: #f2f6fa;
-  --mesh-opacity: 0.08;
-  --spotlight-strength: 6%;
-  --field-dot: 10, 85, 102;
-
-  /* Two-lume aurora backdrop blooms (light-mode safe) */
-  --aur-1: 84, 51, 201;
-  --aur-2: 14, 143, 116;
-  --aur-3: 10, 85, 102;
+  --glow: 0 0 0 1px rgba(9, 100, 115, 0.3), 0 8px 30px -14px rgba(9, 100, 115, 0.45);
+  --elevation: 0 1px 2px rgba(23, 19, 31, 0.05), 0 10px 30px -14px rgba(23, 19, 31, 0.28);
+  --glass-highlight: rgba(255, 255, 255, 0.9);
+  --chip: #f4f2f9;
+  --mesh-opacity: 0.34;
+  --spotlight-strength: 5%;
+  --field-dot: 9, 100, 115;
 }
 
 html.dark {
-  --ui-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --ui-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* Deep, desaturated purple-graphite. The mid-tone is what gives the
+     page its depth. Checked: muted text is 6.2:1 against it, well past AA. */
+  --background: #0d0a16;
+  --background-mid: #191036;
+  --background-deep: #0a0812;
+  --foreground: #ece9f2;
 
-  --background: #070e15;
-  --background-mid: #0b1926;
-  --background-deep: #050a10;
-  --foreground: #e9f2f8;
-  --muted-foreground: #8fa8bb;
+  --card: rgba(255, 255, 255, 0.042);
+  --card-solid: #161221;
+  --card-foreground: #ece9f2;
+  --popover: #161221;
+  --popover-foreground: #ece9f2;
 
-  --primary: #6cc0f0;
-  --primary-foreground: #04141d;
-  --accent: #6cc0f0;
-  --accent-foreground: #04141d;
+  --primary: #2bc8dd;
+  --primary-foreground: #06131a;
 
-  --card: rgba(255, 255, 255, 0.075);
-  --card-solid: #0d1a24;
-  --card-foreground: #e9f2f8;
-  --popover: #0d1a24;
-  --popover-foreground: #e9f2f8;
+  --secondary: #211b30;
+  --secondary-foreground: #ece9f2;
+  --muted: #191427;
+  --muted-foreground: #9c94ae;
+  --accent: #2bc8dd;
+  --accent-foreground: #06131a;
 
-  --secondary: #12222f;
-  --secondary-foreground: #e9f2f8;
-  --muted: #0f1c27;
-  --border: rgba(255, 255, 255, 0.13);
-  --border-strong: rgba(255, 255, 255, 0.24);
-  --input: rgba(255, 255, 255, 0.13);
-  --ring: #6cc0f0;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --input: rgba(255, 255, 255, 0.09);
+  --ring: #2bc8dd;
+
+  /* 0.16 over #191036 is 1.5:1 — invisible at 1440px. 0.34 is 2.6:1. */
+  --rail: rgba(255, 255, 255, 0.34);
 
   --ok: #4ade80;
   --warn: #fbbf24;
   --err: #f87171;
 
-  --panel-bg: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.13),
-    rgba(255, 255, 255, 0.045) 46%,
-    rgba(255, 255, 255, 0.085)
-  );
-  --panel-border: rgba(255, 255, 255, 0.13);
-  --panel-blur: 26px;
-  --panel-sat: 185%;
-  --panel-shadow: 0 28px 64px -30px rgba(0, 0, 0, 0.95);
-  --glass-highlight: rgba(255, 255, 255, 0.5);
-
-  --glow: 0 0 0 1px rgba(108, 192, 240, 0.3), 0 14px 40px -16px rgba(108, 192, 240, 0.55);
-  --elevation: 0 28px 64px -30px rgba(0, 0, 0, 0.95);
+  --glow: 0 0 0 1px rgba(43, 200, 221, 0.35), 0 8px 40px -12px rgba(43, 200, 221, 0.4);
+  --elevation: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 40px -16px rgba(0, 0, 0, 0.7);
+  --glass-highlight: rgba(255, 255, 255, 0.07);
   --chip: rgba(255, 255, 255, 0.94);
-  --spotlight-strength: 12%;
-  --field-dot: 108, 192, 240;
-  --mesh-opacity: 0.12;
-
-  /* Two-lume aurora backdrop blooms (violet top-left, teal bottom-right, cyan balance) */
-  --aur-1: 155, 130, 255;
-  --aur-2: 47, 214, 176;
-  --aur-3: 108, 192, 240;
+  --mesh-opacity: 0.5;
+  --spotlight-strength: 10%;
+  --field-dot: 43, 200, 221;
 }
 
 :root {
-  --ui-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --ui-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --ui-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --ui-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --ui-display: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --ui-mono: var(--font-plex-mono), ui-monospace, monospace;
 
   --panel-bg: var(--card);
   --panel-border: var(--border);
-  --panel-blur: 26px;
-  --panel-sat: 185%;
+  --panel-blur: 16px;
+  --panel-sat: 140%;
   --panel-shadow: var(--elevation);
 }
 
@@ -227,6 +208,19 @@ html.dark {
     background-attachment: fixed;
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Optical line-breaking. `balance` on headings kills the stranded short
+     second line; `pretty` kills single-word last lines in body copy. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
   }
 
   :focus-visible {
@@ -373,20 +367,46 @@ html.dark {
   animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
-/* Section vertical rhythm utilities */
+/* ----------------------------------------------------------------------------
+   Section rhythm. Three steps, assigned by weight.
+
+   Every section was `py-24`. Identical gaps between every pair of sections is
+   consistent, but it flattens pacing — the page had no way to say "this one
+   matters more than the one above it", so it read as a formatted document.
+
+   Bottom always exceeds top. A section's trailing air belongs to the boundary
+   with the next one, and equal padding optically crowds the following eyebrow,
+   which sits on a rule and reads as a hard edge.
+
+   Mobile takes roughly two thirds. 9rem of dead space on a 390px viewport is
+   a scroll tax, not pacing.
+
+   Assignment: -tight for the supporting sections (Tech Skills, Credentials),
+   -base for Experience and Contact, -loud for Projects, the section the page
+   spends its boldness on.
+   ------------------------------------------------------------------------- */
 @utility section-tight {
-  padding-top: 3.5rem;
-  padding-bottom: 3.5rem;
+  padding-block: 4rem 4.5rem;
+
+  @media (min-width: 768px) {
+    padding-block: 5rem 6rem;
+  }
 }
 
 @utility section-base {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-block: 4.5rem 5.5rem;
+
+  @media (min-width: 768px) {
+    padding-block: 6rem 7.5rem;
+  }
 }
 
 @utility section-loud {
-  padding-top: 6.5rem;
-  padding-bottom: 6.5rem;
+  padding-block: 5rem 6rem;
+
+  @media (min-width: 768px) {
+    padding-block: 7rem 9rem;
+  }
 }
 
 /* ---------- Shared UI Elements ------------------------------------------- */
@@ -474,81 +494,4 @@ html.dark {
   }
 }
 
-/* The platform deck: three planes in one perspective, drifting on a long loop.
-   The layers are the real stack — cloud foundation, control plane, workloads —
-   and each one carries the logos of the tools that run at that tier. */
-.deck-scene {
-  perspective: 1100px;
-}
 
-.deck {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  transform: rotateX(58deg) rotateZ(-38deg);
-  animation: deck-drift 10s ease-in-out infinite alternate;
-}
-
-@keyframes deck-drift {
-  from {
-    transform: rotateX(58deg) rotateZ(-38deg);
-  }
-  to {
-    transform: rotateX(53deg) rotateZ(-31deg);
-  }
-}
-
-.deck-layer {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 224px;
-  height: 224px;
-  margin: -112px 0 0 -112px;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(
-    150deg,
-    color-mix(in oklab, var(--primary) 22%, transparent),
-    rgba(255, 255, 255, 0.05) 60%,
-    color-mix(in oklab, var(--primary) 12%, transparent)
-  );
-  border: 1px solid var(--panel-border);
-  box-shadow:
-    inset 0 1px 0 var(--glass-highlight),
-    0 30px 60px -32px rgba(0, 0, 0, 0.9);
-}
-
-.deck-layer[data-lit='true'] {
-  border-color: color-mix(in oklab, var(--primary) 55%, transparent);
-  box-shadow:
-    inset 0 1px 0 var(--glass-highlight),
-    0 32px 66px -28px color-mix(in oklab, var(--primary) 50%, transparent);
-}
-
-/* What is printed on each plane. */
-.deck-face {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  height: 100%;
-  padding: 22px;
-  place-content: center;
-}
-
-.deck-chip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  background: var(--chip);
-  border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
-  box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.45);
-}
-
-.deck-chip img {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-}

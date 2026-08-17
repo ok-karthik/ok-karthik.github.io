@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import {
   IBM_Plex_Sans,
   IBM_Plex_Mono,
-  Geist,
-  Geist_Mono,
 } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 // Background. A flow-field alternative (particles on a noise field leaving
@@ -29,14 +27,9 @@ const plexMono = IBM_Plex_Mono({
   display: 'swap',
 })
 
-const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap' })
-const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' })
-
 const fontVars = [
   plexSans.variable,
   plexMono.variable,
-  geist.variable,
-  geistMono.variable,
 ].join(' ')
 
 const pageTitle = `${profile.name} | ${profile.title}`

@@ -67,6 +67,14 @@
  * !! wording is mine even where the facts are yours.
  */
 
+/**
+ * One-line deck under the section H2, paired with `experienceDeck`. It states
+ * what a project page actually contains, because "Projects" on a portfolio
+ * usually means a screenshot and a stack list, and the thing worth clicking
+ * through for here is the trade-off record.
+ */
+export const projectsDeck = "Each page documents what was chosen and what it was chosen over."
+
 export type Decision = {
   /** What was chosen. */
   decision: string

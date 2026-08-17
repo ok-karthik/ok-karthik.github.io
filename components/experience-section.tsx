@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { experiences } from "@/content/experience"
+import { experiences, experienceDeck } from "@/content/experience"
 import { profile } from "@/content/profile"
 
 /**
@@ -18,19 +18,20 @@ import { profile } from "@/content/profile"
  */
 export function ExperienceSection() {
   return (
-    <section id="experience" className="scroll-mt-24">
-      <div className="mx-auto max-w-6xl px-6 py-20">
+    <section id="experience" className="section-base scroll-mt-24">
+      <div className="mx-auto max-w-6xl px-6">
         <header className="mb-12">
           <p className="label rule-label mb-4">Experience</p>
           <h2 className="max-w-2xl font-display text-display font-semibold tracking-tight text-foreground text-balance">
             {profile.yearsInTech} years building infrastructure and the teams that run it
           </h2>
+          <p className="mt-2 max-w-2xl text-body text-muted-foreground">{experienceDeck}</p>
         </header>
 
         <ol className="relative md:pl-8">
           <span
             aria-hidden
-            className="absolute left-0 top-3 bottom-3 hidden w-px bg-gradient-to-b from-transparent via-border-strong to-transparent md:block"
+            className="absolute left-0 top-3 bottom-3 hidden w-px bg-rail md:block"
           />
 
           {experiences.map((exp, i) => {

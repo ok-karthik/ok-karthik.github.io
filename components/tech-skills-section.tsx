@@ -82,8 +82,8 @@ function SkillIcon({ skill }: { skill: Skill }) {
 
 export function TechSkillsSection() {
   return (
-    <section id="tech-skills" className="scroll-mt-24">
-      <div className="mx-auto max-w-6xl px-6 py-24">
+    <section id="tech-skills" className="section-tight scroll-mt-24">
+      <div className="mx-auto max-w-6xl px-6">
         <header className="mb-10">
           <p className="label rule-label mb-4">Tech Skills</p>
           <h2 className="font-display text-display font-semibold tracking-tight text-foreground">

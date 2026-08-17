@@ -9,6 +9,17 @@
  * interview. Do not add a number that isn't already backed by the CV.
  */
 
+/**
+ * One-line deck under the section H2. Lives here rather than inline in the
+ * component because it makes a claim about the career, and every such claim
+ * has to be checkable against this file: retail (Aldi Süd), e-commerce
+ * (Rakuten) and telecom (Vodafone UK, via HPE and Tech Mahindra). It names
+ * scope, not tools, and carries no metric — deliberately, since a number in a
+ * deck is a number that has to be defended twice.
+ */
+export const experienceDeck =
+  "Platform, reliability and delivery ownership across retail, e-commerce and telecom."
+
 export type Experience = {
   title: string
   company: string
