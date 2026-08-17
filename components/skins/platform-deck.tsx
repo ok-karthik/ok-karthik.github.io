@@ -101,8 +101,8 @@ export function PlatformDeck({
                     alt=""
                     width={22}
                     height={22}
-                    loading="lazy"
-                    decoding="async"
+                    loading="eager"
+                    decoding="sync"
                   />
                 </span>
               ))}
