@@ -58,7 +58,7 @@ export function Prose({ blocks }: { blocks: Block[] }) {
             return (
               <pre
                 key={i}
-                className="mt-6 overflow-x-auto rounded-lg border border-border bg-muted p-5 font-mono text-small leading-relaxed text-foreground"
+                className="mt-6 overflow-x-auto rounded-lg border border-border bg-muted p-5 font-mono text-small leading-normal text-foreground"
               >
                 {block.text}
               </pre>
