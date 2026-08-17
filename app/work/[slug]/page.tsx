@@ -7,6 +7,7 @@ import { posts } from "@/content/writing"
 import { profile } from "@/content/profile"
 import { architectureBySlug } from "@/components/architecture"
 import { DecisionList } from "@/components/decision-list"
+import { ProjectPlayground } from "@/components/project-playground"
 import { Navbar } from "@/components/navbar"
 
 type Params = { slug: string }
@@ -107,6 +108,9 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
           <section className="mt-14">
             <h2 className="label rule-label mb-4">Architecture</h2>
             <Architecture />
+            <div className="mt-6">
+              <ProjectPlayground slug={project.slug} />
+            </div>
           </section>
         )}
 
