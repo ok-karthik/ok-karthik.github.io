@@ -1,12 +1,6 @@
 import type { Metadata } from 'next'
-import {
-  IBM_Plex_Sans,
-  IBM_Plex_Mono,
-  Geist,
-  Geist_Mono,
-} from 'next/font/google'
+import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
-import { SkinBootScript } from '@/components/skins/skin-boot'
 // Background. A flow-field alternative (particles on a noise field leaving
 // trails) was built and rejected: the trails accumulate into a scratchy,
 // matted texture over a large dark area. Don't rebuild it.
@@ -30,15 +24,7 @@ const plexMono = IBM_Plex_Mono({
   display: 'swap',
 })
 
-const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap' })
-const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' })
-
-const fontVars = [
-  plexSans.variable,
-  plexMono.variable,
-  geist.variable,
-  geistMono.variable,
-].join(' ')
+const fontVars = [plexSans.variable, plexMono.variable].join(' ')
 
 const pageTitle = `${profile.name} | ${profile.title}`
 
@@ -93,7 +79,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={fontVars} suppressHydrationWarning>
       <body className="font-sans antialiased min-h-screen bg-background text-foreground">
-        <SkinBootScript />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
