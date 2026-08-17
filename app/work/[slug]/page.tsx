@@ -122,6 +122,24 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
           <DecisionList decisions={project.decisions} />
         </section>
 
+        {project.failureMode && (
+          <section className="mt-14">
+            <h2 className="label rule-label mb-4">Production resilience & failure modes</h2>
+            <div className="glass rounded-xl p-6 sm:p-7">
+              <p className="label mb-1 text-primary">Observed Failure Scenario</p>
+              <p className="text-body font-medium text-foreground">
+                {project.failureMode.scenario}
+              </p>
+              <div className="mt-5 border-t border-border pt-4">
+                <p className="label mb-1">Mitigation & Architectural Safeguard</p>
+                <p className="text-small leading-relaxed text-muted-foreground">
+                  {project.failureMode.resolution}
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
         {project.outcome && (
           <section className="mt-14">
             <h2 className="label rule-label mb-4">Outcome</h2>

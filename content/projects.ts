@@ -84,6 +84,13 @@ export type Decision = {
   rationale: string
 }
 
+export type FailureMode = {
+  /** Observed real-world failure mode or edge case. */
+  scenario: string
+  /** Architectural mitigation and recovery safeguard. */
+  resolution: string
+}
+
 export type Project = {
   slug: string
   title: string
@@ -93,6 +100,8 @@ export type Project = {
   problem: string
   constraints: string[]
   decisions: Decision[]
+  /** Real-world failure scenario and how the architecture resiliently handles it. */
+  failureMode?: FailureMode
   /** What changed as a result. Omit rather than invent one. */
   outcome?: string
   tags: string[]
@@ -114,6 +123,12 @@ export const projects: Project[] = [
       "Metrics, logs and traces need to correlate on the same request",
       "Collection overhead has to stay proportionate to the workload",
     ],
+    failureMode: {
+      scenario:
+        "Collector pod memory saturation and pipeline drops during sudden upstream log and span spikes.",
+      resolution:
+        "Ordered `memory_limiter` and `batch` processors ahead of any filtering or exporting with hard memory ceilings (80% threshold), shedding unsampled debug traces at node-level DaemonSets while gateway HPA scales on queue length.",
+    },
     decisions: [
       {
         decision: "OpenTelemetry Collector as the single ingest point",
@@ -163,6 +178,12 @@ export const projects: Project[] = [
       "Cluster state must be reconstructible from Git alone",
       "The platform must be able to restructure its output without a code change",
     ],
+    failureMode: {
+      scenario:
+        "Argo CD controller sync storm and CRD admission timeouts during bulk application onboarding.",
+      resolution:
+        "Decoupled CRD lifecycle management from tenant Helm charts, and configured Kyverno admission policies with granular namespace scoping and non-blocking failure policies on non-production test namespaces.",
+    },
     decisions: [
       {
         decision: "The catalog owns the output contract, not the scaffolder",
@@ -229,6 +250,12 @@ export const projects: Project[] = [
       "Policy violations have to be caught before apply, not in review",
       "Cost impact needs to be visible at pull-request time",
     ],
+    failureMode: {
+      scenario:
+        "State lock contention in DynamoDB and plan drift across cross-account VPC peering dependencies during simultaneous pull requests.",
+      resolution:
+        "Structured strict DAG module dependencies in Terragrunt with granular state files per resource block, pairing parallel pre-merge validation gates with nightly automated drift detection.",
+    },
     decisions: [
       {
         decision: "Hierarchical Terragrunt blueprints",
@@ -283,6 +310,12 @@ export const projects: Project[] = [
       "Workloads are bursty — capacity has to appear and drain on demand",
       "Standard Kubernetes metrics say nothing about GPU utilisation or memory",
     ],
+    failureMode: {
+      scenario:
+        "Silent CUDA Out-Of-Memory (OOM) failures on time-sliced multi-tenant GPUs due to unpartitioned shared VRAM.",
+      resolution:
+        "Deployed NVIDIA DCGM exporter into Prometheus to alert on memory pressure ahead of saturation, pairing node affinity with per-pod memory ceilings to prevent noisy-neighbour evictions.",
+    },
     decisions: [
       {
         decision: "Karpenter NodePools keyed on nvidia.com/gpu",
@@ -325,6 +358,12 @@ export const projects: Project[] = [
       "Teams need an escape hatch they control themselves",
       "The operator's own failure must be safe — no action is better than a wrong action",
     ],
+    failureMode: {
+      scenario:
+        "Downstream Horizontal Pod Autoscalers (HPA) fighting operator sleep schedules by re-scaling idle workloads back up.",
+      resolution:
+        "The operator reconciliation loop records the current HPA minReplicas state into annotations, sets minReplicas to 0 during the sleep window, and cleanly restores original replica targets prior to the morning wake window.",
+    },
     decisions: [
       {
         decision: "Sleep schedules annotated on the namespace",
