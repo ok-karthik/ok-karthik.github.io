@@ -53,12 +53,12 @@ function Tags({ tags }: { tags: readonly string[] }) {
  */
 const fullWidthDiagramProps: Record<string, { className: string; fadeFrom: string }> = {
   "opentelemetry-platform-on-eks": {
-    className: "h-56 [--arch-scale:0.5] sm:h-64 sm:[--arch-scale:0.68] lg:h-72 lg:[--arch-scale:0.74]",
-    fadeFrom: "78%",
+    className: "h-52 [--arch-scale:0.5] sm:h-56 sm:[--arch-scale:0.68] lg:h-64 lg:[--arch-scale:0.75]",
+    fadeFrom: "82%",
   },
   "internal-developer-platform": {
-    className: "h-48 [--arch-scale:0.55] sm:h-52 sm:[--arch-scale:0.72] lg:h-56 lg:[--arch-scale:0.82]",
-    fadeFrom: "85%",
+    className: "h-44 [--arch-scale:0.55] sm:h-48 sm:[--arch-scale:0.72] lg:h-52 lg:[--arch-scale:0.84]",
+    fadeFrom: "88%",
   },
 }
 
@@ -86,8 +86,8 @@ export function WorkSection() {
         <div className="space-y-6">
           {fullWidth.map((project, i) => {
             const diagram = fullWidthDiagramProps[project.slug] ?? {
-              className: "h-56 [--arch-scale:0.5] sm:h-64 sm:[--arch-scale:0.68] lg:h-72 lg:[--arch-scale:0.74]",
-              fadeFrom: "78%",
+              className: "h-52 [--arch-scale:0.5] sm:h-56 sm:[--arch-scale:0.68] lg:h-64 lg:[--arch-scale:0.75]",
+              fadeFrom: "82%",
             }
 
             return (
@@ -100,7 +100,7 @@ export function WorkSection() {
                 className="glass sheen glass-hover overflow-hidden rounded-2xl"
               >
                 <Link href={`/work/${project.slug}`} className="group block">
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border/80 px-7 py-3 sm:px-9">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border/80 px-6 py-2.5 sm:px-8">
                     <p className="label font-mono tabular text-primary">
                       Project {String(i + 1).padStart(2, "0")}
                     </p>
@@ -109,7 +109,7 @@ export function WorkSection() {
                     </p>
                   </div>
 
-                  <div className="grid gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+                  <div className="grid gap-6 p-6 sm:p-7 lg:grid-cols-[1fr_1.15fr] lg:items-center">
                     <div className="min-w-0">
                       <h3 className="flex items-start gap-2 font-display text-h2 font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
                         {project.title}
@@ -118,7 +118,7 @@ export function WorkSection() {
                           aria-hidden
                         />
                       </h3>
-                      <p className="mt-3 max-w-xl text-body leading-relaxed text-muted-foreground text-pretty">
+                      <p className="mt-2.5 max-w-xl text-body leading-relaxed text-muted-foreground text-pretty">
                         {project.problem}
                       </p>
                       <Tags tags={project.tags} />
