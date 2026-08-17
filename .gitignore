@@ -19,3 +19,6 @@ REVIEW.md
 
 # TypeScript incremental build cache — regenerated on every build
 tsconfig.tsbuildinfo
+
+# Graphify analysis outputs and cache
+graphify-out/
