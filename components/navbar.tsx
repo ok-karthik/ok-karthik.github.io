@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import { Sun, Moon, Menu, X } from "lucide-react"
@@ -11,11 +12,13 @@ const links = [
   { href: "/#tech-skills", label: "Tech Skills" },
   { href: "/#projects", label: "Projects" },
   { href: "/#experience", label: "Experience" },
+  { href: "/writing", label: "Writing" },
   { href: "/#contact", label: "Contact" },
 ]
 
 export function Navbar() {
   const { resolvedTheme, setTheme } = useTheme()
+  const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -26,7 +29,9 @@ export function Navbar() {
   // Scroll spy. Observes each section and marks the one nearest the top of the
   // viewport, so the navbar always says where you are.
   useEffect(() => {
-    const ids = links.map((l) => l.href.split("#")[1])
+    const ids = links
+      .filter((l) => l.href.includes("#"))
+      .map((l) => l.href.split("#")[1])
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el))
@@ -57,6 +62,13 @@ export function Navbar() {
 
   const isDark = mounted && resolvedTheme === "dark"
 
+  const isLinkActive = (href: string) => {
+    if (href === "/writing") {
+      return pathname?.startsWith("/writing")
+    }
+    return pathname === "/" && active === href.split("#")[1]
+  }
+
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/70 backdrop-blur-xl">
       <nav
@@ -72,27 +84,30 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <ul className="hidden items-center gap-6 lg:flex">
-            {links.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  aria-current={active === link.href.split("#")[1] ? "true" : undefined}
-                  className={`relative font-mono text-micro uppercase tracking-[0.08em] transition-colors hover:text-foreground ${
-                    active === link.href.split("#")[1]
-                      ? "text-foreground"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  {link.label}
-                  <span
-                    aria-hidden
-                    className={`absolute -bottom-1.5 left-0 h-px bg-primary transition-[width,opacity] duration-300 ${
-                      active === link.href.split("#")[1] ? "w-full opacity-100" : "w-0 opacity-0"
+            {links.map((link) => {
+              const activeState = isLinkActive(link.href)
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    aria-current={activeState ? "true" : undefined}
+                    className={`relative font-mono text-micro uppercase tracking-[0.08em] transition-colors hover:text-foreground ${
+                      activeState
+                        ? "text-foreground"
+                        : "text-muted-foreground"
                     }`}
-                  />
-                </Link>
-              </li>
-            ))}
+                  >
+                    {link.label}
+                    <span
+                      aria-hidden
+                      className={`absolute -bottom-1.5 left-0 h-px bg-primary transition-[width,opacity] duration-300 ${
+                        activeState ? "w-full opacity-100" : "w-0 opacity-0"
+                      }`}
+                    />
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
 
           <div className="ml-2 flex items-center gap-2 lg:border-l lg:border-border lg:pl-4">

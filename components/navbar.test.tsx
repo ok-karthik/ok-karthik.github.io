@@ -9,6 +9,7 @@ vi.mock('next-themes', () => ({
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn() }),
+  usePathname: () => '/',
 }))
 
 describe('Navbar', () => {
@@ -19,7 +20,7 @@ describe('Navbar', () => {
 
   it('renders every primary navigation link', () => {
     render(<Navbar />)
-    for (const label of ['Tech Skills', 'Projects', 'Experience', 'Contact']) {
+    for (const label of ['Tech Skills', 'Projects', 'Experience', 'Writing', 'Contact']) {
       expect(screen.getAllByRole('link', { name: label }).length).toBeGreaterThan(0)
     }
   })

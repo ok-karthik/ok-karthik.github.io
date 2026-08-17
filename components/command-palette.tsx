@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import * as Dialog from "@radix-ui/react-dialog"
 import { profile } from "@/content/profile"
 import { projects } from "@/content/projects"
+import { posts } from "@/content/writing"
 import { commands, findCommand } from "@/content/commands"
 
 /**
@@ -50,6 +51,7 @@ export function CommandPalette() {
       { id: "tech-skills", label: "Tech Skills", group: "Navigate", run: go("/#tech-skills") },
       { id: "projects", label: "Projects", group: "Navigate", run: go("/#projects") },
       { id: "experience", label: "Experience", group: "Navigate", run: go("/#experience") },
+      { id: "writing", label: "Writing", group: "Navigate", run: go("/writing") },
       { id: "contact", label: "Contact", group: "Navigate", run: go("/#contact") },
 
       ...projects.map((p) => ({
@@ -58,6 +60,14 @@ export function CommandPalette() {
         hint: `${p.decisions.length} decisions`,
         group: "Projects",
         run: go(`/work/${p.slug}`),
+      })),
+
+      ...posts.map((p) => ({
+        id: p.slug,
+        label: p.title,
+        hint: `${p.readingMinutes} min`,
+        group: "Writing",
+        run: go(`/writing/${p.slug}`),
       })),
 
       {

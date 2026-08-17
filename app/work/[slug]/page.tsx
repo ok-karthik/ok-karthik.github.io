@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, Github } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, Github } from "lucide-react"
 import { projects, getProject } from "@/content/projects"
+import { posts } from "@/content/writing"
 import { profile } from "@/content/profile"
 import { architectureBySlug } from "@/components/architecture"
 import { DecisionList } from "@/components/decision-list"
@@ -45,6 +46,7 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
   if (!project) notFound()
 
   const Architecture = architectureBySlug[project.slug]
+  const relatedPosts = posts.filter((p) => p.project === project.slug)
 
   return (
     <>
@@ -127,6 +129,31 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
           </section>
         )}
 
+        {relatedPosts.length > 0 && (
+          <section className="mt-14">
+            <h2 className="label rule-label mb-4">Deep dive writing</h2>
+            <div className="grid gap-4">
+              {relatedPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/writing/${post.slug}`}
+                  className="glass glass-hover group block rounded-xl p-6"
+                >
+                  <p className="label mb-1.5 tabular">{post.readingMinutes} min read</p>
+                  <h3 className="flex items-start gap-2 font-display text-h3 font-semibold text-foreground transition-colors group-hover:text-primary">
+                    {post.title}
+                    <ArrowUpRight
+                      className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+                      aria-hidden
+                    />
+                  </h3>
+                  <p className="mt-2 text-small text-muted-foreground">{post.summary}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         <footer className="mt-16 border-t border-border pt-8">
           <Link
             href="/#projects"
@@ -139,3 +166,4 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
     </>
   )
 }
+
