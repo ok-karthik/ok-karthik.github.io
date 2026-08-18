@@ -88,28 +88,24 @@ export function TechSkillsSection() {
                 } last:xl:border-r-0`}
               >
                 <h3 className="label mb-4">{group.title}</h3>
-                <ul className="space-y-5">
+                <ul className="space-y-4">
                   {[...group.skills]
                     .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
                     .map((skill) => (
-                      <li
-                        key={skill.name}
-                        className={`flex gap-3 ${skill.note ? "items-start" : "items-center"}`}
-                      >
+                      <li key={skill.name} className="flex items-start gap-3">
                         <SkillIcon skill={skill} />
-                        <span className="min-w-0 flex-1">
+                        <span className="min-w-0 flex-1 pt-1.5">
                           <span className="block text-small leading-snug text-foreground">
                             {skill.name}
                           </span>
                           {skill.note && (
-                            <span className="mt-1 flex flex-wrap gap-x-2.5 gap-y-1">
-                              {skill.note.map((item, idx) => (
+                            <span className="mt-1.5 flex flex-wrap gap-1.5">
+                              {skill.note.map((item) => (
                                 <span
                                   key={item}
-                                  className="whitespace-nowrap font-mono text-micro leading-snug text-muted-foreground"
+                                  className="whitespace-nowrap rounded-full border border-border bg-muted/60 px-2 py-0.5 font-mono text-micro text-muted-foreground"
                                 >
                                   {item}
-                                  {idx < skill.note!.length - 1 ? " ·" : ""}
                                 </span>
                               ))}
                             </span>

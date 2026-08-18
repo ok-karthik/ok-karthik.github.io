@@ -68,10 +68,15 @@ export type Skill = {
   /**
    * Evidence, as short chips rather than a joined sentence — this is what
    * actually conveys depth. Each item renders as its own chip and wraps as a
-   * complete unit, so there's no per-note character budget to fight; keep
-   * each item itself short (2-3 words) since it still has to read at a glance
-   * in a dense panel. See the 2026-08-18 note below for why this replaced a
-   * single wrapped string.
+   * complete unit against its siblings, but a single item still has nothing
+   * to wrap against itself: at the 4-column grid's ~220px content width, an
+   * item over ~20 characters (e.g. "Cross-account connectivity", "Jenkins
+   * pipeline libraries") overflows its own column edge rather than wrapping,
+   * found 2026-08-18 from a live screenshot. Split any item that long into
+   * two shorter ones instead of shortening the words — "Cross-account
+   * connectivity" became ["Cross-account", "connectivity"]. Keep new items
+   * under that ~20-char ceiling. See the 2026-08-18 note below for why this
+   * replaced a single wrapped string in the first place.
    */
   note?: string[]
 }
@@ -180,7 +185,7 @@ export const skillGroups: SkillGroup[] = [
       { name: "OPA Gatekeeper", icon: "/icons/opa.svg", tier: "production" },
       { name: "Kyverno", icon: "/icons/kyverno.svg", tier: "production" },
       { name: "External Secrets", lucide: "Key", tier: "production", note: ["AWS Secrets Manager", "Azure Key Vault"] },
-      { name: "Kubernetes RBAC & Network Policies", lucide: "ShieldCheck", tier: "production" },
+      { name: "Kubernetes RBAC", lucide: "ShieldCheck", tier: "production", note: ["Network Policies"] },
       { name: "IaC / container scanning", lucide: "ScanSearch", tier: "working", note: ["SAST", "DAST", "Image scanning"] },
     ],
   },
@@ -228,7 +233,7 @@ export const skillGroups: SkillGroup[] = [
       // Istio already carry it two cards over.
       { name: "Linux", lucide: "Terminal", tier: "deep", note: ["Administration", "Troubleshooting"] },
       { name: "Networking", lucide: "Network", tier: "production", note: ["DNS", "TCP/IP", "TLS", "Load balancing"] },
-      { name: "VPC & subnet design", lucide: "Waypoints", tier: "production", note: ["Cross-account connectivity"] },
+      { name: "VPC & subnet design", lucide: "Waypoints", tier: "production", note: ["Cross-account", "connectivity"] },
     ],
   },
   {
@@ -246,7 +251,7 @@ export const skillGroups: SkillGroup[] = [
       // put it at the head of the card, which is Karthik's own calibration and
       // his call to make. Rendered result is Python, Bash, Go, Java / Groovy.
       { name: "Python", icon: "/icons/python.svg", tier: "deep", note: ["Platform APIs", "Operators", "Automation"] },
-      { name: "Go", icon: "/icons/go.svg", tier: "working", note: ["CLIs — actively deepening"] },
+      { name: "Go", icon: "/icons/go.svg", tier: "working", note: ["CLIs", "actively deepening"] },
       // Note added 2026-08-12. "Automation and scripting" is a phrase that
       // recurs in the target postings, and nothing on the page said it: Python
       // carries "automation" but reads as an application language, and Bash sat
@@ -259,7 +264,7 @@ export const skillGroups: SkillGroup[] = [
       // named languages, which reads as padding. The note attaches the same
       // words to the tool that actually earns them.
       { name: "Bash", icon: "/icons/bash.svg", tier: "deep", note: ["Automation", "Operational tooling"] },
-      { name: "Java / Groovy", icon: "/icons/java.svg", tier: "working", note: ["Jenkins pipeline libraries"] },
+      { name: "Java / Groovy", icon: "/icons/java.svg", tier: "working", note: ["Pipeline libraries", "Groovy DSL"] },
       // Added 2026-08-12 from the CV's Software Engineering line. Kept to a
       // bare row with no note: it is a supporting skill in platform work, and
       // a note would give it more weight on the card than it earns.
