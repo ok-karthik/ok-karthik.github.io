@@ -115,9 +115,9 @@ describe('tech skills', () => {
   it('renders every skill in every group', () => {
     render(<TechSkillsSection />)
     for (const group of skillGroups) {
-      expect(screen.getAllByText(group.title)[0]).toBeInTheDocument()
+      expect(screen.getByText(group.title)).toBeInTheDocument()
       for (const skill of group.skills) {
-        expect(screen.getAllByText(skill.name)[0]).toBeInTheDocument()
+        expect(screen.getByText(skill.name)).toBeInTheDocument()
       }
     }
   })
@@ -126,7 +126,7 @@ describe('tech skills', () => {
     const { container } = render(<TechSkillsSection />)
     const total = skillGroups.reduce((n, g) => n + g.skills.length, 0)
     const markers = container.querySelectorAll('li > :first-child')
-    expect(markers.length).toBeGreaterThanOrEqual(total)
+    expect(markers).toHaveLength(total)
     for (const marker of Array.from(markers)) {
       const hasImg = marker.querySelector('img')
       const hasSvg = marker.querySelector('svg')
