@@ -14,6 +14,20 @@
  *
  * !! TODO(karthik): these tiers are a first pass — review every line. The
  * !! calibration has to be yours, because you're the one defending it.
+ *
+ * Notes converted to chip arrays 2026-08-18. The panel's ~175px note-text
+ * measure (see components/tech-skills-section.tsx) meant a single wrapped
+ * string over ~21 characters broke to a second line, and inconsistent
+ * 1-line/2-line notes across adjacent rows in the same column read as
+ * misaligned rather than as deliberate — Karthik's word for it was "sloppy."
+ * First pass tried shortening every note to fit one line; that traded away
+ * real content (AWS lost "ECS", GPU Operator lost "time slicing") to solve a
+ * layout problem, which is backwards. Chips solve it properly: each item is
+ * its own unit, so a row can wrap between chips without ever looking broken,
+ * and nothing had to be cut to make that true. (Chips are the standard
+ * pattern for this — "ideal for representing tags, labels, or categories...
+ * useful when users need to select multiple options like interests or
+ * skills," https://mobbin.com/glossary/chip — this isn't a novel layout.)
  */
 
 export type Tier = "deep" | "production" | "working"
@@ -51,8 +65,15 @@ export type Skill = {
     | "Siren"
     | "Layers"
     | "Database"
-  /** Short evidence note — this is what actually conveys depth. */
-  note?: string
+  /**
+   * Evidence, as short chips rather than a joined sentence — this is what
+   * actually conveys depth. Each item renders as its own chip and wraps as a
+   * complete unit, so there's no per-note character budget to fight; keep
+   * each item itself short (2-3 words) since it still has to read at a glance
+   * in a dense panel. See the 2026-08-18 note below for why this replaced a
+   * single wrapped string.
+   */
+  note?: string[]
 }
 
 export type SkillGroup = {
@@ -64,8 +85,8 @@ export const skillGroups: SkillGroup[] = [
   {
     title: "Containers & Orchestration",
     skills: [
-      { name: "Kubernetes", icon: "/icons/kubernetes.svg", tier: "deep", note: "CKA + CKAD" },
-      { name: "Helm", icon: "/icons/helm.svg", tier: "deep", note: "Library charts, OCI distribution" },
+      { name: "Kubernetes", icon: "/icons/kubernetes.svg", tier: "deep", note: ["CKA", "CKAD"] },
+      { name: "Helm", icon: "/icons/helm.svg", tier: "deep", note: ["Library charts", "OCI distribution"] },
       { name: "Docker", icon: "/icons/docker.svg", tier: "deep" },
       { name: "Kubernetes Operators", icon: "/icons/kubernetes.svg", tier: "production" },
       // Added 2026-08-12 from the CV's Containers line. Lucide rather than a
@@ -78,7 +99,7 @@ export const skillGroups: SkillGroup[] = [
       // under GPU understated it. This is now its only mention — it was also
       // named in the AWS note under Cloud Platforms, and saying it twice read
       // as padding rather than as scope.
-      { name: "Karpenter", icon: "/icons/aws.svg", tier: "production", note: "Node autoscaling, GPU NodePools" },
+      { name: "Karpenter", icon: "/icons/aws.svg", tier: "production", note: ["Node autoscaling", "GPU NodePools"] },
       { name: "Istio", icon: "/icons/istio.svg", tier: "working" },
     ],
   },
@@ -103,11 +124,11 @@ export const skillGroups: SkillGroup[] = [
       // capability, and Terraform is where Karthik actually does it. It sits
       // here rather than on an observability row because the point is that the
       // dashboards and alerts go through the same review path as the infra.
-      { name: "Terraform", icon: "/icons/terraform.svg", tier: "deep", note: "Reusable modules · monitoring-as-code" },
+      { name: "Terraform", icon: "/icons/terraform.svg", tier: "deep", note: ["Reusable modules", "Monitoring-as-code"] },
       { name: "Terragrunt", icon: "/terragrunt.svg", tier: "deep" },
       { name: "Ansible", icon: "/icons/ansible.svg", tier: "production" },
       { name: "Argo CD", icon: "/icons/argocd.svg", tier: "deep" },
-      { name: "Jenkins", icon: "/icons/jenkins.svg", tier: "deep", note: "Shared libraries for 150+ teams" },
+      { name: "Jenkins", icon: "/icons/jenkins.svg", tier: "deep", note: ["Shared libraries", "150+ teams"] },
       { name: "GitHub Actions", icon: "/icons/githubactions.svg", tier: "production" },
       { name: "GitLab CI", icon: "/icons/gitlab.svg", tier: "production" },
     ],
@@ -126,7 +147,7 @@ export const skillGroups: SkillGroup[] = [
       // Kept to two rendered lines at 1440, where the four-column grid gives
       // each card its narrowest text measure (~190px). A third line here grows
       // the whole of row 1, because cards stretch to the tallest in the row.
-      { name: "OpenTelemetry", icon: "/icons/opentelemetry.svg", tier: "deep", note: "Collector · Gateway · vendor-neutral" },
+      { name: "OpenTelemetry", icon: "/icons/opentelemetry.svg", tier: "deep", note: ["Collector", "Gateway", "Vendor-neutral"] },
       { name: "Dynatrace", icon: "/icons/dynatrace.svg", tier: "deep" },
       // Prometheus, then L-G-T in the stack's own order 2026-08-12. "Loki /
       // Tempo" used to sit as one row *after* Grafana, which spelled nothing;
@@ -143,14 +164,14 @@ export const skillGroups: SkillGroup[] = [
       // less than a claim he can defend.
       { name: "Prometheus", icon: "/icons/prometheus.svg", tier: "production" },
       { name: "Loki", icon: "/loki.svg", tier: "production" },
-      { name: "Grafana", icon: "/icons/grafana.svg", tier: "production", note: "LGTM stack" },
+      { name: "Grafana", icon: "/icons/grafana.svg", tier: "production", note: ["LGTM stack"] },
       { name: "Tempo", icon: "/tempo.svg", tier: "production" },
       { name: "Datadog", icon: "/icons/datadog.svg", tier: "working" },
       // Not a tool row, deliberately: on-call and incident response appear in
       // 41.5% of Senior/Staff Platform/SRE postings and had no representation
       // anywhere on the page. Tiered "production" rather than "deep" on the
       // file's own under-claim rule; raise it if you'd defend it as a daily driver.
-      { name: "Incident Response", lucide: "Siren", tier: "production", note: "On-call · postmortems · MTTR reduction" },
+      { name: "Incident Response", lucide: "Siren", tier: "production", note: ["On-call", "Postmortems", "MTTR reduction"] },
     ],
   },
   {
@@ -158,9 +179,9 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       { name: "OPA Gatekeeper", icon: "/icons/opa.svg", tier: "production" },
       { name: "Kyverno", icon: "/icons/kyverno.svg", tier: "production" },
-      { name: "External Secrets", lucide: "Key", tier: "production", note: "AWS Secrets Manager · Azure Key Vault" },
+      { name: "External Secrets", lucide: "Key", tier: "production", note: ["AWS Secrets Manager", "Azure Key Vault"] },
       { name: "Kubernetes RBAC & Network Policies", lucide: "ShieldCheck", tier: "production" },
-      { name: "IaC / container scanning", lucide: "ScanSearch", tier: "working", note: "SAST · DAST · image scanning" },
+      { name: "IaC / container scanning", lucide: "ScanSearch", tier: "working", note: ["SAST", "DAST", "Image scanning"] },
     ],
   },
   {
@@ -181,9 +202,9 @@ export const skillGroups: SkillGroup[] = [
       // cross-account networking are deliberately NOT repeated here — the
       // "VPC & subnet design" row in Linux & Networking carries them, and this
       // note has room for what that row doesn't say.
-      { name: "AWS", icon: "/icons/aws.svg", tier: "production", note: "EKS · ECS · IAM/IRSA · multi-account" },
-      { name: "Azure", icon: "/icons/azure.svg", tier: "production", note: "AKS, Entra ID, Key Vault" },
-      { name: "GCP", icon: "/icons/gcp.svg", tier: "working", note: "GKE, Cloud IAM" },
+      { name: "AWS", icon: "/icons/aws.svg", tier: "production", note: ["EKS", "ECS", "IAM/IRSA", "Multi-account"] },
+      { name: "Azure", icon: "/icons/azure.svg", tier: "production", note: ["AKS", "Entra ID", "Key Vault"] },
+      { name: "GCP", icon: "/icons/gcp.svg", tier: "working", note: ["GKE", "Cloud IAM"] },
     ],
   },
   {
@@ -205,9 +226,9 @@ export const skillGroups: SkillGroup[] = [
       // place. Two lines is the ceiling — check it before lengthening either.
       // "ingress" went to Networking's dropped clause because Kubernetes and
       // Istio already carry it two cards over.
-      { name: "Linux", lucide: "Terminal", tier: "deep", note: "Administration · troubleshooting" },
-      { name: "Networking", lucide: "Network", tier: "production", note: "DNS · TCP/IP · TLS · load balancing" },
-      { name: "VPC & subnet design", lucide: "Waypoints", tier: "production", note: "Cross-account connectivity" },
+      { name: "Linux", lucide: "Terminal", tier: "deep", note: ["Administration", "Troubleshooting"] },
+      { name: "Networking", lucide: "Network", tier: "production", note: ["DNS", "TCP/IP", "TLS", "Load balancing"] },
+      { name: "VPC & subnet design", lucide: "Waypoints", tier: "production", note: ["Cross-account connectivity"] },
     ],
   },
   {
@@ -224,8 +245,8 @@ export const skillGroups: SkillGroup[] = [
       // sits in the file. Python was raised production -> deep 2026-08-07 to
       // put it at the head of the card, which is Karthik's own calibration and
       // his call to make. Rendered result is Python, Bash, Go, Java / Groovy.
-      { name: "Python", icon: "/icons/python.svg", tier: "deep", note: "Platform APIs, operators, automation" },
-      { name: "Go", icon: "/icons/go.svg", tier: "working", note: "CLIs — actively deepening" },
+      { name: "Python", icon: "/icons/python.svg", tier: "deep", note: ["Platform APIs", "Operators", "Automation"] },
+      { name: "Go", icon: "/icons/go.svg", tier: "working", note: ["CLIs — actively deepening"] },
       // Note added 2026-08-12. "Automation and scripting" is a phrase that
       // recurs in the target postings, and nothing on the page said it: Python
       // carries "automation" but reads as an application language, and Bash sat
@@ -237,8 +258,8 @@ export const skillGroups: SkillGroup[] = [
       // would be a capability with no product behind it sitting next to four
       // named languages, which reads as padding. The note attaches the same
       // words to the tool that actually earns them.
-      { name: "Bash", icon: "/icons/bash.svg", tier: "deep", note: "Automation · operational tooling" },
-      { name: "Java / Groovy", icon: "/icons/java.svg", tier: "working", note: "Jenkins pipeline libraries" },
+      { name: "Bash", icon: "/icons/bash.svg", tier: "deep", note: ["Automation", "Operational tooling"] },
+      { name: "Java / Groovy", icon: "/icons/java.svg", tier: "working", note: ["Jenkins pipeline libraries"] },
       // Added 2026-08-12 from the CV's Software Engineering line. Kept to a
       // bare row with no note: it is a supporting skill in platform work, and
       // a note would give it more weight on the card than it earns.
@@ -263,12 +284,12 @@ export const skillGroups: SkillGroup[] = [
       // everyone else, and this is a showcase page, not an ATS target. The
       // plain phrasing carries the capability; the product names belong in
       // conversation, where Karthik can expand them if someone probes.
-      { name: "NVIDIA GPU Operator", icon: "/icons/nvidia.svg", tier: "production", note: "Device plugin · time slicing · GPU metrics" },
-      { name: "LLM serving", lucide: "Cpu", tier: "working", note: "Ollama · llama.cpp · FastAPI gateway" },
+      { name: "NVIDIA GPU Operator", icon: "/icons/nvidia.svg", tier: "production", note: ["Device plugin", "Time slicing", "GPU metrics"] },
+      { name: "LLM serving", lucide: "Cpu", tier: "working", note: ["Ollama", "llama.cpp", "FastAPI gateway"] },
       // MCP added 2026-08-12, as the CV now names it. It is the one item on
       // this row that says something about *how* the tools are wired in rather
       // than which ones are open.
-      { name: "Agentic coding workflows", lucide: "Sparkles", tier: "production", note: "Claude Code · Copilot · Cursor · MCP" },
+      { name: "Agentic coding workflows", lucide: "Sparkles", tier: "production", note: ["Claude Code", "Copilot", "Cursor", "MCP"] },
     ],
   },
 ]

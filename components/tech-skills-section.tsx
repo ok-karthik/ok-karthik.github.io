@@ -165,8 +165,15 @@ export function TechSkillsSection() {
                             {skill.name}
                           </span>
                           {skill.note && (
-                            <span className="mt-1 block font-mono text-micro leading-snug text-muted-foreground">
-                              {skill.note}
+                            <span className="mt-2 flex flex-wrap gap-1.5">
+                              {skill.note.map((item) => (
+                                <span
+                                  key={item}
+                                  className="rounded-full border border-border px-2.5 py-1 font-mono text-micro text-muted-foreground"
+                                >
+                                  {item}
+                                </span>
+                              ))}
                             </span>
                           )}
                         </span>
