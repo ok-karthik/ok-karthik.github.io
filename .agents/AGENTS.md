@@ -22,9 +22,13 @@ started.
   years, location or skills may be written inline in a component.
 - `components/` — sections, architecture diagrams, the ⌘K palette, the canvas.
 - `app/` — routes. `page.tsx` (landing), `work/[slug]` (6 static project pages),
+  `writing/` and `writing/[slug]` (3 posts, see the publish-status note below),
   `not-found.tsx`, `sitemap.ts`, `robots.ts`.
 - `scripts/audit-build.py` — checks the exported HTML.
 - `.agents/skills/premium-portfolio-ui/` — design rules + an enforcing eval harness.
+- `public/speaking/` — archived screenshots of third-party event pages cited in
+  `content/profile.ts`'s `speaking` array. Not design assets — evidence, taken
+  because event sites routinely come down within weeks of the event date.
 
 ## 🎯 Positioning — two rules that outrank aesthetics
 
@@ -46,6 +50,27 @@ direction* was the largest gap between how Senior and Staff roles are written
 **Never invent a metric.** Every number on the site must be one Karthik can
 defend in an interview. Project decisions are sourced from the repo READMEs
 (fetched 2026-08-03); check the README before adding one.
+
+**This has been violated by other agents and cost real fact-checking time.**
+On 2026-08-18 a Gemini-authored branch added `failureMode` entries to
+`content/projects.ts` and stats to `components/project-playground.tsx` that
+read as plausible but weren't checked against the actual repos. Fetching the
+READMEs via `gh api repos/ok-karthik/<repo>/readme` (and, better, any
+`DISASTER_RECOVERY.md` / `docs/troubleshooting.md` / `docs/labs/*.md` the repo
+carries) found two claims that directly contradicted the source repo — one
+said a system had "per-pod memory ceilings" where the README explicitly says
+there is no per-pod limit; another described automatic HPA-state
+reconciliation that the README lists as roadmap, not built. **Before trusting
+a specific technical claim in this codebase — yours, another agent's, or
+your own past session's — fetch the repo it's about and check.** `FailureMode`
+in `content/projects.ts` has an optional `sourceUrl`/`sourceLabel` pair for
+exactly this: link the claim to the doc it's grounded in rather than asserting
+it bare. Numbers that can't be sourced this way (e.g. the CI-timing figures in
+the playground) get an explicit "modeled from typical run-times, not measured"
+caption instead of silently reading as production telemetry. The same bar
+applies to `speaking` and `recommendations` in `content/profile.ts` — real,
+independently verifiable only (an event page, a public LinkedIn
+recommendation), never a plausible-sounding placeholder.
 
 ## 🚫 Standing "do NOT do" list
 
@@ -69,20 +94,38 @@ Each of these was tried, or caused an observed failure.
 7. **Do NOT convert `<img>` to `next/image`.** `output: 'export'` with
    `images.unoptimized` means no optimizer exists at runtime — it adds markup
    and optimizes nothing. Use explicit `width`/`height`. `eval-009` guards it.
-8. **Do NOT publish `/writing`.** Three drafts live in `content/writing.ts` and
-   are unpublished pending Karthik's review; restore instructions are in that
-   file's header.
+8. **`/writing` is live (since 2026-08-18) but not fully Karthik-reviewed.**
+   A Gemini-authored branch restored the routes/nav/palette/sitemap entries
+   that a prior session had deliberately pulled pending his read-through —
+   Karthik's call on discovering this was to keep it live but treat the
+   review as still outstanding. One factual error was already found and fixed
+   (a g6/L4 instance-family claim with no support in the actual repo). Check
+   `content/writing.ts`'s header for current status before assuming any
+   first-person claim in it has been personally verified by Karthik.
 9. **Do NOT swap the CV link for a committed PDF.** The Google Docs export
    auto-updates; a PDF would need re-exporting on every edit and a stale CV is
    the worse failure. Reasoning is recorded in `content/profile.ts`.
 10. **Do NOT collapse the sections into one shape.** Projects are cards,
     Experience is a hairline timeline rail, Tech Skills is one dense panel,
-    Contact is a full-bleed band. When everything was a glass rectangle the page
-    read as assembled rather than designed.
+    Contact is a full-bleed band, Credentials is a 3-column fact grid, Notes &
+    Speaking is a horizontal scroll row + a banner, Recommendations is
+    pull-quotes. When everything was a glass rectangle the page read as
+    assembled rather than designed. (Speaking was briefly a 4th column inside
+    Credentials — reverted 2026-08-18: a live conference talk is a different
+    *kind* of fact than a certification, and the 4th column read visibly
+    thinner than the other three. It's its own shape now.)
 11. **Do NOT append a decision to the end of a project's list.** Order is
     meaningful — the first three render as full cards, the rest as compact
     rows. Put a new decision where it ranks. See the header of
     `content/projects.ts`.
+12. **Do NOT propose dropping "Staff" from `openToRoles`.** Karthik's
+    job-market-radar notes document an A/B test showing more inbound after
+    dropping "Staff" from his LinkedIn headline and CV title line — it's
+    tempting to extend that logic to the portfolio's Open to Roles list too.
+    Raised and explicitly declined 2026-08-18: the "open to" framing there is
+    a target, not a claim (the distinction Rule 1 above already relies on),
+    and the headline/CV finding was about search-string performance on a
+    different surface. Don't re-propose it on the strength of that same data.
 
 ## 🛠 Stack
 
@@ -113,6 +156,20 @@ The three that break most often:
 Both themes must work. Light mode once shipped as 0.72-alpha white glass on a
 near-white wash — invisible, and it survived review because nobody looked.
 
+**Tech Skills notes are chips (`note?: string[]`), not a wrapped string.**
+Karthik flagged the old single-string notes as looking "sloppy" and
+"misaligned" 2026-08-18 — the note-text container is only ~175px at 1440px,
+so anything over ~21 characters wrapped, and a mix of 1-line and 2-line notes
+in the same column read as broken rhythm. First fix was shortening every note
+to fit one line; that traded away real content to solve a layout problem,
+which is backwards, and it undersells this section's actual purpose — see
+`content/skills.ts`'s TODO to defend each tier in an interview. Second, correct
+fix: each note is now an array rendered as one pill per item (reusing the
+`rounded-full border border-border px-2.5 py-1` tag style already live on
+Writing post tags and the ⌘K palette, not a new pattern), so a row wraps
+between complete chips instead of mid-phrase and nothing has to be cut. If
+you add a note, make it a short array of 2-3 word items, not a sentence.
+
 ## ✅ Verification — run `pnpm verify` before claiming done
 
 | Command | What it checks |
@@ -127,7 +184,15 @@ once without ever being looked at and missed badly. Headless Playwright in the
 scratchpad has caught a navbar wrapping at 768px, a truncated contact email at
 1440, and 17px tap targets — none of which static analysis could see. Compute
 WCAG contrast for token pairs directly rather than eyeballing; that found a
-light-mode accent at 4.04:1, below AA.
+light-mode accent at 4.04:1, below AA (re-verified clean with axe-core,
+2026-08-18 — AA holds on every route checked, both themes).
+
+**Two more screenshot traps, found 2026-08-18:** `fullPage: true` without
+scrolling captures Framer `whileInView` sections blank — scroll in ~700px
+steps with a wait at each before capturing. And Playwright's
+`colorScheme: 'light'` does nothing here (`app/layout.tsx` forces
+`defaultTheme="dark"`) — force it with
+`ctx.addInitScript(() => localStorage.setItem('theme','light'))` before `goto`.
 
 ## 📋 Behaviours
 
@@ -152,3 +217,10 @@ light-mode accent at 4.04:1, below AA.
   personal learning plan, salary targets and employment dates must not ship).
 - **`REVIEW.md`** in the repo root is a generated, gitignored review sheet for
   Karthik. Not part of the site.
+- **`karthik-job-market-radar`** (sibling repo, not this one) is Karthik's own
+  job-scraping pipeline and learning plan —
+  `stats_and_learning_plan.md` is the canonical source for any claim about
+  market demand, salary bands, or title strategy. It's large (2,700+ lines)
+  and revised often; grep for a heading rather than reading it whole, and
+  check for `⚠️ STALE` markers before quoting a percentage — the document
+  supersedes its own older numbers in place rather than deleting them.
