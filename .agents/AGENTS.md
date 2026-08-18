@@ -163,12 +163,19 @@ so anything over ~21 characters wrapped, and a mix of 1-line and 2-line notes
 in the same column read as broken rhythm. First fix was shortening every note
 to fit one line; that traded away real content to solve a layout problem,
 which is backwards, and it undersells this section's actual purpose — see
-`content/skills.ts`'s TODO to defend each tier in an interview. Second, correct
-fix: each note is now an array rendered as one pill per item (reusing the
-`rounded-full border border-border px-2.5 py-1` tag style already live on
-Writing post tags and the ⌘K palette, not a new pattern), so a row wraps
-between complete chips instead of mid-phrase and nothing has to be cut. If
-you add a note, make it a short array of 2-3 word items, not a sentence.
+`content/skills.ts`'s TODO to defend each tier in an interview. Second fix: each note became an array rendered as one bordered pill per item
+(reusing the tag style from Writing post tags). That broke a different way —
+without `whitespace-nowrap`, a single long item (e.g. "AWS Secrets Manager")
+wrapped its own text *inside* the pill, and the border/padding on ~20 rows
+visibly grew the whole panel ("too big and consuming too much space,"
+Karthik's words). **Final fix**, both applied: `whitespace-nowrap` on each
+item so a chip is always one line — if it doesn't fit the row it moves to the
+next line as a whole unit, never internally — and no border/background at
+all, just muted-foreground text tokens with a trailing " ·" glued onto every
+item but the last (glued so the separator can never end up orphaned at the
+start of a wrapped line). If you add a note, make it a short array of 2-3
+word items, not a sentence, and keep any future styling change on
+`whitespace-nowrap` — that's the one non-negotiable part.
 
 ## ✅ Verification — run `pnpm verify` before claiming done
 
