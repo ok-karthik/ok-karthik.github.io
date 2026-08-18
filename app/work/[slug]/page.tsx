@@ -130,16 +130,27 @@ export default async function WorkPage({ params }: { params: Promise<Params> }) 
           <section className="mt-14">
             <h2 className="label rule-label mb-4">Production resilience & failure modes</h2>
             <div className="glass rounded-xl p-6 sm:p-7">
-              <p className="label mb-1 text-primary">Observed Failure Scenario</p>
+              <p className="label mb-1 text-primary">Failure mode this architecture has to account for</p>
               <p className="text-body font-medium text-foreground">
                 {project.failureMode.scenario}
               </p>
               <div className="mt-5 border-t border-border pt-4">
-                <p className="label mb-1">Mitigation & Architectural Safeguard</p>
+                <p className="label mb-1">How it&apos;s handled</p>
                 <p className="text-small leading-relaxed text-muted-foreground">
                   {project.failureMode.resolution}
                 </p>
               </div>
+              {project.failureMode.sourceUrl && (
+                <a
+                  href={project.failureMode.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-1.5 font-mono text-micro text-muted-foreground transition-colors hover:text-primary"
+                >
+                  <Github className="h-3 w-3" aria-hidden />
+                  Source: {project.failureMode.sourceLabel}
+                </a>
+              )}
             </div>
           </section>
         )}

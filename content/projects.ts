@@ -85,10 +85,13 @@ export type Decision = {
 }
 
 export type FailureMode = {
-  /** Observed real-world failure mode or edge case. */
+  /** A failure mode the architecture has to account for — reasoned from the stack, not a claim of a witnessed incident unless sourceUrl backs it. */
   scenario: string
   /** Architectural mitigation and recovery safeguard. */
   resolution: string
+  /** Link to the repo doc this is grounded in, when one exists (e.g. a runbook or DR doc). */
+  sourceUrl?: string
+  sourceLabel?: string
 }
 
 export type Project = {
@@ -125,9 +128,12 @@ export const projects: Project[] = [
     ],
     failureMode: {
       scenario:
-        "Collector pod memory saturation and pipeline drops during sudden upstream log and span spikes.",
+        "A traffic spike upstream sends the gateway's tail-sampling buffer (`num_traces: 10000`, 10s decision wait) more concurrent traces than it can hold in memory before deciding what to keep.",
       resolution:
-        "Ordered `memory_limiter` and `batch` processors ahead of any filtering or exporting with hard memory ceilings (80% threshold), shedding unsampled debug traces at node-level DaemonSets while gateway HPA scales on queue length.",
+        "The `filter/budgeting` and `tail_sampling` processors run before export, not after — a misbehaving tenant gets dropped at the gateway instead of paying to ship its spans to Tempo first. The five sampling policies (errors, 5xx, slow requests, then 5% of everything healthy) are evaluated in that order, so the traces worth keeping are decided before the traces worth dropping ever get sized for export.",
+      sourceUrl:
+        "https://github.com/ok-karthik/opentelemetry-platform-on-eks/blob/main/observability-platform/02-gateway-configuration/otel-gateway-tail-sampling.yaml",
+      sourceLabel: "otel-gateway-tail-sampling.yaml",
     },
     decisions: [
       {
@@ -252,9 +258,12 @@ export const projects: Project[] = [
     ],
     failureMode: {
       scenario:
-        "State lock contention in DynamoDB and plan drift across cross-account VPC peering dependencies during simultaneous pull requests.",
+        "A CI runner is killed mid-apply (a GitHub Actions cancellation, a spot interruption on the runner) before Terraform releases its DynamoDB state lock — the next plan on that environment fails with \"Error acquiring the state lock.\"",
       resolution:
-        "Structured strict DAG module dependencies in Terragrunt with granular state files per resource block, pairing parallel pre-merge validation gates with nightly automated drift detection.",
+        "The platform doesn't roll back a partial apply — Terraform can't safely destroy resources stuck mid-creation, so the documented recovery is roll-forward: read the lock ID from the error, confirm the runner is actually dead, then `terragrunt force-unlock <LOCK_ID>` and re-apply. The S3 backend means the partial state from the failed run is already durable, so the next plan reconciles from wherever it stopped rather than from scratch.",
+      sourceUrl:
+        "https://github.com/ok-karthik/enterprise-aws-infrastructure-terragrunt/blob/main/DISASTER_RECOVERY.md",
+      sourceLabel: "DISASTER_RECOVERY.md",
     },
     decisions: [
       {
@@ -312,9 +321,12 @@ export const projects: Project[] = [
     ],
     failureMode: {
       scenario:
-        "Silent CUDA Out-Of-Memory (OOM) failures on time-sliced multi-tenant GPUs due to unpartitioned shared VRAM.",
+        "Time slicing shares compute, not memory — there is no per-pod VRAM limit, so one pod over-allocating pushes its neighbours on the same card into a CUDA OOM they did nothing to cause.",
       resolution:
-        "Deployed NVIDIA DCGM exporter into Prometheus to alert on memory pressure ahead of saturation, pairing node affinity with per-pod memory ceilings to prevent noisy-neighbour evictions.",
+        "This isn't prevented, it's made visible and bounded by choice of tenant: DCGM exporter scraped per-pod (not through the Service VIP, which would silently sample one random GPU node) surfaces memory pressure before it saturates, so time slicing is scoped to workloads that can tolerate a noisy neighbour. Where hard isolation is a requirement rather than a nice-to-have, the answer is MIG, not a mitigation bolted onto time slicing.",
+      sourceUrl:
+        "https://github.com/ok-karthik/ai-infrastructure-on-eks/blob/main/docs/labs/04-time-slicing.md",
+      sourceLabel: "docs/labs/04-time-slicing.md",
     },
     decisions: [
       {
@@ -360,9 +372,11 @@ export const projects: Project[] = [
     ],
     failureMode: {
       scenario:
-        "Downstream Horizontal Pod Autoscalers (HPA) fighting operator sleep schedules by re-scaling idle workloads back up.",
+        "A workload under an active HPA or KEDA ScaledObject sits in a sleep-scheduled namespace — the operator scales it to zero, and the autoscaler, seeing load, scales it straight back up. The two controllers fight in a loop.",
       resolution:
-        "The operator reconciliation loop records the current HPA minReplicas state into annotations, sets minReplicas to 0 during the sleep window, and cleanly restores original replica targets prior to the morning wake window.",
+        "The operator doesn't try to out-reconcile another controller — that's a fight it can't win safely. Workloads under HPA/KEDA management opt out with a `finops-operator/exclude: \"true\"` annotation instead, so the two never touch the same replica count. Native coordination (pausing KEDA's `ScaledObject` for the sleep window instead of requiring opt-out) is on the roadmap, not yet built.",
+      sourceUrl: "https://github.com/ok-karthik/finops-k8s-operator#readme",
+      sourceLabel: "README — KEDA & event-driven autoscaling",
     },
     decisions: [
       {

@@ -432,6 +432,9 @@ function TerragruntPlayground() {
               </span>
             </div>
           </div>
+          <p className="mt-4 border-t border-border pt-3 font-sans text-micro normal-case tracking-normal text-muted-foreground/70">
+            Modeled from typical gate run-times, not a measured production run.
+          </p>
         </div>
       </div>
     </div>
@@ -532,8 +535,8 @@ function GpuPlayground() {
               <span>Hourly Cost (Spot):</span>
               <span className="font-bold text-primary">
                 {sharingMode === "time-slice"
-                  ? "~$0.22 / hr (for 4 pods)"
-                  : "~$0.88 / hr (for 4 pods)"}
+                  ? "~$0.15–$0.25 / hr (1 card, 4 pods)"
+                  : "~$0.60–$1.00 / hr (4 cards, 4 pods)"}
               </span>
             </div>
             <div className="flex justify-between">
@@ -541,6 +544,10 @@ function GpuPlayground() {
               <span className="text-foreground">DCGM Exporter on port 9400</span>
             </div>
           </div>
+          <p className="mt-4 border-t border-border pt-3 font-sans text-micro normal-case tracking-normal text-muted-foreground/70">
+            g4dn.xlarge Spot pricing per the project README; dedicated mode is that
+            range × 4 cards.
+          </p>
         </div>
       </div>
     </div>

@@ -8,23 +8,27 @@
  * gap between how Senior and Staff roles are written (+32pp in the scraped
  * market data).
  *
- * !! NOT PUBLISHED. The /writing routes were removed before the branch merged
- * !! so these drafts don't ship unread under Karthik's name. The drafts stay
- * !! here because this is where they get edited.
- * !!
- * !! To restore: `git checkout 152ea8c -- app/writing` then re-add the nav entry,
- * !! the palette group and the sitemap entries. All four were removed in one
- * !! commit, so its diff is the checklist.
+ * !! STATUS (2026-08-18): live on feat/portfolio-enhancements. Originally
+ * !! unpublished pending Karthik's read-through (see git history on this file
+ * !! for that note); a later change on this branch restored the /writing
+ * !! routes, nav entry, palette group and sitemap entries without that
+ * !! read-through having happened. Karthik's call: keep them live in-branch,
+ * !! but don't treat them as reviewed — nothing here has shipped to `main` yet.
  * !!
  * !! TODO(karthik): THESE ARE DRAFTS. The shape of each argument is yours —
  * !! taken from the `decisions` in content/projects.ts — but the wording is
- * !! mine, so read them before publishing under your name.
+ * !! mine, so read them before this branch merges.
  * !!
- * !! First-person claims have been reconciled against the project READMEs
- * !! (fetched 2026-08-03) and now assert only what those repos actually show.
- * !! If you later add a sentence about something you did, hold it to the same
- * !! bar: publishing a technical claim you can't defend in an interview is
- * !! worse than publishing nothing.
+ * !! First-person claims were reconciled against the project READMEs on
+ * !! 2026-08-03 and re-checked 2026-08-18, when one inaccuracy was found and
+ * !! fixed: "time-slicing-vs-mig" claimed g4dn *and g6* instance families;
+ * !! only g4dn appears anywhere in that repo, so it now says g4dn only. If you
+ * !! actually ran g6/L4 somewhere this repo doesn't show, restore the line
+ * !! with that context — don't just revert this comment.
+ * !!
+ * !! If you add a sentence about something you did, hold it to the same bar:
+ * !! publishing a technical claim you can't defend in an interview is worse
+ * !! than publishing nothing.
  */
 
 export type Block =
@@ -104,7 +108,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "On the EKS platform I built, the instance families in play were g4dn and g6 — T4 and L4 class, with no MIG support at all. So the choice was made for me by the hardware, which is often how it goes. What still mattered was recording it: the next person to read that cluster config will otherwise assume an isolation boundary that is not there.",
+        text: "On the EKS platform I built, the instance family in play was g4dn — T4 class, with no MIG support at all. So the choice was made for me by the hardware, which is often how it goes. What still mattered was recording it: the next person to read that cluster config will otherwise assume an isolation boundary that is not there.",
       },
       { type: "h2", text: "The part people skip" },
       {
