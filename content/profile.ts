@@ -142,6 +142,16 @@ export const profile = {
    * market: his own classifier splits IC-lead ("tech lead", "lead engineer")
    * from people-manager ("team lead", "engineering lead"), so expect some
    * management approaches alongside the IC ones.
+   *
+   * 2026-08-18: karthik-job-market-radar's stats_and_learning_plan.md
+   * ("Title strategy — resolved, do not re-litigate") documents Karthik
+   * dropping "Staff" from his LinkedIn headline and CV title line after an
+   * A/B test showed more inbound without it (Senior:Staff titles run 10:1 in
+   * the German market). Raised as a possible consistency fix for this list
+   * too — Karthik's call: keep "Staff" here. The "open to" framing already
+   * makes it a target, not a claim, which is the distinction that matters for
+   * this list; the headline/CV decision was about search-string performance
+   * on a different surface and doesn't automatically carry over here.
    */
   openToRoles: [
     { domain: "Platform Engineering & SRE", level: "Senior · Staff · Lead" },
@@ -219,6 +229,61 @@ export const education = {
 export const languages = [
   { name: "English", level: "Fluent (C2)", proficiency: 1 },
   { name: "German", level: "Beginner (A1)", proficiency: 0.2 },
+] as const
+
+/**
+ * Real, verifiable speaking engagements only — each one links to a public
+ * event page. Do not add anything here that can't be checked by a recruiter
+ * clicking through, same bar as everything else on the site.
+ *
+ * `screenshot` is an archival capture taken 2026-08-18, not a design asset —
+ * event sites like this one commonly come down within weeks of the event
+ * date, so the claim needs to survive that independent of the live URL.
+ */
+export const speaking = [
+  {
+    event: "AI Infrastructure Summit 2026",
+    date: "2026-09-29",
+    location: "Berlin, Germany",
+    session:
+      "AI Automation Café: How will AI driven automation reshape cloud infrastructure built on Terragrunt and Terraform?",
+    url: "https://www.we-conect.com/events/ai-infrastructure-summit-2026/sprecher/b3188f2c-da96-4884-a1b4-e3d40b2a2ec8",
+    screenshot: "/speaking/ai-infrastructure-summit-2026.png",
+  },
+] as const
+
+/**
+ * Real LinkedIn recommendations only, quoted verbatim (only proper-noun
+ * capitalisation normalised) — these are other people's words, not
+ * Karthik's, so they don't get cleaned up for house style. `relationship`
+ * mirrors LinkedIn's own context line so a reader can weigh who is talking.
+ * Source: https://www.linkedin.com/in/karthikorugonda/details/recommendations/
+ */
+export const recommendations = [
+  {
+    name: "Rohan Das",
+    title: "Site Reliability Engineer",
+    relationship: "Karthik was senior to Rohan, not his direct manager",
+    date: "2022-08-04",
+    quote:
+      "Karthik always been a great leader with vast expertise on different set of tools and technologies. His leadership skills is one of the best I have met in corporate. His dedication to his craft is nothing short of inspiring, and his ability to coach/guide is incredible. Always helpful and brings idea for the solution to the problem in a optimal way. He's a great asset in DevOps world.",
+  },
+  {
+    name: "Sachin Rajput",
+    title: "Principal Engineer, DevOps",
+    relationship: "Worked with Karthik on the same team",
+    date: "2022-05-24",
+    quote:
+      "Karthik is an excellent DevOps engineer and a wonderful human being. His expertise as a DevOps engineer is considerable, and it helped our team come up with more efficient solutions on different projects. He is creative, smart, has excellent technical skills. I love his positive attitude and he is my go-to person when I need advice. I would recommend and endorse Karthik.",
+  },
+  {
+    name: "Arun Babu",
+    title: "DevOps Engineer",
+    relationship: "Reported to Karthik directly",
+    date: "2022-12-30",
+    quote:
+      "During my career I've rarely come across real professionals like Karthik. I've learned so much from working with Karthik, he helped me to become a better professional. Such a great human being with vast knowledge in areas of DevOps and cloud. Highest recommendations to Karthik, not just as a thoughtful leader but as a team player as well.",
+  },
 ] as const
 
 export const certifications = [

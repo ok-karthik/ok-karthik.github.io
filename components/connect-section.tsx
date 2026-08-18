@@ -101,7 +101,7 @@ export function ConnectSection() {
 
         <div className="mt-12 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-xl text-body text-muted-foreground">
-            {profile.location.availability}. Happy to talk through any of the work above.
+            Happy to talk through any of the work above.
           </p>
           <a
             href={`mailto:${profile.email}`}
@@ -117,7 +117,7 @@ export function ConnectSection() {
 
         <div className="mt-16 flex flex-col gap-2 border-t border-border pt-8 font-mono text-micro text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
-            {profile.location.city}, {profile.location.country} · {profile.location.visa}
+            {profile.location.availability} · {profile.location.visa}
           </p>
           <p>
             © {new Date().getFullYear()} {profile.name}

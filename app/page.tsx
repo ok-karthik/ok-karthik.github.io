@@ -4,16 +4,21 @@ import { TechSkillsSection } from "@/components/tech-skills-section"
 import { WorkSection } from "@/components/work-section"
 import { ExperienceSection } from "@/components/experience-section"
 import { CredentialsSection } from "@/components/credentials-section"
+import { NotesSpeakingSection } from "@/components/notes-speaking-section"
+import { RecommendationsSection } from "@/components/recommendations-section"
 import { ConnectSection } from "@/components/connect-section"
 
 /**
- * Hero -> Tech Skills -> Projects -> Experience -> Credentials -> Connect.
+ * Hero -> Tech Skills -> Projects -> Experience -> Credentials -> Notes &
+ * Speaking -> Recommendations -> Connect.
  *
  * Two audiences read this page and they gate in sequence. A recruiter screens
  * against a job description first, and if they bounce there is no hiring-manager
  * read at all — so the stack goes early, where it answers that scan directly.
  * Projects follow immediately, because they are what convinces the person who
- * actually decides.
+ * actually decides. Notes & Speaking and Recommendations close the page
+ * deliberately in that order — what Karthik says, then what other people say
+ * about it — right before the ask.
  */
 export default function Home() {
   return (
@@ -25,6 +30,8 @@ export default function Home() {
         <WorkSection />
         <ExperienceSection />
         <CredentialsSection />
+        <NotesSpeakingSection />
+        <RecommendationsSection />
         <ConnectSection />
       </main>
     </>
