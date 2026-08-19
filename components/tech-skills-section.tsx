@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import {
   Cpu,
   Sparkles,
@@ -78,28 +78,31 @@ function SkillIcon({ skill, size = "md" }: { skill: Skill; size?: "sm" | "md" })
 }
 
 /* ========================================================================== */
-/* OPTION 1: The Layered Platform Architecture Stack (4 Tiers)                */
+/* OPTION 1: 3D Layered Platform Architecture Stack                           */
 /* ========================================================================== */
 
 const architectureLayers = [
   {
     layerNumber: "Layer 4",
-    title: "Workloads, Code & Agentic Engineering",
+    title: "Workloads, Code & Agentic Workflows",
     description: "Application runtime, custom operators, automation, and AI tooling",
+    flowLabel: "↑ telemetry emitted to observability layer ↑",
     icon: Terminal,
     categories: ["Software Engineering", "AI & GPU Infrastructure"],
   },
   {
     layerNumber: "Layer 3",
     title: "Observability & SRE Reliability",
-    description: "Distributed tracing, telemetry collection, metrics, and incident response",
+    description: "Distributed tracing, telemetry collection, metrics, and incident recovery",
+    flowLabel: "↑ manages workloads on platform control plane ↑",
     icon: Activity,
     categories: ["Observability & Reliability"],
   },
   {
     layerNumber: "Layer 2",
-    title: "Platform, Orchestration & Governance",
-    description: "Kubernetes control plane, GitOps reconciliation, and security guardrails",
+    title: "Platform, Orchestration & Security",
+    description: "Kubernetes control plane, GitOps reconciliation, and admission guardrails",
+    flowLabel: "↑ provisioned on cloud foundation & compute ↑",
     icon: Server,
     categories: ["Containers & Orchestration", "Security & Governance"],
   },
@@ -107,6 +110,7 @@ const architectureLayers = [
     layerNumber: "Layer 1",
     title: "Cloud & Core Infrastructure",
     description: "Multi-cloud foundation, declarative IaC modules, VPC networking, and hardware compute",
+    flowLabel: undefined,
     icon: Cloud,
     categories: ["Cloud Platforms", "IaC & GitOps", "Linux & Networking"],
   },
@@ -117,19 +121,18 @@ export function TechSkillsLayered() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
         <div>
-          <span className="label text-primary">Option 1 (Recommended ⭐)</span>
+          <span className="label text-primary">Option 1 (3D Layered Architecture Stack ⭐)</span>
           <h3 className="font-display text-h3 font-semibold text-foreground">
-            The Layered Platform Architecture Stack
+            Layered Platform Architecture Stack
           </h3>
         </div>
         <span className="font-mono text-micro text-muted-foreground">
-          Organized from workloads at the top to cloud infrastructure at the foundation
+          Top-to-bottom production system topology
         </span>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {architectureLayers.map((layer) => {
-          // Gather all skills in this layer
           const layerSkills = skillGroups
             .filter((g) => layer.categories.includes(g.title))
             .flatMap((g) => g.skills)
@@ -138,67 +141,74 @@ export function TechSkillsLayered() {
           const IconComponent = layer.icon
 
           return (
-            <div key={layer.layerNumber} className="glass rounded-xl p-5 sm:p-6">
-              {/* Layer Header */}
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-4">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/40 bg-primary/10">
-                    <IconComponent className="h-4 w-4 text-primary" aria-hidden />
-                  </span>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-micro font-bold uppercase tracking-wider text-primary">
-                        {layer.layerNumber}
-                      </span>
-                      <span className="text-muted-foreground">·</span>
-                      <h4 className="font-display text-body-lg font-semibold text-foreground">
-                        {layer.title}
-                      </h4>
+            <div key={layer.layerNumber} className="space-y-3">
+              {/* Dimensional Glass Layer Slab */}
+              <div className="glass relative overflow-hidden rounded-2xl border border-border p-5 shadow-lg sm:p-6">
+                {/* Header Strip with Sheen */}
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/40 bg-primary/10">
+                      <IconComponent className="h-4 w-4 text-primary" aria-hidden />
+                    </span>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-micro font-bold uppercase tracking-wider text-primary">
+                          {layer.layerNumber}
+                        </span>
+                        <span className="text-muted-foreground">·</span>
+                        <h4 className="font-display text-body-lg font-semibold text-foreground">
+                          {layer.title}
+                        </h4>
+                      </div>
+                      <p className="font-mono text-micro text-muted-foreground">
+                        {layer.description}
+                      </p>
                     </div>
-                    <p className="font-mono text-micro text-muted-foreground">
-                      {layer.description}
-                    </p>
                   </div>
+                  <span className="font-mono text-micro text-muted-foreground">
+                    {layerSkills.length} tools
+                  </span>
                 </div>
-                <span className="font-mono text-micro text-muted-foreground">
-                  {layerSkills.length} core tools
-                </span>
-              </div>
 
-              {/* Layer Skills Grid */}
-              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {layerSkills.map((skill) => (
-                  <div
-                    key={skill.name}
-                    className="flex flex-col justify-between rounded-lg border border-border/80 bg-muted/40 p-3.5 transition-colors hover:border-border hover:bg-muted/70"
-                  >
-                    <div className="flex items-center gap-3">
-                      <SkillIcon skill={skill} size="sm" />
-                      <div className="min-w-0 flex-1">
-                        <span className="block truncate text-small font-medium text-foreground">
+                {/* Horizontal Tool Cards Grid */}
+                <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+                  {layerSkills.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className="flex flex-col justify-between rounded-xl border border-border/70 bg-card/50 p-3 transition-colors hover:border-border hover:bg-muted/50"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <SkillIcon skill={skill} size="sm" />
+                        <span className="min-w-0 flex-1 truncate text-small font-medium text-foreground">
                           {skill.name}
                         </span>
-                        <span className="font-mono text-micro text-muted-foreground capitalize">
-                          {skill.tier} tier
-                        </span>
                       </div>
-                    </div>
 
-                    {skill.note && skill.note.length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-1.5 border-t border-border/50 pt-2.5">
-                        {skill.note.map((item) => (
-                          <span
-                            key={item}
-                            className="rounded border border-border bg-card px-2 py-0.5 font-mono text-micro text-muted-foreground"
-                          >
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                      {skill.note && skill.note.length > 0 && (
+                        <div className="mt-2.5 flex flex-wrap gap-1 border-t border-border/40 pt-2">
+                          {skill.note.map((item) => (
+                            <span
+                              key={item}
+                              className="rounded border border-border/80 bg-muted/60 px-1.5 py-0.5 font-mono text-micro text-muted-foreground"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
+
+              {/* Architectural Connector between layers */}
+              {layer.flowLabel && (
+                <div className="flex items-center justify-center gap-2 py-1 select-none font-mono text-micro text-muted-foreground/60">
+                  <span className="h-3 w-px bg-border" />
+                  <span>{layer.flowLabel}</span>
+                  <span className="h-3 w-px bg-border" />
+                </div>
+              )}
             </div>
           )
         })}
@@ -298,7 +308,7 @@ export function TechSkillsTabbed() {
           <p className="mt-1 text-small text-muted-foreground">{currentPillar.summary}</p>
         </div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {pillarSkills.map((skill) => (
             <div
               key={skill.name}
@@ -306,14 +316,9 @@ export function TechSkillsTabbed() {
             >
               <div className="flex items-center gap-3">
                 <SkillIcon skill={skill} />
-                <div className="min-w-0 flex-1">
-                  <span className="block truncate text-small font-semibold text-foreground">
-                    {skill.name}
-                  </span>
-                  <span className="font-mono text-micro text-muted-foreground capitalize">
-                    {skill.tier} tier
-                  </span>
-                </div>
+                <span className="min-w-0 flex-1 truncate text-small font-semibold text-foreground">
+                  {skill.name}
+                </span>
               </div>
 
               {skill.note && skill.note.length > 0 && (
