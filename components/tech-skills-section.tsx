@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { motion } from "framer-motion"
 import {
   Cpu,
@@ -16,7 +15,6 @@ import {
   Database,
   Server,
   Activity,
-  GitBranch,
   Cloud,
   MessageSquare,
 } from "lucide-react"
@@ -220,225 +218,163 @@ export function TechSkillsLayered() {
 }
 
 /* ========================================================================== */
-/* OPTION 2: The Interactive Tabbed Command Center (4 Pillars)                */
-/* ========================================================================== */
-
-const tabPillars = [
-  {
-    id: "platform",
-    title: "Platform & Cloud",
-    icon: Cloud,
-    summary: "Multi-region cloud infrastructure, VPC architecture, and Kubernetes orchestration",
-    categories: ["Containers & Orchestration", "Cloud Platforms", "Linux & Networking"],
-  },
-  {
-    id: "gitops",
-    title: "GitOps & Delivery",
-    icon: GitBranch,
-    summary: "Declarative infrastructure as code, automated pipelines, and zero-touch deployment",
-    categories: ["IaC & GitOps", "Security & Governance"],
-  },
-  {
-    id: "observability",
-    title: "Observability & SRE",
-    icon: Activity,
-    summary: "Distributed tracing, telemetry collection, alerting frameworks, and incident recovery",
-    categories: ["Observability & Reliability"],
-  },
-  {
-    id: "engineering",
-    title: "AI & Software Engineering",
-    icon: Cpu,
-    summary: "GPU workload provisioning, custom platform operators, and automation tooling",
-    categories: ["Software Engineering & Databases", "AI & GPU Infrastructure"],
-  },
-]
-
-export function TechSkillsTabbed() {
-  const [activeTabId, setActiveTabId] = useState(tabPillars[0].id)
-  const currentPillar = tabPillars.find((p) => p.id === activeTabId) || tabPillars[0]
-
-  const pillarSkills = skillGroups
-    .filter((g) => currentPillar.categories.includes(g.title))
-    .flatMap((g) => g.skills)
-    .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
-        <div>
-          <span className="label text-primary">Option 2 (Tabbed Command Center)</span>
-          <h3 className="font-display text-h3 font-semibold text-foreground">
-            Interactive Domain Pillars
-          </h3>
-        </div>
-        <span className="font-mono text-micro text-muted-foreground">
-          Select a pillar to inspect domain capabilities
-        </span>
-      </div>
-
-      {/* Tabs Bar */}
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-        {tabPillars.map((pillar) => {
-          const isActive = pillar.id === activeTabId
-          const TabIcon = pillar.icon
-          return (
-            <button
-              key={pillar.id}
-              type="button"
-              onClick={() => setActiveTabId(pillar.id)}
-              className={`flex items-center gap-2.5 rounded-xl border p-3.5 text-left transition-colors ${
-                isActive
-                  ? "border-primary/50 bg-primary/10 text-primary shadow-sm"
-                  : "border-border bg-card/60 text-muted-foreground hover:border-border hover:bg-muted"
-              }`}
-            >
-              <TabIcon
-                className={`h-4 w-4 shrink-0 ${isActive ? "text-primary" : "text-muted-foreground"}`}
-                aria-hidden
-              />
-              <span className="truncate font-display text-small font-semibold">{pillar.title}</span>
-            </button>
-          )
-        })}
-      </div>
-
-      {/* Active Tab Panel */}
-      <div className="glass rounded-xl p-6 sm:p-7">
-        <div className="border-b border-border pb-4">
-          <p className="label text-primary">{currentPillar.title} Domain</p>
-          <p className="mt-1 text-small text-muted-foreground">{currentPillar.summary}</p>
-        </div>
-
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {pillarSkills.map((skill) => (
-            <div
-              key={skill.name}
-              className="flex flex-col justify-between rounded-lg border border-border bg-muted/40 p-4 transition-colors hover:border-border hover:bg-muted/60"
-            >
-              <div className="flex items-center gap-3">
-                <SkillIcon skill={skill} />
-                <span className="min-w-0 flex-1 truncate text-small font-semibold text-foreground">
-                  {skill.name}
-                </span>
-              </div>
-
-              {skill.note && skill.note.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-1.5 border-t border-border pt-3">
-                  {skill.note.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded border border-border bg-card px-2.5 py-0.5 font-mono text-micro text-muted-foreground"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-/* ========================================================================== */
 /* OPTION 3: Option Pills (Icon Rows with Bordered Evidence Pills)             */
 /* ========================================================================== */
 
+/* Divider borders for a single-panel grid whose column count changes per
+   breakpoint (1 → 2 → 4). Only the last row/column of each layout should
+   skip its divider, and "last row" and "last column" both depend on which
+   breakpoint is active — a plain `i % cols` check gets it wrong the moment
+   more than one breakpoint is in play. */
+function panelGridBorders(i: number, total: number, mdCols: number, lgCols: number) {
+  const isLastRow = (cols: number) => i >= total - (total % cols || cols)
+  const isLastCol = (cols: number) => i % cols === cols - 1
+
+  return [
+    i === total - 1 ? "" : "border-b",
+    isLastRow(mdCols) ? "md:border-b-0" : "md:border-b",
+    isLastCol(mdCols) ? "" : "md:border-r",
+    isLastRow(lgCols) ? "lg:border-b-0" : "lg:border-b",
+    isLastCol(lgCols) ? "lg:border-r-0" : "lg:border-r",
+  ].join(" ")
+}
+
 export function TechSkillsPills() {
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
-        <div>
-          <span className="label text-primary">Option 3 (Current Pills Grid)</span>
-          <h3 className="font-display text-h3 font-semibold text-foreground">
-            8-Category Matrix with Bordered Evidence Pills
-          </h3>
-        </div>
-        <span className="font-mono text-micro text-muted-foreground">
-          Classic datasheet grid
-        </span>
-      </div>
-
-      <div className="glass overflow-hidden rounded-2xl">
-        <div className="grid md:grid-cols-2 xl:grid-cols-4">
-          {skillGroups.map((group, i) => (
-            <div
-              key={group.title}
-              className={`border-border p-6 ${
-                i % 2 === 0 ? "md:border-r xl:border-r" : "xl:border-r"
-              } ${
-                i < skillGroups.length - (skillGroups.length % 2 === 0 ? 2 : 1)
-                  ? "border-b md:border-b"
-                  : ""
-              } last:xl:border-r-0`}
-            >
-              <h4 className="label mb-4">{group.title}</h4>
-              <ul className="space-y-5">
-                {[...group.skills]
-                  .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
-                  .map((skill) => (
-                    <li
-                      key={skill.name}
-                      className={`flex gap-3 ${skill.note ? "items-start" : "items-center"}`}
-                    >
-                      <SkillIcon skill={skill} />
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-small leading-snug text-foreground">
-                          {skill.name}
-                        </span>
-                        {skill.note && (
-                          <span className="mt-1.5 flex flex-wrap gap-1.5">
-                            {skill.note.map((item) => (
-                              <span
-                                key={item}
-                                className="whitespace-nowrap rounded border border-border bg-card px-2 py-0.5 font-mono text-micro text-muted-foreground"
-                              >
-                                {item}
-                              </span>
-                            ))}
-                          </span>
-                        )}
+    <div className="glass overflow-hidden rounded-2xl">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4">
+        {skillGroups.map((group, i) => (
+          <div
+            key={group.title}
+            className={`border-border p-6 ${panelGridBorders(i, skillGroups.length, 2, 4)}`}
+          >
+            <h4 className="label mb-4">{group.title}</h4>
+            <ul className="space-y-5">
+              {[...group.skills]
+                .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
+                .map((skill) => (
+                  <li
+                    key={skill.name}
+                    className={`flex gap-3 ${skill.note ? "items-start" : "items-center"}`}
+                  >
+                    <SkillIcon skill={skill} />
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-small leading-snug text-foreground">
+                        {skill.name}
                       </span>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+                      {skill.note && (
+                        <span className="mt-1.5 flex flex-wrap gap-1.5">
+                          {skill.note.map((item) => (
+                            <span
+                              key={item}
+                              className="whitespace-nowrap rounded border border-border bg-card px-2 py-0.5 font-mono text-micro text-muted-foreground"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </span>
+                      )}
+                    </span>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   )
 }
 
 /* ========================================================================== */
-/* Main TechSkillsSection Container (Renders All 3 for Comparison)            */
+/* OPTION 5: Layered Shelf Stack (depth via shape/shadow, fully legible)      */
+/* ========================================================================== */
+
+export function TechSkillsShelfStack() {
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
+        <div>
+          <span className="label text-primary">Option 5 (Layered Shelf Stack)</span>
+          <h3 className="font-display text-h3 font-semibold text-foreground">
+            Plated Layers, Full-Size &amp; Readable
+          </h3>
+        </div>
+        <span className="font-mono text-micro text-muted-foreground">
+          Depth from silhouette and shadow, not rotation
+        </span>
+      </div>
+
+      <div className="space-y-10 pt-4">
+        {architectureLayers.map((layer) => {
+          const layerSkills = skillGroups
+            .filter((g) => layer.categories.includes(g.title))
+            .flatMap((g) => g.skills)
+            .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
+
+          return (
+            <div key={layer.layerNumber} className="relative">
+              <span className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-border bg-card-solid px-4 py-1.5 font-mono text-micro font-bold uppercase tracking-wider text-foreground shadow-sm">
+                {layer.layerNumber} · {layer.title}
+              </span>
+
+              <div className="shelf-plate rounded-2xl px-5 pb-10 pt-8 sm:px-8">
+                <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                  {layerSkills.map((skill) => (
+                    <div key={skill.name} className="flex flex-col items-center gap-2 text-center">
+                      <SkillIcon skill={skill} />
+                      <span className="text-small font-semibold uppercase tracking-wide text-foreground">
+                        {skill.name}
+                      </span>
+                      {skill.note && skill.note.length > 0 && (
+                        <div className="flex flex-wrap justify-center gap-1">
+                          {skill.note.map((item) => (
+                            <span
+                              key={item}
+                              className="rounded border border-border bg-card px-1.5 py-0.5 font-mono text-micro text-muted-foreground"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+/* ========================================================================== */
+/* Main TechSkillsSection Container                                           */
 /* ========================================================================== */
 
 export function TechSkillsSection() {
   return (
     <section id="tech-skills" className="section-tight scroll-mt-24">
-      <div className="mx-auto max-w-6xl space-y-20 px-6">
-        <header>
-          <p className="label rule-label mb-4">Tech Skills — Comparison</p>
+      <div className="mx-auto max-w-6xl px-6">
+        <header className="mb-10">
+          <p className="label rule-label mb-4">Tech Skills</p>
           <h2 className="font-display text-display font-semibold tracking-tight text-foreground">
             The stack I build platforms with
           </h2>
-          <p className="mt-2 text-body text-muted-foreground">
-            Compare all 3 architectural presentation options below on your live screen.
-          </p>
         </header>
 
-        {/* Option 1 */}
-        <TechSkillsLayered />
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <TechSkillsPills />
+        </motion.div>
 
-        {/* Option 2 */}
-        <TechSkillsTabbed />
-
-        {/* Option 3 */}
-        <TechSkillsPills />
+        {/* TechSkillsLayered (Option 1) and TechSkillsShelfStack (Option 5) are
+            kept below but intentionally not rendered — revisiting them later. */}
       </div>
     </section>
   )

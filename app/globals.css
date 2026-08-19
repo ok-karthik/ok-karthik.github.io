@@ -478,6 +478,19 @@ html.dark {
   animation: assemble-edge 1.15s cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
+/* Shelf plate. Depth read through silhouette and light, not rotation — the
+   bottom corners taper like a physical plaque, but every icon and label
+   stays perfectly horizontal and legible. */
+@utility shelf-plate {
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 96% 100%, 4% 100%, 0 88%);
+  background: var(--panel-bg);
+  backdrop-filter: blur(var(--panel-blur)) saturate(var(--panel-sat));
+  -webkit-backdrop-filter: blur(var(--panel-blur)) saturate(var(--panel-sat));
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 26px 46px -28px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 var(--glass-highlight);
+}
+
 /* A rule that runs to both sides of its label, for section headers that sit
    in the middle of a sheet rather than at its left edge. */
 @utility rule-both {
