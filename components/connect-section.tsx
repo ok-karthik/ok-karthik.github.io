@@ -1,8 +1,10 @@
+import { profile } from "@/content/profile"
+
 const contactLinks = [
   {
     label: "Email",
-    href: "mailto:ok.karthik99@gmail.com",
-    value: "ok.karthik99@gmail.com",
+    href: `mailto:${profile.email}`,
+    value: profile.email,
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -22,8 +24,8 @@ const contactLinks = [
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/karthikorugonda",
-    value: "linkedin.com/in/karthikorugonda",
+    href: profile.social.linkedin,
+    value: "linkedin.com/in/karthik-orugonda",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +46,7 @@ const contactLinks = [
   },
   {
     label: "GitHub",
-    href: "https://github.com/ok-karthik",
+    href: profile.social.github,
     value: "github.com/ok-karthik",
     icon: (
       <svg
@@ -72,15 +74,15 @@ export function ConnectSection() {
         <div className="bg-card/40 backdrop-blur-md border border-border/50 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_0_40px_rgba(0,0,0,0.1)] hover:border-primary/30 transition-colors">
           <div className="text-center md:text-left">
             <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">{"Let's build something together"}</h2>
-            <p className="text-muted-foreground text-sm font-medium">Open to Senior Platform Eng, Staff SRE, AI Infra roles • Berlin or remote</p>
+            <p className="text-muted-foreground text-sm font-medium">Open to Senior Platform Engineering / SRE roles · Berlin or remote</p>
           </div>
           
           <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 mt-4 md:mt-0">
             <a 
-              href="mailto:ok.karthik99@gmail.com"
+              href={`mailto:${profile.email}`}
               className="px-4 py-2.5 bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground font-mono text-sm font-medium rounded-lg transition-all flex items-center gap-2"
             >
-              ok.karthik99@gmail.com
+              {profile.email}
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
             
@@ -106,13 +108,13 @@ export function ConnectSection() {
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
             <div className="flex items-center gap-1.5 text-foreground">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Berlin, Germany</span>
+              <span>{profile.location.city}, {profile.location.country}</span>
             </div>
             <span className="hidden sm:inline text-border">|</span>
-            <span>Visa: German Permanent Residence</span>
+            <span>Visa: {profile.location.visa}</span>
           </div>
           <p className="opacity-70">
-            © {new Date().getFullYear()} Karthik Orugonda. Built with React & Next.js.
+            © {new Date().getFullYear()} {profile.name}. Built with React & Next.js.
           </p>
         </div>
       </div>

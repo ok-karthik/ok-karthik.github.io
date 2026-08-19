@@ -2,15 +2,14 @@
 
 import { 
   Layers, 
-  ShieldAlert, 
   Sparkles,
-  Bot,
+  Terminal,
+  ScanSearch,
+  Key,
+  ShieldCheck,
+  Cpu,
   Network,
-  LayoutTemplate,
-  FileText,
-  Blocks,
-  ShieldBan,
-  Key
+  Waypoints,
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -34,20 +33,29 @@ const categories: Category[] = [
     skills: [
       { 
         name: "AWS", 
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
-        subSkills: ["EKS", "ECS", "Fargate", "EC2", "Lambda", "VPC", "ALB", "WAF", "RDS", "DynamoDB", "S3", "ElastiCache", "SQS & SNS", "IAM", "Secrets Manager", "Parameter Store", "CloudWatch", "CodeBuild", "CodeDeploy"],
+        icon: "/icons/aws.svg",
+        subSkills: [
+          "IAM/IRSA", "Multi-account", "EKS", "ECS", "Fargate", "EC2", "Lambda", 
+          "VPC", "ALB", "WAF", "RDS", "DynamoDB", "S3", "ElastiCache", "SQS & SNS", 
+          "Secrets Manager", "Parameter Store", "CloudWatch", "CodeBuild", "CodeDeploy"
+        ],
         url: "https://aws.amazon.com/"
       },
       { 
         name: "Azure", 
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
-        subSkills: ["AKS", "App Service", "ExpressRoute", "Traffic Manager", "Networking", "AI Search", "Entra ID", "Key Vault", "Policy"],
+        icon: "/icons/azure.svg",
+        subSkills: [
+          "AKS", "App Service", "ExpressRoute", "Traffic Manager", "Networking", 
+          "AI Search", "Entra ID", "Key Vault", "Policy"
+        ],
         url: "https://azure.microsoft.com/"
       },
       { 
         name: "GCP", 
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
-        subSkills: ["Networking", "Cloud IAM", "GKE", "Cloud SQL", "Pub/Sub", "Cloud Load Balancing"],
+        icon: "/icons/gcp.svg",
+        subSkills: [
+          "GKE", "Cloud IAM", "Cloud SQL", "Pub/Sub", "Cloud Load Balancing", "Networking"
+        ],
         url: "https://cloud.google.com/"
       },
     ],
@@ -55,91 +63,126 @@ const categories: Category[] = [
   {
     title: "Containers & Orchestration",
     skills: [
-      { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg", url: "https://kubernetes.io/" },
-      { name: "K8s Operators", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg", url: "https://kubernetes.io/docs/concepts/extend-kubernetes/operator/" },
-      { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", url: "https://www.docker.com/" },
-      { name: "Helm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg", url: "https://helm.sh/" },
-      { name: "Istio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg", scale: 1.2, url: "https://istio.io/" },
+      { name: "Kubernetes", icon: "/icons/kubernetes.svg", subSkills: ["CKA", "CKAD", "Operators / CRDs"], url: "https://kubernetes.io/" },
+      { name: "Helm", icon: "/icons/helm.svg", url: "https://helm.sh/" },
+      { name: "Docker", icon: "/icons/docker.svg", url: "https://www.docker.com/" },
+      { name: "Kustomize", lucideIcon: Layers, url: "https://kustomize.io/" },
+      { name: "Istio", icon: "/icons/istio.svg", scale: 1.2, url: "https://istio.io/" },
     ],
   },
   {
-    title: "CI/CD, IaC & GitOps",
+    title: "IaC & GitOps",
     skills: [
-      { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg", url: "https://www.terraform.io/" },
-      { name: "ArgoCD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg", url: "https://argoproj.github.io/cd/" },
-      { name: "GitHub Actions", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", url: "https://github.com/features/actions" },
+      { name: "Terraform", icon: "/icons/terraform.svg", subSkills: ["Reusable modules", "Monitoring-as-code"], url: "https://www.terraform.io/" },
       { name: "Terragrunt", icon: "/terragrunt.svg", url: "https://terragrunt.gruntwork.io/" },
-      { name: "Crossplane", icon: "/crossplane-icon.svg", scale: 1.2, url: "https://www.crossplane.io/" },
-      { name: "GitLab CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg", url: "https://docs.gitlab.com/ee/ci/" },
-      { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg", scale: 1.2, url: "https://www.jenkins.io/" },
-      { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg", url: "https://www.ansible.com/" },
-    ],
-  },
-  {
-    title: "DevSecOps & Governance",
-    skills: [
-      { 
-        name: "Policy-as-Code", 
-        lucideIcon: ShieldAlert,
-        subSkills: ["OPA Gatekeeper", "Kyverno"],
-      },
-      { 
-        name: "Security Scanning", 
-        lucideIcon: ShieldBan,
-        subSkills: ["Trivy", "Snyk", "Checkov"],
-      },
-      { 
-        name: "Secrets Management", 
-        lucideIcon: Key,
-        subSkills: ["External Secrets", "AWS Secrets Manager", "Azure Key Vault"],
-      },
-      { 
-        name: "Kubernetes Security", 
-        lucideIcon: Layers,
-        subSkills: ["RBAC", "Network Policies"],
-      },
+      { name: "Ansible", icon: "/icons/ansible.svg", url: "https://www.ansible.com/" },
+      { name: "Argo CD", icon: "/icons/argocd.svg", url: "https://argoproj.github.io/cd/" },
+      { name: "Jenkins", icon: "/icons/jenkins.svg", scale: 1.2, url: "https://www.jenkins.io/" },
+      { name: "GitHub Actions", icon: "/icons/githubactions.svg", url: "https://github.com/features/actions" },
+      { name: "GitLab CI", icon: "/icons/gitlab.svg", url: "https://docs.gitlab.com/ee/ci/" },
     ],
   },
   {
     title: "Observability & Reliability",
     skills: [
-      { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg", scale: 1.25, url: "https://opentelemetry.io/" },
-      { name: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg", url: "https://prometheus.io/" },
-      { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg", url: "https://grafana.com/" },
-      { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg", scale: 1.4, url: "https://www.datadoghq.com/" },
-      { name: "Dynatrace", icon: "https://cdn.simpleicons.org/dynatrace", scale: 1.15, url: "https://www.dynatrace.com/" },
+      { name: "Grafana", icon: "/icons/grafana.svg", url: "https://grafana.com/" },
+      { name: "Prometheus", icon: "/icons/prometheus.svg", url: "https://prometheus.io/" },
+      { name: "OpenTelemetry", icon: "/icons/opentelemetry.svg", scale: 1.25, url: "https://opentelemetry.io/" },
       { name: "Loki", icon: "/loki.svg", url: "https://grafana.com/oss/loki/" },
       { name: "Tempo", icon: "/tempo.svg", url: "https://grafana.com/oss/tempo/" },
+      { name: "Datadog", icon: "/icons/datadog.svg", scale: 1.4, url: "https://www.datadoghq.com/" },
+      { name: "Dynatrace", icon: "/icons/dynatrace.svg", scale: 1.15, url: "https://www.dynatrace.com/" },
     ],
   },
   {
-    title: "Programming & Platform Architecture",
+    title: "Security & Governance",
     skills: [
-      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", url: "https://www.python.org/" },
-      { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg", url: "https://www.gnu.org/software/bash/" },
+      { name: "OPA Gatekeeper", icon: "/icons/opa.svg", url: "https://www.openpolicyagent.org/" },
+      { name: "Kyverno", icon: "/icons/kyverno.svg", url: "https://kyverno.io/" },
+      { 
+        name: "External Secrets", 
+        lucideIcon: Key,
+        subSkills: ["AWS Secrets Manager", "Azure Key Vault"],
+      },
+      { 
+        name: "Kubernetes RBAC", 
+        lucideIcon: ShieldCheck,
+      },
+      { 
+        name: "IaC / container scanning", 
+        lucideIcon: ScanSearch,
+        subSkills: ["SAST", "DAST", "Image scanning"],
+      },
     ],
   },
   {
-    title: "AI-assisted Engineering",
+    title: "Linux & Networking",
     skills: [
-      { name: "Claude Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg", scale: 1.15, url: "https://claude.ai/" },
-      { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg", scale: 1.25, url: "https://github.com/features/copilot" },
-      { name: "n8n", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/n8n.svg", scale: 1.15, url: "https://n8n.io/" },
-      { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg", scale: 1.25, url: "https://ollama.com/" },
+      { 
+        name: "Linux", 
+        lucideIcon: Terminal,
+        subSkills: ["Administration", "Troubleshooting"],
+      },
+      { 
+        name: "Networking", 
+        lucideIcon: Network,
+        subSkills: ["DNS", "TCP/IP", "TLS", "Load balancing"],
+      },
+      { 
+        name: "VPC & subnet design", 
+        lucideIcon: Waypoints,
+        subSkills: ["Cross-account", "connectivity"],
+      },
+    ],
+  },
+  {
+    title: "Software Engineering",
+    skills: [
+      { name: "Python", icon: "/icons/python.svg", subSkills: ["Platform APIs", "Operators", "Automation"], url: "https://www.python.org/" },
+      { name: "Bash", icon: "/icons/bash.svg", subSkills: ["Automation", "Operational tooling"], url: "https://www.gnu.org/software/bash/" },
+      { name: "Go", icon: "/icons/go.svg", subSkills: ["CLIs", "actively deepening"], url: "https://go.dev/" },
+      { name: "Java / Groovy", icon: "/icons/java.svg", subSkills: ["Pipeline libraries", "Groovy DSL"] },
+    ],
+  },
+  {
+    title: "Data & Messaging",
+    skills: [
+      { name: "PostgreSQL", icon: "/icons/postgresql.svg", subSkills: ["Stateful workloads", "Schema management"], url: "https://www.postgresql.org/" },
+      { name: "Redis", icon: "/icons/redis.svg", subSkills: ["Caching", "Clustering"], url: "https://redis.io/" },
+      { name: "RabbitMQ", icon: "/icons/rabbitmq.svg", subSkills: ["Message queues", "AMQP"], url: "https://www.rabbitmq.com/" },
+    ],
+  },
+  {
+    title: "AI & GPU Infrastructure",
+    skills: [
+      { 
+        name: "NVIDIA GPU Operator", 
+        icon: "/icons/nvidia.svg", 
+        subSkills: ["Device plugin", "Time slicing", "GPU metrics"], 
+        url: "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/index.html" 
+      },
+      { 
+        name: "LLM serving", 
+        lucideIcon: Cpu, 
+        subSkills: ["Ollama", "llama.cpp", "FastAPI gateway"] 
+      },
+      { 
+        name: "Agentic coding workflows", 
+        lucideIcon: Sparkles, 
+        subSkills: ["Claude Code", "Copilot", "Cursor", "MCP"] 
+      },
     ],
   },
 ]
-
-// Removed BigSkillCard
 
 function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) {
   const LucideIcon = skill.lucideIcon
 
   if (isPremium) {
     const content = (
-      <div className={`flex flex-col gap-3 items-start bg-card/20 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-xl hover:bg-card/40 hover:border-primary/40 transition-all duration-300 group h-full ${skill.url ? 'cursor-pointer' : 'cursor-default'}`}>
+      <div className={`flex flex-col gap-3 items-start bg-card/30 backdrop-blur-md border border-border/60 rounded-2xl p-5 shadow-xl hover:bg-card/50 hover:border-primary/40 transition-all duration-300 group h-full ${skill.url ? 'cursor-pointer' : 'cursor-default'}`}>
         <div className="flex items-center gap-4">
-          <div className="flex items-center justify-center w-12 h-12 bg-white/95 rounded-xl p-2.5 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.4)] shrink-0 overflow-hidden transition-all duration-300 relative">
+          <div className="flex items-center justify-center w-12 h-12 bg-white/95 rounded-xl p-2.5 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_25px_rgba(0,255,231,0.4)] shrink-0 overflow-hidden transition-all duration-300 relative">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             {LucideIcon ? (
               <LucideIcon 
@@ -150,22 +193,25 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
               <img
                 src={skill.icon}
                 alt={`${skill.name} logo`}
+                width={32}
+                height={32}
                 className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110 relative z-10"
                 style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
-                crossOrigin="anonymous"
               />
             )}
           </div>
-          <span className="tracking-tight text-lg font-bold font-mono text-foreground/90 group-hover:text-primary transition-colors">{skill.name}</span>
+          <span className="text-xl font-bold font-mono tracking-tight text-foreground group-hover:text-primary transition-colors">
+            {skill.name}
+          </span>
         </div>
-        
+
         {skill.subSkills && skill.subSkills.length > 0 && (
-          <div className="flex flex-wrap gap-2 pt-2 max-w-[360px]">
+          <div className="flex flex-wrap gap-1.5 pt-2">
             {skill.subSkills.map((sub) => (
               <span 
                 key={sub} 
-                className="text-xs font-mono text-foreground/80 bg-secondary/80 rounded-full px-3 py-1 border border-border/50
-                           transition-all duration-200 hover:text-primary hover:bg-secondary hover:border-primary/40 shadow-sm"
+                className="text-[11px] font-mono text-muted-foreground bg-secondary/80 border border-border/60 rounded-md px-2 py-0.5
+                           transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary"
               >
                 {sub}
               </span>
@@ -175,15 +221,14 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
       </div>
     )
 
-    return skill.url ? (
-      <a href={skill.url} target="_blank" rel="noopener noreferrer" className="block h-full outline-none">
-        {content}
-      </a>
-    ) : (
-      <div className="h-full">
-        {content}
-      </div>
-    )
+    if (skill.url) {
+      return (
+        <a href={skill.url} target="_blank" rel="noopener noreferrer" className="h-full block">
+          {content}
+        </a>
+      )
+    }
+    return content
   }
 
   const PillContent = (
@@ -198,9 +243,10 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
           <img
             src={skill.icon}
             alt={`${skill.name} logo`}
+            width={24}
+            height={24}
             className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
             style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
-            crossOrigin="anonymous"
           />
         )}
       </div>
@@ -208,7 +254,7 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
     </>
   )
 
-  const pillWrapperClass = `flex items-center gap-3.5 bg-card/40 border border-border/50 rounded-full pr-6 pl-2.5 py-2 transition-all duration-300 text-base font-medium font-mono text-muted-foreground group ${skill.url ? 'hover:bg-card hover:border-primary/60 hover:shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:text-foreground hover:-translate-y-0.5 cursor-pointer' : 'cursor-default'}`
+  const pillWrapperClass = `flex items-center gap-3.5 bg-card/40 border border-border/50 rounded-full pr-6 pl-2.5 py-2 transition-all duration-300 text-base font-medium font-mono text-muted-foreground group ${skill.url ? 'hover:bg-card hover:border-primary/60 hover:shadow-[0_0_20px_rgba(0,255,231,0.25)] hover:text-foreground hover:-translate-y-0.5 cursor-pointer' : 'cursor-default'}`
 
   return (
     <div className="flex flex-col gap-3 items-start">
@@ -248,7 +294,7 @@ export function TechnicalExpertisePillGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground"
+          className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground font-display"
         >
           Tech Skills
         </motion.h2>
@@ -261,7 +307,7 @@ export function TechnicalExpertisePillGrid() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
                 className="relative mb-6"
               >
                 <h3 className="text-xl font-bold text-primary mb-6 font-mono flex items-center gap-2">

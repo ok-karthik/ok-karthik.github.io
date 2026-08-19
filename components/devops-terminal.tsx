@@ -126,27 +126,31 @@ export function DevOpsTerminal() {
         case "whoami":
           outputLines = [
             { id: Math.random().toString(), text: "Karthik Orugonda", isSuccess: true },
-            { id: Math.random().toString(), text: "Senior Platform & Cloud Infrastructure Engineer" },
-            { id: Math.random().toString(), text: "Building Internal Developer Platforms, scaling K8s, and automating Golden Paths." },
+            { id: Math.random().toString(), text: "Senior Platform Engineer & SRE" },
+            { id: Math.random().toString(), text: "15+ years in tech · 10+ years cloud-native · Berlin, Germany" },
+            { id: Math.random().toString(), text: "Building Kubernetes IDPs, Terraform self-service infra, and GitOps golden paths." },
           ]
           break
         case "skills":
           outputLines = [
             { id: Math.random().toString(), text: "Platform Engineering Stack:", isSystem: true },
-            { id: Math.random().toString(), text: "• Cloud & Platform Infrastructure: AWS, Azure, GCP" },
-            { id: Math.random().toString(), text: "• Containers & Orchestration: Kubernetes, K8s Operators, Docker, Helm, Istio" },
-            { id: Math.random().toString(), text: "• CI/CD, IaC & GitOps: Terraform, ArgoCD, GitHub Actions, Terragrunt, Crossplane, GitLab CI/CD, Jenkins, Ansible" },
-            { id: Math.random().toString(), text: "• DevSecOps & Governance: Policy-as-Code (OPA, Kyverno), Security Scanning (Trivy, Snyk, Checkov), Secrets Management, Kubernetes Security (RBAC)" },
-            { id: Math.random().toString(), text: "• Observability & Reliability: OpenTelemetry, Prometheus, Grafana, Datadog, Dynatrace, Loki, Tempo" },
-            { id: Math.random().toString(), text: "• Programming & Architecture: Python, Bash" },
-            { id: Math.random().toString(), text: "• AI-assisted Engineering: Claude Code, GitHub Copilot, n8n, Ollama" },
+            { id: Math.random().toString(), text: "• Cloud Platforms: AWS (IAM/IRSA, Multi-account), Azure (AKS, Key Vault), GCP (GKE)" },
+            { id: Math.random().toString(), text: "• Containers & Orchestration: Kubernetes (CKA, CKAD), Helm, Docker, K8s Operators, Kustomize, Istio" },
+            { id: Math.random().toString(), text: "• IaC & GitOps: Terraform (Modules, Monitoring-as-Code), Terragrunt, Argo CD, Jenkins, Ansible, GitHub Actions, GitLab CI" },
+            { id: Math.random().toString(), text: "• Observability & Reliability: Grafana, Prometheus, OpenTelemetry, Loki, Tempo, Datadog, Dynatrace" },
+            { id: Math.random().toString(), text: "• Security & Governance: OPA Gatekeeper, Kyverno, External Secrets, Kubernetes RBAC, IaC scanning (SAST/DAST)" },
+            { id: Math.random().toString(), text: "• Linux & Networking: Linux Administration, DNS, TCP/IP, TLS, VPC & subnet design" },
+            { id: Math.random().toString(), text: "• Software Engineering: Python (APIs, Operators), Bash (Automation), Go (CLIs), Java/Groovy" },
+            { id: Math.random().toString(), text: "• AI & GPU Infrastructure: NVIDIA GPU Operator (Time-slicing), LLM serving (Ollama), Agentic workflows (Claude Code, Copilot)" },
           ]
           break
         case "contact":
           outputLines = [
-            { id: Math.random().toString(), text: "Connecting to secure channel...", isSystem: true },
-            { id: Math.random().toString(), text: "Email: [Protected by IAM] - See Connect section below" },
-            { id: Math.random().toString(), text: "Location: Earth (us-east-1)" },
+            { id: Math.random().toString(), text: "Connecting to platform contact channels...", isSystem: true },
+            { id: Math.random().toString(), text: "• Email: karthik.orugonda@outlook.com" },
+            { id: Math.random().toString(), text: "• LinkedIn: https://www.linkedin.com/in/karthik-orugonda/" },
+            { id: Math.random().toString(), text: "• GitHub: https://github.com/ok-karthik" },
+            { id: Math.random().toString(), text: "• Location: Berlin, Germany (UTC+1 / CET)" },
           ]
           break
         case "clear":

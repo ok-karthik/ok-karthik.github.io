@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import { Sun, Moon } from "lucide-react"
+import { CommandPalette } from "@/components/command-palette"
 
 export function Navbar() {
   const { theme, setTheme } = useTheme()
@@ -15,43 +16,63 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
       <div
-        className={`flex items-center gap-8 px-6 py-2.5 rounded-full transition-all duration-300
-          bg-card backdrop-blur-md border border-border shadow-lg`}
+        className="flex items-center gap-4 sm:gap-6 md:gap-8 px-5 sm:px-6 py-2.5 rounded-full transition-all duration-300
+          bg-card/70 backdrop-blur-xl border border-border shadow-xl"
       >
         <a 
           href="#" 
-          className="font-semibold text-foreground hover:text-primary transition-colors"
+          className="font-semibold text-foreground hover:text-primary transition-colors text-sm md:text-base font-display"
         >
           Karthik Orugonda
         </a>
         
-        <div className="hidden sm:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-5">
           <a
             href="#tech-skills"
-            className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
+            className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
           >
             Tech Skills
           </a>
           <a
+            href="#projects"
+            className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
+          >
+            Projects
+          </a>
+          <a
             href="#experience"
-            className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
+            className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
           >
             Experience
           </a>
           <a
-            href="#projects"
-            className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
+            href="#credentials"
+            className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
           >
-            Projects
+            Qualifications
+          </a>
+          <a
+            href="#notes"
+            className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
+          >
+            Writing
+          </a>
+          <a
+            href="#recommendations"
+            className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
+          >
+            Endorsements
           </a>
         </div>
 
-        <div className="flex items-center gap-3 pl-2 sm:pl-4 border-l border-border/50">
+        <div className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-4 border-l border-border/50">
+          <CommandPalette />
+
           <a 
             href="#contact"
-            className="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-xs font-mono font-medium rounded-full bg-primary/10 text-primary hover:bg-primary/20 hover:scale-105 transition-all duration-300 border border-primary/20"
+            className="hidden sm:inline-flex items-center justify-center px-3.5 py-1.5 text-xs font-mono font-medium rounded-full bg-primary/10 text-primary hover:bg-primary/20 hover:scale-105 transition-all duration-300 border border-primary/20"
           >
-            Let's Connect
+            Connect
           </a>
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

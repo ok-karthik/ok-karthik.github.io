@@ -1,122 +1,72 @@
 "use client"
 
 import { motion } from "framer-motion"
-
-const experiences = [
-  {
-    title: "Staff SRE and Platform Engineer",
-    company: "Aldi Süd",
-    period: "Dec 2022 – Present",
-    tags: ["Platform Engineering", "SRE", "Kubernetes", "GitOps", "Observability", "Golden Paths"],
-    bullets: [
-      "Contributed to a Kubernetes-based Internal Developer Platform, developing reusable IaC modules, Helm library charts, GitOps workflows and golden paths that standardised deployment patterns across multiple engineering teams.",
-      "Established AIOps-driven observability using OpenTelemetry and Dynatrace, reducing MTTR and false positives by ~30% via alerting-as-code and SLO frameworks",
-      "Accelerated development of IaC modules and GitOps Platform workflows by integrating agentic coding tools (GitHub Copilot, Claude Code) into daily engineering practices",
-    ],
-  },
-  {
-    title: "Technical Lead - DevOps, Cloud & Platform",
-    company: "Rakuten",
-    period: "May 2018 – Nov 2022",
-    tags: ["Platform Engineering", "Kubernetes", "Helm", "Azure", "GCP", "Private Cloud", "Security Automation"],
-    bullets: [
-      "Operated multi-tenant Kubernetes platforms and CI/CD systems supporting 400+ engineers across multiple business domains.",
-      "Engineered resilient GitOps CI/CD pipelines enabling automated canary and blue-green deployments, and refactored Jenkins shared libraries used by 150+ teams.",
-      "Spearheaded migration from legacy PaaS (Mesos/Marathon) to Kubernetes and then to Private Cloud across multiple business units, leading a team of 5 engineers.",
-    ],
-  },
-  {
-    title: "IT Operations Lead & DevOps Engineer",
-    company: "Hewlett Packard Enterprise",
-    period: "Sep 2015 – Apr 2018",
-    tags: ["Production Operations", "Infrastructure Automation", "Incident Management", "Release Engineering"],
-    bullets: [
-      "Led a 25-member production operations team for high-traffic, enterprise e-commerce platforms.",
-      "Automated legacy release pipelines and infrastructure provisioning workflows.",
-    ],
-  },
-  {
-    title: "Senior Software Engineer",
-    company: "Tech Mahindra",
-    period: "Dec 2010 – Aug 2015",
-    tags: ["Backend Systems", "High Availability", "Linux"],
-    bullets: [
-      "Developed automated reporting tools reducing manual operational effort by ~30% for Vodafone UK backend systems.",
-    ],
-  },
-]
+import { experiences, experienceDeck } from "@/content/experience"
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="py-20 px-6 bg-secondary/20 overflow-hidden">
-      <div className="max-w-5xl mx-auto">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground"
-        >
-          Experience
-        </motion.h2>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-        >
-          15+ years building resilient infrastructure and empowering engineering teams
-        </motion.p>
+    <section id="experience" className="py-24 px-6 relative z-20 scroll-mt-24">
+      <div className="max-w-6xl mx-auto">
+        <header className="mb-12">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <p className="font-mono text-xs uppercase tracking-widest text-primary font-bold flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary" />
+              Experience
+            </p>
+            <div className="h-px bg-border/60 flex-1 mx-4 hidden sm:block" />
+            <p className="font-mono text-xs text-muted-foreground hidden shrink-0 tabular-nums sm:block">
+              {experiences.length} roles
+            </p>
+          </div>
+          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-foreground text-balance">
+            Where I built platforms and operated systems
+          </h2>
+          <p className="mt-2 text-muted-foreground text-sm md:text-base">{experienceDeck}</p>
+        </header>
 
-        <div className="grid gap-6 relative">
-          {/* Subtle timeline line for desktop */}
-          <div className="hidden md:block absolute left-0 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-primary/20 to-transparent z-0" />
-          
+        <div className="space-y-6">
           {experiences.map((exp, index) => (
             <motion.div
-              key={exp.company}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              key={`${exp.company}-${exp.period}`}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-card backdrop-blur-sm border border-border rounded-lg p-6 
-                         transition-all duration-300 hover:border-primary/50 
-                         hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] relative z-10 md:ml-6"
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+              className="bg-card/30 backdrop-blur-xl border border-border/60 rounded-3xl p-6 sm:p-8 
+                         transition-all duration-300 hover:border-primary/40 hover:bg-card/40 
+                         hover:shadow-2xl relative"
             >
-              {/* Timeline dot */}
-              <div className="hidden md:block absolute -left-[29px] top-6 w-3 h-3 rounded-full bg-primary/30 border border-primary z-20" />
-              
               <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-4">
                 <div>
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <h3 className="text-lg font-semibold text-foreground">{exp.title}</h3>
-                    <span className="font-mono text-sm text-muted-foreground">
-                      {exp.period}
-                    </span>
+                    <h3 className="text-xl font-bold text-foreground font-display">{exp.title}</h3>
+                    <span className="text-base text-primary font-semibold">@ {exp.company}</span>
                   </div>
-                  <p className="text-primary font-medium mt-1">{exp.company}</p>
+                  <p className="text-xs font-mono text-muted-foreground mt-1.5 leading-snug">
+                    {exp.scope}
+                  </p>
+                </div>
+                <div className="font-mono text-xs text-muted-foreground bg-secondary/80 border border-border/60 px-3 py-1 rounded-full self-start md:self-auto tabular-nums shrink-0">
+                  {exp.period}
                 </div>
               </div>
 
-              <ul className="space-y-2 mb-4">
-                {exp.bullets.map((bullet, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed">
-                    <span className="text-primary mt-1.5 shrink-0">
-                      <svg width="6" height="6" viewBox="0 0 6 6" fill="currentColor">
-                        <circle cx="3" cy="3" r="3" />
-                      </svg>
-                    </span>
-                    {bullet}
+              {/* Bullets */}
+              <ul className="space-y-2.5 my-5">
+                {exp.bullets.map((bullet) => (
+                  <li key={bullet} className="text-xs sm:text-sm text-foreground/90 flex items-start gap-2.5">
+                    <span className="text-primary mt-1 text-xs shrink-0">✦</span>
+                    <span className="leading-relaxed">{bullet}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="flex flex-wrap gap-2">
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-border/40">
                 {exp.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="font-mono text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                    className="font-mono text-xs px-2.5 py-1 rounded-full bg-secondary/60 text-muted-foreground border border-border/60"
                   >
                     {tag}
                   </span>

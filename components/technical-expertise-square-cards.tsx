@@ -6,11 +6,12 @@ import {
   Sparkles,
   Bot,
   Network,
-  LayoutTemplate,
-  FileText,
-  Blocks,
-  ShieldBan,
-  Key
+  Terminal,
+  Waypoints,
+  ShieldCheck,
+  ScanSearch,
+  Key,
+  Cpu,
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -29,129 +30,94 @@ const categories: Category[] = [
   {
     title: "Cloud & Platform Infrastructure",
     skills: [
-      { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
-      { name: "Azure", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" },
-      { name: "GCP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" },
+      { name: "AWS", icon: "/icons/aws.svg" },
+      { name: "Azure", icon: "/icons/azure.svg" },
+      { name: "GCP", icon: "/icons/gcp.svg" },
     ],
   },
   {
     title: "Containers & Orchestration",
     skills: [
-      { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" },
-      { name: "K8s Operators", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" },
-      { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
-      { name: "Helm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg" },
-      { name: "Istio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/istio.svg" },
+      { name: "Kubernetes", icon: "/icons/kubernetes.svg" },
+      { name: "K8s Operators", icon: "/icons/kubernetes.svg" },
+      { name: "Docker", icon: "/icons/docker.svg" },
+      { name: "Helm", icon: "/icons/helm.svg" },
+      { name: "Istio", icon: "/icons/istio.svg" },
+      { name: "Kustomize", lucideIcon: Layers },
     ],
   },
   {
-    title: "IaC & GitOps",
+    title: "CI/CD, IaC & GitOps",
     skills: [
-      { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" },
+      { name: "Terraform", icon: "/icons/terraform.svg" },
       { name: "Terragrunt", icon: "/terragrunt.svg" },
-      { name: "Crossplane", icon: "/crossplane-icon.svg" },
-      { name: "ArgoCD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg" },
-      { name: "GitHub Actions", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" },
-      { name: "GitLab CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg" },
-      { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg" },
+      { name: "Argo CD", icon: "/icons/argocd.svg" },
+      { name: "GitHub Actions", icon: "/icons/githubactions.svg" },
+      { name: "GitLab CI", icon: "/icons/gitlab.svg" },
+      { name: "Jenkins", icon: "/icons/jenkins.svg" },
+      { name: "Ansible", icon: "/icons/ansible.svg" },
     ],
   },
   {
     title: "DevSecOps & Governance",
     skills: [
       { name: "Policy-as-Code", lucideIcon: ShieldAlert },
-      { name: "Security Scanning", lucideIcon: ShieldBan },
+      { name: "Security Scanning", lucideIcon: ScanSearch },
       { name: "Secrets Management", lucideIcon: Key },
-      { name: "Kubernetes Security", lucideIcon: Layers },
+      { name: "Kubernetes Security", lucideIcon: ShieldCheck },
     ],
   },
   {
     title: "Observability & Reliability",
     skills: [
-      { name: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg" },
-      { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg" },
+      { name: "Grafana", icon: "/icons/grafana.svg" },
+      { name: "Prometheus", icon: "/icons/prometheus.svg" },
+      { name: "OpenTelemetry", icon: "/icons/opentelemetry.svg" },
       { name: "Loki", icon: "/loki.svg" },
       { name: "Tempo", icon: "/tempo.svg" },
-      { name: "Dynatrace (AIOps / Davis AI)", icon: "https://cdn.simpleicons.org/dynatrace" },
-      { name: "Datadog", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/datadog.svg" },
-      { name: "OpenTelemetry", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opentelemetry.svg" },
+      { name: "Datadog", icon: "/icons/datadog.svg" },
+      { name: "Dynatrace", icon: "/icons/dynatrace.svg" },
     ],
   },
   {
-    title: "Software Engineering & Automation",
+    title: "Software Engineering & Databases",
     skills: [
-      { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" },
-      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
-      { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" },
+      { name: "Python", icon: "/icons/python.svg" },
+      { name: "Bash", icon: "/icons/bash.svg" },
+      { name: "Go", icon: "/icons/go.svg" },
+      { name: "Java / Groovy", icon: "/icons/java.svg" },
+      { name: "PostgreSQL", icon: "/icons/postgresql.svg" },
+      { name: "Redis", icon: "/icons/redis.svg" },
+      { name: "RabbitMQ", icon: "/icons/rabbitmq.svg" },
     ],
   },
   {
-    title: "AI-assisted Engineering",
+    title: "AI-assisted Engineering & AI Infrastructure",
     skills: [
+      { name: "NVIDIA GPU Operator", icon: "/icons/nvidia.svg" },
+      { name: "LLM serving", lucideIcon: Cpu },
       { name: "Claude Code", lucideIcon: Bot },
-      { name: "GitHub Copilot", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/githubcopilot.svg" },
-      { name: "n8n", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/n8n.svg" },
-      { name: "Ollama", icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg" },
-    ],
-  },
-  {
-    title: "Architecture & System Design (RFCs)",
-    skills: [
-      { name: "Confluence", icon: "https://cdn.simpleicons.org/confluence" },
-      { name: "Draw.io", lucideIcon: Network },
-      { name: "Lucidchart", lucideIcon: LayoutTemplate },
-      { name: "Architecture RFCs", lucideIcon: FileText },
+      { name: "GitHub Copilot", icon: "/icons/githubactions.svg" },
+      { name: "Cursor", lucideIcon: Sparkles },
     ],
   },
 ]
 
-function SkillCard({ skill }: { skill: Skill }) {
-  const LucideIcon = skill.lucideIcon
-
-  return (
-    <div
-      className="group relative bg-card backdrop-blur-sm border border-border rounded-lg p-2 
-                 flex flex-col items-center gap-1.5 
-                 transition-all duration-300 ease-out
-                 hover:border-primary hover:shadow-[0_0_20px_rgba(34,211,238,0.3),0_0_40px_rgba(34,211,238,0.15)]
-                 hover:-translate-y-1"
-    >
-      <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white p-1">
-        {LucideIcon ? (
-          <LucideIcon className="w-5 h-5 text-slate-700 transition-transform duration-300 group-hover:scale-110" />
-        ) : (
-          <img
-            src={skill.icon}
-            alt={`${skill.name} logo`}
-            width={20}
-            height={20}
-            className="w-5 h-5 object-contain transition-transform duration-300 group-hover:scale-110"
-            crossOrigin="anonymous"
-          />
-        )}
-      </div>
-      <span className="font-mono text-[11px] leading-tight text-center text-muted-foreground group-hover:text-foreground transition-colors line-clamp-2">
-        {skill.name}
-      </span>
-    </div>
-  )
-}
-
 export function TechnicalExpertiseSquareCards() {
   return (
-    <section id="expertise" className="py-20 px-6 overflow-hidden">
+    <section id="tech-skills" className="py-20 px-6 relative z-20">
       <div className="max-w-6xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground"
+          className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground"
         >
-          Expertise
+          Tech Skills
         </motion.h2>
         
-        <div className="space-y-10">
+        <div className="space-y-12">
           {categories.map((category, index) => (
             <motion.div 
               key={category.title}
@@ -159,14 +125,41 @@ export function TechnicalExpertiseSquareCards() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative"
             >
-              <h3 className="text-lg font-semibold text-primary mb-4 font-mono">
+              <h3 className="text-xl font-bold text-primary mb-6 font-mono flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                 {category.title}
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                {category.skills.map((skill) => (
-                  <SkillCard key={skill.name} skill={skill} />
-                ))}
+              
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {category.skills.map((skill) => {
+                  const LucideIcon = skill.lucideIcon
+                  return (
+                    <div 
+                      key={skill.name} 
+                      className="flex flex-col items-center justify-center p-4 rounded-xl bg-card/40 border border-border/50 backdrop-blur-sm
+                                 transition-all duration-300 hover:border-primary/60 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:-translate-y-1 group"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-white/95 p-2.5 flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform">
+                        {LucideIcon ? (
+                          <LucideIcon className="w-full h-full text-slate-800" />
+                        ) : (
+                          <img
+                            src={skill.icon}
+                            alt={`${skill.name} logo`}
+                            width={28}
+                            height={28}
+                            className="w-full h-full object-contain"
+                          />
+                        )}
+                      </div>
+                      <span className="text-xs font-mono text-center font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                        {skill.name}
+                      </span>
+                    </div>
+                  )
+                })}
               </div>
             </motion.div>
           ))}
