@@ -99,12 +99,6 @@ export const skillGroups: SkillGroup[] = [
       // forbids pulling one from a CDN. Tiered on the file's under-claim rule —
       // raise it if you'd defend it next to Helm.
       { name: "Kustomize", lucide: "Layers", tier: "working" },
-      // Moved out of AI & GPU Infrastructure: Karpenter is a general node
-      // autoscaler that happens to also manage GPU NodePools, and filing it
-      // under GPU understated it. This is now its only mention — it was also
-      // named in the AWS note under Cloud Platforms, and saying it twice read
-      // as padding rather than as scope.
-      { name: "Karpenter", icon: "/icons/aws.svg", tier: "production", note: ["Node autoscaling", "GPU NodePools"] },
       { name: "Istio", icon: "/icons/istio.svg", tier: "working" },
     ],
   },
