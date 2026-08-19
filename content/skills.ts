@@ -62,7 +62,6 @@ export const skillGroups: SkillGroup[] = [
       { name: "Docker", icon: "/icons/docker.svg", tier: "deep" },
       { name: "Kubernetes Operators", icon: "/icons/kubernetes.svg", tier: "production" },
       { name: "Kustomize", lucide: "Layers", tier: "working" },
-      { name: "Karpenter", tier: "production" },
       { name: "Istio", icon: "/icons/istio.svg", tier: "working" },
     ],
   },
