@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
-import { ParticleSphere } from '@/components/particle-sphere'
+import { BackgroundHost } from '@/components/backgrounds/host'
+import { Spotlight } from '@/components/spotlight'
+import { Suspense } from 'react'
 import { profile } from '@/content/profile'
 import './globals.css'
 
@@ -40,7 +42,10 @@ export default function RootLayout({
     <html lang="en" className={fontVars} suppressHydrationWarning>
       <body className="font-sans antialiased min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <ParticleSphere />
+          <Suspense fallback={null}>
+            <BackgroundHost />
+          </Suspense>
+          <Spotlight />
           {children}
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </ThemeProvider>
