@@ -104,7 +104,7 @@ export function TechSkillsSection() {
           </p>
         </header>
 
-        {/* 3x3 Master Deck with Smooth Squircle Icons and Capsule Sub-Labels */}
+        {/* 3x3 Master Deck with Dot-Separated Subtitles */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -137,16 +137,9 @@ export function TechSkillsSection() {
                               {skill.name}
                             </span>
                             {skill.note && skill.note.length > 0 && (
-                              <div className="mt-2 flex flex-wrap gap-1.5">
-                                {skill.note.map((item) => (
-                                  <span
-                                    key={item}
-                                    className="rounded-full border border-border/60 bg-secondary/80 px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary shadow-sm"
-                                  >
-                                    {item}
-                                  </span>
-                                ))}
-                              </div>
+                              <span className="mt-1 block font-mono text-micro leading-snug text-muted-foreground">
+                                {skill.note.join(" · ")}
+                              </span>
                             )}
                           </div>
                         </li>

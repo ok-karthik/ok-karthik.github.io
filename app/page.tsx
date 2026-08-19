@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
 import { TechSkillsSection } from "@/components/tech-skills-section"
-import { TechSkillsBoxesSection } from "@/components/tech-skills-boxes"
 import { TechnicalExpertisePillGrid } from "@/components/technical-expertise-pill-grid"
 import { WorkSection } from "@/components/work-section"
 import { ExperienceSection } from "@/components/experience-section"
@@ -16,13 +15,10 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       
-      {/* Variation 1: 3x3 Master Deck with Dot-Separated Subtitles (main style) */}
+      {/* 3x3 Master Grid with Dot-Separated Subtitles & Clean Squircle Icons */}
       <TechSkillsSection />
       
-      {/* Variation 2: 3x3 Grid with Rectangle Micro-Badges (from 7f695bc) */}
-      <TechSkillsBoxesSection />
-      
-      {/* Variation 3: Original Pill Grid with Floating Rounded Capsules */}
+      {/* Cloud Cards + Floating Rounded Pills */}
       <TechnicalExpertisePillGrid />
 
       <WorkSection />
