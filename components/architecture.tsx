@@ -1,8 +1,9 @@
 /**
  * Architecture diagrams, one per project, keyed by slug.
  *
- * Restyled with high-contrast glassmorphic design and subtle live-telemetry
- * active indicators for critical control plane & pipeline components.
+ * Restyled to the page's colour rule: structure is achromatic (border/muted),
+ * --primary marks the component that does the work, and the status triple is
+ * used only where something genuinely passes, warns or fails.
  */
 
 import type { ReactNode } from "react"
@@ -11,8 +12,8 @@ import type { ReactNode } from "react"
 
 function Frame({ children }: { children: ReactNode }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-border/70 bg-card/60 backdrop-blur-md p-5 shadow-inner">
-      <div className="min-w-[20rem] space-y-4 text-center font-mono text-xs">{children}</div>
+    <div className="overflow-x-auto rounded-lg border border-border/80 bg-card/90 p-5 shadow-inner">
+      <div className="min-w-[20rem] space-y-4 text-center font-mono text-micro">{children}</div>
     </div>
   )
 }
@@ -28,10 +29,10 @@ function Node({
 }) {
   return (
     <div
-      className={`rounded-lg border px-3 py-2 transition-all relative ${
+      className={`rounded-md border px-3 py-2 transition-all relative ${
         active
-          ? "border-primary/60 bg-primary/10 text-primary shadow-[0_0_16px_rgba(0,255,231,0.18)] font-semibold"
-          : "border-border/70 bg-muted/50 text-foreground"
+          ? "border-primary/50 bg-primary/10 text-primary font-semibold shadow-[0_0_12px_rgba(0,255,231,0.12)]"
+          : "border-border bg-muted/60 text-foreground"
       } ${className}`}
     >
       {active && (
@@ -47,8 +48,8 @@ function Node({
 
 function Group({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="rounded-lg border border-border/60 bg-card/40 p-4 relative">
-      <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground mb-3 text-left">{title}</p>
+    <div className="rounded-md border border-border/70 bg-card/40 p-4">
+      <p className="label mb-3 text-left">{title}</p>
       {children}
     </div>
   )
@@ -56,7 +57,7 @@ function Group({ title, children }: { title: string; children: ReactNode }) {
 
 function Flow({ dir = "→" }: { dir?: string }) {
   return (
-    <div className="select-none text-muted-foreground/70 font-mono text-sm" aria-hidden>
+    <div className="select-none text-muted-foreground font-mono" aria-hidden>
       {dir}
     </div>
   )
@@ -142,48 +143,50 @@ function AwsTerragrunt() {
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           <Node>
             TFLint
-            <span className="mt-1 block text-[10px] text-muted-foreground">static analysis</span>
+            <span className="mt-1 block text-muted-foreground text-micro">static analysis</span>
           </Node>
           <Node>
             Plan
-            <span className="mt-1 block text-[10px] text-muted-foreground">diff check</span>
+            <span className="mt-1 block text-muted-foreground text-micro">diff check</span>
           </Node>
           <Node>
             OPA / Conftest
-            <span className="mt-1 block text-[10px] text-muted-foreground">security policy</span>
+            <span className="mt-1 block text-muted-foreground text-micro">security policy</span>
           </Node>
           <Node>
             Infracost
-            <span className="mt-1 block text-[10px] text-muted-foreground">spend guardrail</span>
+            <span className="mt-1 block text-muted-foreground text-micro">cost delta</span>
           </Node>
         </div>
       </Group>
-      <Flow dir="↓" />
-      <Group title="Hierarchy — DRY backend & inputs inheritance">
-        <div className="space-y-2">
-          <Node>root terragrunt.hcl — S3 backend, DynamoDB lock, provider gen</Node>
-          <Flow dir="↓" />
-          <Node>account.hcl — AWS Account ID, IAM baseline, guardrails</Node>
-          <Flow dir="↓" />
-          <Node>region.hcl — VPC CIDRs, primary / DR region selection</Node>
-          <Flow dir="↓" />
-          <Node>env.hcl — dev / stage / prod variables, sizing profiles</Node>
-          <Flow dir="↓" />
-          <Node active>units — modular Terraform components (VPC, EKS, RDS)</Node>
-        </div>
-      </Group>
+      {/* Status colour earns its place here: this is a real pass condition. */}
+      <p className="text-ok text-micro font-mono">↓ all gates pass ↓</p>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <Group title="Dev">
+          <div className="space-y-2">
+            <Node>eu-central-1 / vpc</Node>
+            <Node>eu-central-1 / eks</Node>
+          </div>
+        </Group>
+        <Group title="Prod — protected">
+          <div className="space-y-2">
+            <Node>eu-central-1 / vpc</Node>
+            <Node>eu-central-1 / eks</Node>
+          </div>
+        </Group>
+      </div>
     </Frame>
   )
 }
 
-function IdpGitops() {
+function GitOps() {
   return (
     <Frame>
       <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
         <Group title="Catalog">
           <div className="space-y-2">
-            <Node>Golden paths</Node>
-            <Node>Output contract</Node>
+            <Node active>Golden paths</Node>
+            <Node active>Output contract</Node>
           </div>
         </Group>
         <Flow />
@@ -203,90 +206,90 @@ function IdpGitops() {
         <Flow />
         <Group title="Control plane">
           <div className="space-y-2">
-            <Node active>Argo CD Applications</Node>
-            <Node>Kyverno admission</Node>
+            <Node active>Argo CD ApplicationSet</Node>
+            <Node active>Kyverno admission</Node>
           </div>
         </Group>
       </div>
-      <Flow dir="↓" />
-      <Node>Workload clusters (EKS)</Node>
     </Frame>
   )
 }
 
-function FinOpsOperator() {
+function FinOps() {
   return (
     <Frame>
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:items-center">
-        <Group title="Input">
+      <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+        <Group title="Trigger">
+          <Node>Kopf timer — every 60s</Node>
+        </Group>
+        <Flow />
+        <Group title="Reconcile">
+          <Node active className="mb-2 font-semibold">
+            Scaling engine
+          </Node>
           <div className="space-y-2">
-            <Node>Deployment / StatefulSet</Node>
-            <Node>Annotations (opt-in / schedule)</Node>
+            <Node>Read annotations</Node>
+            <Node>Compute active window</Node>
           </div>
         </Group>
-        <div className="space-y-2">
-          <Flow dir="→" />
-          <Node active className="font-semibold">
-            Kopf Operator
-            <span className="mt-1 block text-[10px] text-muted-foreground">reads annotations, checks cron</span>
-          </Node>
-          <Flow dir="→" />
-        </div>
-        <Group title="Action">
+        <Flow />
+        <Group title="Act">
           <div className="space-y-2">
-            <Node>Scale to 0 (sleep window)</Node>
-            <Node>Restore original replicas</Node>
+            <div className="rounded-md border border-ok/40 bg-ok/5 px-3 py-2 text-ok text-micro">
+              Inside sleep window
+              <span className="mt-1 block opacity-80">patch replicas → 0</span>
+            </div>
+            <div className="rounded-md border border-warn/40 bg-warn/5 px-3 py-2 text-warn text-micro">
+              Excluded
+              <span className="mt-1 block opacity-80">bypass workload</span>
+            </div>
           </div>
         </Group>
       </div>
-      <Flow dir="↓" />
-      <Node>Capacity scales down via Karpenter / Cluster Autoscaler</Node>
     </Frame>
   )
 }
 
-/* --------------------------------- export --------------------------------- */
-
-const diagrams: Record<string, () => ReactNode> = {
+/** Slug → diagram. Projects without one render no architecture block. */
+export const architectureBySlug: Record<string, () => ReactNode> = {
   "ai-infrastructure-on-amazon-eks": GpuPlatform,
   "opentelemetry-platform-on-eks": Observability,
   "enterprise-aws-terragrunt": AwsTerragrunt,
-  "internal-developer-platform": IdpGitops,
-  "finops-kubernetes-operator": FinOpsOperator,
+  "internal-developer-platform": GitOps,
+  "finops-kubernetes-operator": FinOps,
 }
 
-export const architectureBySlug: Record<string, () => ReactNode> = diagrams
-
-export function ArchitectureDiagram({ slug }: { slug: string }) {
-  const Component = diagrams[slug]
-  if (!Component) return null
-  return <Component />
-}
-
+/**
+ * Card thumbnail.
+ */
 export function ArchitecturePreview({
   slug,
-  className = "h-48",
-  fadeFrom = "85%",
+  className = "h-32",
+  fadeFrom = "55%",
 }: {
   slug: string
   className?: string
   fadeFrom?: string
 }) {
-  const Component = diagrams[slug]
-  if (!Component) return null
+  const Diagram = architectureBySlug[slug]
+  if (!Diagram) return null
+
+  const fade = `linear-gradient(to bottom, black ${fadeFrom}, transparent 100%)`
 
   return (
     <div
-      tabIndex={-1}
-      aria-hidden="true"
-      className={`relative w-full select-none overflow-hidden rounded-xl border border-border/70 bg-card/60 backdrop-blur-sm pointer-events-none ${className}`}
-      style={{
-        maskImage: `linear-gradient(to bottom, black 0%, black ${fadeFrom}, transparent 100%)`,
-        WebkitMaskImage: `linear-gradient(to bottom, black 0%, black ${fadeFrom}, transparent 100%)`,
-      }}
+      aria-hidden
+      className={`pointer-events-none relative select-none overflow-hidden rounded-lg border border-border/80 bg-card/50 ${className}`}
+      style={{ maskImage: fade, WebkitMaskImage: fade }}
     >
-      <div className="origin-top transform p-3 scale-[var(--arch-scale,0.65)]">
-        <Component />
+      <div
+        className="absolute left-0 top-0 origin-top-left"
+        style={{
+          transform: "scale(var(--arch-scale, 0.38))",
+          width: "calc(100% / var(--arch-scale, 0.38))",
+        }}
+      >
+        <Diagram />
       </div>
     </div>
   )
