@@ -2,14 +2,14 @@
 
 import { 
   Layers, 
-  Sparkles,
-  Terminal,
-  ScanSearch,
-  Key,
-  ShieldCheck,
-  Cpu,
-  Network,
-  Waypoints,
+  Sparkles, 
+  Terminal, 
+  ScanSearch, 
+  Key, 
+  ShieldCheck, 
+  Cpu, 
+  Network, 
+  Waypoints 
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -63,23 +63,34 @@ const categories: Category[] = [
   {
     title: "Containers & Orchestration",
     skills: [
-      { name: "Kubernetes", icon: "/icons/kubernetes.svg", subSkills: ["CKA", "CKAD", "Operators / CRDs"], url: "https://kubernetes.io/" },
+      { 
+        name: "Kubernetes", 
+        icon: "/icons/kubernetes.svg",
+        subSkills: ["CKA", "CKAD", "Operators / CRDs"],
+        url: "https://kubernetes.io/"
+      },
       { name: "Helm", icon: "/icons/helm.svg", url: "https://helm.sh/" },
       { name: "Docker", icon: "/icons/docker.svg", url: "https://www.docker.com/" },
-      { name: "Kustomize", lucideIcon: Layers, url: "https://kustomize.io/" },
-      { name: "Istio", icon: "/icons/istio.svg", scale: 1.2, url: "https://istio.io/" },
+      { name: "Kubernetes Operators", icon: "/icons/kubernetes.svg", scale: 1.1, url: "https://kubernetes.io/docs/concepts/extend-kubernetes/operator/" },
+      { name: "Kustomize", icon: "/icons/kustomize.svg", scale: 1.1, url: "https://kustomize.io/" },
+      { name: "Istio", icon: "/icons/istio.svg", scale: 1.3, url: "https://istio.io/" },
     ],
   },
   {
     title: "IaC & GitOps",
     skills: [
-      { name: "Terraform", icon: "/icons/terraform.svg", subSkills: ["Reusable modules", "Monitoring-as-code"], url: "https://www.terraform.io/" },
-      { name: "Terragrunt", icon: "/terragrunt.svg", url: "https://terragrunt.gruntwork.io/" },
-      { name: "Ansible", icon: "/icons/ansible.svg", url: "https://www.ansible.com/" },
-      { name: "Argo CD", icon: "/icons/argocd.svg", url: "https://argoproj.github.io/cd/" },
+      { 
+        name: "Terraform", 
+        icon: "/icons/terraform.svg",
+        subSkills: ["Reusable modules", "Monitoring-as-code"],
+        url: "https://www.terraform.io/"
+      },
+      { name: "Terragrunt", icon: "/icons/terragrunt.svg", scale: 1.15, url: "https://terragrunt.gruntwork.io/" },
+      { name: "Argo CD", icon: "/icons/argocd.svg", scale: 1.25, url: "https://argoproj.github.io/cd/" },
       { name: "Jenkins", icon: "/icons/jenkins.svg", scale: 1.2, url: "https://www.jenkins.io/" },
       { name: "GitHub Actions", icon: "/icons/githubactions.svg", url: "https://github.com/features/actions" },
       { name: "GitLab CI", icon: "/icons/gitlab.svg", url: "https://docs.gitlab.com/ee/ci/" },
+      { name: "Ansible", icon: "/icons/ansible.svg", scale: 1.2, url: "https://www.ansible.com/" },
     ],
   },
   {
@@ -138,18 +149,35 @@ const categories: Category[] = [
   {
     title: "Software Engineering",
     skills: [
-      { name: "Python", icon: "/icons/python.svg", subSkills: ["Platform APIs", "Operators", "Automation"], url: "https://www.python.org/" },
-      { name: "Bash", icon: "/icons/bash.svg", subSkills: ["Automation", "Operational tooling"], url: "https://www.gnu.org/software/bash/" },
-      { name: "Go", icon: "/icons/go.svg", subSkills: ["CLIs", "actively deepening"], url: "https://go.dev/" },
-      { name: "Java / Groovy", icon: "/icons/java.svg", subSkills: ["Pipeline libraries", "Groovy DSL"] },
+      { 
+        name: "Python", 
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", 
+        subSkills: ["Platform APIs", "Operators", "Automation"],
+        url: "https://www.python.org/" 
+      },
+      { 
+        name: "Bash", 
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg", 
+        subSkills: ["Automation", "Operational tooling"],
+        url: "https://www.gnu.org/software/bash/" 
+      },
     ],
   },
   {
     title: "Data & Messaging",
     skills: [
-      { name: "PostgreSQL", icon: "/icons/postgresql.svg", subSkills: ["Stateful workloads", "Schema management"], url: "https://www.postgresql.org/" },
-      { name: "Redis", icon: "/icons/redis.svg", subSkills: ["Caching", "Clustering"], url: "https://redis.io/" },
-      { name: "RabbitMQ", icon: "/icons/rabbitmq.svg", subSkills: ["Message queues", "AMQP"], url: "https://www.rabbitmq.com/" },
+      { 
+        name: "PostgreSQL", 
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", 
+        subSkills: ["Stateful workloads", "Schema management"],
+        url: "https://www.postgresql.org/" 
+      },
+      { 
+        name: "Redis", 
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg", 
+        subSkills: ["Caching", "Clustering"],
+        url: "https://redis.io/" 
+      },
     ],
   },
   {
@@ -158,13 +186,8 @@ const categories: Category[] = [
       { 
         name: "NVIDIA GPU Operator", 
         icon: "/icons/nvidia.svg", 
-        subSkills: ["Device plugin", "Time slicing", "GPU metrics"], 
-        url: "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/index.html" 
-      },
-      { 
-        name: "LLM serving", 
-        lucideIcon: Cpu, 
-        subSkills: ["Ollama", "llama.cpp", "FastAPI gateway"] 
+        subSkills: ["Device plugin", "Time slicing", "GPU metrics"],
+        url: "https://www.nvidia.com/" 
       },
       { 
         name: "Agentic coding workflows", 
@@ -180,13 +203,12 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
 
   if (isPremium) {
     const content = (
-      <div className={`flex flex-col gap-3 items-start bg-card/30 backdrop-blur-md border border-border/60 rounded-2xl p-5 shadow-xl hover:bg-card/50 hover:border-primary/40 transition-all duration-300 group h-full ${skill.url ? 'cursor-pointer' : 'cursor-default'}`}>
+      <div className={`flex flex-col gap-3 items-start bg-card/30 backdrop-blur-md border border-border/60 rounded-3xl p-6 sm:p-7 shadow-xl hover:bg-card/50 hover:border-primary/40 transition-all duration-300 group h-full ${skill.url ? 'cursor-pointer' : 'cursor-default'}`}>
         <div className="flex items-center gap-4">
-          <div className="flex items-center justify-center w-12 h-12 bg-white/95 rounded-xl p-2.5 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_25px_rgba(0,255,231,0.4)] shrink-0 overflow-hidden transition-all duration-300 relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="flex items-center justify-center w-12 h-12 bg-white/95 rounded-xl p-2 shadow-sm border border-white/20 shrink-0 overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] relative">
             {LucideIcon ? (
               <LucideIcon 
-                className="w-full h-full text-slate-800 transition-transform duration-300 group-hover:scale-110 relative z-10" 
+                className="w-full h-full text-slate-800 transition-transform duration-300 relative z-10" 
                 style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
               />
             ) : (
@@ -195,7 +217,7 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
                 alt={`${skill.name} logo`}
                 width={32}
                 height={32}
-                className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110 relative z-10"
+                className="w-full h-full object-contain transition-transform duration-300 relative z-10"
                 style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
               />
             )}
@@ -206,11 +228,11 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
         </div>
 
         {skill.subSkills && skill.subSkills.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 pt-2">
+          <div className="flex flex-wrap gap-2 pt-2">
             {skill.subSkills.map((sub) => (
               <span 
                 key={sub} 
-                className="text-[11px] font-mono text-muted-foreground bg-secondary/80 border border-border/60 rounded-full px-2.5 py-0.5
+                className="text-xs font-mono text-muted-foreground/90 bg-secondary/80 border border-border/60 rounded-full px-3 py-1
                            transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary shadow-sm"
               >
                 {sub}
@@ -233,10 +255,10 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
 
   const PillContent = (
     <>
-      <div className="flex items-center justify-center w-10 h-10 bg-white/95 rounded-full p-2 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] shrink-0 overflow-hidden transition-all duration-300">
+      <div className="flex items-center justify-center w-10 h-10 bg-white/95 rounded-xl p-1.5 shadow-sm border border-white/20 shrink-0 overflow-hidden transition-all duration-300 group-hover:scale-105">
         {LucideIcon ? (
           <LucideIcon 
-            className="w-full h-full text-slate-800 transition-transform duration-300 group-hover:scale-110" 
+            className="w-full h-full text-slate-800" 
             style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
           />
         ) : (
@@ -245,19 +267,19 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
             alt={`${skill.name} logo`}
             width={24}
             height={24}
-            className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
+            className="w-full h-full object-contain"
             style={skill.scale ? { transform: `scale(${skill.scale * 1.1})` } : undefined}
           />
         )}
       </div>
-      <span className="tracking-tight">{skill.name}</span>
+      <span className="tracking-tight text-sm font-semibold">{skill.name}</span>
     </>
   )
 
-  const pillWrapperClass = `flex items-center gap-3.5 bg-card/40 border border-border/50 rounded-full pr-6 pl-2.5 py-2 transition-all duration-300 text-base font-medium font-mono text-muted-foreground group ${skill.url ? 'hover:bg-card hover:border-primary/60 hover:shadow-[0_0_20px_rgba(0,255,231,0.25)] hover:text-foreground hover:-translate-y-0.5 cursor-pointer' : 'cursor-default'}`
+  const pillWrapperClass = `flex items-center gap-3 bg-card/40 border border-border/50 rounded-full pr-5 pl-2 py-1.5 transition-all duration-300 text-sm font-medium font-mono text-muted-foreground group ${skill.url ? 'hover:bg-card hover:border-primary/60 hover:shadow-[0_0_20px_rgba(0,255,231,0.25)] hover:text-foreground hover:-translate-y-0.5 cursor-pointer' : 'cursor-default'}`
 
   return (
-    <div className="flex flex-col gap-3 items-start">
+    <div className="flex flex-col gap-2.5 items-start">
       {skill.url ? (
         <a href={skill.url} target="_blank" rel="noopener noreferrer" className={pillWrapperClass}>
           {PillContent}
@@ -269,12 +291,12 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
       )}
       
       {skill.subSkills && skill.subSkills.length > 0 && (
-        <div className="flex flex-wrap gap-2 pl-3 max-w-[360px]">
+        <div className="flex flex-wrap gap-1.5 pl-2 max-w-[360px]">
           {skill.subSkills.map((sub) => (
             <span 
               key={sub} 
-              className="text-xs font-mono text-muted-foreground/90 bg-secondary/60 border border-border/50 rounded-full px-3 py-1
-                         transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary/80"
+              className="text-[11px] font-mono text-muted-foreground/90 bg-secondary/80 border border-border/60 rounded-full px-2.5 py-0.5
+                         transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary shadow-sm"
             >
               {sub}
             </span>
@@ -287,31 +309,37 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
 
 export function TechnicalExpertisePillGrid() {
   return (
-    <section id="tech-skills" className="py-20 px-6 relative z-20">
+    <section id="tech-skills-archive" className="py-24 px-6 relative z-20 scroll-mt-24 border-t border-border/30">
       <div className="max-w-6xl mx-auto">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground font-display"
-        >
-          Tech Skills
-        </motion.h2>
+        <header className="mb-12">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <p className="font-mono text-xs uppercase tracking-widest text-primary font-bold flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary" />
+              Tech Skills (Archive Version: 504e5193)
+            </p>
+            <div className="h-px bg-border/60 flex-1 mx-4 hidden sm:block" />
+            <p className="font-mono text-xs text-muted-foreground hidden shrink-0 tabular-nums sm:block">
+              {categories.length} categories
+            </p>
+          </div>
+          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight heading-gradient text-balance">
+            Cloud Cards + Floating Rounded Pills
+          </h2>
+        </header>
         
         <div className="space-y-12">
           {categories.map((category, index) => {
             return (
               <motion.div 
                 key={category.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="relative mb-6"
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+                className="relative"
               >
-                <h3 className="text-xl font-bold text-primary mb-6 font-mono flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <h3 className="text-lg font-bold text-primary mb-5 font-mono flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   {category.title}
                 </h3>
                 
