@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={fontVars} suppressHydrationWarning>
-      <body className="font-sans antialiased min-h-screen bg-gradient-to-br from-[#f8fafc] via-[#eff6ff] to-[#f1f5f9] dark:bg-gradient-to-br dark:from-[#090714] dark:via-[#1a0f3d] dark:to-[#0c071a] text-foreground selection:bg-primary/20 selection:text-primary">
+      <body className="font-sans antialiased min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <ParticleSphere />
           {children}

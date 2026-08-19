@@ -28,15 +28,15 @@ const lucideMap = {
 
 const TIER_ORDER: Record<Tier, number> = { deep: 0, production: 1, working: 2 }
 
-function SkillIcon({ skill, size = "md" }: { skill: Skill; size?: "sm" | "md" }) {
+function SkillIconChip({ skill, size = "md" }: { skill: Skill; size?: "sm" | "md" }) {
   const Lucide = skill.lucide ? lucideMap[skill.lucide] : undefined
-  const dim = size === "sm" ? "h-9 w-9" : "h-11 w-11"
+  const dim = size === "sm" ? "h-8 w-8" : "h-10 w-10"
   const iconDim = size === "sm" ? "h-4 w-4" : "h-5 w-5"
 
   if (Lucide) {
     return (
       <span
-        className={`flex ${dim} shrink-0 items-center justify-center rounded-[12px] border border-primary/25 bg-secondary/80 shadow-sm group-hover/item:border-primary/50 group-hover/item:shadow-[0_0_12px_rgba(0,255,231,0.2)] transition-all duration-300`}
+        className={`flex ${dim} shrink-0 items-center justify-center rounded-[12px] border border-primary/25 bg-secondary/80 text-primary shadow-sm transition-all duration-300 group-hover/skill:border-primary/50 group-hover/skill:shadow-[0_0_12px_rgba(0,255,231,0.2)]`}
       >
         <Lucide className={`${iconDim} text-primary`} aria-hidden />
       </span>
@@ -45,12 +45,12 @@ function SkillIcon({ skill, size = "md" }: { skill: Skill; size?: "sm" | "md" })
 
   if (skill.icon) {
     return (
-      <span className={`flex ${dim} shrink-0 items-center justify-center rounded-[12px] bg-white/95 p-2 shadow-md border border-white/20 overflow-hidden group-hover/item:scale-105 group-hover/item:shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all duration-300`}>
+      <span className={`flex ${dim} shrink-0 items-center justify-center rounded-md bg-[var(--chip)] p-[0.3rem] border border-border overflow-hidden transition-all duration-300 group-hover/skill:border-primary/50`}>
         <img
           src={skill.icon}
-          alt={`${skill.name} logo`}
-          width={size === "sm" ? 22 : 28}
-          height={size === "sm" ? 22 : 28}
+          alt=""
+          width={size === "sm" ? 20 : 24}
+          height={size === "sm" ? 20 : 24}
           loading="lazy"
           decoding="async"
           className="h-full w-full object-contain"
@@ -83,7 +83,7 @@ function panelGridBorders(i: number, total: number, mdCols: number, lgCols: numb
 
 export function TechSkillsSection() {
   return (
-    <section id="tech-skills" className="py-24 px-6 relative z-20 scroll-mt-24">
+    <section id="tech-skills" className="py-24 px-6 relative z-20 scroll-mt-24 border-t border-border/30">
       <div className="max-w-6xl mx-auto">
         <header className="mb-12">
           <div className="mb-4 flex items-center justify-between gap-4">
@@ -104,7 +104,7 @@ export function TechSkillsSection() {
           </p>
         </header>
 
-        {/* 3x3 Master Deck with Dot-Separated Subtitles */}
+        {/* 3x3 Master Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -112,42 +112,97 @@ export function TechSkillsSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="bg-card/30 backdrop-blur-xl border border-border/60 rounded-3xl overflow-hidden shadow-2xl"
         >
-          <div className="grid md:grid-cols-2 lg:grid-cols-3">
-            {skillGroups.map((group, i) => (
-              <div
-                key={group.title}
-                className={`p-6 md:p-7 flex flex-col justify-between hover:bg-card/20 transition-colors ${panelGridBorders(i, skillGroups.length, 2, 3)}`}
-              >
-                <div>
-                  <h3 className="font-mono text-xs uppercase tracking-wider text-primary font-bold mb-5 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    {group.title}
-                  </h3>
-                  <ul className="space-y-4">
-                    {[...group.skills]
-                      .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
-                      .map((skill) => (
-                        <li
-                          key={skill.name}
-                          className={`flex gap-3.5 group/item ${skill.note ? "items-start" : "items-center"}`}
-                        >
-                          <SkillIcon skill={skill} />
-                          <div className="min-w-0 flex-1">
-                            <span className="block text-sm font-semibold text-foreground group-hover/item:text-primary transition-colors leading-snug">
-                              {skill.name}
+          {(() => {
+            const cloudGroup = skillGroups.find(g => g.title === "Cloud Platforms");
+            if (!cloudGroup) return null;
+            return (
+              <div className="border-b border-border/40 p-6 md:p-8 bg-card/40">
+                <h3 className="font-mono text-xs uppercase tracking-wider text-primary font-bold mb-6 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  {cloudGroup.title}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {cloudGroup.skills.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className="bg-secondary/40 border border-border/60 rounded-2xl p-4 transition-all hover:border-primary/40 hover:bg-secondary/60 group/skill"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <SkillIconChip skill={skill} />
+                        <span className="text-base font-bold font-mono tracking-tight text-foreground group-hover/skill:text-primary transition-colors">
+                          {skill.name}
+                        </span>
+                      </div>
+                      {skill.note && skill.note.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5">
+                          {skill.note.map((sub) => (
+                            <span
+                              key={sub}
+                              className="rounded-full border border-border/60 bg-secondary/80 px-2 py-0.5 font-mono text-[10.5px] text-muted-foreground transition-all hover:border-primary/40 hover:text-primary"
+                            >
+                              {sub}
                             </span>
-                            {skill.note && skill.note.length > 0 && (
-                              <span className="mt-1 block font-mono text-micro leading-snug text-muted-foreground">
-                                {skill.note.join(" · ")}
-                              </span>
-                            )}
-                          </div>
-                        </li>
-                      ))}
-                  </ul>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
+            );
+          })()}
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4">
+            {(() => {
+              const remainingGroups = skillGroups.filter(g => g.title !== "Cloud Platforms").sort((a, b) => b.skills.length - a.skills.length);
+              return remainingGroups.map((group, i) => (
+                <div
+                  key={group.title}
+                  className={`p-6 md:p-7 flex flex-col justify-between hover:bg-card/20 transition-colors ${panelGridBorders(
+                    i,
+                    remainingGroups.length,
+                    2,
+                    4
+                  )}`}
+                >
+                  <div>
+                    <h3 className="font-mono text-xs uppercase tracking-wider text-primary font-bold mb-5 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      {group.title}
+                    </h3>
+                    <ul className="space-y-4">
+                      {[...group.skills]
+                        .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
+                        .map((skill) => (
+                          <li
+                            key={skill.name}
+                            className={`flex gap-3.5 group/skill ${skill.note ? "items-start" : "items-center"}`}
+                          >
+                            <SkillIconChip skill={skill} />
+                            <div className="min-w-0 flex-1">
+                              <span className="block text-sm font-semibold text-foreground group-hover/skill:text-primary transition-colors leading-snug">
+                                {skill.name}
+                              </span>
+                              {skill.note && skill.note.length > 0 && (
+                                <div className="mt-1.5 flex flex-wrap gap-1.5">
+                                  {skill.note.map((item) => (
+                                    <span
+                                      key={item}
+                                      className="rounded-full border border-border/60 bg-secondary/80 px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground transition-all hover:border-primary/40 hover:text-primary shadow-sm"
+                                    >
+                                      {item}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+                </div>
+              ));
+            })()}
           </div>
         </motion.div>
       </div>

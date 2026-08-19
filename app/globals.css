@@ -54,9 +54,9 @@ html.dark {
   --radius: 0.75rem;
 
   /* Premium Dark Purple Theme with Cyan-Teal Neon Accents */
-  --background: #090714;
-  --background-mid: #1a0f3d;
-  --background-deep: #0c071a;
+  --background: #0d0a16;
+  --background-mid: #191036;
+  --background-deep: #0a0812;
   --foreground: #f8fafc;
 
   --card: rgba(22, 16, 45, 0.65);
@@ -137,6 +137,16 @@ html.dark {
   }
   body {
     background-color: var(--background);
+    background:
+      radial-gradient(1100px 620px at 50% -8%,
+        color-mix(in oklab, var(--primary) 10%, transparent), transparent 70%),
+      linear-gradient(
+        152deg,
+        var(--background) 0%,
+        var(--background-mid) 46%,
+        var(--background-deep) 100%
+      );
+    background-attachment: fixed;
     color: var(--foreground);
     font-family: var(--font-sans);
     letter-spacing: -0.011em;
