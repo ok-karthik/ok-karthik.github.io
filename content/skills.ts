@@ -91,7 +91,7 @@ export const skillGroups: SkillGroup[] = [
     title: "Containers & Orchestration",
     skills: [
       { name: "Kubernetes", icon: "/icons/kubernetes.svg", tier: "deep", note: ["CKA", "CKAD"] },
-      { name: "Helm", icon: "/icons/helm.svg", tier: "deep", note: ["Library charts", "OCI distribution"] },
+      { name: "Helm", icon: "/icons/helm.svg", tier: "deep" },
       { name: "Docker", icon: "/icons/docker.svg", tier: "deep" },
       { name: "Kubernetes Operators", icon: "/icons/kubernetes.svg", tier: "production" },
       // Added 2026-08-12 from the CV's Containers line. Lucide rather than a
@@ -169,7 +169,7 @@ export const skillGroups: SkillGroup[] = [
       // less than a claim he can defend.
       { name: "Prometheus", icon: "/icons/prometheus.svg", tier: "production" },
       { name: "Loki", icon: "/loki.svg", tier: "production" },
-      { name: "Grafana", icon: "/icons/grafana.svg", tier: "production", note: ["LGTM stack"] },
+      { name: "Grafana", icon: "/icons/grafana.svg", tier: "production" },
       { name: "Tempo", icon: "/tempo.svg", tier: "production" },
       { name: "Datadog", icon: "/icons/datadog.svg", tier: "working" },
       // Not a tool row, deliberately: on-call and incident response appear in
