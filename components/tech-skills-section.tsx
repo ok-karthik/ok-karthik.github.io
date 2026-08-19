@@ -30,13 +30,13 @@ const TIER_ORDER: Record<Tier, number> = { deep: 0, production: 1, working: 2 }
 
 function SkillIcon({ skill, size = "md" }: { skill: Skill; size?: "sm" | "md" }) {
   const Lucide = skill.lucide ? lucideMap[skill.lucide] : undefined
-  const dim = size === "sm" ? "h-8 w-8" : "h-10 w-10"
+  const dim = size === "sm" ? "h-9 w-9" : "h-11 w-11"
   const iconDim = size === "sm" ? "h-4 w-4" : "h-5 w-5"
 
   if (Lucide) {
     return (
       <span
-        className={`flex ${dim} shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-secondary/80 shadow-sm group-hover/item:border-primary/50 group-hover/item:shadow-[0_0_12px_rgba(0,255,231,0.2)] transition-all duration-300`}
+        className={`flex ${dim} shrink-0 items-center justify-center rounded-[12px] border border-primary/25 bg-secondary/80 shadow-sm group-hover/item:border-primary/50 group-hover/item:shadow-[0_0_12px_rgba(0,255,231,0.2)] transition-all duration-300`}
       >
         <Lucide className={`${iconDim} text-primary`} aria-hidden />
       </span>
@@ -45,12 +45,12 @@ function SkillIcon({ skill, size = "md" }: { skill: Skill; size?: "sm" | "md" })
 
   if (skill.icon) {
     return (
-      <span className={`flex ${dim} shrink-0 items-center justify-center rounded-xl bg-white/95 p-1.5 shadow-sm border border-white/20 overflow-hidden group-hover/item:scale-105 group-hover/item:shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all duration-300`}>
+      <span className={`flex ${dim} shrink-0 items-center justify-center rounded-[12px] bg-white/95 p-2 shadow-md border border-white/20 overflow-hidden group-hover/item:scale-105 group-hover/item:shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all duration-300`}>
         <img
           src={skill.icon}
           alt={`${skill.name} logo`}
-          width={size === "sm" ? 20 : 26}
-          height={size === "sm" ? 20 : 26}
+          width={size === "sm" ? 22 : 28}
+          height={size === "sm" ? 22 : 28}
           loading="lazy"
           decoding="async"
           className="h-full w-full object-contain"
@@ -61,7 +61,7 @@ function SkillIcon({ skill, size = "md" }: { skill: Skill; size?: "sm" | "md" })
 
   return (
     <span
-      className={`flex ${dim} shrink-0 items-center justify-center rounded-xl border border-border bg-muted font-mono text-xs text-muted-foreground`}
+      className={`flex ${dim} shrink-0 items-center justify-center rounded-[12px] border border-border bg-muted font-mono text-xs text-muted-foreground`}
     >
       {skill.name.slice(0, 2).toUpperCase()}
     </span>
@@ -104,7 +104,7 @@ export function TechSkillsSection() {
           </p>
         </header>
 
-        {/* 3x3 Master Deck with Crisp Rounded-XL Icon Chips and Capsule Sub-Labels */}
+        {/* 3x3 Master Deck with Smooth Squircle Icons and Capsule Sub-Labels */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -72,7 +72,7 @@ const categories: Category[] = [
       { name: "Helm", icon: "/icons/helm.svg", url: "https://helm.sh/" },
       { name: "Docker", icon: "/icons/docker.svg", url: "https://www.docker.com/" },
       { name: "Kubernetes Operators", icon: "/icons/kubernetes.svg", scale: 1.1, url: "https://kubernetes.io/docs/concepts/extend-kubernetes/operator/" },
-      { name: "Kustomize", icon: "/icons/kustomize.svg", scale: 1.1, url: "https://kustomize.io/" },
+      { name: "Kustomize", lucideIcon: Layers },
       { name: "Istio", icon: "/icons/istio.svg", scale: 1.3, url: "https://istio.io/" },
     ],
   },
@@ -205,7 +205,7 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
     const content = (
       <div className={`flex flex-col gap-3 items-start bg-card/30 backdrop-blur-md border border-border/60 rounded-3xl p-6 sm:p-7 shadow-xl hover:bg-card/50 hover:border-primary/40 transition-all duration-300 group h-full ${skill.url ? 'cursor-pointer' : 'cursor-default'}`}>
         <div className="flex items-center gap-4">
-          <div className="flex items-center justify-center w-12 h-12 bg-white/95 rounded-xl p-2 shadow-sm border border-white/20 shrink-0 overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] relative">
+          <div className="flex items-center justify-center w-12 h-12 bg-white/95 rounded-[14px] p-2.5 shadow-md border border-white/20 shrink-0 overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] relative">
             {LucideIcon ? (
               <LucideIcon 
                 className="w-full h-full text-slate-800 transition-transform duration-300 relative z-10" 
@@ -255,7 +255,7 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
 
   const PillContent = (
     <>
-      <div className="flex items-center justify-center w-10 h-10 bg-white/95 rounded-xl p-1.5 shadow-sm border border-white/20 shrink-0 overflow-hidden transition-all duration-300 group-hover:scale-105">
+      <div className="flex items-center justify-center w-10 h-10 bg-white/95 rounded-[12px] p-2 shadow-sm border border-white/20 shrink-0 overflow-hidden transition-all duration-300 group-hover:scale-105">
         {LucideIcon ? (
           <LucideIcon 
             className="w-full h-full text-slate-800" 
