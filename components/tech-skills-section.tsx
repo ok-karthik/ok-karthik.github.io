@@ -18,6 +18,7 @@ import {
   Activity,
   GitBranch,
   Cloud,
+  MessageSquare,
 } from "lucide-react"
 import { skillGroups, type Skill, type Tier } from "@/content/skills"
 
@@ -33,6 +34,7 @@ const lucideMap = {
   Siren,
   Layers,
   Database,
+  MessageSquare,
 }
 
 const TIER_ORDER: Record<Tier, number> = { deep: 0, production: 1, working: 2 }
@@ -88,7 +90,7 @@ const architectureLayers = [
     description: "Application runtime, custom operators, automation, and AI tooling",
     flowLabel: "↑ telemetry emitted to observability layer ↑",
     icon: Terminal,
-    categories: ["Software Engineering", "AI & GPU Infrastructure"],
+    categories: ["Software Engineering & Databases", "AI & GPU Infrastructure"],
   },
   {
     layerNumber: "Layer 3",
@@ -248,7 +250,7 @@ const tabPillars = [
     title: "AI & Software Engineering",
     icon: Cpu,
     summary: "GPU workload provisioning, custom platform operators, and automation tooling",
-    categories: ["Software Engineering", "AI & GPU Infrastructure"],
+    categories: ["Software Engineering & Databases", "AI & GPU Infrastructure"],
   },
 ]
 
