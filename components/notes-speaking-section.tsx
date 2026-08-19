@@ -109,15 +109,15 @@ export function NotesSpeakingSection() {
                     className="bg-card/30 backdrop-blur-xl border border-border/60 rounded-3xl p-6 sm:p-7 hover:border-primary/40 hover:bg-card/40 hover:shadow-2xl transition-all duration-300 group flex flex-col sm:flex-row sm:items-center gap-6"
                   >
                     {talk.screenshot && (
-                      <div className="relative shrink-0 overflow-hidden rounded-2xl border border-border/70 bg-black/40 shadow-md">
+                      <div className="relative shrink-0 overflow-hidden rounded-xl border border-border/70 bg-black/40 shadow-md self-start sm:self-center">
                         <img
                           src={talk.screenshot}
                           alt={`${talk.event} speaker listing for Karthik Orugonda`}
-                          width={160}
-                          height={110}
+                          width={140}
+                          height={200}
                           loading="lazy"
                           decoding="async"
-                          className="h-28 w-44 object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                          className="h-32 sm:h-36 w-auto object-cover object-top transition-transform duration-300 group-hover:scale-105"
                         />
                       </div>
                     )}
