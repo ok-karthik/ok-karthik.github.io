@@ -478,17 +478,28 @@ html.dark {
   animation: assemble-edge 1.15s cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
-/* Shelf plate. Depth read through silhouette and light, not rotation — the
-   bottom corners taper like a physical plaque, but every icon and label
-   stays perfectly horizontal and legible. */
+/* Shelf plate. A true symmetric trapezoid, not corner-clipped — the whole
+   bottom edge tapers inward on both sides, like a slab viewed from a slight
+   low angle. Depth reads through silhouette and light, not rotation, so
+   every icon and label stays perfectly horizontal and legible.
+
+   `clip-path` clips ordinary `box-shadow` away with the shape — an outset
+   shadow just gets chopped off flush at the taper instead of glowing past
+   it. `filter: drop-shadow()` is computed from the shape's rendered alpha
+   *after* clipping, so it traces the taper correctly; that's what carries
+   the lift and the glow here. Inset shadows are unaffected either way,
+   since they never leave the box — the glass sheen highlight stays as
+   `box-shadow: inset`. */
 @utility shelf-plate {
   position: relative;
-  clip-path: polygon(0 0, 100% 0, 100% 88%, 96% 100%, 4% 100%, 0 88%);
+  clip-path: polygon(2% 0%, 98% 0%, 91% 100%, 9% 100%);
   background: var(--panel-bg);
   backdrop-filter: blur(var(--panel-blur)) saturate(var(--panel-sat));
   -webkit-backdrop-filter: blur(var(--panel-blur)) saturate(var(--panel-sat));
-  border: 1px solid var(--panel-border);
-  box-shadow: 0 26px 46px -28px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 var(--glass-highlight);
+  border: 1px solid color-mix(in oklab, var(--primary) 38%, var(--panel-border));
+  box-shadow: inset 0 1px 0 0 var(--glass-highlight);
+  filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 16px color-mix(in oklab, var(--primary) 28%, transparent));
 }
 
 /* A rule that runs to both sides of its label, for section headers that sit

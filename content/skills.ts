@@ -37,10 +37,7 @@ export type Skill = {
     | "Terminal"
     | "Network"
     | "Waypoints"
-    | "Siren"
     | "Layers"
-    | "Database"
-    | "MessageSquare"
   /**
    * Evidence, as short chips rather than a joined sentence — this is what
    * actually conveys depth. Each item renders as its own chip.
@@ -83,7 +80,6 @@ export const skillGroups: SkillGroup[] = [
       { name: "Grafana", icon: "/icons/grafana.svg", tier: "deep" },
       { name: "Prometheus", icon: "/icons/prometheus.svg", tier: "deep" },
       { name: "OpenTelemetry", icon: "/icons/opentelemetry.svg", tier: "deep" },
-      { name: "Incident Response", lucide: "Siren", tier: "production", note: ["On-call", "Postmortems", "MTTR reduction"] },
       { name: "Loki", icon: "/loki.svg", tier: "production" },
       { name: "Tempo", icon: "/tempo.svg", tier: "production" },
       { name: "Datadog", icon: "/icons/datadog.svg", tier: "working" },
@@ -117,13 +113,10 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    title: "Software Engineering & Databases",
+    title: "Software Engineering",
     skills: [
       { name: "Python", icon: "/icons/python.svg", tier: "deep", note: ["Platform APIs", "Operators", "Automation"] },
       { name: "Bash", icon: "/icons/bash.svg", tier: "deep", note: ["Automation", "Operational tooling"] },
-      { name: "PostgreSQL", lucide: "Database", tier: "production" },
-      { name: "Redis", lucide: "Database", tier: "production" },
-      { name: "RabbitMQ", lucide: "MessageSquare", tier: "working" },
       { name: "Go", icon: "/icons/go.svg", tier: "working", note: ["CLIs", "actively deepening"] },
       { name: "Java / Groovy", icon: "/icons/java.svg", tier: "working", note: ["Pipeline libraries", "Groovy DSL"] },
     ],

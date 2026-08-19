@@ -10,13 +10,10 @@ import {
   Terminal,
   Network,
   Waypoints,
-  Siren,
   Layers,
-  Database,
   Server,
   Activity,
   Cloud,
-  MessageSquare,
 } from "lucide-react"
 import { skillGroups, type Skill, type Tier } from "@/content/skills"
 
@@ -29,10 +26,7 @@ const lucideMap = {
   Terminal,
   Network,
   Waypoints,
-  Siren,
   Layers,
-  Database,
-  MessageSquare,
 }
 
 const TIER_ORDER: Record<Tier, number> = { deep: 0, production: 1, working: 2 }
@@ -88,7 +82,7 @@ const architectureLayers = [
     description: "Application runtime, custom operators, automation, and AI tooling",
     flowLabel: "↑ telemetry emitted to observability layer ↑",
     icon: Terminal,
-    categories: ["Software Engineering & Databases", "AI & GPU Infrastructure"],
+    categories: ["Software Engineering", "AI & GPU Infrastructure"],
   },
   {
     layerNumber: "Layer 3",
@@ -248,7 +242,7 @@ export function TechSkillsPills() {
             key={group.title}
             className={`border-border p-6 ${panelGridBorders(i, skillGroups.length, 2, 4)}`}
           >
-            <h4 className="label mb-4">{group.title}</h4>
+            <h3 className="label mb-4">{group.title}</h3>
             <ul className="space-y-5">
               {[...group.skills]
                 .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
@@ -262,16 +256,9 @@ export function TechSkillsPills() {
                       <span className="block text-small leading-snug text-foreground">
                         {skill.name}
                       </span>
-                      {skill.note && (
-                        <span className="mt-1.5 flex flex-wrap gap-1.5">
-                          {skill.note.map((item) => (
-                            <span
-                              key={item}
-                              className="whitespace-nowrap rounded border border-border bg-card px-2 py-0.5 font-mono text-micro text-muted-foreground"
-                            >
-                              {item}
-                            </span>
-                          ))}
+                      {skill.note && skill.note.length > 0 && (
+                        <span className="mt-1 block font-mono text-micro leading-snug text-muted-foreground">
+                          {skill.note.join(" · ")}
                         </span>
                       )}
                     </span>
@@ -317,7 +304,7 @@ export function TechSkillsShelfStack() {
                 {layer.layerNumber} · {layer.title}
               </span>
 
-              <div className="shelf-plate rounded-2xl px-5 pb-10 pt-8 sm:px-8">
+              <div className="shelf-plate rounded-2xl px-6 pb-14 pt-9 sm:px-10 sm:pb-16 lg:px-14">
                 <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                   {layerSkills.map((skill) => (
                     <div key={skill.name} className="flex flex-col items-center gap-2 text-center">
@@ -326,16 +313,9 @@ export function TechSkillsShelfStack() {
                         {skill.name}
                       </span>
                       {skill.note && skill.note.length > 0 && (
-                        <div className="flex flex-wrap justify-center gap-1">
-                          {skill.note.map((item) => (
-                            <span
-                              key={item}
-                              className="rounded border border-border bg-card px-1.5 py-0.5 font-mono text-micro text-muted-foreground"
-                            >
-                              {item}
-                            </span>
-                          ))}
-                        </div>
+                        <span className="font-mono text-micro leading-snug text-muted-foreground">
+                          {skill.note.join(" · ")}
+                        </span>
                       )}
                     </div>
                   ))}
