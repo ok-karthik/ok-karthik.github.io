@@ -210,8 +210,8 @@ function SkillPill({ skill, isPremium }: { skill: Skill, isPremium?: boolean }) 
             {skill.subSkills.map((sub) => (
               <span 
                 key={sub} 
-                className="text-[11px] font-mono text-muted-foreground bg-secondary/80 border border-border/60 rounded-md px-2 py-0.5
-                           transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary"
+                className="text-[11px] font-mono text-muted-foreground bg-secondary/80 border border-border/60 rounded-full px-2.5 py-0.5
+                           transition-all duration-200 hover:text-primary hover:border-primary/40 hover:bg-secondary shadow-sm"
               >
                 {sub}
               </span>

@@ -81,30 +81,27 @@ function panelGridBorders(i: number, total: number, mdCols: number, lgCols: numb
   ].join(" ")
 }
 
-export function TechSkillsSection() {
+export function TechSkillsBoxesSection() {
   return (
-    <section id="tech-skills" className="py-24 px-6 relative z-20 scroll-mt-24">
+    <section className="py-20 px-6 relative z-20 scroll-mt-24 border-t border-border/30">
       <div className="max-w-6xl mx-auto">
         <header className="mb-12">
           <div className="mb-4 flex items-center justify-between gap-4">
             <p className="font-mono text-xs uppercase tracking-widest text-primary font-bold flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary" />
-              Tech Skills
+              Tech Skills (Variation 2)
             </p>
             <div className="h-px bg-border/60 flex-1 mx-4 hidden sm:block" />
             <p className="font-mono text-xs text-muted-foreground hidden shrink-0 tabular-nums sm:block">
               {skillGroups.length} core domains
             </p>
           </div>
-          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight heading-gradient text-balance">
-            The stack I build platforms with
+          <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-foreground text-balance">
+            3x3 Grid with Modern Squircle Icons &amp; Rounded Sublabels
           </h2>
-          <p className="mt-2 text-muted-foreground text-sm md:text-base">
-            Multi-cloud platform, Kubernetes orchestration, SRE reliability, and AI tooling
-          </p>
         </header>
 
-        {/* 3x3 Master Deck with Smooth Modern Squircle Icons and Rounded Pills */}
+        {/* 3x3 Grid with Rounded Squircle Icons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -137,11 +134,11 @@ export function TechSkillsSection() {
                               {skill.name}
                             </span>
                             {skill.note && skill.note.length > 0 && (
-                              <div className="mt-2 flex flex-wrap gap-1.5">
+                              <div className="mt-1.5 flex flex-wrap gap-1.5">
                                 {skill.note.map((item) => (
                                   <span
                                     key={item}
-                                    className="rounded-full border border-border/60 bg-secondary/80 px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary shadow-sm"
+                                    className="rounded-full border border-border/60 bg-secondary/80 px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground transition-all hover:border-primary/40 hover:text-primary shadow-sm"
                                   >
                                     {item}
                                   </span>
