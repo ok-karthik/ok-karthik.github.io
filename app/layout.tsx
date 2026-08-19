@@ -1,20 +1,30 @@
 import type { Metadata } from 'next'
-import { Inter, Geist_Mono } from 'next/font/google'
+import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ParticleSphere } from '@/components/particle-sphere'
-// import { NeuralMesh } from '@/components/neural-mesh'
+import { profile } from '@/content/profile'
 import './globals.css'
 
-const inter = Inter({ 
-  subsets: ["latin"],
-  variable: '--font-inter'
-});
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const plexSans = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-plex-sans',
+  display: 'swap',
+})
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-plex-mono',
+  display: 'swap',
+})
+
+const fontVars = `${plexSans.variable} ${plexMono.variable}`
 
 export const metadata: Metadata = {
-  title: 'Karthik Orugonda | Senior Platform Engineer & SRE',
-  description: 'Senior Platform Engineer with 10+ years building cloud-native platforms and internal developer tooling across AWS, Azure and GCP. Specialized in Kubernetes-based IDPs, Terraform-driven self-service infrastructure, and GitOps-driven CI/CD.',
+  title: `${profile.name} | Senior Platform Engineer & SRE`,
+  description: profile.metaDescription,
   icons: {
     icon: '/favicon.svg',
     apple: '/apple-touch-icon.png',
@@ -27,11 +37,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body className="font-sans antialiased min-h-screen bg-gradient-to-br from-[#f8fafc] via-[#eff6ff] to-[#f1f5f9] dark:bg-gradient-to-br dark:from-[#090714] dark:via-[#1a0f3d] dark:to-[#0c071a]">
+    <html lang="en" className={fontVars} suppressHydrationWarning>
+      <body className="font-sans antialiased min-h-screen bg-gradient-to-br from-[#f8fafc] via-[#eff6ff] to-[#f1f5f9] dark:bg-gradient-to-br dark:from-[#090714] dark:via-[#1a0f3d] dark:to-[#0c071a] text-foreground selection:bg-primary/20 selection:text-primary">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <ParticleSphere />
-          {/* <NeuralMesh /> */}
           {children}
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </ThemeProvider>

@@ -25,7 +25,7 @@ export function RecommendationsSection() {
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
-          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-foreground text-balance">
+          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight heading-gradient text-balance">
             What colleagues say
           </h2>
           <p className="mt-2 text-muted-foreground text-sm md:text-base">

@@ -96,7 +96,7 @@ export function TechSkillsSection() {
               {skillGroups.length} core domains
             </p>
           </div>
-          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-foreground text-balance">
+          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight heading-gradient text-balance">
             The stack I build platforms with
           </h2>
           <p className="mt-2 text-muted-foreground text-sm md:text-base">
