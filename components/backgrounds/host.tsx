@@ -168,8 +168,8 @@ export function BackgroundHost() {
       <div 
         className="absolute inset-0 w-full h-full"
         style={{
-          maskImage: "linear-gradient(to bottom, black 0%, black 36%, transparent 68%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 36%, transparent 68%)",
+          maskImage: "linear-gradient(to bottom, black 0%, black 60%, transparent 95%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 60%, transparent 95%)",
         }}
       >
         <canvas 
