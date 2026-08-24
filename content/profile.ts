@@ -32,7 +32,7 @@ export const profile = {
    * knowingly differs from the CV; it is a slot-level wording call, not a claim
    * difference, so it carries no reference-check risk.
    */
-  subtitle: "Kubernetes · Multi-cloud · IDPs · Observability",
+  subtitle: "Kubernetes · Multi-cloud · Observability · IDPs",
 
   yearsInTech: 15,
   yearsCloudNative: 10,
@@ -66,10 +66,11 @@ export const profile = {
   // what it is *for*. If it ever reads as padding, cut the two words from the
   // focus list rather than the clause: the clause is the one doing the work.
   bio:
-    "10+ years building and operating cloud-native platforms across AWS, Azure and GCP, " +
-    "with a focus on Kubernetes, reliability, observability and developer experience. " +
-    "I lead platform initiatives across engineering teams, turning shared infrastructure " +
-    "into automated, self-service golden paths — and the observability that keeps them reliable.",
+    "10+ years building and operating cloud-native platforms — primarily AWS, with Azure and GCP experience — " +
+    "where observability and reliability are the foundation, not an afterthought: SLOs, incident response, " +
+    "and the golden-signal dashboards that cut MTTR by ~30% at my last role. I lead platform initiatives " +
+    "across engineering teams, mentor engineers on reliability practices, and turn shared infrastructure — " +
+    "CI/CD, GitOps, self-service golden paths — into the developer experience that lets teams ship without waiting on a ticket.",
 
   /**
    * Meta description and OG tags. Keep under ~155 chars — Google truncates
@@ -198,23 +199,23 @@ export const stats = [
 
 export const focusAreas = [
   {
-    name: "Platform Engineering",
-    detail: "IDP · GitOps · Self-service infra",
+    name: "Platform Engineering & DevOps",
+    detail: "IDP · GitOps · Self-service",
   },
   {
     name: "Cloud Infrastructure",
     detail: "AWS · Azure · GCP",
   },
   {
-    name: "SRE & Reliability",
-    detail: "SLOs · Observability · Incident response",
+    name: "Site Reliability Engineering",
+    detail: "Observability · SLOs · Burn-rate alerts",
   },
   // Moved from second to last 2026-08-07, for the same reason as the Tech
   // Skills card: it is a real secondary track, not the headline. See the
   // "AI & GPU Infrastructure" group in content/skills.ts for the numbers.
   {
-    name: "AI & GPU Infrastructure",
-    detail: "GPU scheduling · LLM serving · Observability",
+    name: "AI Platform & Agentic Engineering",
+    detail: "LLM serving · Agentic AI · GPU scheduling",
   },
 ] as const
 

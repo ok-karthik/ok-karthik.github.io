@@ -257,9 +257,14 @@ export function TechSkillsPills() {
                         {skill.name}
                       </span>
                       {skill.note && skill.note.length > 0 && (
-                        <span className="mt-1 block font-mono text-micro leading-snug text-muted-foreground">
-                          {skill.note.join(" · ")}
-                        </span>
+                        <div className="mt-0.5 flex flex-wrap text-micro leading-snug text-muted-foreground">
+                          {skill.note.map((item, idx) => (
+                            <span key={item} className="whitespace-nowrap">
+                              {item}
+                              {idx < skill.note!.length - 1 && <span className="mx-1.5">·</span>}
+                            </span>
+                          ))}
+                        </div>
                       )}
                     </span>
                   </li>
