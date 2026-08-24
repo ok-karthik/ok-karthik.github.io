@@ -14,6 +14,7 @@ import {
   Server,
   Activity,
   Cloud,
+  Database,
 } from "lucide-react"
 import { skillGroups, type Skill, type Tier } from "@/content/skills"
 
@@ -27,6 +28,7 @@ const lucideMap = {
   Network,
   Waypoints,
   Layers,
+  Database,
 }
 
 const TIER_ORDER: Record<Tier, number> = { deep: 0, production: 1, working: 2 }
@@ -215,32 +217,14 @@ export function TechSkillsLayered() {
 /* OPTION 3: Option Pills (Icon Rows with Bordered Evidence Pills)             */
 /* ========================================================================== */
 
-/* Divider borders for a single-panel grid whose column count changes per
-   breakpoint (1 → 2 → 4). Only the last row/column of each layout should
-   skip its divider, and "last row" and "last column" both depend on which
-   breakpoint is active — a plain `i % cols` check gets it wrong the moment
-   more than one breakpoint is in play. */
-function panelGridBorders(i: number, total: number, mdCols: number, lgCols: number) {
-  const isLastRow = (cols: number) => i >= total - (total % cols || cols)
-  const isLastCol = (cols: number) => i % cols === cols - 1
-
-  return [
-    i === total - 1 ? "" : "border-b",
-    isLastRow(mdCols) ? "md:border-b-0" : "md:border-b",
-    isLastCol(mdCols) ? "" : "md:border-r",
-    isLastRow(lgCols) ? "lg:border-b-0" : "lg:border-b",
-    isLastCol(lgCols) ? "lg:border-r-0" : "lg:border-r",
-  ].join(" ")
-}
-
 export function TechSkillsPills() {
   return (
-    <div className="glass overflow-hidden rounded-2xl">
-      <div className="grid md:grid-cols-2 lg:grid-cols-4">
+    <div className="glass overflow-hidden rounded-2xl p-6 md:p-8">
+      <div className="columns-1 md:columns-2 lg:columns-3 gap-8">
         {skillGroups.map((group, i) => (
           <div
             key={group.title}
-            className={`border-border p-6 ${panelGridBorders(i, skillGroups.length, 2, 4)}`}
+            className="break-inside-avoid mb-8"
           >
             <h3 className="label mb-4">{group.title}</h3>
             <ul className="space-y-5">

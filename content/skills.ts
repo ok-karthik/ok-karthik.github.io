@@ -38,6 +38,7 @@ export type Skill = {
     | "Network"
     | "Waypoints"
     | "Layers"
+    | "Database"
   /**
    * Evidence, as short chips rather than a joined sentence — this is what
    * actually conveys depth. Each item renders as its own chip.
@@ -52,23 +53,40 @@ export type SkillGroup = {
 
 export const skillGroups: SkillGroup[] = [
   {
+    title: "Cloud Platforms",
+    skills: [
+      { name: "AWS", icon: "/icons/aws.svg", tier: "production", note: ["IAM/IRSA", "Multi-account"] },
+      { name: "Azure", icon: "/icons/azure.svg", tier: "production", note: ["AKS", "Entra ID", "Key Vault"] },
+      { name: "GCP", icon: "/icons/gcp.svg", tier: "working", note: ["GKE", "Cloud IAM"] },
+    ],
+  },
+  {
     title: "Containers & Orchestration",
     skills: [
-      { name: "Kubernetes", icon: "/icons/kubernetes.svg", tier: "deep", note: ["CKA", "CKAD"] },
-      { name: "Helm", icon: "/icons/helm.svg", tier: "deep" },
+      { name: "Kubernetes", icon: "/icons/kubernetes.svg", tier: "deep", note: ["Multi-tenancy", "Operators", "RBAC"] },
       { name: "Docker", icon: "/icons/docker.svg", tier: "deep" },
-      { name: "Kubernetes Operators", icon: "/icons/kubernetes.svg", tier: "production" },
+      { name: "Helm", icon: "/icons/helm.svg", tier: "deep" },
       { name: "Kustomize", lucide: "Layers", tier: "working" },
       { name: "Istio", icon: "/icons/istio.svg", tier: "working" },
     ],
   },
   {
-    title: "IaC & GitOps",
+    title: "Infrastructure as Code",
     skills: [
-      { name: "Terraform", icon: "/icons/terraform.svg", tier: "deep", note: ["Reusable modules", "Monitoring-as-code"] },
-      { name: "Terragrunt", icon: "/terragrunt.svg", tier: "deep" },
+      { name: "Terraform", icon: "/icons/terraform.svg", tier: "deep", note: ["Reusable modules", "Multi-env", "TfLint"] },
+      { name: "Terragrunt", icon: "/terragrunt.svg", tier: "deep", note: ["Multi-env", "OPA gates"] },
       { name: "Ansible", icon: "/icons/ansible.svg", tier: "production" },
-      { name: "Argo CD", icon: "/icons/argocd.svg", tier: "deep" },
+    ],
+  },
+  {
+    title: "GitOps",
+    skills: [
+      { name: "Argo CD", icon: "/icons/argocd.svg", tier: "deep", note: ["ApplicationSets"] },
+    ],
+  },
+  {
+    title: "CI/CD",
+    skills: [
       { name: "Jenkins", icon: "/icons/jenkins.svg", tier: "deep" },
       { name: "GitHub Actions", icon: "/icons/githubactions.svg", tier: "production" },
       { name: "GitLab CI", icon: "/icons/gitlab.svg", tier: "production" },
@@ -92,24 +110,15 @@ export const skillGroups: SkillGroup[] = [
       { name: "OPA Gatekeeper", icon: "/icons/opa.svg", tier: "production" },
       { name: "Kyverno", icon: "/icons/kyverno.svg", tier: "production" },
       { name: "External Secrets", lucide: "Key", tier: "production", note: ["AWS Secrets Manager", "Azure Key Vault"] },
-      { name: "Kubernetes RBAC", lucide: "ShieldCheck", tier: "production" },
-      { name: "IaC / container scanning", lucide: "ScanSearch", tier: "working", note: ["SAST", "DAST", "Image scanning"] },
+      { name: "Vulnerability Scanning & Remediation", lucide: "ScanSearch", tier: "working", note: ["SAST", "DAST", "Trivy", "Checkov"] },
     ],
   },
   {
-    title: "Cloud Platforms",
+    title: "Data & Messaging",
     skills: [
-      { name: "AWS", icon: "/icons/aws.svg", tier: "production", note: ["IAM/IRSA", "Multi-account"] },
-      { name: "Azure", icon: "/icons/azure.svg", tier: "production", note: ["AKS", "Entra ID", "Key Vault"] },
-      { name: "GCP", icon: "/icons/gcp.svg", tier: "working", note: ["GKE", "Cloud IAM"] },
-    ],
-  },
-  {
-    title: "Linux & Networking",
-    skills: [
-      { name: "Linux", lucide: "Terminal", tier: "deep", note: ["Administration", "Troubleshooting"] },
-      { name: "Networking", lucide: "Network", tier: "production", note: ["DNS", "TCP/IP", "TLS", "Load balancing"] },
-      { name: "VPC & subnet design", lucide: "Waypoints", tier: "production", note: ["Cross-account", "connectivity"] },
+      { name: "SQL", lucide: "Database", tier: "production" },
+      { name: "Redis", icon: "/icons/redis.svg", tier: "working" },
+      { name: "RabbitMQ", icon: "/icons/rabbitmq.svg", tier: "working" },
     ],
   },
   {
@@ -119,6 +128,14 @@ export const skillGroups: SkillGroup[] = [
       { name: "Bash", icon: "/icons/bash.svg", tier: "deep", note: ["Automation", "Operational tooling"] },
       { name: "Go", icon: "/icons/go.svg", tier: "working", note: ["CLIs", "actively deepening"] },
       { name: "Java / Groovy", icon: "/icons/java.svg", tier: "working", note: ["Pipeline libraries", "Groovy DSL"] },
+    ],
+  },
+  {
+    title: "Linux & Networking",
+    skills: [
+      { name: "Linux", lucide: "Terminal", tier: "deep", note: ["Administration", "Troubleshooting"] },
+      { name: "Networking", lucide: "Network", tier: "production", note: ["DNS", "TCP/IP", "TLS", "Load balancing"] },
+      { name: "VPC & subnet design", lucide: "Waypoints", tier: "production", note: ["Cross-account", "connectivity"] },
     ],
   },
   {
