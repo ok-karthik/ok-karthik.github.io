@@ -85,3 +85,13 @@ Recovered with: `git show 0f3b70a:components/skins/spatial/lumes.tsx`
   Rule: if a term wouldn't appear on a CV, it doesn't go on the page.
 - **Aurora's cyan / coral / violet colourway.** Three saturated hues is a
   rainbow on a page arguing for infrastructure judgement.
+- **A rule line between Tech Skills groups, and a pipe as the note separator**
+  (both tried 2026-08-24). The rule duplicated a signal the header + whitespace
+  gap already sent and read as spreadsheet gridlines; the pipe broke the dot
+  convention used everywhere else on the page. Full reasoning in
+  `.agents/AGENTS.md`'s "Tech Skills panel layout" section — this is the
+  don't-re-propose pointer, that's the why.
+- **4 columns for the Tech Skills panel**, considered twice (once before the
+  masonry fix, once after, "since there's free space now"). Narrower columns
+  reintroduce the multi-item-note wrapping that moving to 3 columns fixed the
+  first time. Stays at 3.

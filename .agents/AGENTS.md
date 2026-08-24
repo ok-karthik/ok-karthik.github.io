@@ -126,6 +126,34 @@ Each of these was tried, or caused an observed failure.
     a target, not a claim (the distinction Rule 1 above already relies on),
     and the headline/CV finding was about search-string performance on a
     different surface. Don't re-propose it on the strength of that same data.
+13. **Do NOT add "On-Premise / Private Cloud" to the Cloud Platforms group.**
+    Checked 2026-08-24 against `karthik-job-market-radar`'s own numbers
+    (984-posting sample): on-prem/bare-metal is 3.3% required / 12.9%
+    mentioned — below every other item already in this group — and the source
+    doc's own conclusion for that segment is "take the calls, do NOT build a
+    track" (two real recruiter approaches came in, but on-prem postings'
+    apparent pay premium over the rest of the market is €6,500 at p = 0.551,
+    i.e. noise, not signal). The portfolio shapes inbound as much as it
+    describes Karthik; a card here would pull toward exactly the segment the
+    plan says not to cultivate.
+14. **Do NOT split or merge Tech Skills groups to hit a specific grid cell
+    count** (e.g. splitting one group into two just to reach 12 for a 4×3
+    layout — tried 2026-08-24, reverted). The panel is a masonry/
+    independent-height layout specifically so a group's size never has to
+    satisfy grid math — see "Tech Skills panel layout" below. The IaC / GitOps
+    / CI-CD split that *is* live happened because it's a more accurate
+    taxonomy (Argo CD is genuinely GitOps; Jenkins, GitHub Actions and GitLab
+    CI aren't), not to hit a count — that accuracy bar is what makes a future
+    split legitimate, not the resulting number of groups.
+15. **Do NOT label anything "AIOps" on this site** until `sre-agent-guardrails`
+    (parked, see Context below) has an actual running triage loop. The Aldi
+    Süd MTTR work is real and already carried by the `~30% MTTR reduction`
+    stat and the bio — that's the defensible claim today. "AIOps" specifically
+    invites "tell me about your AIOps work," and right now the honest answer
+    is a plan doc, not a build. Considered and declined for the Site
+    Reliability Engineering focus-area detail 2026-08-24 for this reason;
+    "Burn-rate alerts" shipped instead — true today, and more specific than
+    "AIOps" would have been anyway.
 
 ## 🛠 Stack
 
@@ -176,6 +204,36 @@ item but the last (glued so the separator can never end up orphaned at the
 start of a wrapped line). If you add a note, make it a short array of 2-3
 word items, not a sentence, and keep any future styling change on
 `whitespace-nowrap` — that's the one non-negotiable part.
+
+**Tech Skills panel layout — masonry, not a row-synced grid (2026-08-24).**
+Columns render at independent heights, each group flowing to its own content
+length, rather than a CSS grid where every row is forced to match its tallest
+cell. Tried and reverted: a row-synced 3×3 grid left visible dead space under
+short groups (Containers & Orchestration at 5 items, row-mates at 7).
+Reshuffling group order didn't fix it — the two largest groups already anchor
+different rows about as well as the numbers allow — and reordering is a
+losing game regardless, since item counts change every time a skill is added
+or removed. Masonry makes "does this divide evenly" permanently not a
+question worth asking again. Stayed at **3 columns**, not 4: checked, and 4
+narrows each tile enough that multi-item notes (e.g. "AWS Secrets Manager ·
+Azure Key Vault") wrap to two lines — the exact problem the earlier move from
+4 to 3 columns fixed.
+
+**Separator is the middle dot (·), never a pipe.** Matches the hero pill
+("Open to opportunities · Berlin or remote") and the subtitle scan-line — one
+inline-list convention for the whole page. A pipe separator was tried on the
+Tech Skills notes and rejected: visually heavier (reads as a divider, not a
+soft list) and breaks that page-wide consistency for no gain.
+
+**Group headers: uppercase + letter-spacing + muted colour only — no bold,
+no underline, no rule line between groups.** The whitespace gap plus that
+header treatment already signals "new group" unambiguously. A horizontal
+rule between groups was tried and reverted — it duplicated a signal already
+being sent twice (header text + gap); at low contrast it read as accidental,
+at higher contrast it read as spreadsheet gridlines, pulling the page toward
+"dashboard" and away from the editorial feel the rest of it has. Underline is
+avoided everywhere on the site for section-style labels specifically because
+on the web it reads as a link affordance, and these aren't links.
 
 ## ✅ Verification — run `pnpm verify` before claiming done
 
