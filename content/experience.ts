@@ -42,12 +42,11 @@ export const experiences: Experience[] = [
     period: "Dec 2022 – Present",
     scope: "Reliability and observability across multiple engineering departments, on a Kubernetes internal developer platform",
     bullets: [
-      "Build and own the department's Kubernetes internal developer platform — reusable Helm library charts, GitOps workflows and shared CI/CD pipelines that replaced per-team bespoke setups and standardised deployment across engineering teams.",
-      "Led the New Relic → Dynatrace migration across engineering departments — owned the vendor evaluation, the RFC and the rollout, and designed the OpenTelemetry Collector and Gateway pipelines that keep the telemetry itself vendor-neutral behind it.",
-      "Delivered observability as monitoring-as-code: dashboards, SLOs and alerts versioned in Terraform and shipped through CI, with AIOps event correlation cutting MTTR and false-positive alerts by ~30%.",
-      "Built the shared Terraform modules application teams provision from, introducing KEDA-based autoscaling and removing the infrastructure duplication and provisioning toil each team was carrying alone.",
-      "Cut non-production cloud spend by 10% — scheduled pipelines and a Python Kubernetes operator that sleep and wake idle workloads out of hours.",
-      "Mentored platform and application engineers through design reviews and documented golden paths, so teams self-serve their deployments instead of queueing behind the platform team.",
+      "Build and own the internal developer platform on Kubernetes — reusable Helm charts, GitOps workflows and shared CI/CD pipelines standardising deployment across teams for Aldi’s multi-country e-commerce.",
+      "Led the New Relic → Dynatrace migration across engineering departments — owned vendor evaluation, RFC and rollout, designing OpenTelemetry Collector and Gateway pipelines for vendor-neutral observability.",
+      "Delivered observability as monitoring-as-code in Terraform — dashboards, SLOs and alerts versioned through CI, with AIOps event correlation cutting MTTR and false-positive alerts by ~30%.",
+      "Built reusable Terraform modules for shared cloud/platform infrastructure, introducing event-driven autoscaling and reducing infrastructure duplication and provisioning toil for application teams.",
+      "Enabled self-service deployment and mentored platform and application engineers through design reviews and documented golden paths, reducing dependency on the platform team.",
       "Brought agentic coding tools (GitHub Copilot, Claude Code) into daily platform work, accelerating delivery of IaC modules and GitOps workflows.",
       // Asked and answered: no team-wide workflow was established at Aldi, so
       // there is no adoption to claim here. The bullet stays scoped to Karthik's
@@ -73,10 +72,12 @@ export const experiences: Experience[] = [
     period: "May 2018 – Nov 2022",
     scope: "Multi-tenant platform and delivery tooling for 400+ engineers",
     bullets: [
-      "Owned the CI contract for 150+ teams — refactored the shared Jenkins libraries every team built on, and moved delivery onto GitOps pipelines with automated canary and blue-green rollouts.",
-      "Ran multi-tenant Kubernetes platforms and CI/CD systems serving 400+ engineers across multiple business domains.",
-      "Led the migration off legacy PaaS (Mesos/Marathon) and on-prem VMs to Kubernetes and private cloud across multiple business units — defining the target architecture, directing a team of 5 engineers and driving the modernisation and cost-optimisation programme behind it.",
-      "Built the centralised DevSecOps pipelines that put security and code analysis in front of every team's builds, instead of leaving each team to wire its own.",
+      "Led multi-cloud migration initiatives from Azure, GCP and legacy systems to Rakuten Private Cloud, defining architecture and driving large-scale platform modernization and cost optimization.",
+      "Spearheaded multi-stage migration from on-prem VMs and legacy PaaS (Mesos/Marathon) to Kubernetes and Rakuten Private Cloud, leading a team of 5 engineers and enabling scalable, cloud-native service architectures across multiple business units.",
+      "Designed CI/CD and deployment workflows using Helm and GitOps practices, enabling canary and blue-green deployments and improving release reliability.",
+      "Operated and evolved multi-tenant Kubernetes platforms and shared CI/CD capabilities supporting 400+ engineers across multiple business domains.",
+      "Improved CI/CD reliability by refactoring Jenkins shared libraries used by 150+ teams, enabling reusable pipeline components.",
+      "Built centralized DevSecOps pipelines integrating security and code analysis tools across the organization.",
     ],
     tags: [
       "Platform Engineering",
@@ -97,8 +98,8 @@ export const experiences: Experience[] = [
       // Vodafone is named here, as it is on the CV and in the Tech Mahindra
       // entry below. The anonymised "high-traffic enterprise e-commerce" was
       // strictly weaker: it read as a scale claim with nothing behind it.
-      "Led a 25-engineer production operations team for Vodafone UK's e-commerce platform, owning the incident lifecycle end to end — detection, RCA, resolution — and driving MTTR down through post-incident improvements.",
-      "Replaced manual release runbooks with automated build, release and provisioning pipelines across on-prem infrastructure.",
+      "Led production operations for Vodafone UK's e-commerce platform, managing a 25-member team, owning incident lifecycle (detection → RCA → resolution) and driving MTTR reduction through post-incident improvements.",
+      "Designed and maintained build and release pipelines for legacy monolithic applications using Jenkins and Puppet, automating workflows across on-prem infrastructure.",
     ],
     tags: [
       "Production Operations",
@@ -113,11 +114,11 @@ export const experiences: Experience[] = [
     period: "Dec 2010 – Aug 2015",
     scope: "Backend and payment systems for Vodafone UK",
     bullets: [
-      "Ran Vodafone UK's backend and payment gateway systems on WebLogic and Linux, including onsite operations at Vodafone UK HQ.",
+      "Supported backend and payment gateway systems for Vodafone UK using WebLogic and Linux infrastructure, including onsite operations at Vodafone UK HQ.",
       // 40%, not the ~30% this said until 2026-08-12. The CV has always read
       // 40% and the site had rounded it down at some point — the two artefacts
       // must carry the same number, and this is the one Karthik can defend.
-      "Built automated reporting tooling that cut manual operational effort by 40%.",
+      "Developed automated reporting tools that cut manual operational effort by 40%, improving operational efficiency.",
     ],
     tags: ["Backend Systems", "Payment Gateways", "High Availability", "Linux"],
   },

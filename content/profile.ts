@@ -66,10 +66,10 @@ export const profile = {
   // what it is *for*. If it ever reads as padding, cut the two words from the
   // focus list rather than the clause: the clause is the one doing the work.
   bio:
-    "10+ years building and operating cloud-native platforms — primarily AWS, with Azure and GCP experience — " +
+    "15+ years in IT, including 10+ years building and operating cloud-native platforms — primarily AWS, with Azure and GCP experience — " +
     "where observability and reliability are the foundation, not an afterthought: SLOs, incident response, " +
-    "and the golden-signal dashboards that cut MTTR by ~30% at my last role. I lead platform initiatives " +
-    "across engineering teams, mentor engineers on reliability practices, and turn shared infrastructure — " +
+    "and golden-signal dashboards cutting MTTR by ~30%. I lead platform initiatives " +
+    "across engineering teams, mentoring engineers on reliability practices and turning shared infrastructure — " +
     "CI/CD, GitOps, self-service golden paths — into the developer experience that lets teams ship without waiting on a ticket.",
 
   /**
