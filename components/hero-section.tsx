@@ -48,16 +48,10 @@ export function HeroSection() {
             >
               {profile.title}
             </p>
-            <p
-              className="rise mt-2 font-mono text-small text-foreground/70"
-              style={{ animationDelay: "300ms" }}
-            >
-              {profile.subtitle}
-            </p>
 
             <p
               className="rise mt-6 max-w-xl text-body-lg leading-relaxed text-muted-foreground text-pretty"
-              style={{ animationDelay: "360ms" }}
+              style={{ animationDelay: "320ms" }}
             >
               {profile.bio}
             </p>
@@ -114,7 +108,7 @@ export function HeroSection() {
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <p className="label mb-4">Focus areas</p>
+                  <p className="label mb-4">Engineering focus</p>
                   <ul className="space-y-4">
                     {focusAreas.map((area, i) => {
                       const accent = focusDots[i % focusDots.length]

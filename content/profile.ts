@@ -200,7 +200,7 @@ export const stats = [
 export const focusAreas = [
   {
     name: "Platform Engineering & DevOps",
-    detail: "IDP · GitOps · Self-service",
+    detail: "Kubernetes · IDPs · GitOps",
   },
   {
     name: "Cloud Infrastructure",
