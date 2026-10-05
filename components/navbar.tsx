@@ -16,6 +16,12 @@ const links = [
   { href: "/#contact", label: "Contact" },
 ]
 
+// Sections on `/` that have no navbar link of their own. They are observed so
+// that, while one is in view, the previous section's link stops being
+// highlighted (otherwise EXPERIENCE stays lit through Credentials, Writing and
+// Recommendations). `notes` is the Writing section, so it lights up Writing.
+const untrackedSectionIds = ["top", "credentials", "notes", "recommendations"]
+
 export function Navbar() {
   const { resolvedTheme, setTheme } = useTheme()
   const pathname = usePathname()
@@ -29,9 +35,10 @@ export function Navbar() {
   // Scroll spy. Observes each section and marks the one nearest the top of the
   // viewport, so the navbar always says where you are.
   useEffect(() => {
-    const ids = links
-      .filter((l) => l.href.includes("#"))
-      .map((l) => l.href.split("#")[1])
+    const ids = [
+      ...links.filter((l) => l.href.includes("#")).map((l) => l.href.split("#")[1]),
+      ...untrackedSectionIds,
+    ]
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el))
@@ -64,7 +71,7 @@ export function Navbar() {
 
   const isLinkActive = (href: string) => {
     if (href === "/writing") {
-      return pathname?.startsWith("/writing")
+      return pathname?.startsWith("/writing") || (pathname === "/" && active === "notes")
     }
     return pathname === "/" && active === href.split("#")[1]
   }
