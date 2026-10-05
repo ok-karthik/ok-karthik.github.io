@@ -41,7 +41,7 @@ export const experiences: Experience[] = [
     bullets: [
       "Build and own the internal developer platform on Kubernetes, including GitOps workflows and application CI/CD pipelines supporting diverse services, with reusable Helm charts adopted across multiple development teams for Aldi’s multi-country e-commerce.",
       "Led the strategic migration of the org-wide observability stack from New Relic to OpenTelemetry, standardising metrics, logs and traces, trace-to-log correlation and sampling, while reducing annual vendor licensing costs by ~40% and eliminating vendor lock-in.",
-      "Delivered observability through GitOps, versioning dashboards, SLOs, alerts and error budgets, integrating AIOps event correlation for automated RCA, impact analysis, cutting false-positive alerts by ~30%.",
+      "Delivered observability through GitOps, versioning dashboards, SLOs, alerts and error budgets, integrating event correlation for automated RCA, impact analysis, cutting false-positive alerts by ~30%.",
       "Built reusable Terraform modules, CI/CD pipelines and governance frameworks for shared cloud infrastructure, integrating policy-as-code, security scanning, drift detection and automated remediation.",
       "Mentored platform and application engineers through design reviews and documented golden paths, enabling self-service adoption across teams.",
       "Brought agentic coding tools (GitHub Copilot, Claude Code) into daily platform work, accelerating delivery of IaC modules and GitOps workflows.",
