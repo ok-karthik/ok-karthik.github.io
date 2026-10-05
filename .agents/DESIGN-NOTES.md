@@ -95,3 +95,8 @@ Recovered with: `git show 0f3b70a:components/skins/spatial/lumes.tsx`
   masonry fix, once after, "since there's free space now"). Narrower columns
   reintroduce the multi-item-note wrapping that moving to 3 columns fixed the
   first time. Stays at 3.
+- **Algoroq-style isometric 3D architecture scenes** (proposed Sept 2026,
+  declined 2026-10-05). Glowing cylinders/prisms, multi-hue light, endlessly
+  flowing conduits. Reasons and the full proposal:
+  `docs/2026-09-algoroq-teardown-plan-declined.md`. The real problems it named
+  (unreadable thumbnails, clipped card diagrams) were fixed flat instead.
