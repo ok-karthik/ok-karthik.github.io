@@ -384,28 +384,34 @@ html.dark {
    Assignment: -tight for the supporting sections (Tech Skills, Credentials),
    -base for Experience and Contact, -loud for Projects, the section the page
    spends its boldness on.
+
+   Cut ~30% on 2026-10-05, keeping the three steps and bottom > top. Two
+   neighbours' paddings add up, so the old values left 13rem (~210px) of empty
+   backdrop between Tech Skills and Projects and 250-300px gaps elsewhere at
+   1440 — the page read as gappy rather than paced, and it added scroll on a
+   page that is already ~8,400px tall on desktop.
    ------------------------------------------------------------------------- */
 @utility section-tight {
-  padding-block: 4rem 4.5rem;
+  padding-block: 3rem 3.5rem;
 
   @media (min-width: 768px) {
-    padding-block: 5rem 6rem;
+    padding-block: 3.5rem 4.25rem;
   }
 }
 
 @utility section-base {
-  padding-block: 4.5rem 5.5rem;
+  padding-block: 3.5rem 4rem;
 
   @media (min-width: 768px) {
-    padding-block: 6rem 7.5rem;
+    padding-block: 4.25rem 5.25rem;
   }
 }
 
 @utility section-loud {
-  padding-block: 5rem 6rem;
+  padding-block: 3.5rem 4.25rem;
 
   @media (min-width: 768px) {
-    padding-block: 7rem 9rem;
+    padding-block: 5rem 6.25rem;
   }
 }
 
