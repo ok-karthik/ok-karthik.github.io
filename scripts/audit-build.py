@@ -148,9 +148,12 @@ for path in pages:
                 add(page, "WARN", f"target=_blank without noopener: {href}")
         if href.startswith("/") and not href.startswith("//"):
             base = href.split("#")[0].rstrip("/")
-            if base and not (os.path.exists(ROOT + base + ".html")
-                             or os.path.exists(ROOT + base)
-                             or os.path.exists(ROOT + base + "/index.html")):
+            # trailingSlash: true exports routes as <route>/index.html, so a
+            # route only resolves if that file exists (a bare directory or a
+            # flat <route>.html would 404 on GitHub Pages). Static assets
+            # (/cv.png etc.) are plain files.
+            if base and not (os.path.exists(ROOT + base + "/index.html")
+                             or os.path.isfile(ROOT + base)):
                 add(page, "ERROR", f"internal link 404: {href}")
 
     # --- json-ld ---
@@ -184,8 +187,11 @@ for path in pages:
 sm = open(f"{ROOT}/sitemap.xml", encoding="utf-8").read()
 for loc in re.findall(r"<loc>([^<]+)</loc>", sm):
     p_ = re.sub(r"^https?://[^/]+", "", loc).rstrip("/")
-    if p_ and not (os.path.exists(ROOT + p_ + ".html") or os.path.exists(ROOT + p_)):
+    if p_ and not (os.path.exists(ROOT + p_ + "/index.html") or os.path.isfile(ROOT + p_)):
         add("/sitemap.xml", "ERROR", f"sitemap URL has no page: {loc}")
+    # Entries must use the trailing-slash form that canonical URLs use.
+    elif p_ and not loc.endswith("/") and not os.path.isfile(ROOT + p_) and "." not in p_.rsplit("/", 1)[-1]:
+        add("/sitemap.xml", "WARN", f"sitemap URL missing trailing slash: {loc}")
 
 # --- report ---
 order = {"ERROR": 0, "WARN": 1}
