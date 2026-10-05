@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import {
   Cpu,
@@ -33,15 +34,16 @@ const lucideMap = {
 
 const TIER_ORDER: Record<Tier, number> = { deep: 0, production: 1, working: 2 }
 
-function SkillIcon({ skill, size = "md" }: { skill: Skill; size?: "sm" | "md" }) {
+function SkillIcon({ skill, size = "md" }: { skill: Skill; size?: "xs" | "sm" | "md" }) {
   const Lucide = skill.lucide ? lucideMap[skill.lucide] : undefined
-  const dim = size === "sm" ? "h-8 w-8" : "h-10 w-10"
-  const iconDim = size === "sm" ? "h-4 w-4" : "h-[18px] w-[18px]"
+  const dim = size === "xs" ? "h-6 w-6 rounded-full p-[3px]" : size === "sm" ? "h-8 w-8" : "h-10 w-10"
+  const iconDim = size === "xs" ? "h-3.5 w-3.5" : size === "sm" ? "h-4 w-4" : "h-[18px] w-[18px]"
+  const imgDim = size === "xs" ? 14 : size === "sm" ? 20 : 26
 
   if (Lucide) {
     return (
       <span
-        className={`flex ${dim} shrink-0 items-center justify-center rounded-lg border border-border bg-primary/10`}
+        className={`flex ${dim} shrink-0 items-center justify-center ${size === "xs" ? "" : "rounded-lg"} border border-border bg-primary/10`}
       >
         <Lucide className={`${iconDim} text-primary`} aria-hidden />
       </span>
@@ -54,8 +56,8 @@ function SkillIcon({ skill, size = "md" }: { skill: Skill; size?: "sm" | "md" })
         <img
           src={skill.icon}
           alt=""
-          width={size === "sm" ? 20 : 26}
-          height={size === "sm" ? 20 : 26}
+          width={imgDim}
+          height={imgDim}
           loading="lazy"
           decoding="async"
           className="h-full w-full object-contain"
@@ -66,7 +68,7 @@ function SkillIcon({ skill, size = "md" }: { skill: Skill; size?: "sm" | "md" })
 
   return (
     <span
-      className={`flex ${dim} shrink-0 items-center justify-center rounded-lg border border-border bg-muted font-mono text-micro text-muted-foreground`}
+      className={`flex ${dim} shrink-0 items-center justify-center ${size === "xs" ? "" : "rounded-lg"} border border-border bg-muted font-mono text-micro text-muted-foreground`}
     >
       {skill.name.slice(0, 2).toUpperCase()}
     </span>
@@ -319,10 +321,48 @@ export function TechSkillsShelfStack() {
 }
 
 /* ========================================================================== */
+/* Phone layout: compact chips                                                */
+/* ========================================================================== */
+
+/**
+ * Below `md` the full list (icon row + notes per skill) was ~3,200px — four
+ * phone screens of logos before Projects, which is the section that actually
+ * convinces. Here each group is a wrap of logo+name chips, styled like the
+ * project tag pills; the notes stay one tap away behind "Show details".
+ * Same groups, same order, same tier sort — only the density changes.
+ */
+function TechSkillsCompact() {
+  return (
+    <div className="glass rounded-2xl p-5">
+      {skillGroups.map((group) => (
+        <div key={group.title} className="mb-5 last:mb-0">
+          <h3 className="label mb-2.5">{group.title}</h3>
+          <ul className="flex flex-wrap gap-2">
+            {[...group.skills]
+              .sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier])
+              .map((skill) => (
+                <li
+                  key={skill.name}
+                  className="flex items-center gap-1.5 rounded-full border border-border bg-secondary/40 py-1 pl-1 pr-2.5"
+                >
+                  <SkillIcon skill={skill} size="xs" />
+                  <span className="text-micro text-foreground">{skill.name}</span>
+                </li>
+              ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/* ========================================================================== */
 /* Main TechSkillsSection Container                                           */
 /* ========================================================================== */
 
 export function TechSkillsSection() {
+  const [detailed, setDetailed] = useState(false)
+
   return (
     <section id="tech-skills" className="section-tight scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6">
@@ -339,7 +379,24 @@ export function TechSkillsSection() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
         >
-          <TechSkillsPills />
+          {/* Phones get the compact chips until asked for detail; md+ always
+              gets the full panel. Both are in the DOM, toggled by display, so
+              nothing depends on JS for the desktop layout. */}
+          <div className={detailed ? "hidden" : "md:hidden"}>
+            <TechSkillsCompact />
+          </div>
+          <div id="tech-skills-detail" className={detailed ? "" : "hidden md:block"}>
+            <TechSkillsPills />
+          </div>
+          <button
+            type="button"
+            onClick={() => setDetailed((v) => !v)}
+            aria-expanded={detailed}
+            aria-controls="tech-skills-detail"
+            className="mt-4 w-full rounded-xl border border-border py-3 font-mono text-micro uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground md:hidden"
+          >
+            {detailed ? "Show less" : "Show details"}
+          </button>
         </motion.div>
 
         {/* TechSkillsLayered (Option 1) and TechSkillsShelfStack (Option 5) are
