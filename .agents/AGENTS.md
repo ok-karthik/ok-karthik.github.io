@@ -263,8 +263,11 @@ steps with a wait at each before capturing. And Playwright's
 
 - **`git pull` first.** Check `git branch --show-current` before committing.
 - **Ask before pushing.** `main` deploys.
-- **After a deploy**, verify *both* production URLs and the nested `/work/<slug>`
-  routes — GitHub Pages can return 200 on the homepage while nested routes 404.
+- **After a deploy**, verify *both* production URLs —
+  `https://ok-karthik.github.io` and `https://karthik-orugonda.pages.dev`
+  (not `ok-karthik.pages.dev`, which doesn't resolve) — and the nested
+  `/work/<slug>` routes, with and without a trailing slash. GitHub Pages can
+  return 200 on the homepage while nested routes 404.
 - **Explain the why.** Karthik wants the reasoning, not just the diff.
 - **Record rejected options** in the file they concern, with the symptom that
   killed them. A rule with its failure attached survives; a bare assertion gets
