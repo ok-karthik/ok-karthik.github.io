@@ -42,9 +42,15 @@ function Node({
   )
 }
 
+/**
+ * `md:flex-1`: in the left-to-right diagrams, stages share the row equally.
+ * Without it they hugged their content, so a wide frame left an empty strip on
+ * the right and the IDP stages sat at four different widths. No effect where
+ * the parent isn't a flex row (stacked mobile, grids).
+ */
 function Group({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="rounded-md border border-border p-4">
+    <div className="rounded-md border border-border p-4 md:flex-1">
       <p className="label mb-3 text-left">{title}</p>
       {children}
     </div>
@@ -276,24 +282,40 @@ export const architectureBySlug: Record<string, () => ReactNode> = {
  */
 export function ArchitecturePreview({
   slug,
-  className = "h-32",
+  className,
   fadeFrom = "55%",
+  inflow = false,
 }: {
   slug: string
   /** Frame sizing and `--arch-scale`. Both belong to the caller. */
   className?: string
   /** Where the bottom mask starts fading, as a percentage of the frame. */
   fadeFrom?: string
+  /**
+   * Render the diagram at natural size, in normal flow — no scale, no fixed
+   * height, no fade. For containers wide enough to hold the whole diagram:
+   * the scaled preview in a half-width column clipped the IDP diagram mid-word
+   * ("CONTRO…") and cut the OTel store column at the frame edge.
+   */
+  inflow?: boolean
 }) {
   const Diagram = architectureBySlug[slug]
   if (!Diagram) return null
+
+  if (inflow) {
+    return (
+      <div aria-hidden className={`pointer-events-none select-none ${className ?? ""}`}>
+        <Diagram />
+      </div>
+    )
+  }
 
   const fade = `linear-gradient(to bottom, black ${fadeFrom}, transparent 100%)`
 
   return (
     <div
       aria-hidden
-      className={`pointer-events-none relative select-none overflow-hidden rounded-lg border border-border bg-muted/40 ${className}`}
+      className={`pointer-events-none relative select-none overflow-hidden rounded-lg border border-border bg-muted/40 ${className ?? "h-32"}`}
       style={{ maskImage: fade, WebkitMaskImage: fade }}
     >
       <div

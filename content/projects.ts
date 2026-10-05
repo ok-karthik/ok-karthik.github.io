@@ -111,6 +111,12 @@ export type Project = {
   githubUrl: string
   /** Featured projects render large on the landing page. */
   featured: boolean
+  /**
+   * The architecture as one readable line, for cards too small to show the
+   * diagram. Every step is a node already drawn in `components/architecture.tsx`
+   * — a summary of that diagram, never a new claim. Keep it to 3–4 steps.
+   */
+  flow: string[]
 }
 
 export const projects: Project[] = [
@@ -169,6 +175,7 @@ export const projects: Project[] = [
     ],
     tags: ["OpenTelemetry", "LGTM Stack", "Prometheus", "Grafana", "Loki", "Tempo"],
     githubUrl: "https://github.com/ok-karthik/opentelemetry-platform-on-eks",
+    flow: ["EKS services", "OTel Collector", "Prometheus · Loki · Tempo", "Grafana"],
     featured: true,
   },
   {
@@ -242,6 +249,7 @@ export const projects: Project[] = [
     ],
     tags: ["IDP", "GitOps", "Argo CD", "Kubernetes", "Terraform", "Go"],
     githubUrl: "https://github.com/ok-karthik/internal-developer-platform",
+    flow: ["Golden paths", "Scaffolder CLI", "GitHub Actions", "Argo CD + Kyverno"],
     featured: true,
   },
   {
@@ -305,6 +313,7 @@ export const projects: Project[] = [
     ],
     tags: ["Terragrunt", "Terraform", "AWS", "OPA/Conftest", "GitHub Actions"],
     githubUrl: "https://github.com/ok-karthik/enterprise-aws-infrastructure-terragrunt",
+    flow: ["TFLint · Plan · OPA · Infracost", "All gates pass", "Dev / Prod"],
     featured: true,
   },
   {
@@ -356,6 +365,7 @@ export const projects: Project[] = [
     ],
     tags: ["GPU Operator", "Karpenter", "CUDA", "Time Slicing", "Observability"],
     githubUrl: "https://github.com/ok-karthik/ai-infrastructure-on-eks",
+    flow: ["Karpenter GPU node", "GPU Operator · time slicing", "DCGM → Prometheus → Grafana"],
     featured: true,
   },
   {
@@ -424,6 +434,7 @@ export const projects: Project[] = [
     ],
     tags: ["Kubernetes Operator", "Python", "Kopf", "FinOps"],
     githubUrl: "https://github.com/ok-karthik/finops-k8s-operator",
+    flow: ["Kopf timer · 60s", "Compute active window", "Patch replicas → 0"],
     featured: false,
   },
 ]

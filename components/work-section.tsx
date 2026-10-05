@@ -5,12 +5,11 @@ import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import { projects, projectsDeck } from "@/content/projects"
 import { iconFor } from "@/content/tag-icons"
-import { ArchitecturePreview } from "@/components/architecture"
 import { AssemblingDiagram } from "@/components/assembling-diagram"
 
-function Tags({ tags }: { tags: readonly string[] }) {
+function Tags({ tags, className = "mt-5" }: { tags: readonly string[]; className?: string }) {
   return (
-    <ul className="mt-5 flex flex-wrap items-center gap-2">
+    <ul className={`flex flex-wrap items-center gap-2 ${className}`}>
       {tags.map((tag) => {
         const icon = iconFor(tag)
         return (
@@ -42,22 +41,50 @@ function Tags({ tags }: { tags: readonly string[] }) {
 }
 
 /**
+ * The architecture as one line of readable steps, for the half-width tiles.
+ *
+ * Replaced a 0.42-scale render of the full diagram, which put the 12px mono
+ * labels at ~5px — grey stripes, not a preview. Steps come from
+ * `project.flow` in content/, which only summarises nodes already drawn in
+ * `architecture.tsx`. Hidden from assistive tech like the old thumbnail: the
+ * project page carries the real diagram.
+ */
+function FlowStrip({ steps }: { steps: readonly string[] }) {
+  return (
+    <ol
+      aria-hidden
+      className="flex flex-wrap items-center gap-2 rounded-lg border border-border bg-muted/40 p-3 font-mono text-micro"
+    >
+      {steps.map((step, i) => (
+        <li key={step} className="flex items-center gap-2">
+          <span className="rounded-md border border-border bg-muted px-2 py-1 text-foreground">
+            {step}
+          </span>
+          {i < steps.length - 1 && <span className="text-muted-foreground">→</span>}
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+/**
  * Selected work, weighted.
  *
  * The top two projects get full-width cards with diagrams that draw themselves
- * on entry (`AssemblingDiagram`), so the two primary architecture proofs are
- * legible at scale.
+ * on entry (`AssemblingDiagram`). From `lg` the diagram spans the whole card
+ * at natural size, under the text — in the old half-width column it was scaled
+ * and still clipped on the right. Below `lg` it stays a scaled, faded preview.
  *
- * The remaining two featured projects sit beside each other in a 2-column grid,
- * and the fifth is a compact row.
+ * The remaining two featured projects sit beside each other in a 2-column grid
+ * with a one-line `FlowStrip`, and the fifth is a compact row.
  */
 const fullWidthDiagramProps: Record<string, { className: string; fadeFrom: string }> = {
   "opentelemetry-platform-on-eks": {
-    className: "h-52 [--arch-scale:0.5] sm:h-56 sm:[--arch-scale:0.68] lg:h-64 lg:[--arch-scale:0.75]",
+    className: "h-52 [--arch-scale:0.5] sm:h-56 sm:[--arch-scale:0.68]",
     fadeFrom: "82%",
   },
   "internal-developer-platform": {
-    className: "h-44 [--arch-scale:0.55] sm:h-48 sm:[--arch-scale:0.72] lg:h-52 lg:[--arch-scale:0.84]",
+    className: "h-44 [--arch-scale:0.55] sm:h-48 sm:[--arch-scale:0.72]",
     fadeFrom: "88%",
   },
 }
@@ -86,7 +113,7 @@ export function WorkSection() {
         <div className="space-y-6">
           {fullWidth.map((project, i) => {
             const diagram = fullWidthDiagramProps[project.slug] ?? {
-              className: "h-52 [--arch-scale:0.5] sm:h-56 sm:[--arch-scale:0.68] lg:h-64 lg:[--arch-scale:0.75]",
+              className: "h-52 [--arch-scale:0.5] sm:h-56 sm:[--arch-scale:0.68]",
               fadeFrom: "82%",
             }
 
@@ -109,26 +136,33 @@ export function WorkSection() {
                     </p>
                   </div>
 
-                  <div className="grid gap-6 p-6 sm:p-7 lg:grid-cols-[1fr_1.15fr] lg:items-center">
-                    <div className="min-w-0">
-                      <h3 className="flex items-start gap-2 font-display text-h2 font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
-                        {project.title}
-                        <ArrowUpRight
-                          className="mt-2 h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
-                          aria-hidden
-                        />
-                      </h3>
-                      <p className="mt-2.5 max-w-xl text-body leading-relaxed text-muted-foreground text-pretty">
-                        {project.problem}
-                      </p>
-                      <Tags tags={project.tags} />
+                  <div className="p-6 sm:p-7">
+                    <div className="grid gap-x-10 gap-y-5 lg:grid-cols-[1.25fr_1fr] lg:items-end">
+                      <div className="min-w-0">
+                        <h3 className="flex items-start gap-2 font-display text-h2 font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                          {project.title}
+                          <ArrowUpRight
+                            className="mt-2 h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+                            aria-hidden
+                          />
+                        </h3>
+                        <p className="mt-2.5 max-w-xl text-body leading-relaxed text-muted-foreground text-pretty">
+                          {project.problem}
+                        </p>
+                      </div>
+                      <Tags tags={project.tags} className="lg:justify-end" />
                     </div>
 
-                    <AssemblingDiagram
-                      slug={project.slug}
-                      className={diagram.className}
-                      fadeFrom={diagram.fadeFrom}
-                    />
+                    <div className="mt-6 lg:hidden">
+                      <AssemblingDiagram
+                        slug={project.slug}
+                        className={diagram.className}
+                        fadeFrom={diagram.fadeFrom}
+                      />
+                    </div>
+                    <div className="mt-6 hidden lg:block">
+                      <AssemblingDiagram slug={project.slug} inflow />
+                    </div>
                   </div>
                 </Link>
               </motion.article>
@@ -157,11 +191,7 @@ export function WorkSection() {
                   </p>
                 </div>
                 <div className="p-6">
-                  <ArchitecturePreview
-                    slug={project.slug}
-                    className="h-28 [--arch-scale:0.42]"
-                    fadeFrom="62%"
-                  />
+                  <FlowStrip steps={project.flow} />
                   <h3 className="mt-4 font-display text-h3 font-semibold text-foreground transition-colors group-hover:text-primary">
                     {project.title}
                   </h3>

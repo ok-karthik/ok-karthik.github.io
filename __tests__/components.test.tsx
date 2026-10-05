@@ -94,6 +94,16 @@ describe('content is sourced from content/, not hardcoded', () => {
 })
 
 describe('work section', () => {
+  it('gives every project a short architecture flow for the small cards', () => {
+    // The half-width tiles render project.flow instead of a scaled diagram.
+    // A missing or sprawling flow would leave a tile blank or wrapping to
+    // four lines, so keep it to the 2-4 steps the FlowStrip is sized for.
+    for (const project of projects) {
+      expect(project.flow.length).toBeGreaterThanOrEqual(2)
+      expect(project.flow.length).toBeLessThanOrEqual(4)
+    }
+  })
+
   it('links every project to its detail page', () => {
     render(<WorkSection />)
     for (const project of projects) {

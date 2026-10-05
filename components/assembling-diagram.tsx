@@ -21,10 +21,12 @@ export function AssemblingDiagram({
   slug,
   className,
   fadeFrom,
+  inflow,
 }: {
   slug: string
   className?: string
   fadeFrom?: string
+  inflow?: boolean
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const [drawn, setDrawn] = useState(false)
@@ -49,7 +51,7 @@ export function AssemblingDiagram({
 
   return (
     <div ref={ref} className={drawn ? "assemble relative overflow-hidden rounded-lg" : "relative"}>
-      <ArchitecturePreview slug={slug} className={className} fadeFrom={fadeFrom} />
+      <ArchitecturePreview slug={slug} className={className} fadeFrom={fadeFrom} inflow={inflow} />
     </div>
   )
 }
