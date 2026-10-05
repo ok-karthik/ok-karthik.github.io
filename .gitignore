@@ -22,3 +22,4 @@ tsconfig.tsbuildinfo
 
 # Graphify analysis outputs and cache
 graphify-out/
+.claude/worktrees/
