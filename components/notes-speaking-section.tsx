@@ -26,7 +26,19 @@ export function NotesSpeakingSection() {
   return (
     <section id="notes" className="section-tight scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6">
-        <p className="label rule-label mb-4">Writing &amp; Speaking</p>
+        <div className="mb-4 flex items-center justify-between gap-4">
+          <p className="label rule-label flex-1">Writing &amp; Speaking</p>
+          <Link
+            href="/writing"
+            className="group inline-flex shrink-0 items-center gap-1.5 font-mono text-micro text-muted-foreground transition-colors hover:text-primary"
+          >
+            All writing
+            <ArrowUpRight
+              className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              aria-hidden
+            />
+          </Link>
+        </div>
         <h2 className="mb-10 font-display text-display font-semibold tracking-tight text-foreground">
           Notes from the work
         </h2>
@@ -54,19 +66,6 @@ export function NotesSpeakingSection() {
               </p>
             </Link>
           ))}
-
-          <Link
-            href="/writing"
-            className="glass glass-hover group flex w-40 shrink-0 snap-start flex-col items-start justify-center gap-2 rounded-xl p-5 text-foreground"
-          >
-            <span className="font-display text-body-lg font-semibold transition-colors group-hover:text-primary">
-              All writing
-            </span>
-            <ArrowUpRight
-              className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
-              aria-hidden
-            />
-          </Link>
         </div>
 
         {speaking.length > 0 && (
