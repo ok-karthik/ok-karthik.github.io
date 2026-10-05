@@ -20,6 +20,9 @@ const statAccents = ["text-primary", "text-foreground", "text-foreground"]
  * Bottom: Hairline-divided instrument stat strip (P3).
  */
 export function HeroSection() {
+  const splitAt = profile.bio.indexOf(". ")
+  const bioFirst = splitAt === -1 ? profile.bio : profile.bio.slice(0, splitAt + 1)
+  const bioRest = splitAt === -1 ? "" : profile.bio.slice(splitAt + 2)
   return (
     <section id="top" className="scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6 pb-16 pt-28 md:pt-32">
@@ -53,7 +56,17 @@ export function HeroSection() {
               className="rise mt-6 max-w-xl text-body-lg leading-relaxed text-muted-foreground text-pretty"
               style={{ animationDelay: "320ms" }}
             >
-              {profile.bio}
+              {/* On a 390px phone the full bio is 13 lines and pushes the CTAs
+                  below the fold, so below `sm` only the first sentence shows.
+                  The string itself is untouched; the single space is kept so
+                  desktop reads exactly as the full bio. */}
+              {bioFirst}
+              {bioRest && (
+                <>
+                  {" "}
+                  <span className="hidden sm:inline">{bioRest}</span>
+                </>
+              )}
             </p>
 
             <div
