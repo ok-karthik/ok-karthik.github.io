@@ -43,12 +43,15 @@ export function NotesSpeakingSection() {
           Notes from the work
         </h2>
 
+        {/* From lg the cards grow to share the row (lg:flex-1), so three posts
+            fill the width instead of leaving a gap at the right; the 19rem
+            floor means a fourth post tips it back into horizontal scroll. */}
         <div className="-mx-6 flex snap-x snap-mandatory scroll-pl-6 gap-4 overflow-x-auto px-6 pb-2">
           {sortedPosts.map((post) => (
             <Link
               key={post.slug}
               href={`/writing/${post.slug}`}
-              className="glass glass-hover group block w-[19rem] shrink-0 snap-start rounded-xl p-5"
+              className="glass glass-hover group block w-[19rem] shrink-0 snap-start rounded-xl p-5 lg:min-w-[19rem] lg:flex-1"
             >
               <p className="label tabular">
                 {formatDate(post.date, { year: "numeric", month: "short", day: "numeric" })} ·{" "}
