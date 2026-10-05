@@ -12,26 +12,26 @@ export function RecommendationsSection() {
   return (
     <section id="recommendations" className="section-tight scroll-mt-24">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="label rule-label mb-4">Recommendations</p>
-            <h2 className="font-display text-display font-semibold tracking-tight text-foreground">
-              What colleagues say
-            </h2>
+        <header>
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <p className="label rule-label flex-1">Recommendations</p>
+            <a
+              href={`${profile.social.linkedin}/details/recommendations/`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex shrink-0 items-center gap-1.5 font-mono text-micro text-muted-foreground transition-colors hover:text-primary"
+            >
+              View on LinkedIn
+              <ArrowUpRight
+                className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                aria-hidden
+              />
+            </a>
           </div>
-          <a
-            href={`${profile.social.linkedin}/details/recommendations/`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex shrink-0 items-center gap-1.5 font-mono text-micro text-muted-foreground transition-colors hover:text-primary"
-          >
-            View on LinkedIn
-            <ArrowUpRight
-              className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-              aria-hidden
-            />
-          </a>
-        </div>
+          <h2 className="font-display text-display font-semibold tracking-tight text-foreground">
+            What colleagues say
+          </h2>
+        </header>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {recommendations.map((rec) => (
