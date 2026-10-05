@@ -102,6 +102,8 @@ Each of these was tried, or caused an observed failure.
    (a g6/L4 instance-family claim with no support in the actual repo). Check
    `content/writing.ts`'s header for current status before assuming any
    first-person claim in it has been personally verified by Karthik.
+   Rewritten 2026-10-05 in plain conversational language at his request
+   (same claims); still awaiting his end-to-end read.
 9. **Do NOT swap the CV link for a committed PDF.** The Google Docs export
    auto-updates; a PDF would need re-exporting on every edit and a stale CV is
    the worse failure. Reasoning is recorded in `content/profile.ts`.

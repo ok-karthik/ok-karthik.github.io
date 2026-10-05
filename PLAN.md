@@ -18,44 +18,22 @@ proposal was declined; it's kept, with the reasons, in
 
 ## Next
 
-### 1. Writing: plain-language rewrite (Karthik's voice), then one diagram per post
+### 1. Writing: Karthik's read-through (only thing left)
 
-The three posts are accurate, but they read polished in a way that feels
-generated. They lean on aphorisms ("It is not capacity management. It is
-hoping."), rhetorical headings ("The part people skip"), and have no
-contractions. The fix is about voice, not facts.
+Done 2026-10-05: all three posts were rewritten in plain, conversational
+language (modelled on how Karthik writes in chat, since there's no recent
+long-form sample), with the same arguments and first-person claims. Each post
+now has one flat comparison diagram (`components/post-diagrams.tsx`). The
+placeholder `code`/`pipeline` block was replaced by a typed `diagram` block.
 
-**Voice rules:**
-- Open with what happened to you: "When I set up GPU nodes on EKS…", not a thesis.
-- Write short sentences, the way you'd say them out loud. Use contractions.
-- Give one concrete example per idea: a real config, a real number from the repo, a real mistake.
-- No punchline quotes or closing aphorisms. End on what you'd do next time.
-- Plain headings: "When to use time slicing", not "The part people skip".
-- Every first-person claim must be checked against the repo (the existing rule).
+Left: Karthik reads all three end to end. If he edits one, that edit becomes
+the voice reference for future posts.
 
-**Process:**
-1. Karthik shares 1–2 things he wrote himself (LinkedIn posts, a Slack
-   explanation) as the voice sample.
-2. Rewrite one post.
-3. Karthik edits it, and that edited post becomes the template for the other two.
-
-**Diagrams,** one per post, in the same flat style as `architecture.tsx`
-(no isometric, no glow, no looping animation):
-- *Time slicing vs MIG:* one card split two ways, side by side. On the
-  left, pods taking turns on a shared card (shared memory). On the right,
-  fixed hardware slices, each with its own memory.
-- *Why the Collector earns its hop:* N services × M backends wired directly,
-  next to everything going through one Collector.
-- *Governance gates in parallel:* four gates in a chain (total time = sum),
-  next to the same four side by side (total time = slowest one). Durations
-  stay unlabelled, or marked "illustrative", unless measured.
-
-Build these as DOM components like `architecture.tsx`, not images, so they
-work in both themes and on phones.
-
-**References** for flat explainer diagrams:
-- https://tailscale.com/blog/how-tailscale-works
-- https://samwho.dev/load-balancing/
+**Voice rules for new posts:**
+- Open with the problem in plain words, not a thesis.
+- Short sentences, contractions. No punchline endings or aphorism quotes.
+- Plain headings ("So which one?", not "The part people skip").
+- Every first-person claim must be checkable in the repo.
 
 ### 2. Small follow-ups
 
@@ -65,5 +43,3 @@ work in both themes and on phones.
   site's title without his say.
 - **CV "AIOps".** The Aldi bullet in the CV still says "AIOps"; the site
   doesn't. Karthik decides.
-- **Cloudflare Pages.** The hostname isn't recorded in the repo. Add it to
-  AGENTS.md so post-deploy checks can cover both hosts.
