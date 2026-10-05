@@ -31,6 +31,14 @@ export type Experience = {
 }
 
 export const experiences: Experience[] = [
+  // Re-synced 2026-10-05 against karthik-job-market-radar/cv/content/master.md.
+  // Bullets are shortened web versions of the CV's — same claims, same
+  // numbers, nothing added; tags follow the CV's per-role "Tech Stack" line
+  // where it has one. Deliberate differences from the CV:
+  //  - no "AIOps" (AGENTS.md rule 15; the CV still says it);
+  //  - the agentic-coding bullet stays although the CV dropped it — the hero's
+  //    "AI Platform & Agentic Engineering" focus has nothing else backing it
+  //    in this section, and the site has no page limit.
   {
     // Title kept as the CV *header* and LinkedIn state it. Contractual title at
     // Aldi DX is Senior IT Consultant.
@@ -39,22 +47,23 @@ export const experiences: Experience[] = [
     period: "Dec 2022 – Present",
     scope: "Reliability and observability across multiple engineering departments, on a Kubernetes internal developer platform",
     bullets: [
-      "Build and own the internal developer platform on Kubernetes, including GitOps workflows and application CI/CD pipelines supporting diverse services, with reusable Helm charts adopted across multiple development teams for Aldi’s multi-country e-commerce.",
-      "Led the strategic migration of the org-wide observability stack from New Relic to OpenTelemetry, standardising metrics, logs and traces, trace-to-log correlation and sampling, while reducing annual vendor licensing costs by ~40% and eliminating vendor lock-in.",
-      "Delivered observability through GitOps, versioning dashboards, SLOs, alerts and error budgets, integrating event correlation for automated RCA, impact analysis, cutting false-positive alerts by ~30%.",
-      "Built reusable Terraform modules, CI/CD pipelines and governance frameworks for shared cloud infrastructure, integrating policy-as-code, security scanning, drift detection and automated remediation.",
-      "Mentored platform and application engineers through design reviews and documented golden paths, enabling self-service adoption across teams.",
-      "Brought agentic coding tools (GitHub Copilot, Claude Code) into daily platform work, accelerating delivery of IaC modules and GitOps workflows.",
+      "Build and own the Kubernetes internal developer platform — GitOps workflows, application CI/CD, and reusable Helm charts adopted by multiple teams across Aldi’s multi-country e-commerce.",
+      "Led the org-wide move from New Relic to OpenTelemetry: one standard for metrics, logs and traces, with trace-to-log correlation and sampling — cutting annual vendor licensing costs by ~40% and ending vendor lock-in.",
+      "Delivered GitOps-based observability with SLO-driven alerting and error budgets, plus event correlation for automated root-cause and impact analysis — reducing false-positive alerts by ~30%.",
+      "Built reusable Terraform modules, CI/CD pipelines and governance for shared cloud infrastructure: policy-as-code, security scanning, drift detection and automated remediation.",
+      "Mentored platform and application engineers through design reviews and documented golden paths, so teams could adopt the platform self-service.",
+      "Brought agentic coding tools (GitHub Copilot, Claude Code) into daily platform work, speeding up delivery of IaC modules and GitOps workflows.",
     ],
     tags: [
-      "Platform Engineering",
-      "SRE",
+      "AWS",
+      "Azure",
       "Kubernetes",
       "Terraform",
-      "GitOps",
       "OpenTelemetry",
-      "Observability",
-      "Golden Paths",
+      "GitLab CI/CD",
+      "Helm",
+      "Docker",
+      "Argo CD",
     ],
   },
   {
@@ -63,20 +72,23 @@ export const experiences: Experience[] = [
     period: "May 2018 – Nov 2022",
     scope: "Multi-tenant platform and delivery tooling for 400+ engineers",
     bullets: [
-      "Spearheaded multi-cloud and platform migrations from legacy platforms to Kubernetes-based IDP, Azure and GCP, leading a team of 5 engineers, defining architecture and driving platform modernization and cost optimisation.",
-      "Owned platform capacity planning and scaling activities for major sales events, preparing platform infrastructure for massive traffic surges and maintaining reliability under peak demand.",
-      "Operated and evolved multi-tenant Kubernetes platforms providing centralized compute, cluster capabilities and developer self-service for 400+ engineers across multiple business domains.",
-      "Standardized CI/CD across 60+ teams by refactoring Jenkins shared libraries into reusable components and establishing GitOps deployment workflows for canary and blue-green releases, with RBAC and multi-tenant Kubernetes patterns supporting secure team isolation.",
-      "Built centralized DevSecOps pipelines integrating security and code analysis tools across the organization.",
+      "Led a team of 5 engineers migrating legacy platforms to a Kubernetes-based IDP on Azure and GCP — owning the architecture, platform modernisation and cost optimisation.",
+      "Owned capacity planning and scaling for major sales events, keeping the platform reliable through peak traffic surges.",
+      "Ran and evolved multi-tenant Kubernetes platforms giving 400+ engineers across multiple business domains shared compute and developer self-service.",
+      "Standardised CI/CD across 60+ teams: refactored Jenkins shared libraries into reusable components and introduced GitOps workflows for canary and blue-green releases, with RBAC-based team isolation.",
+      "Built centralised DevSecOps pipelines integrating security and code-analysis tools across the organisation.",
     ],
     tags: [
-      "Platform Engineering",
-      "Kubernetes",
-      "Helm",
+      "Hybrid / On-prem",
       "Azure",
       "GCP",
-      "Private Cloud",
-      "Security Automation",
+      "Kubernetes",
+      "Istio",
+      "CI/CD",
+      "Prometheus",
+      "Datadog",
+      "Ansible",
+      "Python",
     ],
   },
   {
@@ -85,14 +97,15 @@ export const experiences: Experience[] = [
     period: "Sep 2015 – Apr 2018",
     scope: "Production operations for Vodafone UK's e-commerce platform",
     bullets: [
-      "Designed and maintained build and release pipelines for legacy monolithic applications using Jenkins and Puppet, automating workflows across on-prem infrastructure.",
-      "Steered production operations for Vodafone UK’s e-commerce platform, managing a 25-member team, owning incident lifecycle (detection → RCA → resolution) and driving MTTR reduction through post-incident improvements.",
+      "Led production operations for Vodafone UK’s e-commerce platform with a 25-member team — owning the incident lifecycle (detection → RCA → resolution) and driving MTTR down through post-incident improvements.",
+      "Built and maintained Jenkins and Puppet build-and-release pipelines for legacy monolithic applications on on-prem infrastructure.",
     ],
     tags: [
       "Production Operations",
-      "Infrastructure Automation",
       "Incident Management",
       "Release Engineering",
+      "Jenkins",
+      "Puppet",
     ],
   },
   {
@@ -101,9 +114,9 @@ export const experiences: Experience[] = [
     period: "Dec 2010 – Aug 2015",
     scope: "Backend and payment systems for Vodafone UK",
     bullets: [
-      "Supported backend and payment gateway systems for Vodafone UK using WebLogic and Linux infrastructure, including onsite operations at Vodafone UK HQ.",
-      "Developed automated reporting tools reducing manual effort by 40%, improving operational efficiency.",
+      "Supported backend and payment-gateway systems for Vodafone UK on WebLogic and Linux, including onsite operations at Vodafone UK HQ.",
+      "Built automated reporting tools that cut manual effort by 40%.",
     ],
-    tags: ["Backend Systems", "Payment Gateways", "High Availability", "Linux"],
+    tags: ["Backend Systems", "Payment Gateways", "WebLogic", "Linux"],
   },
 ]
