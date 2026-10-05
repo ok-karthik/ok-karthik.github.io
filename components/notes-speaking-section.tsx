@@ -7,6 +7,15 @@ const formatDate = (iso: string, opts: Intl.DateTimeFormatOptions) =>
   new Date(iso).toLocaleDateString("en-GB", opts)
 
 /**
+ * "Upcoming" was hard-coded and kept claiming the 29 Sep 2026 talk was ahead
+ * of us after it had happened. Decided at build time — this is a server
+ * component in a static export — so the label is only as fresh as the last
+ * deploy. A day of grace covers the talk day itself.
+ */
+const talkLabel = (iso: string) =>
+  new Date(iso).getTime() + 86_400_000 < Date.now() ? "Recent talk" : "Upcoming talk"
+
+/**
  * Writing and speaking, deliberately not shaped like Qualifications.
  *
  * These are active, ongoing signals rather than static facts — a scroll row
@@ -80,7 +89,7 @@ export function NotesSpeakingSection() {
                   className="h-32 w-auto shrink-0 self-start rounded-lg border border-border object-cover object-top sm:self-center"
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="label text-primary">Upcoming talk</p>
+                  <p className="label text-primary">{talkLabel(talk.date)}</p>
                   <h3 className="mt-1.5 flex items-start gap-1.5 font-display text-h3 font-semibold text-foreground transition-colors group-hover:text-primary">
                     {talk.event}
                     <ArrowUpRight
